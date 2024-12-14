@@ -30,6 +30,10 @@ public class Ticket {
     @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
+    @ManyToOne
+    @JoinColumn(name = "status_id", nullable = false)
+    private Priority status;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
@@ -39,12 +43,13 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(User user, Category category, Priority priority, String title, String description) {
+    public Ticket(User user, Category category, Priority priority, String title, String description, Priority status) {
         this.user = user;
         this.category = category;
         this.priority = priority;
         this.title = title;
         this.description = description;
+        this.status = status;
     }
 
     @PrePersist
@@ -105,6 +110,14 @@ public class Ticket {
         this.description = description;
     }
 
+    public Priority getStatus() {
+        return status;
+    }
+
+    public void setStatus(Priority status) {
+        this.status = status;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -116,8 +129,8 @@ public class Ticket {
     @Override
     public String toString() {
         return "Ticket [id=" + id + ", user=" + user + ", category=" + category + ", priority=" + priority + ", title="
-                + title + ", description=" + description + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-                + "]";
+                + title + ", description=" + description + ", status=" + status + ", createdAt=" + createdAt
+                + ", updatedAt=" + updatedAt + "]";
     }
 
 }
