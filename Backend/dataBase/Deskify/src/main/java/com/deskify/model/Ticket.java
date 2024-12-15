@@ -17,11 +17,11 @@ public class Ticket {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id", nullable = true)
     private Category category;
 
     @ManyToOne
-    @JoinColumn(name = "priority_id", nullable = false)
+    @JoinColumn(name = "priority_id", nullable = true)
     private Priority priority;
 
     @Column(name = "title", nullable = false, length = 255)
@@ -31,7 +31,7 @@ public class Ticket {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "status_id", nullable = false)
+    @JoinColumn(name = "status_id", nullable = true)
     private Priority status;
 
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -52,11 +52,13 @@ public class Ticket {
         this.status = status;
     }
 
+    // This method is automatically called before persisting the entity
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
 
+    // This method is automatically called before updating the entity
     @PreUpdate
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();

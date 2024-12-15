@@ -3,19 +3,31 @@ package com.deskify.dto;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public class UserDTO {
 
     private Long id;
 
+    @Size(min = 2, max = 50)
+    @JsonProperty("first_name")
     private String firstName;
 
+    @JsonProperty("middle_name")
     private String middleName;
 
+    @JsonProperty("last_name")
     private String lastName;
 
+    @Email
+    @NotNull
     private String email;
 
+    @JsonProperty("role_id")
     private RoleDTO role;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

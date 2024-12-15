@@ -52,10 +52,5 @@ public class PlanDTO {
         this.duration = duration;
     }
 
-    @Override
-    public String toString() {
-        return "PlanDTO [name=" + name + ", description=" + description + ", price=" + price + ", duration=" + duration
-                + "]";
-    }
 
 }

@@ -13,7 +13,7 @@ public class Permission {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name", length = 55)
+    @Column(name = "name", length = 55, unique = true)
     private String name;
 
     @Column(name = "description", length = 255, columnDefinition = "TEXT")

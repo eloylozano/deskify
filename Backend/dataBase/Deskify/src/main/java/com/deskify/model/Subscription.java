@@ -39,6 +39,7 @@ public class Subscription {
         this.isActive = true; // Supossing the plan stars as active
     }
 
+    // This method is called before persisting the entity. 
     @PrePersist
     private void prePersist() {
         if (this.startDateTime == null) {

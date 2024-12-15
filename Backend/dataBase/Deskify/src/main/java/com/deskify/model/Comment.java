@@ -36,6 +36,7 @@ public class Comment {
         this.comment = comment;
     }
 
+    // This method is automatically called before inserting a new comment into the database.
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();

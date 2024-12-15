@@ -2,33 +2,38 @@ package com.deskify.dto;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class SubscriptionDTO {
 
-    private Long id; 
+    private Long id;
+    
+    @JsonProperty("user_id")
+    private UserDTO user;
 
-    private String planName; 
+    @JsonProperty("plan_id")
+    private PlanDTO plan;
 
-    private LocalDateTime startDate; 
+    @JsonProperty("start_date")
+    private LocalDateTime startDate;
 
-    private LocalDateTime endDate; 
-
-    private String status; 
-
-    private String description; 
+    @JsonProperty("end_date")
+    private LocalDateTime endDate;
+    
+    @JsonProperty("is_active")
+    private Boolean active;
 
     public SubscriptionDTO() {
     }
 
-    public SubscriptionDTO(Long id, String planName, LocalDateTime startDate, LocalDateTime endDate, String status, String description) {
-        this.id = id;
-        this.planName = planName;
+    public SubscriptionDTO(UserDTO user, PlanDTO plan, LocalDateTime startDate, LocalDateTime endDate, Boolean active) {
+        this.user = user;
+        this.plan = plan;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.status = status;
-        this.description = description;
+        this.active = active;
     }
 
-    // Getters y setters
     public Long getId() {
         return id;
     }
@@ -37,12 +42,20 @@ public class SubscriptionDTO {
         this.id = id;
     }
 
-    public String getPlanName() {
-        return planName;
+    public UserDTO getUser() {
+        return user;
     }
 
-    public void setPlanName(String planName) {
-        this.planName = planName;
+    public void setUser(UserDTO user) {
+        this.user = user;
+    }
+
+    public PlanDTO getPlan() {
+        return plan;
+    }
+
+    public void setPlan(PlanDTO plan) {
+        this.plan = plan;
     }
 
     public LocalDateTime getStartDate() {
@@ -61,19 +74,18 @@ public class SubscriptionDTO {
         this.endDate = endDate;
     }
 
-    public String getStatus() {
-        return status;
+    public Boolean getActive() {
+        return active;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
-    public String getDescription() {
-        return description;
+    @Override
+    public String toString() {
+        return "SubscriptionDTO [id=" + id + ", user=" + user + ", plan=" + plan + ", startDate=" + startDate
+                + ", endDate=" + endDate + ", active=" + active + "]";
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

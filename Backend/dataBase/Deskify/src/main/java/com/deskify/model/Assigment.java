@@ -14,14 +14,14 @@ public class Assigment {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "ticket_id", nullable = false)
+    @JoinColumn(name = "ticket_id", nullable = true)
     private Ticket ticket;
 
     @ManyToOne
-    @JoinColumn(name = "agent_id", nullable = false)
-    private User agent;
+    @JoinColumn(name = "agent_id", nullable = true)
+    private User agent; 
 
-    @Column(name = "assigned_at", nullable = false, updatable = false)
+    @Column(name = "assigned_at", nullable = true, updatable = false)
     private LocalDateTime assignedAt;
 
     public Assigment() {
@@ -32,6 +32,7 @@ public class Assigment {
         this.agent = agent;
     }
 
+    // This method will be automatically called before a new entity is persisted to the database.
     @PrePersist
     protected void onCreate() {
         this.assignedAt = LocalDateTime.now();

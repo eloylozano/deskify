@@ -50,11 +50,13 @@ public class User {
         this.role = role;
     }
 
+    // This method is automatically called before persisting the entity
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
 
+    // This method is automatically called before updating the entity
     @PreUpdate
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
