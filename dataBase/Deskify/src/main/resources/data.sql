@@ -6,6 +6,19 @@ VALUES
 (4, 'Closed', 'The ticket has been resolved and closed.', FALSE),
 (5, 'Resolved', 'The ticket has been resolved but no closed.', TRUE);
 
+INSERT INTO `plans` (`id`, `name`, `description`, `price`, `duration`) 
+VALUES 
+(1, 'Free', 'Free plan with limited access to basic features for 14 days.', NULL, 14),
+(2, 'Basic', 'Basic plan with limited features, suitable for occasional users.', 9.95, 30),
+(3, 'Medium', 'Intermediate plan with more features and priority support access.', 14.99, 30),
+(4, 'Premium', 'Premium plan with full access to all features and priority support.', 19.95, 30),
+(5, 'Basic Three Month', 'Basic plan for three months, ideal for users needing more time.', 25.95, 90),
+(6, 'Medium Three Month', 'Intermediate plan for three months with additional features and benefits.', 39.95, 90),
+(7, 'Premium Three Month', 'Premium plan for three months with full access to all features.', 49.95, 90),
+(8, 'Basic Year', 'Basic annual plan, ideal for those preferring long-term subscriptions with a discount.', 19.45, 365),
+(9, 'Medium Year', 'Intermediate annual plan with more features and competitive pricing.', 164.89, 365),
+(10, 'Premium Year', 'Premium annual plan with full access to all features for one year.', 219.45, 365);
+
 INSERT INTO `priorities` (`id`, `name`, `description`) VALUES
 (1, 'Low', 'The issue is not urgent and can be resolved at a later time.'),
 (2, 'Medium', 'The issue is important but does not require immediate attention.'),
@@ -60,6 +73,18 @@ INSERT INTO `users` (`id`, `first_name`, `middle_name`, `last_name`, `email`, `p
 (27, 'Grace', 'S.', 'Nelson', 'grace.nelson@example.com', '**************', 5, '2023-05-16 11:37:10', '2023-05-16 11:37:10'),
 (28, 'Jack', '', 'Carter', 'jack.carter@example.com', '**************', 5, '2023-06-01 08:25:44', '2023-06-01 08:25:44'),
 (29, 'Lily', 'P.', 'Mitchell', 'lily.mitchell@example.com', '**************', 5, '2023-07-04 10:18:59', '2023-07-04 10:18:59');
+
+INSERT INTO `subscriptions` (`user_id`, `plan_id`, `start_date`, `end_date`, `is_active`) 
+VALUES 
+(3, 2, '2024-01-01 00:00:00', '2024-01-31 23:59:59', TRUE),
+(5, 3, '2024-02-01 00:00:00', '2024-02-29 23:59:59', TRUE),
+(6, 4, '2024-03-01 00:00:00', '2024-03-31 23:59:59', TRUE),
+(7, 5, '2024-04-01 00:00:00', '2024-06-30 23:59:59', TRUE),
+(8, 6, '2024-05-01 00:00:00', '2024-07-31 23:59:59', TRUE),
+(10, 7, '2024-06-01 00:00:00', '2024-08-31 23:59:59', FALSE),
+(12, 8, '2024-07-01 00:00:00', '2025-06-30 23:59:59', TRUE),
+(13, 9, '2024-08-01 00:00:00', '2025-07-31 23:59:59', TRUE),
+(16, 10, '2024-09-01 00:00:00', '2025-08-31 23:59:59', TRUE);
 
 
 INSERT INTO `tickets` (`id`, `user_id`, `category_id`, `priority_id`, `title`, `description`, `status_id`, `created_at`, `updated_at`)  
