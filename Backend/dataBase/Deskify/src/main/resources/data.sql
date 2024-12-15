@@ -6,6 +6,19 @@ VALUES
 (4, 'Closed', 'The ticket has been resolved and closed.', FALSE),
 (5, 'Resolved', 'The ticket has been resolved but no closed.', TRUE);
 
+
+INSERT INTO `permissions` (`id`, `name`, `description`) VALUES
+(1, 'CREATE_TICKET', 'Permission to create new tickets.'),
+(2, 'VIEW_TICKET', 'Permission to view ticket details.'),
+(3, 'UPDATE_TICKET', 'Permission to update tickets.'),
+(4, 'DELETE_TICKET', 'Permission to delete tickets.'),
+(5, 'MANAGE_USERS', 'Permission to manage users (create, update, delete).'),
+(6, 'MANAGE_ROLES', 'Permission to manage roles and their permissions.'),
+(7, 'VIEW_REPORTS', 'Permission to view system-generated reports.'),
+(8, 'ASSIGN_TICKET', 'Permission to assign tickets to agents.'),
+(9, 'CHANGE_TICKET_PRIORITY', 'Permission to change ticket priority levels.'),
+(10, 'ACCESS_ADMIN_PANEL', 'Permission to access the admin panel features.');
+
 INSERT INTO `plans` (`id`, `name`, `description`, `price`, `duration`) 
 VALUES 
 (1, 'Free', 'Free plan with limited access to basic features for 14 days.', NULL, 14),
@@ -42,6 +55,26 @@ INSERT INTO `roles` (`id`, `name`, `description`) VALUES
 (3, 'Manager', 'Supervises agents and manages ticket assignments and performance.'),
 (4, 'Agent', 'Handles tickets and provides technical support to users.'),
 (5, 'User', 'Can create tickets and track their status.');
+
+INSERT INTO `role_permissions` (`role_id`, `permission_id`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 6),
+(1, 7),
+(1, 8),
+(1, 9),
+(1, 10),
+(2, 7),
+(3, 5),
+(3, 6),
+(3, 8),
+(4, 1),
+(4, 2),
+(4, 3),
+(4, 4);
 
 
 INSERT INTO `users` (`id`, `first_name`, `middle_name`, `last_name`, `email`, `password`, `role_id`, `created_at`, `updated_at`) VALUES

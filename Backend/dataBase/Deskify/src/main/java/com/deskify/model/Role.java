@@ -1,5 +1,7 @@
 package com.deskify.model;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -16,6 +18,15 @@ public class Role {
 
     @Column(name = "description", length = 255, columnDefinition = "TEXT")
     private String description;
+
+    @ManyToMany
+    @JoinTable(
+        name = "role_permissions",
+        joinColumns = @JoinColumn(name = "role_id"),
+        inverseJoinColumns = @JoinColumn(name = "permission_id")
+    )
+    private List<Permission> permissions;
+
 
     public Role() {
     }
@@ -49,8 +60,19 @@ public class Role {
         this.description = description;
     }
 
+    public List<Permission> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<Permission> permissions) {
+        this.permissions = permissions;
+    }
+
     @Override
     public String toString() {
-        return "Role [id=" + id + ", name=" + name + ", description=" + description + "]";
+        return "Role [id=" + id + ", name=" + name + ", description=" + description + ", permissions=" + permissions
+                + "]";
     }
+
+    
 }
