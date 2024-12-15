@@ -11,7 +11,7 @@ public class Role {
     @Column(name = "id")
     private Long id;  // Cambiado a Long en lugar de int
 
-    @Column(name = "name", length = 55)
+    @Column(name = "name", length = 55, unique = true)
     private String name;
 
     @Column(name = "description", length = 255, columnDefinition = "TEXT")

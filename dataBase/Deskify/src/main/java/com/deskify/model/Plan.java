@@ -20,7 +20,7 @@ public class Plan {
     @Column(name = "price", nullable = true)
     private Double price;
 
-    @Column(name = "duration", length = 3)
+    @Column(name = "duration", length = 3, nullable = true)
     private int duration;
 
     public Plan() {
