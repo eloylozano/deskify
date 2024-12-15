@@ -8,7 +8,7 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id")  // Cambié "priority_id" a "category_id"
+    @Column(name = "id")  // Cambié "priority_id" a "category_id"
     private Long id;
 
     @Column(name = "name", length = 55, nullable = false)

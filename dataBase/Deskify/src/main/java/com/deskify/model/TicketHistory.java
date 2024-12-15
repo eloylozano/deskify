@@ -9,7 +9,7 @@ public class TicketHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "history_id")
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne

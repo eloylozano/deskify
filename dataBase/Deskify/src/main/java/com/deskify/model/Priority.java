@@ -8,10 +8,10 @@ public class Priority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "priority_id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "priority_name", length = 55)
+    @Column(name = "name", length = 55)
     private String name;
 
     @Column(name = "description", length = 255, columnDefinition = "TEXT")

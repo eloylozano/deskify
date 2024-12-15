@@ -1,19 +1,18 @@
-INSERT INTO `status` (`name`, `status_description`, `is_active`) 
+INSERT INTO `status` (`id`,`name`, `description`, `is_active`) 
 VALUES 
-('Open', 'The ticket has been created and is awaiting attention.', TRUE),
-('In Progress', 'The ticket is being handled by an agent.', TRUE),
-('Pending', 'The ticket is awaiting further review or action.', TRUE),
-('Closed', 'The ticket has been resolved and closed.', FALSE),
-('Solved', 'The ticket has been resolved but no closed.', TRUE);
+(1, 'Open', 'The ticket has been created and is awaiting attention.', TRUE),
+(2, 'In Progress', 'The ticket is being handled by an agent.', TRUE),
+(3, 'Pending', 'The ticket is awaiting further review or action.', TRUE),
+(4, 'Closed', 'The ticket has been resolved and closed.', FALSE),
+(5, 'Resolved', 'The ticket has been resolved but no closed.', TRUE);
 
-INSERT INTO `priorities` (`priority_id`, `name`, `description`) VALUES
+INSERT INTO `priorities` (`id`, `name`, `description`) VALUES
 (1, 'Low', 'The issue is not urgent and can be resolved at a later time.'),
 (2, 'Medium', 'The issue is important but does not require immediate attention.'),
 (3, 'High', 'The issue needs to be addressed promptly and is of significant importance.'),
-(4, 'Urgent', 'The issue requires immediate attention and resolution.'),
+(4, 'Urgent', 'The issue requires immediate attention and resolution.');
 
-
-INSERT INTO `categories` (`category_id`, `name`, `description`) VALUES
+INSERT INTO `categories` (`id`, `name`, `description`) VALUES
 (1, 'Technical Support', 'Issues related to hardware, software, and system troubleshooting.'),
 (2, 'Billing', 'Issues regarding invoices, payments, and subscription plans.'),
 (3, 'Account Management', 'Questions or problems related to user accounts and profiles.'),
@@ -23,7 +22,6 @@ INSERT INTO `categories` (`category_id`, `name`, `description`) VALUES
 (7, 'Software Installation', 'Assistance with installing or configuring software applications.'),
 (8, 'Feature Request', 'Requests for new features or improvements to existing functionality.');
 
-
 INSERT INTO `roles` (`id`, `name`, `description`) VALUES
 (1, 'Admin', 'Full access to all system functionalities including user management and configuration.'),
 (2, 'Supervisor', 'Monitors ticket quality and agent performance.'),
@@ -32,7 +30,7 @@ INSERT INTO `roles` (`id`, `name`, `description`) VALUES
 (5, 'User', 'Can create tickets and track their status.');
 
 
-INSERT INTO `users` (`user_id`, `first_name`, `middle_name`, `last_name`, `email`, `password`, `role`, `created_at`, `updated_at`) VALUES
+INSERT INTO `users` (`id`, `first_name`, `middle_name`, `last_name`, `email`, `password`, `role_id`, `created_at`, `updated_at`) VALUES
 (1, 'John', 'Doe', 'Smith', 'john.smith@example.com', '**************', 1, '2023-01-15 09:45:32', '2023-01-15 09:45:32'),
 (2, 'Jane', 'A.', 'Doe', 'jane.doe@example.com', '**************', 4, '2023-02-03 08:30:12', '2023-02-03 08:30:12'),
 (3, 'Alice', '', 'Johnson', 'alice.johnson@example.com', '**************', 5, '2023-05-22 14:21:47', '2023-05-22 14:21:47'),
@@ -64,31 +62,60 @@ INSERT INTO `users` (`user_id`, `first_name`, `middle_name`, `last_name`, `email
 (29, 'Lily', 'P.', 'Mitchell', 'lily.mitchell@example.com', '**************', 5, '2023-07-04 10:18:59', '2023-07-04 10:18:59');
 
 
-INSERT INTO `tickets` (`user_id`, `category_id`, `priority_id`, `title`, `description`, `created_at`, `updated_at`) 
+INSERT INTO `tickets` (`id`, `user_id`, `category_id`, `priority_id`, `title`, `description`, `status_id`, `created_at`, `updated_at`)  
 VALUES
-(1, 2, 3, 'Login issue', 'User unable to log in to the system with correct credentials', '2023-01-05 10:15:32', '2023-01-05 10:15:32'),
-(2, 3, 4, 'Password Reset', 'Request for password reset due to forgotten password', '2023-02-12 11:30:25', '2023-02-12 11:30:25'),
-(3, 1, 2, 'Bug in checkout process', 'Bug where the checkout button does not work on the payment page', '2023-03-20 13:14:09', '2023-03-20 13:14:09'),
-(4, 2, 5, 'Email not sending', 'Issue with email not sending after submission of a form', '2023-04-03 09:42:18', '2023-04-03 09:42:18'),
-(5, 3, 3, 'Page loading error', 'Page loads with a 404 error when clicking the homepage link', '2023-05-05 10:51:11', '2023-05-05 10:51:11'),
-(6, 1, 4, 'Payment gateway failure', 'Payment gateway fails to process payments', '2023-06-15 14:22:30', '2023-06-15 14:22:30'),
-(7, 2, 3, 'UI bug in dashboard', 'Bug with the display of user statistics on the dashboard', '2023-07-01 12:07:56', '2023-07-01 12:07:56'),
-(8, 3, 5, 'Server overload', 'High traffic leading to server overload and crashing', '2023-08-02 08:19:18', '2023-08-02 08:19:18'),
-(9, 1, 4, 'Profile picture upload issue', 'Error while uploading a profile picture on user account settings', '2023-09-15 10:50:42', '2023-09-15 10:50:42'),
-(10, 2, 2, 'Broken links', 'Broken links on the FAQ page', '2023-10-11 14:35:55', '2023-10-11 14:35:55'),
-(11, 3, 3, 'Feature request for custom themes', 'Request for new feature to add custom themes to the website', '2023-11-13 15:21:04', '2023-11-13 15:21:04'),
-(12, 1, 2, 'Account locked after multiple login attempts', 'Account locked after multiple failed login attempts', '2023-12-02 10:11:29', '2023-12-02 10:11:29'),
-(13, 2, 4, '2FA issue', 'User cannot receive 2FA code for login', '2023-01-20 11:00:34', '2023-01-20 11:00:34'),
-(14, 3, 5, 'Slow website performance', 'Website takes too long to load, affecting user experience', '2023-02-07 13:55:48', '2023-02-07 13:55:48'),
-(15, 1, 3, 'API authentication error', 'Error when trying to authenticate via the API', '2023-03-28 09:42:11', '2023-03-28 09:42:11'),
-(16, 2, 4, 'Content not updating', 'Changes made to the content do not reflect on the site after saving', '2023-04-09 10:21:55', '2023-04-09 10:21:55'),
-(17, 3, 2, 'App crash on startup', 'The mobile app crashes immediately upon launch', '2023-05-21 15:09:32', '2023-05-21 15:09:32'),
-(18, 1, 5, 'Database connection error', 'Unable to connect to the database server', '2023-06-18 13:13:03', '2023-06-18 13:13:03'),
-(19, 2, 4, 'Unable to upload files', 'User is unable to upload files to the server', '2023-07-23 14:52:17', '2023-07-23 14:52:17'),
-(20, 3, 5, 'Broken search feature', 'Search functionality returns incorrect results or no results at all', '2023-08-05 16:40:11', '2023-08-05 16:40:11');
+(1, 1, 2, 3, 'Login issue', 'User unable to log in to the system with correct credentials', 1, '2023-01-05 10:15:32', '2023-01-05 10:15:32'),
+(2, 2, 3, 4, 'Password Reset', 'Request for password reset due to forgotten password', 1, '2023-02-12 11:30:25', '2023-02-12 11:30:25'),
+(3, 3, 1, 2, 'Bug in checkout process', 'Bug where the checkout button does not work on the payment page', 1, '2023-03-20 13:14:09', '2023-03-20 13:14:09'),
+(4, 4, 2, 1, 'Email not sending', 'Issue with email not sending after submission of a form', 1, '2023-04-03 09:42:18', '2023-04-03 09:42:18'),
+(5, 5, 3, 3, 'Page loading error', 'Page loads with a 404 error when clicking the homepage link', 1, '2023-05-05 10:51:11', '2023-05-05 10:51:11'),
+(6, 6, 1, 4, 'Payment gateway failure', 'Payment gateway fails to process payments', 1, '2023-06-15 14:22:30', '2023-06-15 14:22:30'),
+(7, 7, 2, 3, 'UI bug in dashboard', 'Bug with the display of user statistics on the dashboard', 1, '2023-07-01 12:07:56', '2023-07-01 12:07:56'),
+(8, 8, 3, 1, 'Server overload', 'High traffic leading to server overload and crashing', 1, '2023-08-02 08:19:18', '2023-08-02 08:19:18'),
+(9, 9, 1, 4, 'Profile picture upload issue', 'Error while uploading a profile picture on user account settings', 1, '2023-09-15 10:50:42', '2023-09-15 10:50:42'),
+(10, 10, 2, 2, 'Broken links', 'Broken links on the FAQ page', 1, '2023-10-11 14:35:55', '2023-10-11 14:35:55'),
+(11, 11, 3, 3, 'Feature request for custom themes', 'Request for new feature to add custom themes to the website', 1, '2023-11-13 15:21:04', '2023-11-13 15:21:04'),
+(12, 12, 1, 2, 'Account locked after multiple login attempts', 'Account locked after multiple failed login attempts', 1, '2023-12-02 10:11:29', '2023-12-02 10:11:29'),
+(13, 13, 2, 4, '2FA issue', 'User cannot receive 2FA code for login', 1, '2023-01-20 11:00:34', '2023-01-20 11:00:34'),
+(14, 14, 3, 1, 'Slow website performance', 'Website takes too long to load, affecting user experience', 1, '2023-02-07 13:55:48', '2023-02-07 13:55:48'),
+(15, 15, 1, 3, 'API authentication error', 'Error when trying to authenticate via the API', 1, '2023-03-28 09:42:11', '2023-03-28 09:42:11'),
+(16, 16, 2, 4, 'Content not updating', 'Changes made to the content do not reflect on the site after saving', 1, '2023-04-09 10:21:55', '2023-04-09 10:21:55'),
+(17, 17, 3, 2, 'App crash on startup', 'The mobile app crashes immediately upon launch', 1, '2023-05-21 15:09:32', '2023-05-21 15:09:32'),
+(18, 18, 1, 1, 'Database connection error', 'Unable to connect to the database server', 1, '2023-06-18 13:13:03', '2023-06-18 13:13:03'),
+(19, 19, 2, 4, 'Unable to upload files', 'User is unable to upload files to the server', 1, '2023-07-23 14:52:17', '2023-07-23 14:52:17'),
+(20, 20, 3, 1, 'Broken search feature', 'Search functionality returns incorrect results or no results at all', 1, '2023-08-05 16:40:11', '2023-08-05 16:40:11'),
+(21, 21, 1, 2, 'Slow login time', 'Login takes too long to complete', 1, '2023-09-18 12:05:13', '2023-09-18 12:05:13'),
+(22, 22, 2, 3, 'Incorrect data display', 'Data displayed incorrectly on the user dashboard', 1, '2023-10-04 13:30:45', '2023-10-04 13:30:45'),
+(23, 23, 3, 1, 'Mobile app UI freeze', 'UI of the mobile app freezes when navigating to settings', 1, '2023-10-12 09:45:22', '2023-10-12 09:45:22'),
+(24, 24, 1, 4, 'Error in email notifications', 'Users are not receiving email notifications after an action is performed', 1, '2023-10-25 16:22:01', '2023-10-25 16:22:01'),
+(25, 25, 2, 2, 'Feature not working on mobile', 'Certain feature does not work correctly on mobile devices', 1, '2023-11-03 08:10:58', '2023-11-03 08:10:58'),
+(26, 26, 3, 3, 'Login form not responsive', 'Login form is not properly responsive on mobile devices', 1, '2023-11-12 14:40:15', '2023-11-12 14:40:15'),
+(27, 27, 1, 4, 'File format issue', 'Uploaded file is not in the correct format, causing an error', 1, '2023-11-20 10:00:32', '2023-11-20 10:00:32'),
+(28, 28, 2, 1, 'Unresponsive buttons on homepage', 'Buttons on the homepage do not respond when clicked', 1, '2023-12-01 11:55:28', '2023-12-01 11:55:28'),
+(29, 29, 3, 2, 'Performance lag during video streaming', 'App performance lags when streaming videos', 1, '2023-12-05 09:20:47', '2023-12-05 09:20:47'),
+(30, 10, 1, 4, 'Cannot access settings', 'User cannot access settings menu due to a bug', 1, '2023-12-10 17:35:13', '2023-12-10 17:35:13'),
+(31, 21, 2, 3, 'Unclear error messages', 'Error messages shown to users are not clear or informative', 1, '2023-12-15 10:25:04', '2023-12-15 10:25:04'),
+(32, 22, 3, 2, 'App update failure', 'App fails to update to the latest version', 1, '2023-12-18 12:47:18', '2023-12-18 12:47:18'),
+(33, 23, 1, 1, 'Cannot reset password', 'User unable to reset their password using the recovery form', 1, '2023-12-22 14:11:40', '2023-12-22 14:11:40'),
+(34, 24, 2, 4, 'Broken image links', 'Images on product pages are not displaying correctly due to broken links', 1, '2023-12-24 16:55:33', '2023-12-24 16:55:33'),
+(35, 25, 3, 3, 'Mobile app login timeout', 'User is logged out automatically after a short period of inactivity', 1, '2023-12-28 15:39:29', '2023-12-28 15:39:29'),
+(36, 26, 1, 2, 'Order confirmation not received', 'User did not receive an order confirmation email after purchase', 1, '2023-12-30 13:22:01', '2023-12-30 13:22:01'),
+(37, 27, 2, 1, 'Issues with cart page', 'Cart page does not load correctly when adding products', 1, '2024-01-02 11:05:45', '2024-01-02 11:05:45'),
+(38, 28, 3, 4, 'Broken navigation links', 'Navigation links on the website lead to 404 pages', 1, '2024-01-06 09:50:12', '2024-01-06 09:50:12'),
+(39, 29, 1, 3, 'Error when applying discount code', 'Discount code does not apply at checkout', 1, '2024-01-09 12:33:01', '2024-01-09 12:33:01'),
+(40, 20, 2, 2, 'Slow page rendering', 'Pages are taking too long to render, slowing down user interaction', 1, '2024-01-11 15:10:23', '2024-01-11 15:10:23'),
+(41, 11, 3, 1, 'Push notifications not received', 'User does not receive push notifications after enabling them', 1, '2024-01-14 08:15:19', '2024-01-14 08:15:19'),
+(42, 12, 1, 4, 'Payment not processed', 'Payment fails to process even with valid card details', 1, '2024-01-17 11:25:32', '2024-01-17 11:25:32'),
+(43, 13, 2, 3, 'Signup form errors', 'User gets error messages even when entering valid information on the signup form', 1, '2024-01-20 14:50:01', '2024-01-20 14:50:01'),
+(44, 14, 3, 2, 'App crashes after update', 'Mobile app crashes immediately after updating to the latest version', 1, '2024-01-22 17:30:55', '2024-01-22 17:30:55'),
+(45, 15, 1, 1, 'Broken links in documentation', 'Documentation contains broken links leading to missing pages', 1, '2024-01-25 09:10:14', '2024-01-25 09:10:14'),
+(46, 16, 2, 4, 'Content not updating on homepage', 'Changes made to homepage content are not displaying to users', 1, '2024-01-28 12:35:11', '2024-01-28 12:35:11'),
+(47, 17, 3, 3, 'Video playback issues', 'Videos fail to load or play correctly on the website', 1, '2024-01-31 13:25:42', '2024-01-31 13:25:42'),
+(48, 18, 1, 2, 'Profile update error', 'User cannot update profile information due to a system error', 1, '2024-02-02 16:14:56', '2024-02-02 16:14:56'),
+(49, 19, 2, 1, 'Error sending contact form', 'Users cannot send messages via the contact form due to an error', 1, '2024-02-05 11:03:23', '2024-02-05 11:03:23'),
+(50, 3, 3, 4, 'Email verification failed', 'User is unable to verify their email address', 1, '2024-02-08 13:25:39', '2024-02-08 13:25:39');
 
-
-INSERT INTO `ticket_status_history` (`history_id`, `ticket_id`, `status_id`, `changed_at`) VALUES
+INSERT INTO `ticket_status_history` (`id`, `ticket_id`, `status_id`, `changed_at`) VALUES
 (1, 1, 1, '2023-01-05 09:30:00'),
 (2, 2, 4, '2023-02-12 10:45:00'),
 (3, 3, 2, '2023-03-20 12:30:00'),
@@ -110,45 +137,45 @@ INSERT INTO `ticket_status_history` (`history_id`, `ticket_id`, `status_id`, `ch
 (19, 19, 4, '2023-07-23 12:55:00'),
 (20, 20, 1, '2023-08-05 14:45:00');
 
-INSERT INTO `comments` (`comment_id`, `ticket_id`, `user_id`, `comment`, `created_at`) VALUES
-(36, 1, 1, 'The issue is being investigated, please hold on.', '2023-01-06 08:30:00'),
-(37, 2, 2, 'The request has been acknowledged, will update soon.', '2023-02-15 09:00:00'),
-(38, 3, 3, 'We are currently working on a fix for this issue.', '2023-03-22 10:15:00'),
-(39, 4, 4, 'The problem has been identified, resolution is in progress.', '2023-04-04 10:00:00'),
-(40, 5, 5, 'We need further details to process your request.', '2023-05-06 12:20:00'),
-(41, 6, 6, 'The issue has been resolved, please confirm if everything is working.', '2023-06-17 07:45:00'),
-(42, 7, 7, 'We are aware of the issue and working on a solution.', '2023-07-03 08:30:00'),
-(43, 8, 8, 'Please provide the error message for further investigation.', '2023-08-03 09:30:00'),
-(44, 9, 9, 'We are unable to reproduce the issue, please provide more details.', '2023-09-16 10:00:00'),
-(45, 10, 10, 'The issue has been escalated to the development team.', '2023-10-12 12:45:00'),
-(46, 11, 11, 'We have applied a temporary fix, testing in progress.', '2023-11-15 14:30:00'),
-(47, 12, 12, 'The problem is resolved, please check and confirm.', '2023-12-03 15:10:00'),
-(48, 13, 13, 'Investigating the cause, updates will follow soon.', '2023-01-22 09:30:00'),
-(49, 14, 14, 'The issue is being worked on, expect an update shortly.', '2023-02-08 10:00:00'),
-(50, 15, 15, 'The cause has been identified, we will provide a fix soon.', '2023-03-29 11:30:00'),
-(51, 16, 16, 'Please verify if the issue persists after the recent update.', '2023-04-10 12:00:00'),
-(52, 17, 17, 'The issue is resolved, no further action needed.', '2023-05-22 13:10:00'),
-(53, 18, 18, 'Fix applied successfully, awaiting confirmation.', '2023-06-19 08:50:00'),
-(54, 19, 19, 'The error message is being reviewed for a solution.', '2023-07-24 14:40:00'),
-(55, 20, 20, 'We are testing the solution, will provide an update soon.', '2023-08-06 11:00:00'),
-(56, 21, 1, 'Ticket updated, awaiting final review.', '2023-09-17 09:40:00'),
-(57, 22, 2, 'The issue has been fixed, confirming with the user.', '2023-10-13 10:30:00'),
-(58, 23, 3, 'We have released a new update, please check again.', '2023-11-16 08:15:00'),
-(59, 24, 4, 'Still working on resolving the issue, please be patient.', '2023-12-04 09:00:00'),
-(60, 25, 5, 'Request is under review, a fix will be applied soon.', '2023-01-25 13:40:00'),
-(61, 26, 6, 'The issue has been fixed, please verify if resolved.', '2023-02-10 12:20:00'),
-(62, 27, 7, 'We are preparing the resolution, it should be available soon.', '2023-03-24 14:50:00'),
-(63, 28, 8, 'Please allow us some time to work on a solution.', '2023-04-05 14:30:00'),
-(64, 29, 9, 'The issue has been acknowledged, we are working on a fix.', '2023-05-07 07:10:00'),
-(65, 30, 10, 'The solution is being tested, expect an update soon.', '2023-06-18 10:20:00'),
-(66, 31, 11, 'The problem should be resolved after the recent changes.', '2023-07-04 09:50:00'),
-(67, 32, 12, 'We are investigating the cause, a solution is in progress.', '2023-08-07 08:15:00'),
-(68, 33, 13, 'The issue has been reported to the senior team, working on it.', '2023-09-18 12:00:00'),
-(69, 34, 14, 'Please try again and confirm if the problem still exists.', '2023-10-14 09:30:00'),
-(70, 35, 15, 'Fix applied, please confirm if it resolved the issue.', '2023-11-17 14:40:00');
+INSERT INTO `comments` (`id`, `ticket_id`, `user_id`, `comment`, `created_at`) VALUES
+(1, 1, 1, 'The issue is being investigated, please hold on.', '2023-01-06 08:30:00'),
+(2, 2, 2, 'The request has been acknowledged, will update soon.', '2023-02-15 09:00:00'),
+(3, 3, 3, 'We are currently working on a fix for this issue.', '2023-03-22 10:15:00'),
+(4, 4, 4, 'The problem has been identified, resolution is in progress.', '2023-04-04 10:00:00'),
+(5, 5, 5, 'We need further details to process your request.', '2023-05-06 12:20:00'),
+(6, 6, 6, 'The issue has been resolved, please confirm if everything is working.', '2023-06-17 07:45:00'),
+(7, 7, 7, 'We are aware of the issue and working on a solution.', '2023-07-03 08:30:00'),
+(8, 8, 8, 'Please provide the error message for further investigation.', '2023-08-03 09:30:00'),
+(9, 9, 9, 'We are unable to reproduce the issue, please provide more details.', '2023-09-16 10:00:00'),
+(10, 10, 10, 'The issue has been escalated to the development team.', '2023-10-12 12:45:00'),
+(11, 11, 11, 'We have applied a temporary fix, testing in progress.', '2023-11-15 14:30:00'),
+(12, 12, 12, 'The problem is resolved, please check and confirm.', '2023-12-03 15:10:00'),
+(13, 13, 13, 'Investigating the cause, updates will follow soon.', '2023-01-22 09:30:00'),
+(14, 14, 14, 'The issue is being worked on, expect an update shortly.', '2023-02-08 10:00:00'),
+(15, 15, 15, 'The cause has been identified, we will provide a fix soon.', '2023-03-29 11:30:00'),
+(16, 16, 16, 'Please verify if the issue persists after the recent update.', '2023-04-10 12:00:00'),
+(17, 17, 17, 'The issue is resolved, no further action needed.', '2023-05-22 13:10:00'),
+(18, 18, 18, 'Fix applied successfully, awaiting confirmation.', '2023-06-19 08:50:00'),
+(19, 19, 19, 'The error message is being reviewed for a solution.', '2023-07-24 14:40:00'),
+(20, 20, 20, 'We are testing the solution, will provide an update soon.', '2023-08-06 11:00:00'),
+(21, 21, 1, 'Ticket updated, awaiting final review.', '2023-09-17 09:40:00'),
+(22, 22, 2, 'The issue has been fixed, confirming with the user.', '2023-10-13 10:30:00'),
+(23, 23, 3, 'We have released a new update, please check again.', '2023-11-16 08:15:00'),
+(24, 24, 4, 'Still working on resolving the issue, please be patient.', '2023-12-04 09:00:00'),
+(25, 25, 5, 'Request is under review, a fix will be applied soon.', '2023-01-25 13:40:00'),
+(26, 26, 6, 'The issue has been fixed, please verify if resolved.', '2023-02-10 12:20:00'),
+(27, 27, 7, 'We are preparing the resolution, it should be available soon.', '2023-03-24 14:50:00'),
+(28, 28, 8, 'Please allow us some time to work on a solution.', '2023-04-05 14:30:00'),
+(29, 29, 9, 'The issue has been acknowledged, we are working on a fix.', '2023-05-07 07:10:00'),
+(30, 30, 10, 'The solution is being tested, expect an update soon.', '2023-06-18 10:20:00'),
+(31, 31, 11, 'The problem should be resolved after the recent changes.', '2023-07-04 09:50:00'),
+(32, 32, 12, 'We are investigating the cause, a solution is in progress.', '2023-08-07 08:15:00'),
+(33, 33, 13, 'The issue has been reported to the senior team, working on it.', '2023-09-18 12:00:00'),
+(34, 34, 14, 'Please try again and confirm if the problem still exists.', '2023-10-14 09:30:00'),
+(35, 35, 15, 'Fix applied, please confirm if it resolved the issue.', '2023-11-17 14:40:00');
 
 
-INSERT INTO `assigments` (`assigments_id`, `ticket_id`, `agent_id`, `assigned_at`) VALUES
+INSERT INTO `assigments` (`id`, `ticket_id`, `agent_id`, `assigned_at`) VALUES
 (1, 1, 1, '2023-01-05 07:30:00'),
 (2, 2, 2, '2023-02-14 08:00:00'),
 (3, 3, 3, '2023-03-21 09:00:00'),
