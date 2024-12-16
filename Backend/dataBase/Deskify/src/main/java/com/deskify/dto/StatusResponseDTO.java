@@ -1,17 +1,27 @@
 package com.deskify.dto;
 
-public class PriorityDTO {
+public class StatusResponseDTO {
 
+    private Long statusId;
     private String name;
-
     private String description;
 
-    public PriorityDTO() {
+    public StatusResponseDTO() {
+
     }
 
-    public PriorityDTO(String name, String description) {
+    public StatusResponseDTO(Long statusId, String name, String description) {
+        this.statusId = statusId;
         this.name = name;
         this.description = description;
+    }
+
+    public Long getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(Long statusId) {
+        this.statusId = statusId;
     }
 
     public String getName() {
@@ -32,7 +42,6 @@ public class PriorityDTO {
 
     @Override
     public String toString() {
-        return "PriorityDTO [name=" + name + ", description=" + description + "]";
+        return "StatusResponseDTO [statusId=" + statusId + ", name=" + name + ", description=" + description + "]";
     }
-
 }

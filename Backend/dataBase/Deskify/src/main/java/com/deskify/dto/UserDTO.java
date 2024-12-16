@@ -1,57 +1,29 @@
 package com.deskify.dto;
 
-import java.time.LocalDateTime;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 public class UserDTO {
 
-    private Long id;
-
-    @Size(min = 2, max = 50)
-    @JsonProperty("first_name")
     private String firstName;
 
-    @JsonProperty("middle_name")
-    private String middleName;
+    private String middleName;  
 
-    @JsonProperty("last_name")
     private String lastName;
 
-    @Email
-    @NotNull
+    @Email(message = "Email should be valid")
     private String email;
 
-    @JsonProperty("role_id")
-    private RoleDTO role;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createdAt;
+    private String roleName;
 
     public UserDTO() {
     }
 
-    public UserDTO(String firstName, String middleName, String lastName, String email, RoleDTO role,
-            LocalDateTime createdAt) {
+    public UserDTO(String firstName, String middleName, String lastName, String email, String roleName) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
         this.email = email;
-        this.role = role;
-        this.createdAt = createdAt;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.roleName = roleName;
     }
 
     public String getFirstName() {
@@ -86,26 +58,17 @@ public class UserDTO {
         this.email = email;
     }
 
-    public RoleDTO getRole() {
-        return role;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRole(RoleDTO role) {
-        this.role = role;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     @Override
     public String toString() {
         return "UserDTO [firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName + ", email="
-                + email + ", role=" + role + ", createdAt=" + createdAt + "]";
+                + email + ", roleName=" + roleName + "]";
     }
-
 }
