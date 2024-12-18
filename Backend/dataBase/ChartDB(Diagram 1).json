@@ -1,0 +1,1099 @@
+{
+  "id": "0",
+  "name": "Diagram 1",
+  "createdAt": "2024-12-18T13:53:59.630Z",
+  "updatedAt": "2024-12-18T13:53:59.630Z",
+  "databaseType": "mysql",
+  "tables": [
+    {
+      "id": "1",
+      "name": "roles",
+      "x": -1247.5402413706795,
+      "y": -517.1710033766699,
+      "fields": [
+        {
+          "id": "2",
+          "name": "id",
+          "type": {
+            "name": "tinyint",
+            "id": "tinyint"
+          },
+          "unique": true,
+          "nullable": false,
+          "primaryKey": true,
+          "createdAt": 1734188261128
+        },
+        {
+          "id": "3",
+          "name": "name",
+          "type": {
+            "name": "varchar",
+            "id": "varchar"
+          },
+          "unique": true,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734188313140
+        },
+        {
+          "id": "4",
+          "name": "description",
+          "type": {
+            "name": "text",
+            "id": "text"
+          },
+          "unique": false,
+          "nullable": true,
+          "primaryKey": false,
+          "createdAt": 1734188338421
+        }
+      ],
+      "indexes": [],
+      "color": "#8eb7ff",
+      "createdAt": 1734188261128,
+      "isView": false,
+      "order": 8,
+      "width": 224,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "5",
+      "name": "comments",
+      "x": -527.7471083585546,
+      "y": -868.5922871752265,
+      "fields": [
+        {
+          "id": "6",
+          "name": "comment_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "unique": true,
+          "nullable": false,
+          "primaryKey": true,
+          "createdAt": 1734181792539
+        },
+        {
+          "id": "7",
+          "name": "ticket_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734185527196
+        },
+        {
+          "id": "8",
+          "name": "user_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734181822227
+        },
+        {
+          "id": "9",
+          "name": "comment",
+          "type": {
+            "name": "text",
+            "id": "text"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734181832697
+        },
+        {
+          "id": "10",
+          "name": "created_at",
+          "type": {
+            "name": "timestamp",
+            "id": "timestamp"
+          },
+          "unique": false,
+          "nullable": true,
+          "primaryKey": false,
+          "createdAt": 1734181845697
+        }
+      ],
+      "indexes": [],
+      "color": "#c05dcf",
+      "createdAt": 1734181792539,
+      "isView": false,
+      "order": 3,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "11",
+      "name": "tickets",
+      "x": -517.3323694528515,
+      "y": -424.27840486321287,
+      "fields": [
+        {
+          "id": "12",
+          "name": "ticket_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "unique": true,
+          "nullable": false,
+          "primaryKey": true,
+          "createdAt": 1734181283346
+        },
+        {
+          "id": "13",
+          "name": "user_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734181340427
+        },
+        {
+          "id": "14",
+          "name": "category_id",
+          "type": {
+            "name": "tinyint",
+            "id": "tinyint"
+          },
+          "unique": false,
+          "nullable": true,
+          "primaryKey": false,
+          "createdAt": 1734181341180
+        },
+        {
+          "id": "15",
+          "name": "priority_id",
+          "type": {
+            "name": "tinyint",
+            "id": "tinyint"
+          },
+          "unique": false,
+          "nullable": true,
+          "primaryKey": false,
+          "createdAt": 1734181342457
+        },
+        {
+          "id": "16",
+          "name": "title",
+          "type": {
+            "name": "tinytext",
+            "id": "tinytext"
+          },
+          "unique": false,
+          "nullable": true,
+          "primaryKey": false,
+          "createdAt": 1734185699423
+        },
+        {
+          "id": "17",
+          "name": "description",
+          "type": {
+            "name": "text",
+            "id": "text"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734181446243
+        },
+        {
+          "id": "18",
+          "name": "created_at",
+          "type": {
+            "name": "timestamp",
+            "id": "timestamp"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734181447061
+        },
+        {
+          "id": "19",
+          "name": "update_at",
+          "type": {
+            "name": "timestamp",
+            "id": "timestamp"
+          },
+          "unique": false,
+          "nullable": true,
+          "primaryKey": false,
+          "createdAt": 1734181447671
+        },
+        {
+          "id": "20",
+          "name": "status_id",
+          "type": {
+            "name": "tinyint",
+            "id": "tinyint"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734216555336
+        }
+      ],
+      "indexes": [],
+      "color": "#ff6363",
+      "createdAt": 1734181283346,
+      "isView": false,
+      "order": 1,
+      "width": 224,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "21",
+      "name": "categories",
+      "x": -120,
+      "y": -360,
+      "fields": [
+        {
+          "id": "22",
+          "name": "category_id",
+          "type": {
+            "name": "tinyint",
+            "id": "tinyint"
+          },
+          "unique": true,
+          "nullable": false,
+          "primaryKey": true,
+          "createdAt": 1734181539800
+        },
+        {
+          "id": "23",
+          "name": "name",
+          "type": {
+            "name": "varchar",
+            "id": "varchar"
+          },
+          "unique": true,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734181553067
+        },
+        {
+          "id": "24",
+          "name": "description",
+          "type": {
+            "name": "text",
+            "id": "text"
+          },
+          "unique": false,
+          "nullable": true,
+          "primaryKey": false,
+          "createdAt": 1734187830826
+        }
+      ],
+      "indexes": [],
+      "color": "#42e0c0",
+      "createdAt": 1734181539800,
+      "isView": false,
+      "order": 2,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "25",
+      "name": "ticket_assigments",
+      "x": -137.9055270896386,
+      "y": -771.6017950232919,
+      "fields": [
+        {
+          "id": "26",
+          "name": "assigments_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "unique": true,
+          "nullable": false,
+          "primaryKey": true,
+          "createdAt": 1734182092507
+        },
+        {
+          "id": "27",
+          "name": "ticket_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734182115579
+        },
+        {
+          "id": "28",
+          "name": "agent_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734182116228
+        },
+        {
+          "id": "29",
+          "name": "assigned_at",
+          "type": {
+            "name": "timestamp",
+            "id": "timestamp"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734182116766
+        }
+      ],
+      "indexes": [],
+      "color": "#ffe374",
+      "createdAt": 1734182092507,
+      "isView": false,
+      "order": 6,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "30",
+      "name": "users",
+      "x": -954.070593559773,
+      "y": -707.7327815383125,
+      "fields": [
+        {
+          "id": "31",
+          "name": "user_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "unique": true,
+          "nullable": false,
+          "primaryKey": true,
+          "createdAt": 1734180691602
+        },
+        {
+          "id": "32",
+          "name": "first_name",
+          "type": {
+            "name": "varchar",
+            "id": "varchar"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734180730685
+        },
+        {
+          "id": "33",
+          "name": "middle_name",
+          "type": {
+            "name": "varchar",
+            "id": "varchar"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734180732924
+        },
+        {
+          "id": "34",
+          "name": "last_name",
+          "type": {
+            "name": "varchar",
+            "id": "varchar"
+          },
+          "unique": false,
+          "nullable": true,
+          "primaryKey": false,
+          "createdAt": 1734180733907
+        },
+        {
+          "id": "35",
+          "name": "email",
+          "type": {
+            "name": "varchar",
+            "id": "varchar"
+          },
+          "unique": true,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734180734522
+        },
+        {
+          "id": "36",
+          "name": "password",
+          "type": {
+            "name": "varchar",
+            "id": "varchar"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734181120566
+        },
+        {
+          "id": "37",
+          "name": "role",
+          "type": {
+            "name": "tinyint",
+            "id": "tinyint"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734181121205,
+          "comments": "Cliente, Agente, Admin\n"
+        },
+        {
+          "id": "38",
+          "name": "created_at",
+          "type": {
+            "name": "timestamp",
+            "id": "timestamp"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734181139279
+        },
+        {
+          "id": "39",
+          "name": "updated_at",
+          "type": {
+            "name": "timestamp",
+            "id": "timestamp"
+          },
+          "unique": false,
+          "nullable": true,
+          "primaryKey": false,
+          "createdAt": 1734181146534
+        }
+      ],
+      "indexes": [],
+      "color": "#4dee8a",
+      "createdAt": 1734180691602,
+      "isView": false,
+      "order": 0,
+      "diagramId": "tlt6ba9hviak",
+      "width": 337
+    },
+    {
+      "id": "40",
+      "name": "role_assigments",
+      "x": -1538.268674864617,
+      "y": -482.72009430938056,
+      "fields": [
+        {
+          "id": "41",
+          "name": "role_id",
+          "type": {
+            "name": "tinyint",
+            "id": "tinyint"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734267842528
+        },
+        {
+          "id": "42",
+          "name": "permission_id",
+          "type": {
+            "name": "tinyint",
+            "id": "tinyint"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734267864759
+        }
+      ],
+      "indexes": [],
+      "color": "#c05dcf",
+      "createdAt": 1734267842528,
+      "isView": false,
+      "order": 12,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "43",
+      "name": "subscriptions",
+      "x": -1239.518674864617,
+      "y": -810.2200943093806,
+      "fields": [
+        {
+          "id": "44",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "unique": true,
+          "nullable": false,
+          "primaryKey": true,
+          "createdAt": 1734265534708
+        },
+        {
+          "id": "45",
+          "name": "user_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734265556141
+        },
+        {
+          "id": "46",
+          "name": "plan_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734265576114
+        },
+        {
+          "id": "47",
+          "name": "start_date",
+          "type": {
+            "name": "timestamp",
+            "id": "timestamp"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734265582271
+        },
+        {
+          "id": "48",
+          "name": "end_date",
+          "type": {
+            "name": "timestamp",
+            "id": "timestamp"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734265594933
+        },
+        {
+          "id": "49",
+          "name": "is_active",
+          "type": {
+            "name": "boolean",
+            "id": "boolean"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734265612538
+        }
+      ],
+      "indexes": [],
+      "color": "#ff9f74",
+      "createdAt": 1734265534708,
+      "isView": false,
+      "order": 9,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "50",
+      "name": "ticket_status_history",
+      "x": -1153.919655587944,
+      "y": -309.50760114088064,
+      "fields": [
+        {
+          "id": "51",
+          "name": "history_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "unique": true,
+          "nullable": false,
+          "primaryKey": true,
+          "createdAt": 1734181861821
+        },
+        {
+          "id": "52",
+          "name": "ticket_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734181882098
+        },
+        {
+          "id": "53",
+          "name": "status_id",
+          "type": {
+            "name": "tinyint",
+            "id": "tinyint"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734181882994
+        },
+        {
+          "id": "54",
+          "name": "changed_at",
+          "type": {
+            "name": "timestamp",
+            "id": "timestamp"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734181883773
+        }
+      ],
+      "indexes": [],
+      "color": "#ff9f74",
+      "createdAt": 1734181861821,
+      "isView": false,
+      "order": 4,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "55",
+      "name": "permissions",
+      "x": -1533.268674864617,
+      "y": -228.97009430938056,
+      "fields": [
+        {
+          "id": "56",
+          "name": "id",
+          "type": {
+            "name": "tinyint",
+            "id": "tinyint"
+          },
+          "unique": true,
+          "nullable": false,
+          "primaryKey": true,
+          "createdAt": 1734267683508
+        },
+        {
+          "id": "57",
+          "name": "nombre",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734267806446
+        },
+        {
+          "id": "58",
+          "name": "description",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734267807389
+        }
+      ],
+      "indexes": [],
+      "color": "#42e0c0",
+      "createdAt": 1734267683508,
+      "isView": false,
+      "order": 11,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "59",
+      "name": "priorities",
+      "x": -119.2471083585545,
+      "y": -184.0886896274704,
+      "fields": [
+        {
+          "id": "60",
+          "name": "priority_id",
+          "type": {
+            "name": "tinyint",
+            "id": "tinyint"
+          },
+          "unique": true,
+          "nullable": false,
+          "primaryKey": true,
+          "createdAt": 1734181990635
+        },
+        {
+          "id": "61",
+          "name": "name",
+          "type": {
+            "name": "varchar",
+            "id": "varchar"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734182059421
+        },
+        {
+          "id": "62",
+          "name": "description",
+          "type": {
+            "name": "text",
+            "id": "text"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734183291835
+        }
+      ],
+      "indexes": [],
+      "color": "#8a61f5",
+      "createdAt": 1734181990635,
+      "isView": false,
+      "order": 5,
+      "width": 224,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "63",
+      "name": "plans",
+      "x": -1522.018674864617,
+      "y": -815.2200943093806,
+      "fields": [
+        {
+          "id": "64",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "unique": true,
+          "nullable": false,
+          "primaryKey": true,
+          "createdAt": 1734265624581
+        },
+        {
+          "id": "65",
+          "name": "name",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734265635766
+        },
+        {
+          "id": "66",
+          "name": "description",
+          "type": {
+            "name": "text",
+            "id": "text"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734265636946
+        },
+        {
+          "id": "67",
+          "name": "price",
+          "type": {
+            "name": "double",
+            "id": "double"
+          },
+          "unique": false,
+          "nullable": true,
+          "primaryKey": false,
+          "createdAt": 1734265637762
+        },
+        {
+          "id": "68",
+          "name": "duration",
+          "type": {
+            "name": "smallint",
+            "id": "smallint"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734265664163
+        }
+      ],
+      "indexes": [],
+      "color": "#ff6363",
+      "createdAt": 1734265624581,
+      "isView": false,
+      "order": 10,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "69",
+      "name": "status",
+      "x": -846.8486031897237,
+      "y": -201.59790144353474,
+      "fields": [
+        {
+          "id": "70",
+          "name": "status_id",
+          "type": {
+            "name": "tinyint",
+            "id": "tinyint"
+          },
+          "unique": true,
+          "nullable": false,
+          "primaryKey": true,
+          "createdAt": 1734184308705
+        },
+        {
+          "id": "71",
+          "name": "name",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734184328519
+        },
+        {
+          "id": "72",
+          "name": "description",
+          "type": {
+            "name": "tinyint",
+            "id": "tinyint"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734184338481
+        },
+        {
+          "id": "73",
+          "name": "is_active",
+          "type": {
+            "name": "boolean",
+            "id": "boolean"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1734184352268
+        }
+      ],
+      "indexes": [],
+      "color": "#42e0c0",
+      "createdAt": 1734184308705,
+      "isView": false,
+      "order": 7,
+      "diagramId": "tlt6ba9hviak"
+    }
+  ],
+  "relationships": [
+    {
+      "id": "74",
+      "name": "categories_category_id_fk",
+      "sourceTableId": "21",
+      "targetTableId": "11",
+      "sourceFieldId": "22",
+      "targetFieldId": "14",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1734183986970,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "75",
+      "name": "permissions_id_fk",
+      "sourceTableId": "55",
+      "targetTableId": "40",
+      "sourceFieldId": "56",
+      "targetFieldId": "42",
+      "sourceCardinality": "many",
+      "targetCardinality": "many",
+      "createdAt": 1734267926780,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "76",
+      "name": "plans_id_fk",
+      "sourceTableId": "63",
+      "targetTableId": "43",
+      "sourceFieldId": "64",
+      "targetFieldId": "46",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1734265710420,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "77",
+      "name": "priorities_priority_id_fk",
+      "sourceTableId": "59",
+      "targetTableId": "11",
+      "sourceFieldId": "60",
+      "targetFieldId": "15",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1734182228313,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "78",
+      "name": "roles_id_fk",
+      "sourceTableId": "1",
+      "targetTableId": "30",
+      "sourceFieldId": "2",
+      "targetFieldId": "37",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1734188386239,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "79",
+      "name": "roles_id_fk",
+      "sourceTableId": "1",
+      "targetTableId": "40",
+      "sourceFieldId": "2",
+      "targetFieldId": "41",
+      "sourceCardinality": "many",
+      "targetCardinality": "many",
+      "createdAt": 1734291419732,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "80",
+      "name": "status_status_id_fk",
+      "sourceTableId": "69",
+      "targetTableId": "11",
+      "sourceFieldId": "70",
+      "targetFieldId": "20",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1734216592100,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "81",
+      "name": "status_status_id_fk",
+      "sourceTableId": "69",
+      "targetTableId": "50",
+      "sourceFieldId": "70",
+      "targetFieldId": "53",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1734184379733,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "82",
+      "name": "tickets_ticket_id_fk",
+      "sourceTableId": "11",
+      "targetTableId": "25",
+      "sourceFieldId": "12",
+      "targetFieldId": "27",
+      "sourceCardinality": "many",
+      "targetCardinality": "many",
+      "createdAt": 1734182163647,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "84",
+      "name": "tickets_ticket_id_fk",
+      "sourceTableId": "11",
+      "targetTableId": "5",
+      "sourceFieldId": "12",
+      "targetFieldId": "7",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1734185538496,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "85",
+      "name": "tickets_ticket_id_fk",
+      "sourceTableId": "11",
+      "targetTableId": "50",
+      "sourceFieldId": "12",
+      "targetFieldId": "52",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1734184237020,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "86",
+      "name": "users_user_id_fk",
+      "sourceTableId": "30",
+      "targetTableId": "25",
+      "sourceFieldId": "31",
+      "targetFieldId": "28",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1734183773574,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "87",
+      "name": "users_user_id_fk",
+      "sourceTableId": "30",
+      "targetTableId": "5",
+      "sourceFieldId": "31",
+      "targetFieldId": "8",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1734182177285,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "88",
+      "name": "users_user_id_fk",
+      "sourceTableId": "30",
+      "targetTableId": "11",
+      "sourceFieldId": "31",
+      "targetFieldId": "13",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1734182170497,
+      "diagramId": "tlt6ba9hviak"
+    },
+    {
+      "id": "89",
+      "name": "users_user_id_fk",
+      "sourceTableId": "30",
+      "targetTableId": "43",
+      "sourceFieldId": "31",
+      "targetFieldId": "45",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1734265721937,
+      "diagramId": "tlt6ba9hviak"
+    }
+  ],
+  "dependencies": []
+}
