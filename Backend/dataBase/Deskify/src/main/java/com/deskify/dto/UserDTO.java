@@ -6,9 +6,11 @@ public class UserDTO {
 
     private String firstName;
 
-    private String middleName;  
+    private String middleName;
 
     private String lastName;
+
+    private String phoneNumber;
 
     @Email(message = "Email should be valid")
     private String email;
@@ -18,10 +20,12 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(String firstName, String middleName, String lastName, String email, String roleName) {
+    public UserDTO(String firstName, String middleName, String lastName, String phoneNumber,
+            @Email(message = "Email should be valid") String email, String roleName) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
         this.email = email;
         this.roleName = roleName;
     }
@@ -66,9 +70,18 @@ public class UserDTO {
         this.roleName = roleName;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     @Override
     public String toString() {
-        return "UserDTO [firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName + ", email="
-                + email + ", roleName=" + roleName + "]";
+        return "UserDTO [firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName
+                + ", phoneNumber=" + phoneNumber + ", email=" + email + ", roleName=" + roleName + "]";
     }
+
 }

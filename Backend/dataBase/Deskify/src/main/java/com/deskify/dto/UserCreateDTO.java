@@ -3,6 +3,7 @@ package com.deskify.dto;
 public class UserCreateDTO {
 
     private String firstName;
+    private String phoneNumber;
     private String lastName;
     private String email;
     private String password;
@@ -10,8 +11,9 @@ public class UserCreateDTO {
     public UserCreateDTO() {
     }
 
-    public UserCreateDTO(String firstName, String lastName, String email, String password) {
+    public UserCreateDTO(String firstName, String lastName, String phoneNumber, String email, String password) {
         this.firstName = firstName;
+        this.phoneNumber = phoneNumber;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
@@ -31,6 +33,14 @@ public class UserCreateDTO {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getEmail() {

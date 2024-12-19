@@ -22,6 +22,9 @@ public class User {
     @Column(name = "last_name", length = 55)
     private String lastName;
 
+    @Column(name = "phone_number", length = 15, nullable = true, unique = true)
+    private String phoneNumber;
+
     @Column(name = "email", length = 100, unique = true)
     private String email;
 
@@ -41,13 +44,17 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String middleName, String lastName, String email, String password, Role role) {
+    public User(String firstName, String middleName, String lastName, String phoneNumber, String email, String password,
+            Role role, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     // This method is automatically called before persisting the entity
@@ -124,13 +131,22 @@ public class User {
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
+
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Override
     public String toString() {
         return "User [id=" + id + ", firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName
-                + ", email=" + email + ", password=" + password + ", role=" + role + ", createdAt=" + createdAt
-                + ", updatedAt=" + updatedAt + "]";
+                + ", phoneNumber=" + phoneNumber + ", email=" + email + ", password=" + password + ", role=" + role
+                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
     }
 
 }

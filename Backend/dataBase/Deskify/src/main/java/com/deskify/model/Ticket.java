@@ -13,10 +13,6 @@ public class Ticket {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-    @ManyToOne
     @JoinColumn(name = "category_id", nullable = true)
     private Category category;
 
@@ -30,10 +26,6 @@ public class Ticket {
     @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "status_id", nullable = true)
-    private Priority status;
-
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
@@ -43,13 +35,11 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(User user, Category category, Priority priority, String title, String description, Priority status) {
-        this.user = user;
+    public Ticket(Category category, Priority priority, String title, String description) {
         this.category = category;
         this.priority = priority;
         this.title = title;
         this.description = description;
-        this.status = status;
     }
 
     // This method is automatically called before persisting the entity
@@ -70,14 +60,6 @@ public class Ticket {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public Category getCategory() {
@@ -112,13 +94,6 @@ public class Ticket {
         this.description = description;
     }
 
-    public Priority getStatus() {
-        return status;
-    }
-
-    public void setStatus(Priority status) {
-        this.status = status;
-    }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
@@ -130,9 +105,10 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return "Ticket [id=" + id + ", user=" + user + ", category=" + category + ", priority=" + priority + ", title="
-                + title + ", description=" + description + ", status=" + status + ", createdAt=" + createdAt
-                + ", updatedAt=" + updatedAt + "]";
+        return "Ticket [id=" + id + ", category=" + category + ", priority=" + priority + ", title="
+                + title + ", description=" + description + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+                + "]";
     }
+
 
 }

@@ -9,12 +9,8 @@ import com.deskify.model.Ticket;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
-    
-    List<Ticket> findByUserId(Long userId);
 
     List<Ticket> findByCategoryId(Long categoryId);
 
     List<Ticket> findByPriorityId(Long priorityId);
-
-    List<Ticket> findByStatusId(Long statusId);
 }
