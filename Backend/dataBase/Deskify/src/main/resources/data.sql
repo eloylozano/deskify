@@ -24,13 +24,13 @@ VALUES
 (1, 'Free', 'Free plan with limited access to basic features for 14 days.', NULL, 14),
 (2, 'Employee', 'Plan owned by employees to work as agents.', NULL, NULL),
 (3, 'Basic', 'Basic plan with limited features, suitable for occasional users.', 9.95, 30),
-(4, 'Medium', 'Intermediate plan with more features and priority support access.', 14.99, 30),
+(4, 'Standard', 'Intermediate plan with more features and priority support access.', 14.99, 30),
 (5, 'Premium', 'Premium plan with full access to all features and priority support.', 19.95, 30),
 (6, 'Basic Three Month', 'Basic plan for three months, ideal for users needing more time.', 25.95, 90),
-(7, 'Medium Three Month', 'Intermediate plan for three months with additional features and benefits.', 39.95, 90),
+(7, 'Standard Three Month', 'Intermediate plan for three months with additional features and benefits.', 39.95, 90),
 (8, 'Premium Three Month', 'Premium plan for three months with full access to all features.', 49.95, 90),
 (9, 'Basic Year', 'Basic annual plan, ideal for those preferring long-term subscriptions with a discount.', 19.45, 365),
-(10, 'Medium Year', 'Intermediate annual plan with more features and competitive pricing.', 164.89, 365),
+(10, 'Standard Year', 'Intermediate annual plan with more features and competitive pricing.', 164.89, 365),
 (11, 'Premium Year', 'Premium annual plan with full access to all features for one year.', 219.45, 365);
 
 INSERT INTO `priorities` (`id`, `name`, `description`) VALUES
