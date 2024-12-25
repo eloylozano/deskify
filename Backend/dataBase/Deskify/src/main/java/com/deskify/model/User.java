@@ -2,6 +2,8 @@ package com.deskify.model;
 
 import java.time.LocalDateTime;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -31,6 +33,10 @@ public class User {
     @Column(name = "password", length = 60, nullable = false)
     private String password;
 
+    @Value("${profile.pictures.path}") // Allows access to the file where the photos are stored
+    @Column(name = "profile_picture_url", length = 255, nullable = true)
+    private String profilePictureUrl;
+
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
@@ -45,13 +51,14 @@ public class User {
     }
 
     public User(String firstName, String middleName, String lastName, String phoneNumber, String email, String password,
-            Role role, LocalDateTime createdAt, LocalDateTime updatedAt) {
+            String profilePictureUrl, Role role, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.password = password;
+        this.profilePictureUrl = profilePictureUrl;
         this.role = role;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -142,11 +149,16 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getProfilePictureUrl() {
+        return profilePictureUrl;
+    }
+
+
     @Override
     public String toString() {
         return "User [id=" + id + ", firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName
-                + ", phoneNumber=" + phoneNumber + ", email=" + email + ", password=" + password + ", role=" + role
-                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+                + ", phoneNumber=" + phoneNumber + ", email=" + email + ", password=" + password
+                + ", profilePictureUrl=" + profilePictureUrl + ", role=" + role + ", createdAt=" + createdAt
+                + ", updatedAt=" + updatedAt + "]";
     }
-
 }
