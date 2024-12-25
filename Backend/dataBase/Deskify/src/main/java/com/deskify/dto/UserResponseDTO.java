@@ -4,22 +4,30 @@ import java.time.LocalDateTime;
 
 public class UserResponseDTO {
 
-    private Long userId;
     private String firstName;
+    private String middleName;
     private String lastName;
+    private String phoneNumber;
     private String email;
+    private String pictureUrl;
     private String roleName;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public UserResponseDTO() {
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public UserResponseDTO(String firstName, String middleName, String lastName, String phoneNumber, String email,
+            String pictureUrl, String roleName, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.pictureUrl = pictureUrl;
+        this.roleName = roleName;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public String getFirstName() {
@@ -30,6 +38,14 @@ public class UserResponseDTO {
         this.firstName = firstName;
     }
 
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
     public String getLastName() {
         return lastName;
     }
@@ -38,12 +54,12 @@ public class UserResponseDTO {
         this.lastName = lastName;
     }
 
-    public UserResponseDTO(String firstName, String lastName, String email, String roleName, LocalDateTime createdAt) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.roleName = roleName;
-        this.createdAt = createdAt;
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getEmail() {
@@ -52,6 +68,14 @@ public class UserResponseDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
     }
 
     public String getRoleName() {
@@ -70,9 +94,19 @@ public class UserResponseDTO {
         this.createdAt = createdAt;
     }
 
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     @Override
     public String toString() {
-        return "UserResponseDTO [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", roleName=" + roleName + ", createdAt=" + createdAt + "]";
+        return "UserResponseDTO [firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName
+                + ", phoneNumber=" + phoneNumber + ", email=" + email + ", pictureUrl=" + pictureUrl + ", roleName="
+                + roleName + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
     }
 
 }
