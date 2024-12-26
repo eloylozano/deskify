@@ -2,9 +2,15 @@ package com.deskify.model;
 
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "tickets")
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
 public class Ticket {
 
     @Id
@@ -32,16 +38,6 @@ public class Ticket {
     @Column(name = "updated_at", nullable = true)
     private LocalDateTime updatedAt;
 
-    public Ticket() {
-    }
-
-    public Ticket(Category category, Priority priority, String title, String description) {
-        this.category = category;
-        this.priority = priority;
-        this.title = title;
-        this.description = description;
-    }
-
     // This method is automatically called before persisting the entity
     @PrePersist
     protected void onCreate() {
@@ -53,62 +49,5 @@ public class Ticket {
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Priority getPriority() {
-        return priority;
-    }
-
-    public void setPriority(Priority priority) {
-        this.priority = priority;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    @Override
-    public String toString() {
-        return "Ticket [id=" + id + ", category=" + category + ", priority=" + priority + ", title="
-                + title + ", description=" + description + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-                + "]";
-    }
-
 
 }

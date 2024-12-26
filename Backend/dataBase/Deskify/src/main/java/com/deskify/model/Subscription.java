@@ -3,9 +3,15 @@ package com.deskify.model;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "subscriptions")
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
 public class Subscription {
 
     @Id
@@ -30,15 +36,6 @@ public class Subscription {
     @Column(name = "is_Active", nullable = false)
     private boolean isActive;
 
-    public Subscription() {
-    }
-
-    public Subscription(User user, Plan plan) {
-        this.user = user;
-        this.plan = plan;
-        this.isActive = true; // Supossing the plan stars as active
-    }
-
     // This method is called before persisting the entity. 
     @PrePersist
     private void prePersist() {
@@ -49,60 +46,6 @@ public class Subscription {
             // Assuming the plan duration is in days
             this.endDateTime = this.startDateTime.plusDays(this.plan.getDuration());
         }
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Plan getPlan() {
-        return plan;
-    }
-
-    public void setPlan(Plan plan) {
-        this.plan = plan;
-    }
-
-    public LocalDateTime getStartDateTime() {
-        return startDateTime;
-    }
-
-    public void setStartDateTime(LocalDateTime startDateTime) {
-        this.startDateTime = startDateTime;
-    }
-
-    public LocalDateTime getEndDateTime() {
-        return endDateTime;
-    }
-
-    public void setEndDateTime(LocalDateTime endDateTime) {
-        this.endDateTime = endDateTime;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean isActive) {
-        this.isActive = isActive;
-    }
-
-    @Override
-    public String toString() {
-        return "Subscription [id=" + id + ", user=" + user + ", plan=" + plan + ", startDateTime=" + startDateTime
-                + ", endDateTime=" + endDateTime + ", isActive=" + isActive + "]";
     }
 
 }

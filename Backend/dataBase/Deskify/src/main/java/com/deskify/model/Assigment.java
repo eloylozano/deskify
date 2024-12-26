@@ -3,9 +3,15 @@ package com.deskify.model;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "assigments")
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
 public class Assigment {
 
     @Id
@@ -19,58 +25,16 @@ public class Assigment {
 
     @ManyToOne
     @JoinColumn(name = "agent_id", nullable = true)
-    private User agent; 
+    private User agent;
 
     @Column(name = "assigned_at", nullable = true, updatable = false)
     private LocalDateTime assignedAt;
 
-    public Assigment() {
-    }
-
-    public Assigment(Ticket ticket, User agent) {
-        this.ticket = ticket;
-        this.agent = agent;
-    }
-
-    // This method will be automatically called before a new entity is persisted to the database.
+    // This method will be automatically called before a new entity is persisted to
+    // the database.
     @PrePersist
     protected void onCreate() {
         this.assignedAt = LocalDateTime.now();
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Ticket getTicket_id() {
-        return ticket;
-    }
-
-    public void setTicket_id(Ticket ticket_id) {
-        this.ticket = ticket_id;
-    }
-
-    public User getAgent_id() {
-        return agent;
-    }
-
-    public void setAgent_id(User agent_id) {
-        this.agent = agent_id;
-    }
-
-    public LocalDateTime getAssignedAt() {
-        return assignedAt;
-    }
-
-    @Override
-    public String toString() {
-        return "Assigment [id=" + id + ", ticket=" + ticket + ", agent=" + agent + ", assignedAt=" + assignedAt + "]";
-    }
-
-    
 
 }
