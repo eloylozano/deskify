@@ -9,11 +9,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "users")
-
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class User {
 
     @Id
@@ -38,6 +42,9 @@ public class User {
 
     @Column(name = "password", length = 60, nullable = false)
     private String password;
+
+    @Column(name = "company", length = 100, nullable = true)
+    private String company;
 
     @Value("${profile.pictures.path}") // Allows access to the file where the photos are stored
     @Column(name = "profile_picture_url", length = 255, nullable = true)

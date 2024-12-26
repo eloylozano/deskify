@@ -10,7 +10,11 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "tickets")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Ticket {
 
     @Id
@@ -31,6 +35,10 @@ public class Ticket {
 
     @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "created_by", nullable = false)
+    private User createdBy; // User who create the ticket
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

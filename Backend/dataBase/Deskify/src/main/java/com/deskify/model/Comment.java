@@ -28,15 +28,15 @@ public class Comment {
     private User user;
 
     @Column(name = "comment", length = 255, columnDefinition = "TEXT")
-    private String comment;
+    private String commentText;
 
     @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime writtenAt;
 
     // This method is automatically called before inserting a new comment into the database.
     @PrePersist
     protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
+        this.writtenAt = LocalDateTime.now();
     }
 
 }

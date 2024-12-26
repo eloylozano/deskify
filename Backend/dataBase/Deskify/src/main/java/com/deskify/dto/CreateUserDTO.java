@@ -1,7 +1,5 @@
 package com.deskify.dto;
 
-import java.time.LocalDateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
-public class UserResponseDTO {
+public class CreateUserDTO {
 
     private String firstName;
     private String middleName;
@@ -19,6 +17,5 @@ public class UserResponseDTO {
     private String company;
     private String roleName;
     private String planName;
-    private LocalDateTime createdAt;
     
 }
