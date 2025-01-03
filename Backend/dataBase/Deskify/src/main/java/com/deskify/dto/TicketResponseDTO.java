@@ -19,8 +19,8 @@ import lombok.ToString;
 public class TicketResponseDTO {
 
     private Long id;
-    private String categoryName;
-    private String priorityName;
+    private CategoryDTO category;
+    private PriorityDTO priority;
     private String statusName;
     private String clientName;
     private String agentName;
