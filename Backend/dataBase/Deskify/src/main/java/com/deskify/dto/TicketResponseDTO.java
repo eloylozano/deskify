@@ -21,7 +21,7 @@ public class TicketResponseDTO {
     private Long id;
     private CategoryDTO category;
     private PriorityDTO priority;
-    private String statusName;
+    private TicketHistoryDTO currentStatus;
     private String clientName;
     private String agentName;
     private String title;
