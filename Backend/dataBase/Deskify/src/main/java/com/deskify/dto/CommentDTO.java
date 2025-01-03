@@ -16,7 +16,7 @@ public class CommentDTO {
     private String userFullName;
     private String userEmail;
     private String commentText;
-    private LocalDateTime writtenAt;
+    private LocalDateTime writtenOn;
 
     public void setUser(User user) {
         this.userFullName = user.getFirstName() + " " + user.getLastName(); 

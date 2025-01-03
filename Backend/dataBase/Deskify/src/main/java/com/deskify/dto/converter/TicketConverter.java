@@ -3,11 +3,15 @@ package com.deskify.dto.converter;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import com.deskify.dto.AgentAssignedDTO;
+import com.deskify.dto.ClientDTO;
 import com.deskify.dto.CreateTicketDTO;
 import com.deskify.dto.TicketHistoryDTO;
 import com.deskify.dto.TicketResponseDTO;
+import com.deskify.model.Assignment;
 import com.deskify.model.Ticket;
 import com.deskify.model.TicketHistory;
+import com.deskify.repository.AssignmentRepository;
 import com.deskify.repository.TicketHistoryRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -17,7 +21,8 @@ import lombok.RequiredArgsConstructor;
 public class TicketConverter {
 
     private final ModelMapper mapper;
-    private final TicketHistoryRepository thRepository; 
+    private final TicketHistoryRepository thRepository;
+    private final AssignmentRepository assignmentRepository;
 
     public CreateTicketDTO convertToDTO(Ticket ticket) {
         return mapper.map(ticket, CreateTicketDTO.class);
@@ -37,7 +42,25 @@ public class TicketConverter {
             ticketDTO.setCurrentStatus(statusDTO);
         }
 
+        // Set client (createdBy)
+        if (ticket.getCreatedBy() != null) {
+            ClientDTO clientDTO = new ClientDTO(
+                ticket.getCreatedBy().getFirstName() + " " + ticket.getCreatedBy().getLastName(),
+                ticket.getCreatedBy().getEmail()
+            );
+            ticketDTO.setClient(clientDTO);
+        }
+
+        // Set agent (assignedTo)
+        Assignment latestAssignment = assignmentRepository.findTopByTicketIdOrderByAssignedAtDesc(ticket.getId());
+        if (latestAssignment != null && latestAssignment.getAgent() != null) {
+            AgentAssignedDTO agentDTO = new AgentAssignedDTO(
+                latestAssignment.getAgent().getFirstName() + " " + latestAssignment.getAgent().getLastName(),
+                latestAssignment.getAgent().getEmail()
+            );
+            ticketDTO.setAgent(agentDTO);
+        }
+
         return ticketDTO;
     }
 }
-
