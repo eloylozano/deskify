@@ -13,12 +13,12 @@ import lombok.ToString;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
 public class CommentDTO {
 
-    private Long ticketId;
     private String userFullName;
+    private String userEmail;
     private String commentText;
     private LocalDateTime writtenAt;
 
     public void setUser(User user) {
-        this.userFullName = user.getFirstName() + " " + user.getLastName();
+        this.userFullName = user.getFirstName() + " " + user.getLastName(); 
     }
 }

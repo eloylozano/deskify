@@ -13,8 +13,8 @@ import lombok.ToString;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
 public class CreateTicketDTO {
 
-    private String CategoryName;
-    private String PriorityName;
+    private String categoryName;
+    private String priorityName;
     private String statusName;
     private String clientName;
     private String title;

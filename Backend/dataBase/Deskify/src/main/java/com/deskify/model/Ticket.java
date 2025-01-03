@@ -1,6 +1,9 @@
 package com.deskify.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,6 +38,9 @@ public class Ticket {
 
     @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
+
+    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
 
     @ManyToOne
     @JoinColumn(name = "created_by", nullable = false)
