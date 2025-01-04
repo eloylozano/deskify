@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping(value = "/ticket")
@@ -36,17 +37,20 @@ public class TicketController {
     @GetMapping("/{id}")
     public ResponseEntity<TicketResponseDTO> getTicketById(@PathVariable("id") Long id) {
         TicketResponseDTO ticket = ticketService.getTicketById(id);
-        if (ticket == null) {
-            return ResponseEntity.notFound().build(); // Return not found
-        }
-        return ResponseEntity.ok(ticket); // Return OK
+        return ResponseEntity.ok(ticket); 
     }
 
     @PostMapping("/create")
-    public ResponseEntity<TicketResponseDTO> createTicket(@RequestBody CreateTicketDTO  ticketDTO) { 
+    public ResponseEntity<TicketResponseDTO> createTicket(@RequestBody CreateTicketDTO ticketDTO) {
         TicketResponseDTO ticketResponseDTO = ticketService.saveTicket(ticketDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(ticketResponseDTO);
     }
-    
+
+    @PutMapping("update/{id}")
+    public String putMethodName(@PathVariable String id, @RequestBody CreateTicketDTO ticketDTO) {
+        // TODO: process PUT request
+
+        return null;
+    }
 
 }

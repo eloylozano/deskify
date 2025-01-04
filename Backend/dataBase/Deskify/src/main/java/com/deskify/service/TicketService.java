@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.deskify.dto.CreateTicketDTO;
 import com.deskify.dto.TicketResponseDTO;
 import com.deskify.dto.converter.TicketConverter;
+import com.deskify.error.TicketNotFoundException;
+import com.deskify.error.UserNotFoundException;
 import com.deskify.model.Ticket;
 import com.deskify.model.User;
 import com.deskify.repository.TicketRepository;
@@ -39,12 +41,12 @@ public class TicketService implements ITicketService {
 
     @Override
     public TicketResponseDTO getTicketById(Long id) {
-        Optional<Ticket> ticketOp = ticketsRepo.findById(id);
-        if (ticketOp.isPresent()) {
-            return ticketConverter.convertToTicketResponseDTO(ticketOp.get());
-    } else {
-            return null;
-        }
+
+        // Find the ticket by ID
+        Ticket ticket = ticketsRepo.findById(id)
+                .orElseThrow(() -> new TicketNotFoundException(id));
+
+        return ticketConverter.convertToTicketResponseDTO(ticket);
     }
 
     @Override
@@ -57,16 +59,16 @@ public class TicketService implements ITicketService {
         ticket.setDescription(createTicketDTO.getDescription());
 
         // Find the user by email address
-        User createdBy = userRepo.findByEmail(createTicketDTO.getEmail());
-        ticket.setCreatedBy(createdBy);
+        User createdBy = userRepo.findByEmail(createTicketDTO.getEmail())
+                .orElseThrow(() -> new UserNotFoundException(createTicketDTO.getEmail()));
 
-        // Save the ticket 
+        ticket.setCreatedBy(createdBy);
+        // Save the ticket
         Ticket savedTicket = ticketsRepo.save(ticket);
 
         // Convert the saved ticket in to DTO
         return ticketConverter.convertToTicketResponseDTO(savedTicket);
     }
-
 
     @Transactional
     @Override
