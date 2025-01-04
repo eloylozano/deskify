@@ -11,8 +11,10 @@ import com.deskify.dto.TicketResponseDTO;
 import com.deskify.model.Assignment;
 import com.deskify.model.Ticket;
 import com.deskify.model.TicketHistory;
+import com.deskify.model.User;
 import com.deskify.repository.AssignmentRepository;
 import com.deskify.repository.TicketHistoryRepository;
+import com.deskify.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,6 +25,7 @@ public class TicketConverter {
     private final ModelMapper mapper;
     private final TicketHistoryRepository thRepository;
     private final AssignmentRepository assignmentRepository;
+    private final UserRepository userRepository;
 
     public CreateTicketDTO convertToDTO(Ticket ticket) {
         return mapper.map(ticket, CreateTicketDTO.class);

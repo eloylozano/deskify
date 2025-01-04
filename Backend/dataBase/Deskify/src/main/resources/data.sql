@@ -78,7 +78,7 @@ INSERT INTO `role_permissions` (`role_id`, `permission_id`) VALUES
 
 
 INSERT INTO `users` (`id`, `first_name`, `middle_name`, `last_name`, `phone_number`, `email`, `password`,`company`, `profile_picture_url`, `role_id`, `created_at`, `updated_at`) VALUES
-(1, 'John', 'Doe', 'Smith', '+34 612 345 678', 'john.smith@example.com', 'Abcd123', NULL, NULL, 1, '2023-01-15 09:45:32', '2023-01-15 09:45:32'),
+(1, 'Eloy', 'Lozano', 'Barrios', '+34 633 640 634', 'eloy.lozano@gmail.com', 'Abcd123', NULL, NULL, 1, '2023-01-15 09:45:32', '2023-01-15 09:45:32'),
 (2, 'Jane', 'A.', 'Doe', '+34 623 234 567', 'jane.doe@example.com', 'Abcd123', NULL, NULL, 4, '2023-02-03 08:30:12', '2023-02-03 08:30:12'),
 (3, 'Alice', '', 'Johnson', '+34 634 345 678', 'alice.johnson@example.com', 'Abcd123', NULL, NULL, 5, '2023-05-22 14:21:47', '2023-05-22 14:21:47'),
 (4, 'Bob', 'M.', 'Williams', '+34 645 456 789', 'bob.williams@example.com', 'Abcd123', NULL, NULL, 3, '2023-06-11 12:55:23', '2023-06-11 12:55:23'),

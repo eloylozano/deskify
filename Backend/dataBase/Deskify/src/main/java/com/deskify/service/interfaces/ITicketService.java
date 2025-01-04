@@ -12,9 +12,9 @@ public interface ITicketService {
 
     public TicketResponseDTO getTicketById(Long id);
 
-    public CreateTicketDTO createTicket(Ticket ticket);
+    public TicketResponseDTO saveTicket(CreateTicketDTO createTicketDTO);
 
-    public CreateTicketDTO updateTicket(Ticket ticket);
+    public TicketResponseDTO updateTicket(CreateTicketDTO createTicketDTO);
 
     public void deleteTicket(Long id);
 

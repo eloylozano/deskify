@@ -31,12 +31,12 @@ public class Comment {
     private String commentText;
 
     @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime writtenAt;
+    private LocalDateTime writtenOn;
 
     // This method is automatically called before inserting a new comment into the database.
     @PrePersist
     protected void onCreate() {
-        this.writtenAt = LocalDateTime.now();
+        this.writtenOn = LocalDateTime.now();
     }
 
 }
