@@ -8,9 +8,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class UserResponseDTO {
-
+    
+    private String profilePictureUrl;
     private String firstName;
     private String middleName;
     private String lastName;
@@ -20,5 +25,5 @@ public class UserResponseDTO {
     private String roleName;
     private String planName;
     private LocalDateTime createdAt;
-    
+
 }

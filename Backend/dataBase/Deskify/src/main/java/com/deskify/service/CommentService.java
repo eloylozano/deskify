@@ -3,7 +3,6 @@ package com.deskify.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.deskify.dto.CommentDTO;
 import com.deskify.dto.CommentResponseDTO;
 import com.deskify.error.CommentNotFoundException;
 import com.deskify.error.TicketNotFoundException;
