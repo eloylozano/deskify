@@ -1,5 +1,8 @@
 package com.deskify.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,14 +18,14 @@ import com.deskify.service.interfaces.IUserService;
 public class UserService implements IUserService {
 
     @Autowired
-    UserRepository userRepository;
+    UserRepository userRepo;
     @Autowired
     UserConverter userConverter;
 
     @Override
     public UserResponseDTO createUser(CreateUserDTO createUser) {
         // Validate the user
-        if (userRepository.existsByEmail(createUser.getEmail())) {
+        if (userRepo.existsByEmail(createUser.getEmail())) {
             // Throw error already exists
             throw new UserAlreadyExists(createUser.getEmail());
         }
@@ -35,10 +38,18 @@ public class UserService implements IUserService {
         newUser.setPassword(createUser.getPassword());
 
         // Save the user
-        User savedUser = userRepository.save(newUser);
+        User savedUser = userRepo.save(newUser);
 
         // Convert user to dto
         return userConverter.convertToDTO(savedUser);
+    }
+
+    @Override
+    public List<UserResponseDTO> getAllUsers() {
+        List<User> ticketList = userRepo.findAll();
+        return ticketList.stream()
+                .map(userConverter::convertToDTO) // Uses converter to get userDTO
+                .collect(Collectors.toList());
     }
 
 }
