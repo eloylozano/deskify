@@ -25,5 +25,6 @@ public class UserResponseDTO {
     private String roleName;
     private String planName;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 }

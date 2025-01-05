@@ -11,4 +11,6 @@ public interface IUserService {
 
     public UserResponseDTO createUser(CreateUserDTO createUser);
 
+    public UserResponseDTO updateUser(Long id, UserResponseDTO userDTO);
+
 }
