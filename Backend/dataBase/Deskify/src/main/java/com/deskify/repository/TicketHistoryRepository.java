@@ -13,7 +13,8 @@ public interface TicketHistoryRepository extends JpaRepository<TicketHistory, Lo
 
     List<TicketHistory> findByTicketIdOrderByChangedAtDesc(Long ticketId);
 
-
     TicketHistory findByTicket(Ticket ticket);
+
+    void deleteByTicketId(Long id);
 
 }

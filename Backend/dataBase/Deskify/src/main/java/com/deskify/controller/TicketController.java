@@ -17,6 +17,8 @@ import com.deskify.error.PriorityNotFoundException;
 import com.deskify.error.StatusNotFoundException;
 import com.deskify.error.TicketNotFoundException;
 import com.deskify.service.TicketService;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -60,5 +62,11 @@ public class TicketController {
                 CategoryNotFoundException | AgentNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // or some custom message
         } 
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteTicket(@PathVariable("id") Long id) {
+        ticketService.deleteTicket(id);
+        return ResponseEntity.noContent().build();
     }
 }

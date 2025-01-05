@@ -20,5 +20,7 @@ public interface AssignmentRepository extends JpaRepository<Assignment, Long> {
 
     List<Assignment> findByTicketIdOrderByAssignedAtDesc(Long ticketId);
 
+    void deleteByTicketId(Long id);
+
 
 }

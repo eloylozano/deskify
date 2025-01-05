@@ -38,121 +38,131 @@ import jakarta.transaction.Transactional;
 @Service
 public class TicketService implements ITicketService {
 
-    @Autowired
-    TicketRepository ticketRepo;
-    @Autowired
-    TicketHistoryRepository ticketHistoryRepo;
-    @Autowired
-    UserRepository userRepo;
-    @Autowired
-    CategoryRepository categoryRepo;
-    @Autowired
-    StatusRepository statusRepo;
-    @Autowired
-    PriorityRepository priorityRepo;
-    @Autowired
-    AssignmentRepository assignmentRepo;
+        @Autowired
+        TicketRepository ticketRepo;
+        @Autowired
+        TicketHistoryRepository ticketHistoryRepo;
+        @Autowired
+        UserRepository userRepo;
+        @Autowired
+        CategoryRepository categoryRepo;
+        @Autowired
+        StatusRepository statusRepo;
+        @Autowired
+        PriorityRepository priorityRepo;
+        @Autowired
+        AssignmentRepository assignmentRepo;
 
-    @Autowired
-    private TicketConverter ticketConverter;
+        @Autowired
+        private TicketConverter ticketConverter;
 
-    @Override
-    public List<TicketResponseDTO> getTicketList() {
-        List<Ticket> ticketList = ticketRepo.findAll();
-        return ticketList.stream()
-                .map(ticketConverter::convertToTicketResponseDTO) // Uses converter to get ticketResponseDTO
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public TicketResponseDTO getTicketById(Long id) {
-
-        // Find the ticket by ID
-        Ticket ticket = ticketRepo.findById(id)
-                .orElseThrow(() -> new TicketNotFoundException(id));
-
-        return ticketConverter.convertToTicketResponseDTO(ticket);
-    }
-
-    @Override
-    public TicketResponseDTO saveTicket(CreateTicketDTO createTicketDTO) {
-        // Creates new ticket
-        Ticket ticket = new Ticket();
-
-        // Set title and description
-        ticket.setTitle(createTicketDTO.getTitle());
-        ticket.setDescription(createTicketDTO.getDescription());
-
-        // Find the user by email address
-        User createdBy = userRepo.findByEmail(createTicketDTO.getEmail())
-                .orElseThrow(() -> new UserNotFoundException(createTicketDTO.getEmail()));
-
-        ticket.setCreatedBy(createdBy);
-        // Save the ticket
-        Ticket savedTicket = ticketRepo.save(ticket);
-
-        // Convert the saved ticket in to DTO
-        return ticketConverter.convertToTicketResponseDTO(savedTicket);
-    }
-
-    @Transactional
-    @Override
-    public TicketResponseDTO updateTicket(UpdateTicketDTO updateTicketDTO) {
-        // Find the ticket by ID
-        Ticket ticket = ticketRepo.findById(updateTicketDTO.getTicketId())
-                .orElseThrow(() -> new TicketNotFoundException(updateTicketDTO.getTicketId()));
-
-        // Find the new status from statusRepo
-        Status newStatus = statusRepo.findByName(updateTicketDTO.getStatusName())
-                .stream()
-                .findFirst()
-                .orElseThrow(() -> new StatusNotFoundException(updateTicketDTO.getStatusName()));
-
-        // Create a new ticket status history record to log the status change
-        TicketHistory statusHistory = new TicketHistory();
-        statusHistory.setTicket(ticket);
-        statusHistory.setStatus(newStatus);
-        statusHistory.setChangedAt(LocalDateTime.now());
-
-        // Save the status history
-        ticketHistoryRepo.save(statusHistory);
-
-        // Update other fields (priority, category, agent)
-        Priority newPriority = priorityRepo.findByName(updateTicketDTO.getPriorityName())
-                .orElseThrow(() -> new PriorityNotFoundException(updateTicketDTO.getPriorityName()));
-        ticket.setPriority(newPriority);
-
-        Category newCategory = categoryRepo.findById(updateTicketDTO.getCategoryId())
-                .orElseThrow(() -> new CategoryNotFoundException(updateTicketDTO.getCategoryId()));
-        ticket.setCategory(newCategory);
-
-        User newAgent = userRepo.findByEmail(updateTicketDTO.getAgentEmail())
-                .orElseThrow(() -> new AgentNotFoundException(updateTicketDTO.getAgentEmail()));
-
-        // Remove old assignment if exists
-        Assignment oldAssignment = assignmentRepo.findByTicket(ticket);
-        if (oldAssignment != null) {
-            assignmentRepo.delete(oldAssignment);
+        @Override
+        public List<TicketResponseDTO> getTicketList() {
+                List<Ticket> ticketList = ticketRepo.findAll();
+                return ticketList.stream()
+                                .map(ticketConverter::convertToTicketResponseDTO) // Uses converter to get
+                                                                                  // ticketResponseDTO
+                                .collect(Collectors.toList());
         }
 
-        // Assign new agent
-        Assignment newAssignment = new Assignment();
-        newAssignment.setTicket(ticket);
-        newAssignment.setAgent(newAgent);
-        assignmentRepo.save(newAssignment);
+        @Override
+        public TicketResponseDTO getTicketById(Long id) {
 
-        // Save updated ticket
-        Ticket updatedTicket = ticketRepo.save(ticket);
+                // Find the ticket by ID
+                Ticket ticket = ticketRepo.findById(id)
+                                .orElseThrow(() -> new TicketNotFoundException(id));
 
-        // Return the updated ticket response
-        return ticketConverter.convertToTicketResponseDTO(updatedTicket);
-    }
+                return ticketConverter.convertToTicketResponseDTO(ticket);
+        }
 
-    @Transactional
-    @Override
-    public void deleteTicket(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteTicket'");
-    }
+        @Override
+        public TicketResponseDTO saveTicket(CreateTicketDTO createTicketDTO) {
+                // Creates new ticket
+                Ticket ticket = new Ticket();
+
+                // Set title and description
+                ticket.setTitle(createTicketDTO.getTitle());
+                ticket.setDescription(createTicketDTO.getDescription());
+
+                // Find the user by email address
+                User createdBy = userRepo.findByEmail(createTicketDTO.getEmail())
+                                .orElseThrow(() -> new UserNotFoundException(createTicketDTO.getEmail()));
+
+                ticket.setCreatedBy(createdBy);
+                // Save the ticket
+                Ticket savedTicket = ticketRepo.save(ticket);
+
+                // Convert the saved ticket in to DTO
+                return ticketConverter.convertToTicketResponseDTO(savedTicket);
+        }
+
+        @Transactional
+        @Override
+        public TicketResponseDTO updateTicket(UpdateTicketDTO updateTicketDTO) {
+                // Find the ticket by ID
+                Ticket ticket = ticketRepo.findById(updateTicketDTO.getTicketId())
+                                .orElseThrow(() -> new TicketNotFoundException(updateTicketDTO.getTicketId()));
+
+                // Find the new status from statusRepo
+                Status newStatus = statusRepo.findByName(updateTicketDTO.getStatusName())
+                                .stream()
+                                .findFirst()
+                                .orElseThrow(() -> new StatusNotFoundException(updateTicketDTO.getStatusName()));
+
+                // Create a new ticket status history record to log the status change
+                TicketHistory statusHistory = new TicketHistory();
+                statusHistory.setTicket(ticket);
+                statusHistory.setStatus(newStatus);
+                statusHistory.setChangedAt(LocalDateTime.now());
+
+                // Save the status history
+                ticketHistoryRepo.save(statusHistory);
+
+                // Update other fields (priority, category, agent)
+                Priority newPriority = priorityRepo.findByName(updateTicketDTO.getPriorityName())
+                                .orElseThrow(() -> new PriorityNotFoundException(updateTicketDTO.getPriorityName()));
+                ticket.setPriority(newPriority);
+
+                Category newCategory = categoryRepo.findById(updateTicketDTO.getCategoryId())
+                                .orElseThrow(() -> new CategoryNotFoundException(updateTicketDTO.getCategoryId()));
+                ticket.setCategory(newCategory);
+
+                User newAgent = userRepo.findByEmail(updateTicketDTO.getAgentEmail())
+                                .orElseThrow(() -> new AgentNotFoundException(updateTicketDTO.getAgentEmail()));
+
+                // Remove old assignment if exists
+                Assignment oldAssignment = assignmentRepo.findByTicket(ticket);
+                if (oldAssignment != null) {
+                        assignmentRepo.delete(oldAssignment);
+                }
+
+                // Assign new agent
+                Assignment newAssignment = new Assignment();
+                newAssignment.setTicket(ticket);
+                newAssignment.setAgent(newAgent);
+                assignmentRepo.save(newAssignment);
+
+                // Save updated ticket
+                Ticket updatedTicket = ticketRepo.save(ticket);
+
+                // Return the updated ticket response
+                return ticketConverter.convertToTicketResponseDTO(updatedTicket);
+        }
+
+        @Transactional
+        @Override
+        public void deleteTicket(Long id) {
+                // Find the ticket by ID
+                Ticket ticket = ticketRepo.findById(id)
+                                .orElseThrow(() -> new TicketNotFoundException(id));
+
+                // Delete related assignments
+                assignmentRepo.deleteByTicketId(id);
+                // Eliminate dependent records in ticket_status_history
+                ticketHistoryRepo.deleteByTicketId(id);
+
+                // Delete the ticket
+                ticketRepo.delete(ticket);
+        }
 
 }
