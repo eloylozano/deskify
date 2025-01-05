@@ -14,7 +14,9 @@ import com.deskify.error.UserNotFoundException;
 import com.deskify.error.RoleNotFoundException;
 import com.deskify.model.User;
 import com.deskify.model.Role;
+import com.deskify.repository.CommentRepository;
 import com.deskify.repository.RoleRepository;
+import com.deskify.repository.SubscriptionRepository;
 import com.deskify.repository.UserRepository;
 import com.deskify.service.interfaces.IUserService;
 
@@ -26,9 +28,23 @@ public class UserService implements IUserService {
     @Autowired
     UserRepository userRepo;
     @Autowired
+    CommentRepository commentRepo;
+    @Autowired
+    SubscriptionRepository subscriptionRepo;
+    @Autowired
     RoleRepository roleRepo;
     @Autowired
     UserConverter userConverter;
+
+    @Override
+    public UserResponseDTO getUserById(Long id) {
+        // Encuentra al usuario por id
+        User user = userRepo.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id)); // Lanza una excepción si no se encuentra el usuario
+
+        // Convierte el usuario a DTO y lo devuelve
+        return userConverter.convertToDTO(user);
+    }
 
     @Override
     public UserResponseDTO createUser(CreateUserDTO createUser) {
@@ -85,11 +101,12 @@ public class UserService implements IUserService {
         user.setFirstName(userDTO.getFirstName());
         user.setMiddleName(userDTO.getMiddleName());
         user.setLastName(userDTO.getLastName());
-        user.setEmail(userDTO.getEmail()); 
+        user.setEmail(userDTO.getEmail()); // Actualización del email
         user.setPhoneNumber(userDTO.getPhoneNumber());
-        user.setCompany(userDTO.getCompany());
+        user.setCompany(userDTO.getCompany()); // Actualización de la compañía
         user.setProfilePictureUrl(userDTO.getProfilePictureUrl());
 
+        // Validate the role name
         if (userDTO.getRoleName() != null) {
             Role role = roleRepo.findByName(userDTO.getRoleName())
                     .orElseThrow(() -> new RoleNotFoundException(userDTO.getRoleName()));

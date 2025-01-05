@@ -8,4 +8,6 @@ import com.deskify.model.Comment;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
+    public void deleteByUserId(Long userId);
+
 }

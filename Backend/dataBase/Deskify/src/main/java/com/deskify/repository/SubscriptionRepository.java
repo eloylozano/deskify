@@ -7,5 +7,5 @@ import com.deskify.model.Subscription;
 
 @Repository
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
-
+    public void deleteByUserId(Long userId);
 }

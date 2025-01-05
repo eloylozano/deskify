@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.deskify.dto.CreateUserDTO;
 import com.deskify.dto.UserResponseDTO;
+import com.deskify.repository.UserRepository;
 import com.deskify.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +24,14 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    UserRepository userRepo;
+
+    @GetMapping("/{id}")
+    public UserResponseDTO getUserById(@PathVariable("id") Long id) {
+        return userService.getUserById(id);
+    }
 
     @GetMapping("/all")
     public ResponseEntity<List<UserResponseDTO>> listUsers() {
