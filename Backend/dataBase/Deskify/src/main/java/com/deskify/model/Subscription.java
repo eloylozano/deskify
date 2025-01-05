@@ -2,6 +2,8 @@ package com.deskify.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +13,11 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "subscriptions")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Subscription {
 
     @Id
@@ -20,11 +26,13 @@ public class Subscription {
     private Long id;
 
     @OneToOne
+    @JsonBackReference
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "plan_id", referencedColumnName = "id")
+    @JsonBackReference
     private Plan plan;
 
     @Column(name = "start_date", nullable = false, updatable = false)
@@ -36,7 +44,7 @@ public class Subscription {
     @Column(name = "is_Active", nullable = false)
     private boolean isActive;
 
-    // This method is called before persisting the entity. 
+    // This method is called before persisting the entity.
     @PrePersist
     private void prePersist() {
         if (this.startDateTime == null) {

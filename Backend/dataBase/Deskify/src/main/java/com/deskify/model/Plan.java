@@ -27,6 +27,6 @@ public class Plan {
     private Double price;
 
     @Column(name = "duration", length = 3, nullable = true)
-    private int duration;
+    private Integer duration;
 
 }
