@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class UserNotFoundException extends RuntimeException {
 
     public UserNotFoundException(String email) {
-        super("No se encontró un usuario con el correo: " + email);
+        super("Usuario no encontrado con el email: " + email);
     }
 }

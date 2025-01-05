@@ -24,7 +24,7 @@ public class TicketResponseDTO {
     private AgentAssignedDTO agent;
     private String title;
     private String description;
-    private List<CommentDTO> comments; // List of comments written
+    private List<CommentResponseDTO> comments; // List of comments written
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

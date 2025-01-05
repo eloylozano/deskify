@@ -15,9 +15,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class CommentDTO {
-
-    private Long ticketId;
+public class CommentResponseDTO {
+    
     private String userFullName;
     private String userEmail;
     private String commentText;

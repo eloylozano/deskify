@@ -1,0 +1,57 @@
+package com.deskify.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.deskify.dto.CommentResponseDTO;
+import com.deskify.error.TicketNotFoundException;
+import com.deskify.error.UserNotFoundException;
+import com.deskify.model.Comment;
+import com.deskify.model.User;
+import com.deskify.model.Ticket;
+import com.deskify.repository.CommentRepository;
+import com.deskify.repository.TicketRepository;
+import com.deskify.repository.UserRepository;
+import com.deskify.service.interfaces.ICommentService;
+
+@Service
+public class CommentService implements ICommentService {
+
+    @Autowired
+    private CommentRepository commentRepo;
+
+    @Autowired
+    private TicketRepository ticketRepo;
+
+    @Autowired
+    private UserRepository userRepo;
+
+    @Override
+    public CommentResponseDTO createComment(Long ticketId, String userEmail, String text) {
+        // Find ticket by ID
+        Ticket ticket = ticketRepo.findById(ticketId)
+                .orElseThrow(() -> new TicketNotFoundException(ticketId));
+        // Find user by email
+        User user = userRepo.findByEmail(userEmail)
+                .orElseThrow(() -> new UserNotFoundException(userEmail));
+
+        // Create new comment
+        Comment comment = new Comment();
+        comment.setTicket(ticket);
+        comment.setUser(user);
+        comment.setCommentText(text);
+
+        // Save the new comment
+        Comment savedComment = commentRepo.save(comment);
+
+        // Return commentDTO 
+        CommentResponseDTO responseDTO = new CommentResponseDTO(
+                savedComment.getUser().getFirstName() + " " + savedComment.getUser().getLastName(),
+                savedComment.getUser().getEmail(),
+                savedComment.getCommentText(),
+                savedComment.getWrittenOn());
+
+        return responseDTO;
+    }
+
+}

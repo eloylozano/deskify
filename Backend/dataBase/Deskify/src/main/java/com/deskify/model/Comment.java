@@ -2,6 +2,8 @@ package com.deskify.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,10 +23,12 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "ticket_id")
+    @JsonBackReference 
     private Ticket ticket;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference 
     private User user;
 
     @Column(name = "comment", length = 255, columnDefinition = "TEXT")

@@ -9,11 +9,12 @@ INSERT INTO `permissions` (`id`, `name`, `description`) VALUES
 (8, 'ASSIGN_TICKET', 'Permission to assign tickets to agents.'),
 (9, 'CHANGE_TICKET_PRIORITY', 'Permission to change ticket priority levels.'),
 (10, 'ACCESS_ADMIN_PANEL', 'Permission to access the admin panel features.');
+
 INSERT INTO `status` (`id`,`name`, `description`, `is_active`) 
 VALUES 
 (1, 'Abierto', 'El ticket ha sido creado y está a la espera de atención.', TRUE),
 (2, 'En Progreso', 'El ticket está siendo gestionado por un agente.', TRUE),
-(3, 'Pendiente', 'El ticket está a la espera de una revisión o acción adicional.', TRUE),
+(3, 'Pendiente', 'El ticket está a la espera de una respuesta por parte del cliente.', TRUE),
 (4, 'Cerrado', 'El ticket ha sido resuelto y cerrado.', FALSE),
 (5, 'Resuelto', 'El ticket ha sido resuelto pero no cerrado.', TRUE);
 
