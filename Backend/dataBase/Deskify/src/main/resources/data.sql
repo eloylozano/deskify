@@ -1,12 +1,3 @@
-INSERT INTO `status` (`id`,`name`, `description`, `is_active`) 
-VALUES 
-(1, 'Open', 'The ticket has been created and is awaiting attention.', TRUE),
-(2, 'In Progress', 'The ticket is being handled by an agent.', TRUE),
-(3, 'Pending', 'The ticket is awaiting further review or action.', TRUE),
-(4, 'Closed', 'The ticket has been resolved and closed.', FALSE),
-(5, 'Resolved', 'The ticket has been resolved but no closed.', TRUE);
-
-
 INSERT INTO `permissions` (`id`, `name`, `description`) VALUES
 (1, 'CREATE_TICKET', 'Permission to create new tickets.'),
 (2, 'VIEW_TICKET', 'Permission to view ticket details.'),
@@ -18,43 +9,50 @@ INSERT INTO `permissions` (`id`, `name`, `description`) VALUES
 (8, 'ASSIGN_TICKET', 'Permission to assign tickets to agents.'),
 (9, 'CHANGE_TICKET_PRIORITY', 'Permission to change ticket priority levels.'),
 (10, 'ACCESS_ADMIN_PANEL', 'Permission to access the admin panel features.');
+INSERT INTO `status` (`id`,`name`, `description`, `is_active`) 
+VALUES 
+(1, 'Abierto', 'El ticket ha sido creado y está a la espera de atención.', TRUE),
+(2, 'En Progreso', 'El ticket está siendo gestionado por un agente.', TRUE),
+(3, 'Pendiente', 'El ticket está a la espera de una revisión o acción adicional.', TRUE),
+(4, 'Cerrado', 'El ticket ha sido resuelto y cerrado.', FALSE),
+(5, 'Resuelto', 'El ticket ha sido resuelto pero no cerrado.', TRUE);
 
 INSERT INTO `plans` (`id`, `name`, `description`, `price`, `duration`) 
 VALUES 
-(1, 'Free', 'Free plan with limited access to basic features for 14 days.', NULL, 14),
-(2, 'Employee', 'Plan owned by employees to work as agents.', NULL, NULL),
-(3, 'Basic', 'Basic plan with limited features, suitable for occasional users.', 9.95, 30),
-(4, 'Standard', 'Intermediate plan with more features and priority support access.', 14.99, 30),
-(5, 'Premium', 'Premium plan with full access to all features and priority support.', 19.95, 30),
-(6, 'Basic Three Month', 'Basic plan for three months, ideal for users needing more time.', 25.95, 90),
-(7, 'Standard Three Month', 'Intermediate plan for three months with additional features and benefits.', 39.95, 90),
-(8, 'Premium Three Month', 'Premium plan for three months with full access to all features.', 49.95, 90),
-(9, 'Basic Year', 'Basic annual plan, ideal for those preferring long-term subscriptions with a discount.', 19.45, 365),
-(10, 'Standard Year', 'Intermediate annual plan with more features and competitive pricing.', 164.89, 365),
-(11, 'Premium Year', 'Premium annual plan with full access to all features for one year.', 219.45, 365);
+(1, 'Gratis', 'Plan gratuito con acceso limitado a las características básicas durante 14 días.', NULL, 14),
+(2, 'Empleado', 'Plan de propiedad de los empleados para trabajar como agentes.', NULL, NULL),
+(3, 'Básico', 'Plan básico con funciones limitadas, adecuado para usuarios ocasionales.', 9.95, 30),
+(4, 'Estándar', 'Plan intermedio con más funciones y acceso a soporte prioritario.', 14.99, 30),
+(5, 'Premium', 'Plan premium con acceso completo a todas las funciones y soporte prioritario.', 19.95, 30),
+(6, 'Básico Tres Meses', 'Plan básico por tres meses, ideal para usuarios que necesitan más tiempo.', 25.95, 90),
+(7, 'Estándar Tres Meses', 'Plan intermedio por tres meses con funciones y beneficios adicionales.', 39.95, 90),
+(8, 'Premium Tres Meses', 'Plan premium por tres meses con acceso completo a todas las funciones.', 49.95, 90),
+(9, 'Básico Año', 'Plan anual básico, ideal para quienes prefieren suscripciones a largo plazo con descuento.', 19.45, 365),
+(10, 'Estándar Año', 'Plan anual intermedio con más funciones y precios competitivos.', 164.89, 365),
+(11, 'Premium Año', 'Plan anual premium con acceso completo a todas las funciones durante un año.', 219.45, 365);
 
 INSERT INTO `priorities` (`id`, `name`, `description`) VALUES
-(1, 'Low', 'The issue is not urgent and can be resolved at a later time.'),
-(2, 'Medium', 'The issue is important but does not require immediate attention.'),
-(3, 'High', 'The issue needs to be addressed promptly and is of significant importance.'),
-(4, 'Urgent', 'The issue requires immediate attention and resolution.');
+(1, 'Baja', 'El problema no es urgente y puede resolverse en un momento posterior.'),
+(2, 'Media', 'El problema es importante, pero no requiere atención inmediata.'),
+(3, 'Alta', 'El problema debe ser atendido de inmediato y tiene una importancia significativa.'),
+(4, 'Urgente', 'El problema requiere atención inmediata y resolución.');
 
 INSERT INTO `categories` (`id`, `name`, `description`) VALUES
-(1, 'Technical Support', 'Issues related to hardware, software, and system troubleshooting.'),
-(2, 'Billing', 'Issues regarding invoices, payments, and subscription plans.'),
-(3, 'Account Management', 'Questions or problems related to user accounts and profiles.'),
-(4, 'General Inquiry', 'General questions or requests not related to specific issues.'),
-(5, 'Network Issues', 'Problems related to internet connectivity, network access, and infrastructure.'),
-(6, 'Security', 'Concerns regarding system security, data breaches, or suspicious activity.'),
-(7, 'Software Installation', 'Assistance with installing or configuring software applications.'),
-(8, 'Feature Request', 'Requests for new features or improvements to existing functionality.');
+(1, 'Soporte Técnico', 'Problemas relacionados con hardware, software y resolución de problemas del sistema.'),
+(2, 'Facturación', 'Problemas relacionados con facturas, pagos y planes de suscripción.'),
+(3, 'Gestión de Cuenta', 'Preguntas o problemas relacionados con cuentas de usuario y perfiles.'),
+(4, 'Consulta General', 'Preguntas generales o solicitudes no relacionadas con problemas específicos.'),
+(5, 'Problemas de Red', 'Problemas relacionados con la conectividad a internet, acceso a redes e infraestructura.'),
+(6, 'Seguridad', 'Preocupaciones relacionadas con la seguridad del sistema, filtraciones de datos o actividades sospechosas.'),
+(7, 'Instalación de Software', 'Asistencia con la instalación o configuración de aplicaciones de software.'),
+(8, 'Solicitud de Funcionalidad', 'Solicitudes de nuevas características o mejoras en las funcionalidades existentes.');
 
 INSERT INTO `roles` (`id`, `name`, `description`) VALUES
-(1, 'Admin', 'Full access to all system functionalities including user management and configuration.'),
-(2, 'Supervisor', 'Monitors ticket quality and agent performance.'),
-(3, 'Manager', 'Supervises agents and manages ticket assignments and performance.'),
-(4, 'Agent', 'Handles tickets and provides technical support to users.'),
-(5, 'Client', 'Can create tickets and track their status.');
+(1, 'Admin', 'Acceso completo a todas las funcionalidades del sistema, incluyendo la gestión de usuarios y configuración.'),
+(2, 'Supervisor', 'Monitorea la calidad de los tickets y el rendimiento de los agentes.'),
+(3, 'Manager', 'Supervisa a los agentes y gestiona las asignaciones de tickets y el rendimiento.'),
+(4, 'Agente', 'Gestiona los tickets y proporciona soporte técnico a los usuarios.'),
+(5, 'Cliente', 'Puede crear tickets y realizar un seguimiento de su estado.');
 
 INSERT INTO `role_permissions` (`role_id`, `permission_id`) VALUES
 (1, 1),
@@ -78,7 +76,7 @@ INSERT INTO `role_permissions` (`role_id`, `permission_id`) VALUES
 
 
 INSERT INTO `users` (`id`, `first_name`, `middle_name`, `last_name`, `phone_number`, `email`, `password`,`company`, `profile_picture_url`, `role_id`, `created_at`, `updated_at`) VALUES
-(1, 'Eloy', 'Lozano', 'Barrios', '+34 633 640 634', 'eloy.lozano@gmail.com', 'Abcd123', NULL, NULL, 1, '2023-01-15 09:45:32', '2023-01-15 09:45:32'),
+(1, 'Eloy', 'Lozano', 'Barrios', '+34 633 640 634', 'eloy.lozano@gmail.com', 'Abcd123', NULL, NULL, 4, '2023-01-15 09:45:32', '2023-01-15 09:45:32'),
 (2, 'Jane', 'A.', 'Doe', '+34 623 234 567', 'jane.doe@example.com', 'Abcd123', NULL, NULL, 4, '2023-02-03 08:30:12', '2023-02-03 08:30:12'),
 (3, 'Alice', '', 'Johnson', '+34 634 345 678', 'alice.johnson@example.com', 'Abcd123', NULL, NULL, 5, '2023-05-22 14:21:47', '2023-05-22 14:21:47'),
 (4, 'Bob', 'M.', 'Williams', '+34 645 456 789', 'bob.williams@example.com', 'Abcd123', NULL, NULL, 3, '2023-06-11 12:55:23', '2023-06-11 12:55:23'),
@@ -121,48 +119,46 @@ VALUES
 (13, 9, '2024-08-01 00:00:00', '2025-07-31 23:59:59', TRUE),
 (16, 10, '2024-09-01 00:00:00', '2025-08-31 23:59:59', TRUE);
 
-
-INSERT INTO `tickets` (`id`, `category_id`, `priority_id`, `title`, `description`,`created_by`, `created_at`, `updated_at`)  
+INSERT INTO `tickets` (`id`, `category_id`, `priority_id`, `title`, `description`, `created_by`, `created_at`, `updated_at`)  
 VALUES
-(1, 2, 3, 'Login issue', 'User unable to log in to the system with correct credentials', 3, '2023-01-05 10:15:32', '2023-01-05 10:15:32'),
-(2, 3, 4, 'Password Reset', 'Request for password reset due to forgotten password', 6, '2023-02-12 11:30:25', '2023-02-12 11:30:25'),
-(3, 1, 2, 'Bug in checkout process', 'Bug where the checkout button does not work on the payment page', 7, '2023-03-20 13:14:09', '2023-03-20 13:14:09'),
-(4, 2, 1, 'Email not sending', 'Issue with email not sending after submission of a form', 8, '2023-04-03 09:42:18', '2023-04-03 09:42:18'),
-(5, 3, 3, 'Page loading error', 'Page loads with a 404 error when clicking the homepage link', 26, '2023-05-05 10:51:11', '2023-05-05 10:51:11'),
-(6, 1, 4, 'Payment gateway failure', 'Payment gateway fails to process payments', 27, '2023-06-15 14:22:30', '2023-06-15 14:22:30'),
-(7, 2, 3, 'UI bug in dashboard', 'Bug with the display of user statistics on the dashboard', 28, '2023-07-01 12:07:56', '2023-07-01 12:07:56'),
-(8, 3, 1, 'Server overload', 'High traffic leading to server overload and crashing', 29, '2023-08-02 08:19:18', '2023-08-02 08:19:18'),
-(9, 1, 4, 'Profile picture upload issue', 'Error while uploading a profile picture on user account settings', 3, '2023-09-15 10:50:42', '2023-09-15 10:50:42'),
-(10, 2, 2, 'Broken links', 'Broken links on the FAQ page', 6, '2023-10-11 14:35:55', '2023-10-11 14:35:55'),
-(11, 3, 3, 'Feature request for custom themes', 'Request for new feature to add custom themes to the website', 7, '2023-11-13 15:21:04', '2023-11-13 15:21:04'),
-(12, 1, 2, 'Account locked after multiple login attempts', 'Account locked after multiple failed login attempts', 8, '2023-12-02 10:11:29', '2023-12-02 10:11:29'),
-(13, 2, 4, '2FA issue', 'User cannot receive 2FA code for login', 26, '2023-01-20 11:00:34', '2023-01-20 11:00:34'),
-(14, 3, 1, 'Slow website performance', 'Website takes too long to load, affecting user experience', 27, '2023-02-07 13:55:48', '2023-02-07 13:55:48'),
-(15, 1, 3, 'API authentication error', 'Error when trying to authenticate via the API', 28, '2023-03-28 09:42:11', '2023-03-28 09:42:11'),
-(16, 2, 4, 'Content not updating', 'Changes made to the content do not reflect on the site after saving', 29, '2023-04-09 10:21:55', '2023-04-09 10:21:55'),
-(17, 3, 2, 'App crash on startup', 'The mobile app crashes immediately upon launch', 3, '2023-05-21 15:09:32', '2023-05-21 15:09:32'),
-(18, 1, 1, 'Database connection error', 'Unable to connect to the database server', 6, '2023-06-18 13:13:03', '2023-06-18 13:13:03'),
-(19, 2, 4, 'Unable to upload files', 'User is unable to upload files to the server', 7, '2023-07-23 14:52:17', '2023-07-23 14:52:17'),
-(20, 3, 1, 'Broken search feature', 'Search functionality returns incorrect results or no results at all', 8, '2023-08-05 16:40:11', '2023-08-05 16:40:11'),
-(21, 1, 2, 'Slow login time', 'Login takes too long to complete', 26, '2023-09-18 12:05:13', '2023-09-18 12:05:13'),
-(22, 2, 3, 'Incorrect data display', 'Data displayed incorrectly on the user dashboard', 27, '2023-10-04 13:30:45', '2023-10-04 13:30:45'),
-(23, 3, 1, 'Mobile app UI freeze', 'UI of the mobile app freezes when navigating to settings', 28, '2023-10-12 09:45:22', '2023-10-12 09:45:22'),
-(24, 1, 4, 'Error in email notifications', 'Users are not receiving email notifications after an action is performed', 29, '2023-10-25 16:22:01', '2023-10-25 16:22:01'),
-(25, 2, 2, 'Feature not working on mobile', 'Certain feature does not work correctly on mobile devices', 3, '2023-11-03 08:10:58', '2023-11-03 08:10:58'),
-(26, 3, 3, 'Login form not responsive', 'Login form is not properly responsive on mobile devices', 6, '2023-11-12 14:40:15', '2023-11-12 14:40:15'),
-(27, 1, 4, 'File format issue', 'Uploaded file is not in the correct format, causing an error', 7, '2023-11-20 10:00:32', '2023-11-20 10:00:32'),
-(28, 2, 1, 'Unresponsive buttons on homepage', 'Buttons on the homepage do not respond when clicked', 8, '2023-12-01 11:55:28', '2023-12-01 11:55:28'),
-(29, 3, 2, 'Performance lag during video streaming', 'App performance lags when streaming videos', 26, '2023-12-05 09:20:47', '2023-12-05 09:20:47'),
-(30, 1, 4, 'Cannot access settings', 'User cannot access settings menu due to a bug', 27, '2023-12-10 17:35:13', '2023-12-10 17:35:13'),
-(31, 2, 3, 'Unclear error messages', 'Error messages shown to users are not clear or informative', 28, '2023-12-15 10:25:04', '2023-12-15 10:25:04'),
-(32, 3, 2, 'App update failure', 'App fails to update to the latest version', 29, '2023-12-18 12:47:18', '2023-12-18 12:47:18'),
-(33, 1, 1, 'Cannot reset password', 'User unable to reset their password using the recovery form', 3, '2023-12-22 14:11:40', '2023-12-22 14:11:40'),
-(34, 2, 4, 'Broken image links', 'Images on product pages are not displaying correctly due to broken links', 6, '2023-12-24 16:55:33', '2023-12-24 16:55:33'),
-(35, 3, 3, 'Mobile app login timeout', 'User is logged out automatically after a short period of inactivity', 7, '2023-12-28 15:39:29', '2023-12-28 15:39:29'),
-(36, 1, 2, 'Order confirmation not received', 'User did not receive an order confirmation email after purchase', 8, '2023-12-30 13:22:01', '2023-12-30 13:22:01'),
-(37, 2, 1, 'Issues with video upload', 'Videos are not uploading correctly or are corrupted', 26, '2024-01-03 14:51:13', '2024-01-03 14:51:13'),
-(38, 3, 4, 'Bug in payment interface', 'Payment interface is not responding after user clicks submit', 27, '2024-01-08 11:25:35', '2024-01-08 11:25:35');
-
+(1, 2, 3, 'Problema de inicio de sesión', 'El usuario no puede iniciar sesión en el sistema con las credenciales correctas', 3, '2023-01-05 10:15:32', '2023-01-05 10:15:32'),
+(2, 3, 4, 'Restablecimiento de contraseña', 'Solicitud de restablecimiento de contraseña debido a una contraseña olvidada', 6, '2023-02-12 11:30:25', '2023-02-12 11:30:25'),
+(3, 1, 2, 'Error en el proceso de pago', 'Error donde el botón de pago no funciona en la página de pago', 7, '2023-03-20 13:14:09', '2023-03-20 13:14:09'),
+(4, 2, 1, 'Correo electrónico no enviado', 'Problema con el envío de correos electrónicos después de enviar un formulario', 8, '2023-04-03 09:42:18', '2023-04-03 09:42:18'),
+(5, 3, 3, 'Error de carga de página', 'La página muestra un error 404 al hacer clic en el enlace de la página de inicio', 26, '2023-05-05 10:51:11', '2023-05-05 10:51:11'),
+(6, 1, 4, 'Fallo en la pasarela de pago', 'La pasarela de pago no puede procesar los pagos', 27, '2023-06-15 14:22:30', '2023-06-15 14:22:30'),
+(7, 2, 3, 'Error de interfaz en el panel de control', 'Error con la visualización de las estadísticas de usuario en el panel de control', 28, '2023-07-01 12:07:56', '2023-07-01 12:07:56'),
+(8, 3, 1, 'Sobrecarga del servidor', 'Tráfico elevado que provoca sobrecarga en el servidor y caídas', 29, '2023-08-02 08:19:18', '2023-08-02 08:19:18'),
+(9, 1, 4, 'Problema al cargar la foto de perfil', 'Error al intentar cargar una foto de perfil en la configuración de la cuenta del usuario', 3, '2023-09-15 10:50:42', '2023-09-15 10:50:42'),
+(10, 2, 2, 'Enlaces rotos', 'Enlaces rotos en la página de preguntas frecuentes', 6, '2023-10-11 14:35:55', '2023-10-11 14:35:55'),
+(11, 3, 3, 'Solicitud de función para temas personalizados', 'Solicitud de nueva función para agregar temas personalizados al sitio web', 7, '2023-11-13 15:21:04', '2023-11-13 15:21:04'),
+(12, 1, 2, 'Cuenta bloqueada después de varios intentos de inicio de sesión', 'Cuenta bloqueada después de múltiples intentos fallidos de inicio de sesión', 8, '2023-12-02 10:11:29', '2023-12-02 10:11:29'),
+(13, 2, 4, 'Problema con 2FA', 'El usuario no puede recibir el código de 2FA para iniciar sesión', 26, '2023-01-20 11:00:34', '2023-01-20 11:00:34'),
+(14, 3, 1, 'Rendimiento lento del sitio web', 'El sitio web tarda demasiado en cargar, afectando la experiencia del usuario', 27, '2023-02-07 13:55:48', '2023-02-07 13:55:48'),
+(15, 1, 3, 'Error de autenticación de la API', 'Error al intentar autenticarse a través de la API', 28, '2023-03-28 09:42:11', '2023-03-28 09:42:11'),
+(16, 2, 4, 'Contenido no se actualiza', 'Los cambios realizados en el contenido no se reflejan en el sitio después de guardarlos', 29, '2023-04-09 10:21:55', '2023-04-09 10:21:55'),
+(17, 3, 2, 'La app se cierra al iniciarse', 'La app se cierra inmediatamente al iniciarse', 3, '2023-05-21 15:09:32', '2023-05-21 15:09:32'),
+(18, 1, 1, 'Error de conexión con la base de datos', 'No se puede conectar al servidor de la base de datos', 6, '2023-06-18 13:13:03', '2023-06-18 13:13:03'),
+(19, 2, 4, 'No se pueden cargar archivos', 'El usuario no puede cargar archivos al servidor', 7, '2023-07-23 14:52:17', '2023-07-23 14:52:17'),
+(20, 3, 1, 'Función de búsqueda rota', 'La funcionalidad de búsqueda devuelve resultados incorrectos o ninguno', 8, '2023-08-05 16:40:11', '2023-08-05 16:40:11'),
+(21, 1, 2, 'Tiempo de inicio de sesión lento', 'El inicio de sesión tarda demasiado en completarse', 26, '2023-09-18 12:05:13', '2023-09-18 12:05:13'),
+(22, 2, 3, 'Datos mostrados incorrectamente', 'Los datos se muestran incorrectamente en el panel de control del usuario', 27, '2023-10-04 13:30:45', '2023-10-04 13:30:45'),
+(23, 3, 1, 'Congelamiento de la interfaz de la app móvil', 'La interfaz de la app móvil se congela al navegar a configuración', 28, '2023-10-12 09:45:22', '2023-10-12 09:45:22'),
+(24, 1, 4, 'Error en las notificaciones por correo electrónico', 'Los usuarios no reciben notificaciones por correo electrónico después de realizar una acción', 29, '2023-10-25 16:22:01', '2023-10-25 16:22:01'),
+(25, 2, 2, 'Función no funciona en móvil', 'Cierta función no funciona correctamente en dispositivos móviles', 3, '2023-11-03 08:10:58', '2023-11-03 08:10:58'),
+(26, 3, 3, 'Formulario de inicio de sesión no es responsivo', 'El formulario de inicio de sesión no es completamente responsivo en dispositivos móviles', 6, '2023-11-12 14:40:15', '2023-11-12 14:40:15'),
+(27, 1, 4, 'Problema con el formato del archivo', 'El archivo cargado no está en el formato correcto, causando un error', 7, '2023-11-20 10:00:32', '2023-11-20 10:00:32'),
+(28, 2, 1, 'Botones no responden en la página de inicio', 'Los botones en la página de inicio no responden cuando se hacen clic', 8, '2023-12-01 11:55:28', '2023-12-01 11:55:28'),
+(29, 3, 2, 'Retraso en el rendimiento durante la transmisión de video', 'El rendimiento de la app se retrasa al transmitir videos', 26, '2023-12-05 09:20:47', '2023-12-05 09:20:47'),
+(30, 1, 4, 'No se puede acceder a la configuración', 'El usuario no puede acceder al menú de configuración debido a un error', 27, '2023-12-10 17:35:13', '2023-12-10 17:35:13'),
+(31, 2, 3, 'Mensajes de error poco claros', 'Los mensajes de error mostrados a los usuarios no son claros ni informativos', 28, '2023-12-15 10:25:04', '2023-12-15 10:25:04'),
+(32, 3, 2, 'Error en la actualización de la app', 'La app no se actualiza a la última versión', 29, '2023-12-18 12:47:18', '2023-12-18 12:47:18'),
+(33, 1, 1, 'No se puede restablecer la contraseña', 'El usuario no puede restablecer su contraseña usando el formulario de recuperación', 3, '2023-12-22 14:11:40', '2023-12-22 14:11:40'),
+(34, 2, 4, 'Enlaces de imagen rotos', 'Las imágenes en las páginas de productos no se muestran correctamente debido a enlaces rotos', 6, '2023-12-24 16:55:33', '2023-12-24 16:55:33'),
+(35, 3, 3, 'Tiempo de espera para el inicio de sesión en la app móvil', 'El usuario se desconecta automáticamente después de un corto periodo de inactividad', 7, '2023-12-28 15:39:29', '2023-12-28 15:39:29'),
+(36, 1, 2, 'No se recibe confirmación de pedido', 'El usuario no recibe un correo de confirmación de pedido después de la compra', 8, '2023-12-30 13:22:01', '2023-12-30 13:22:01'),
+(37, 2, 1, 'Problemas con la carga de videos', 'Los videos no se cargan correctamente o están corruptos', 26, '2024-01-03 14:51:13', '2024-01-03 14:51:13'),
+(38, 3, 4, 'Error en la interfaz de pago', 'La interfaz de pago no responde después de que el usuario hace clic en enviar', 27, '2024-01-08 11:25:35', '2024-01-08 11:25:35');
 
 INSERT INTO `ticket_status_history` (`id`, `ticket_id`, `status_id`, `changed_at`) VALUES
 (1, 1, 1, '2023-01-05 09:30:00'),

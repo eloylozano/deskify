@@ -1,6 +1,5 @@
 package com.deskify.controller;
 
-import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.deskify.dto.CreateTicketDTO;
 import com.deskify.dto.TicketResponseDTO;
+import com.deskify.dto.UpdateTicketDTO;
+import com.deskify.error.AgentNotFoundException;
+import com.deskify.error.CategoryNotFoundException;
+import com.deskify.error.PriorityNotFoundException;
+import com.deskify.error.StatusNotFoundException;
+import com.deskify.error.TicketNotFoundException;
 import com.deskify.service.TicketService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,7 +42,7 @@ public class TicketController {
     @GetMapping("/{id}")
     public ResponseEntity<TicketResponseDTO> getTicketById(@PathVariable("id") Long id) {
         TicketResponseDTO ticket = ticketService.getTicketById(id);
-        return ResponseEntity.ok(ticket); 
+        return ResponseEntity.ok(ticket);
     }
 
     @PostMapping("/create")
@@ -46,11 +51,14 @@ public class TicketController {
         return ResponseEntity.status(HttpStatus.CREATED).body(ticketResponseDTO);
     }
 
-    @PutMapping("update/{id}")
-    public String putMethodName(@PathVariable String id, @RequestBody CreateTicketDTO ticketDTO) {
-        // TODO: process PUT request
-
-        return null;
+    @PutMapping("/update")
+    public ResponseEntity<TicketResponseDTO> updateTicket(@RequestBody UpdateTicketDTO updateTicketDTO) {
+        try {
+            TicketResponseDTO updatedTicket = ticketService.updateTicket(updateTicketDTO);
+            return ResponseEntity.ok(updatedTicket);
+        } catch (TicketNotFoundException | StatusNotFoundException | PriorityNotFoundException |
+                CategoryNotFoundException | AgentNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // or some custom message
+        } 
     }
-
 }
