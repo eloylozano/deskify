@@ -7,10 +7,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.deskify.dto.CommentDTO;
 import com.deskify.dto.CommentResponseDTO;
+import com.deskify.dto.CommentTextRequestDTO;
 import com.deskify.service.CommentService;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
@@ -28,4 +31,19 @@ public class CommentController {
         return ResponseEntity.ok(responseDTO);
     }
 
+    @PutMapping("/updateComment/{commentId}")
+    public ResponseEntity<CommentResponseDTO> updateComment(@PathVariable Long commentId,
+            @RequestBody CommentTextRequestDTO request) {
+
+        String text = request.getText(); // Get text from comment
+        CommentResponseDTO updatedComment = commentService.updateComment(commentId, text);
+        return ResponseEntity.ok(updatedComment);
+    }
+
+    @DeleteMapping("/deleteComment/{commentId}")
+    public ResponseEntity<Void> deleteComment(@PathVariable Long commentId) {
+
+        commentService.deleteComment(commentId);
+        return ResponseEntity.noContent().build();
+    }
 }

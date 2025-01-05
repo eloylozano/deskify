@@ -3,7 +3,9 @@ package com.deskify.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.deskify.dto.CommentDTO;
 import com.deskify.dto.CommentResponseDTO;
+import com.deskify.error.CommentNotFoundException;
 import com.deskify.error.TicketNotFoundException;
 import com.deskify.error.UserNotFoundException;
 import com.deskify.model.Comment;
@@ -13,6 +15,8 @@ import com.deskify.repository.CommentRepository;
 import com.deskify.repository.TicketRepository;
 import com.deskify.repository.UserRepository;
 import com.deskify.service.interfaces.ICommentService;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class CommentService implements ICommentService {
@@ -44,7 +48,7 @@ public class CommentService implements ICommentService {
         // Save the new comment
         Comment savedComment = commentRepo.save(comment);
 
-        // Return commentDTO 
+        // Return commentDTO
         CommentResponseDTO responseDTO = new CommentResponseDTO(
                 savedComment.getUser().getFirstName() + " " + savedComment.getUser().getLastName(),
                 savedComment.getUser().getEmail(),
@@ -52,6 +56,39 @@ public class CommentService implements ICommentService {
                 savedComment.getWrittenOn());
 
         return responseDTO;
+    }
+
+    @Transactional
+    @Override
+    public void deleteComment(Long commentId) {
+        Comment comment = commentRepo.findById(commentId)
+                .orElseThrow(() -> new CommentNotFoundException(commentId));
+
+        commentRepo.delete(comment);
+    }
+
+    @Transactional
+    @Override
+    public CommentResponseDTO updateComment(Long commentId, String text) {
+
+        Comment comment = commentRepo.findById(commentId)
+                .orElseThrow(() -> new CommentNotFoundException(commentId));
+
+        // Update the comment text
+        comment.setCommentText(text);
+
+        // And save it
+        Comment updatedComment = commentRepo.save(comment);
+
+        // Convert the updated comment to a JSON representation
+        CommentResponseDTO commentDTO = new CommentResponseDTO();
+        commentDTO.setUserFullName(
+                updatedComment.getUser().getFirstName() + " " + updatedComment.getUser().getLastName());
+        commentDTO.setUserEmail(updatedComment.getUser().getEmail());
+        commentDTO.setCommentText(updatedComment.getCommentText());
+        commentDTO.setWrittenOn(updatedComment.getWrittenOn());
+
+        return commentDTO;
     }
 
 }
