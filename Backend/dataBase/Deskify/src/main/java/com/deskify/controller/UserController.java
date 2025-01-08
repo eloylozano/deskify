@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.deskify.dto.CreateUserDTO;
 import com.deskify.dto.UserResponseDTO;
@@ -49,7 +52,19 @@ public class UserController {
     public ResponseEntity<UserResponseDTO> updateUser(
             @PathVariable Long id,
             @RequestBody UserResponseDTO userDTO) {
+
         UserResponseDTO updatedUser = userService.updateUser(id, userDTO);
+        
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    @PostMapping("/update/{id}/profile-picture")
+    public ResponseEntity<UserResponseDTO> uploadProfilePicture(
+            @PathVariable Long id,
+            @RequestParam("file") MultipartFile file) {
+
+        UserResponseDTO updatedUser = userService.uploadProfilePicture(id, file);
+        
         return ResponseEntity.ok(updatedUser);
     }
 

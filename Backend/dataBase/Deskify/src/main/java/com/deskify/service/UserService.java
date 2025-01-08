@@ -1,10 +1,17 @@
 package com.deskify.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.deskify.dto.CreateUserDTO;
 import com.deskify.dto.UserResponseDTO;
@@ -36,13 +43,16 @@ public class UserService implements IUserService {
     @Autowired
     UserConverter userConverter;
 
+    @Value("${profile.pictures.path}")
+    private String profilePicturesPath;
+
     @Override
     public UserResponseDTO getUserById(Long id) {
         // Encuentra al usuario por id
         User user = userRepo.findById(id)
-                .orElseThrow(() -> new UserNotFoundException(id)); // Lanza una excepción si no se encuentra el usuario
+                .orElseThrow(() -> new UserNotFoundException(id)); // Throw exception if user not found
 
-        // Convierte el usuario a DTO y lo devuelve
+        // Conver to DTO
         return userConverter.convertToDTO(user);
     }
 
@@ -101,9 +111,9 @@ public class UserService implements IUserService {
         user.setFirstName(userDTO.getFirstName());
         user.setMiddleName(userDTO.getMiddleName());
         user.setLastName(userDTO.getLastName());
-        user.setEmail(userDTO.getEmail()); // Actualización del email
+        user.setEmail(userDTO.getEmail());
         user.setPhoneNumber(userDTO.getPhoneNumber());
-        user.setCompany(userDTO.getCompany()); // Actualización de la compañía
+        user.setCompany(userDTO.getCompany());
         user.setProfilePictureUrl(userDTO.getProfilePictureUrl());
 
         // Validate the role name
@@ -117,6 +127,47 @@ public class UserService implements IUserService {
 
         // Converts user into dto and shows the updated
         return userConverter.convertToDTO(updatedUser);
+    }
+
+    @Override
+    public UserResponseDTO uploadProfilePicture(Long userId, MultipartFile file) {
+        try {
+            // Verificar que el archivo no está vacío
+            if (file.isEmpty()) {
+                throw new RuntimeException("No se ha seleccionado ningún archivo para subir.");
+            }
+
+            // Crear directorio si no existe
+            File dir = new File(profilePicturesPath);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            // Crear el nombre del archivo, evitando colisiones
+            String fileName = userId + "_" + file.getOriginalFilename();
+
+            // Ruta completa donde se guardará el archivo
+            Path path = Paths.get(profilePicturesPath + fileName);
+
+            // Guardar el archivo en la ruta definida
+            Files.write(path, file.getBytes());
+
+            // Recuperar el usuario y actualizar la ruta de la foto de perfil
+            User user = userRepo.findById(userId)
+                    .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+            // Actualizamos la URL del perfil (puedes almacenar solo el nombre de archivo si prefieres)
+            user.setProfilePictureUrl(path.toString());
+
+            // Guardamos el usuario actualizado
+            userRepo.save(user);
+
+            // Convertimos el usuario a DTO para devolver la respuesta
+            return userConverter.convertToDTO(user);
+
+        } catch (IOException e) {
+            throw new RuntimeException("Error al subir el archivo: " + e.getMessage());
+        }
     }
 
 }
