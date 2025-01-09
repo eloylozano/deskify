@@ -5,33 +5,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
-import com.deskify.dto.CreateTicketDTO;
-import com.deskify.dto.TicketResponseDTO;
-import com.deskify.dto.UpdateTicketDTO;
+import com.deskify.dto.*;
 import com.deskify.dto.converter.TicketConverter;
-import com.deskify.error.AgentNotFoundException;
-import com.deskify.error.CategoryNotFoundException;
-import com.deskify.error.PriorityNotFoundException;
-import com.deskify.error.StatusNotFoundException;
-import com.deskify.error.TicketNotFoundException;
-import com.deskify.error.UserNotFoundException;
-import com.deskify.model.Assignment;
-import com.deskify.model.Category;
-import com.deskify.model.Priority;
-import com.deskify.model.Status;
-import com.deskify.model.Ticket;
-import com.deskify.model.TicketHistory;
-import com.deskify.model.User;
-import com.deskify.repository.AssignmentRepository;
-import com.deskify.repository.CategoryRepository;
-import com.deskify.repository.PriorityRepository;
-import com.deskify.repository.StatusRepository;
-import com.deskify.repository.TicketHistoryRepository;
-import com.deskify.repository.TicketRepository;
-import com.deskify.repository.UserRepository;
+import com.deskify.error.*;
+import com.deskify.model.*;
+import com.deskify.repository.*;
 import com.deskify.service.interfaces.ITicketService;
+import com.deskify.specs.TicketSpecifications;
 
 import jakarta.transaction.Transactional;
 
@@ -163,6 +147,58 @@ public class TicketService implements ITicketService {
 
                 // Delete the ticket
                 ticketRepo.delete(ticket);
+        }
+
+        @Override
+        public void assignAgentToTicket(Long ticketId, Long agentId) {
+                // Get the ticket from database
+                Ticket ticket = ticketRepo.findById(ticketId)
+                                .orElseThrow(() -> new TicketNotFoundException(ticketId));
+
+                // Get list of users who have agent roles
+                List<User> agents = userRepo.findByRoleId((long) 4);
+
+                // Verify that the agents is available
+                User agent = agents.stream()
+                                .filter(a -> a.getId().equals(agentId))
+                                .findFirst()
+                                .orElseThrow(() -> new AgentNotFoundException(agentId));
+
+                // Create a new assignment
+                Assignment assignment = new Assignment();
+                assignment.setTicket(ticket);
+                assignment.setAgent(agent);
+                assignment.setAssignedAt(LocalDateTime.now());
+
+                // Save the assignment
+                assignmentRepo.save(assignment);
+        }
+
+        @Override
+        public void changeCategoryToTicket(Long ticketId, Long categoryId) {
+                Ticket ticket = ticketRepo.findById(ticketId)
+                                .orElseThrow(() -> new TicketNotFoundException(ticketId));
+                Category category = categoryRepo.findById(categoryId)
+                                .orElseThrow(() -> new CategoryNotFoundException(categoryId));
+
+                // Set the new category
+                ticket.setCategory(category);
+                
+                // Save the updated ticket
+                ticketRepo.save(ticket);
+        }
+
+        @Override
+        public Page<TicketResponseDTO> getTicketsByAgent(String agentName, Pageable pageable) {
+
+                Specification<Ticket> spec = Specification.where(TicketSpecifications.hasAgent(agentName));
+
+                // Get all the tickets from the repository using the specifications and
+                // paginations
+                Page<Ticket> ticketsPage = ticketRepo.findAll(spec, pageable);
+
+                // Map tickets to convert into DTOs
+                return ticketsPage.map(ticketConverter::convertToTicketResponseDTO);
         }
 
 }

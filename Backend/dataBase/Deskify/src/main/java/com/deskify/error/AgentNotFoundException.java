@@ -10,4 +10,7 @@ public class AgentNotFoundException extends RuntimeException {
         super("No existe el agente con este email: " + email);
     }
 
+    public AgentNotFoundException(Long id){
+        super("No existe el agente con este id: " + id);
+    }
 }

@@ -3,9 +3,12 @@ package com.deskify.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.deskify.dto.CreateTicketDTO;
@@ -58,10 +61,10 @@ public class TicketController {
         try {
             TicketResponseDTO updatedTicket = ticketService.updateTicket(updateTicketDTO);
             return ResponseEntity.ok(updatedTicket);
-        } catch (TicketNotFoundException | StatusNotFoundException | PriorityNotFoundException |
-                CategoryNotFoundException | AgentNotFoundException e) {
+        } catch (TicketNotFoundException | StatusNotFoundException | PriorityNotFoundException
+                | CategoryNotFoundException | AgentNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // or some custom message
-        } 
+        }
     }
 
     @DeleteMapping("/delete/{id}")
@@ -70,9 +73,32 @@ public class TicketController {
         return ResponseEntity.noContent().build();
     }
 
- 
+    @PostMapping("/{ticketId}/assign")
+    public ResponseEntity<String> assignAgentToTicket(@PathVariable Long ticketId, @RequestParam Long agentId) {
+        try {
+            ticketService.assignAgentToTicket(ticketId, agentId);
+            return ResponseEntity.ok("Agent assigned successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 
+    @PostMapping("/{ticketId}/change-category")
+    public ResponseEntity<String> changeCategoryToTicket(@PathVariable Long ticketId, @RequestParam Long categoryId) {
+        try {
+            ticketService.changeCategoryToTicket(ticketId, categoryId);
+            return ResponseEntity.ok("Category changed successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 
+    @GetMapping("/filter")
+    public Page<TicketResponseDTO> getTicketsByAgent(
+            @RequestParam String agentName,
+            Pageable pageable) {
 
+        return ticketService.getTicketsByAgent(agentName, pageable);
+    }
 
 }
