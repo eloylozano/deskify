@@ -1,6 +1,5 @@
 package com.deskify.service;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.deskify.dto.AgentDTO;
 import com.deskify.dto.CreateUserDTO;
 import com.deskify.dto.UserResponseDTO;
 import com.deskify.dto.converter.UserConverter;
@@ -81,8 +81,8 @@ public class UserService implements IUserService {
     @Transactional
     @Override
     public List<UserResponseDTO> getAllUsers() {
-        List<User> ticketList = userRepo.findAll();
-        return ticketList.stream()
+        List<User> userList = userRepo.findAll();
+        return userList.stream()
                 .map(userConverter::convertToDTO) // Uses converter to get userDTO
                 .collect(Collectors.toList());
     }
@@ -132,42 +132,44 @@ public class UserService implements IUserService {
     @Override
     public UserResponseDTO uploadProfilePicture(Long userId, MultipartFile file) {
         try {
-            // Verificar que el archivo no está vacío
+            // Verify that the file is not empty
             if (file.isEmpty()) {
                 throw new RuntimeException("No se ha seleccionado ningún archivo para subir.");
             }
 
-            // Crear directorio si no existe
-            File dir = new File(profilePicturesPath);
-            if (!dir.exists()) {
-                dir.mkdirs();
-            }
-
-            // Crear el nombre del archivo, evitando colisiones
+            // Create file name
             String fileName = userId + "_" + file.getOriginalFilename();
 
-            // Ruta completa donde se guardará el archivo
+            // File path to upload
             Path path = Paths.get(profilePicturesPath + fileName);
 
-            // Guardar el archivo en la ruta definida
+            // Save the file to the path
             Files.write(path, file.getBytes());
 
-            // Recuperar el usuario y actualizar la ruta de la foto de perfil
+            // Get the user and update the profile picture
             User user = userRepo.findById(userId)
                     .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-            // Actualizamos la URL del perfil (puedes almacenar solo el nombre de archivo si prefieres)
+            // Update the profile picture
             user.setProfilePictureUrl(path.toString());
 
-            // Guardamos el usuario actualizado
+            // Save the user updated
             userRepo.save(user);
 
-            // Convertimos el usuario a DTO para devolver la respuesta
+            // Convert to DTO
             return userConverter.convertToDTO(user);
 
         } catch (IOException e) {
             throw new RuntimeException("Error al subir el archivo: " + e.getMessage());
         }
+    }
+
+    @Override
+    public List<AgentDTO> getAllAgents() {
+        List<User> userList = userRepo.findByRoleId((long) 4);
+        return userList.stream()
+                .map(userConverter::UserTodAgentDTO) // Uses converter to get userDTO
+                .collect(Collectors.toList());
     }
 
 }

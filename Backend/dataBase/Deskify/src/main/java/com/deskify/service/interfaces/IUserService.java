@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.deskify.dto.AgentDTO;
 import com.deskify.dto.CreateUserDTO;
 import com.deskify.dto.UserResponseDTO;
 
@@ -18,5 +19,7 @@ public interface IUserService {
     public UserResponseDTO updateUser(Long id, UserResponseDTO userDTO);
 
     public UserResponseDTO uploadProfilePicture(Long userId, MultipartFile file);
+
+    public List<AgentDTO> getAllAgents();
 
 }

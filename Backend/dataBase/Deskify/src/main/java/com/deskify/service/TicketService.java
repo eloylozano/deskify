@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import com.deskify.dto.*;
@@ -183,22 +181,23 @@ public class TicketService implements ITicketService {
 
                 // Set the new category
                 ticket.setCategory(category);
-                
+
                 // Save the updated ticket
                 ticketRepo.save(ticket);
         }
 
         @Override
-        public Page<TicketResponseDTO> getTicketsByAgent(String agentName, Pageable pageable) {
+        public List<TicketResponseDTO> getTicketsByAgent(Long agentId) {
 
-                Specification<Ticket> spec = Specification.where(TicketSpecifications.hasAgent(agentName));
+                Specification<Ticket> spec = Specification.where(TicketSpecifications.hasAgent(agentId));
 
-                // Get all the tickets from the repository using the specifications and
-                // paginations
-                Page<Ticket> ticketsPage = ticketRepo.findAll(spec, pageable);
-
+                List<Ticket> tickets = ticketRepo.findAll(spec);
                 // Map tickets to convert into DTOs
-                return ticketsPage.map(ticketConverter::convertToTicketResponseDTO);
+
+                return tickets.stream()
+                                .map(ticketConverter::convertToTicketResponseDTO) // Uses converter to get ticketResponseDTO
+                                .collect(Collectors.toList());
+
         }
 
 }

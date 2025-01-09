@@ -2,9 +2,6 @@ package com.deskify.service.interfaces;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
 import com.deskify.dto.CreateTicketDTO;
 import com.deskify.dto.TicketResponseDTO;
 import com.deskify.dto.UpdateTicketDTO;
@@ -25,6 +22,6 @@ public interface ITicketService {
 
     public void changeCategoryToTicket(Long ticketId, Long agentId);
 
-    public Page<TicketResponseDTO> getTicketsByAgent(String agentName, Pageable pageable);
+    public List<TicketResponseDTO> getTicketsByAgent(Long agentId);
 
 }

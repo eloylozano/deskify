@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.deskify.dto.AgentDTO;
 import com.deskify.dto.CreateUserDTO;
 import com.deskify.dto.UserResponseDTO;
 import com.deskify.repository.UserRepository;
@@ -53,7 +54,7 @@ public class UserController {
             @RequestBody UserResponseDTO userDTO) {
 
         UserResponseDTO updatedUser = userService.updateUser(id, userDTO);
-        
+
         return ResponseEntity.ok(updatedUser);
     }
 
@@ -63,8 +64,14 @@ public class UserController {
             @RequestParam("file") MultipartFile file) {
 
         UserResponseDTO updatedUser = userService.uploadProfilePicture(id, file);
-        
+
         return ResponseEntity.ok(updatedUser);
+    }
+
+    @GetMapping("/agents")
+    public ResponseEntity<List<AgentDTO>> getAllAgents() {
+        List<AgentDTO> lista = userService.getAllAgents();
+        return ResponseEntity.status(HttpStatus.OK).body(lista);
     }
 
 }
