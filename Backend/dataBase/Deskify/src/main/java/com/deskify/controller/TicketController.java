@@ -92,9 +92,10 @@ public class TicketController {
     }
 
     @GetMapping("/filter")
-    public List<TicketResponseDTO> getTicketsByAgent(@RequestParam Long agentId) {
+    public ResponseEntity<List<TicketResponseDTO>> getTicketsByAgent(@RequestParam Long agentId) {
+        List<TicketResponseDTO> ticketDTOs = ticketService.getTicketsByAgent(agentId);
 
-        return ticketService.getTicketsByAgent(agentId);
+        return ResponseEntity.ok(ticketDTOs);
     }
 
 }

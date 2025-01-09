@@ -41,6 +41,9 @@ public class Ticket {
     @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
 
+    @OneToMany(mappedBy = "ticket")
+    private List<Assignment> assignments;
+
     @ManyToOne
     @JoinColumn(name = "created_by", nullable = false)
     private User createdBy; // User who create the ticket
