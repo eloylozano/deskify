@@ -22,6 +22,6 @@ public interface ITicketService {
 
     public void changeCategoryToTicket(Long ticketId, Long agentId);
 
-    public List<TicketResponseDTO> getTicketsByAgent(Long agentId);
+    public List<TicketResponseDTO> getTicketsByAgent(Long agentId, Long categroyId, Long priorityId);
 
 }

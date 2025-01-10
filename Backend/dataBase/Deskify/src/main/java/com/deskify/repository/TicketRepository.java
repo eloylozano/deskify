@@ -11,8 +11,9 @@ import com.deskify.model.Ticket;
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long>, JpaSpecificationExecutor<Ticket> {
 
-    List<Ticket> findByCategoryId(Long categoryId);
+    List<Ticket> findByCategory_Id(Long categoryId);
 
-    List<Ticket> findByPriorityId(Long priorityId);
+    List<Ticket> findByPriority_Id(Long priorityId);
+
     
 }

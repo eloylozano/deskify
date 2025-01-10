@@ -187,15 +187,30 @@ public class TicketService implements ITicketService {
         }
 
         @Override
-        public List<TicketResponseDTO> getTicketsByAgent(Long agentId) {
+        public List<TicketResponseDTO> getTicketsByAgent(Long agentId, Long categoryId, Long priorityId) {
+                Specification<Ticket> spec = Specification.where(null);
 
-                Specification<Ticket> spec = Specification.where(TicketSpecifications.hasAgent(agentId));
+                // Add agent filter if is not null
+                if (agentId != null) {
+                        spec = spec.and(TicketSpecifications.hasAgent(agentId));
+                }
+
+                // Add category filter if is not null
+                if (categoryId != null) {
+                        spec = spec.and(TicketSpecifications.hasCategory(categoryId));
+                }
+
+                // Add priority filter if is not null
+                if (priorityId != null) {
+                        spec = spec.and(TicketSpecifications.hasPriority(priorityId));
+                }
 
                 List<Ticket> tickets = ticketRepo.findAll(spec);
                 // Map tickets to convert into DTOs
 
                 return tickets.stream()
-                                .map(ticketConverter::convertToTicketResponseDTO) // Uses converter to get ticketResponseDTO
+                                .map(ticketConverter::convertToTicketResponseDTO) // Uses converter to get
+                                                                                  // ticketResponseDTO
                                 .collect(Collectors.toList());
 
         }

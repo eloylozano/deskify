@@ -12,19 +12,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.deskify.dto.AgentDTO;
-import com.deskify.dto.CreateUserDTO;
-import com.deskify.dto.UserResponseDTO;
+import com.deskify.dto.*;
 import com.deskify.dto.converter.UserConverter;
-import com.deskify.error.UserAlreadyExists;
-import com.deskify.error.UserNotFoundException;
-import com.deskify.error.RoleNotFoundException;
+import com.deskify.error.*;
 import com.deskify.model.User;
 import com.deskify.model.Role;
-import com.deskify.repository.CommentRepository;
-import com.deskify.repository.RoleRepository;
-import com.deskify.repository.SubscriptionRepository;
-import com.deskify.repository.UserRepository;
+import com.deskify.repository.*;
 import com.deskify.service.interfaces.IUserService;
 
 import jakarta.transaction.Transactional;

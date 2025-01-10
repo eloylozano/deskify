@@ -17,4 +17,15 @@ public class TicketSpecifications {
         };
     }
 
+    public static Specification<Ticket> hasCategory(Long categoryId) {
+        return (root, query, criteriaBuilder) -> {
+            return criteriaBuilder.equal(root.get("category").get("id"), categoryId);
+        };
+    }
+
+    public static Specification<Ticket> hasPriority(Long priorityId) {
+        return (root, query, criteriaBuilder) -> {
+            return criteriaBuilder.equal(root.get("priority").get("id"), priorityId);
+        };
+    }
 }
