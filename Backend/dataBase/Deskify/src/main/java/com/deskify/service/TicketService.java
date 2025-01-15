@@ -1,5 +1,6 @@
 package com.deskify.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -187,32 +188,40 @@ public class TicketService implements ITicketService {
         }
 
         @Override
-        public List<TicketResponseDTO> getTicketsByAgent(Long agentId, Long categoryId, Long priorityId) {
+        public List<TicketResponseDTO> getTicketsByFilter(Long agentId, Long categoryId, String prioriyName, LocalDate date, Long statusId) {
+                // SPecifcation null
                 Specification<Ticket> spec = Specification.where(null);
 
-                // Add agent filter if is not null
+                // Add filter if there's agent
                 if (agentId != null) {
                         spec = spec.and(TicketSpecifications.hasAgent(agentId));
                 }
 
-                // Add category filter if is not null
+                // Add filter if there's category
                 if (categoryId != null) {
                         spec = spec.and(TicketSpecifications.hasCategory(categoryId));
                 }
 
-                // Add priority filter if is not null
-                if (priorityId != null) {
-                        spec = spec.and(TicketSpecifications.hasPriority(priorityId));
+                // Add filter if there's priority
+                if (prioriyName != null) {
+                        spec = spec.and(TicketSpecifications.hasPriority(prioriyName));
                 }
 
+                // Add filter if there's date
+                if (date != null) {
+                        spec = spec.and(TicketSpecifications.createdBefore(date));
+                }
+
+                if(statusId != null){
+                        spec = spec.and(TicketSpecifications.hasStatus(statusId));
+                }
+
+                // Get all tickets that match the filter
                 List<Ticket> tickets = ticketRepo.findAll(spec);
-                // Map tickets to convert into DTOs
 
+                // Convert ticket to DTO
                 return tickets.stream()
-                                .map(ticketConverter::convertToTicketResponseDTO) // Uses converter to get
-                                                                                  // ticketResponseDTO
+                                .map(ticketConverter::convertToTicketResponseDTO)
                                 .collect(Collectors.toList());
-
         }
-
 }

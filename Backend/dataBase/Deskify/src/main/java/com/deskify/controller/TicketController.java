@@ -1,8 +1,10 @@
 package com.deskify.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -92,14 +94,17 @@ public class TicketController {
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<List<TicketResponseDTO>> getTicketsByAgent(@RequestParam(required = false) Long agentId,
+    public ResponseEntity<List<TicketResponseDTO>> getTicketsByAgent(
+            @RequestParam(required = false) Long agentId,
             @RequestParam(required = false) Long categoryId,
-            @RequestParam(required = false) Long priorityId) {
+            @RequestParam(required = false) String priority,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+            @RequestParam(required = false) Long statusId) {
 
-        List<TicketResponseDTO> ticketDTOs = ticketService.getTicketsByAgent(agentId, categoryId, priorityId);
+        List<TicketResponseDTO> ticketDTOs = ticketService.getTicketsByFilter(agentId, categoryId, priority, date,
+        statusId);
 
         return ResponseEntity.ok(ticketDTOs);
     }
-
 
 }

@@ -2,6 +2,7 @@ package com.deskify.model;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -43,6 +44,9 @@ public class Ticket {
 
     @OneToMany(mappedBy = "ticket")
     private List<Assignment> assignments;
+
+    @OneToMany(mappedBy = "ticket")
+    private Set<TicketHistory> ticketHistory;
 
     @ManyToOne
     @JoinColumn(name = "created_by", nullable = false)

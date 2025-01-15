@@ -1,5 +1,7 @@
 package com.deskify.service.interfaces;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.deskify.dto.CreateTicketDTO;
@@ -22,6 +24,6 @@ public interface ITicketService {
 
     public void changeCategoryToTicket(Long ticketId, Long agentId);
 
-    public List<TicketResponseDTO> getTicketsByAgent(Long agentId, Long categroyId, Long priorityId);
+    public List<TicketResponseDTO> getTicketsByFilter(Long agentId, Long categoryId, String priorityName, LocalDate date, Long statusId);
 
 }
