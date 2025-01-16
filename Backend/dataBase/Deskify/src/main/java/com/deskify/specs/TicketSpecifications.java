@@ -6,11 +6,8 @@ import com.deskify.model.TicketHistory;
 
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
-import jakarta.persistence.criteria.Root;
-import jakarta.persistence.criteria.Subquery;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import org.springframework.data.jpa.domain.Specification;
 
@@ -53,5 +50,4 @@ public class TicketSpecifications {
             return criteriaBuilder.equal(historyJoin.get("status").get("id"), statusId);
         };
     }
-
 }

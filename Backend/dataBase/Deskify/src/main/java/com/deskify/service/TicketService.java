@@ -188,7 +188,8 @@ public class TicketService implements ITicketService {
         }
 
         @Override
-        public List<TicketResponseDTO> getTicketsByFilter(Long agentId, Long categoryId, String prioriyName, LocalDate date, Long statusId) {
+        public List<TicketResponseDTO> getTicketsByFilter(Long agentId, Long categoryId, String prioriyName,
+                        LocalDate date, Long statusId) {
                 // SPecifcation null
                 Specification<Ticket> spec = Specification.where(null);
 
@@ -212,7 +213,7 @@ public class TicketService implements ITicketService {
                         spec = spec.and(TicketSpecifications.createdBefore(date));
                 }
 
-                if(statusId != null){
+                if (statusId != null) {
                         spec = spec.and(TicketSpecifications.hasStatus(statusId));
                 }
 
@@ -224,4 +225,25 @@ public class TicketService implements ITicketService {
                                 .map(ticketConverter::convertToTicketResponseDTO)
                                 .collect(Collectors.toList());
         }
+
+        private String prepareQuery(String query) {
+                // Refactor query and divide into segments
+                String[] words = query.split("\\s+");
+
+                // Create regular expression
+                return ".*" + String.join(".*", words) + ".*";
+        }
+
+        @Override
+        public List<TicketResponseDTO> searchTickets(String query) {
+
+                String regexQuery = prepareQuery(query);
+
+               List<Ticket> tickets = ticketRepo.searchByQuery(regexQuery);
+
+                return tickets.stream()
+                                .map(ticketConverter::convertToTicketResponseDTO)
+                                .collect(Collectors.toList());
+        }
+
 }

@@ -24,6 +24,9 @@ public interface ITicketService {
 
     public void changeCategoryToTicket(Long ticketId, Long agentId);
 
-    public List<TicketResponseDTO> getTicketsByFilter(Long agentId, Long categoryId, String priorityName, LocalDate date, Long statusId);
+    public List<TicketResponseDTO> getTicketsByFilter(Long agentId, Long categoryId, String priorityName,
+            LocalDate date, Long statusId);
+
+    public List<TicketResponseDTO> searchTickets(String query);
 
 }

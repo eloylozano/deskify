@@ -7,26 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.deskify.dto.CreateTicketDTO;
-import com.deskify.dto.TicketResponseDTO;
-import com.deskify.dto.UpdateTicketDTO;
-import com.deskify.error.AgentNotFoundException;
-import com.deskify.error.CategoryNotFoundException;
-import com.deskify.error.PriorityNotFoundException;
-import com.deskify.error.StatusNotFoundException;
-import com.deskify.error.TicketNotFoundException;
+import com.deskify.dto.*;
+import com.deskify.error.*;
 import com.deskify.service.TicketService;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping(value = "/ticket")
@@ -102,11 +88,17 @@ public class TicketController {
             @RequestParam(required = false) Long statusId) {
 
         List<TicketResponseDTO> ticketDTOs = ticketService.getTicketsByFilter(agentId, categoryId, priority, date,
-        statusId);
+                statusId);
 
         return ResponseEntity.ok(ticketDTOs);
     }
 
-    // TODO: implement a word search engine for tickets 
+    // TODO: implement a word search engine for tickets
+    @GetMapping("/search")
+    public ResponseEntity<List<TicketResponseDTO>> searchTicket(@RequestParam String query) {
 
+        List<TicketResponseDTO> ticketsFound = ticketService.searchTickets(query);
+
+        return ResponseEntity.ok(ticketsFound);
+    }
 }
