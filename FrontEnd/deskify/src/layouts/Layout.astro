@@ -1,5 +1,7 @@
 ---
+// Importación de componentes
 import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 ---
 
 <!doctype html>
@@ -11,8 +13,16 @@ import Header from "../components/Header.astro";
     <meta name="generator" content={Astro.generator} />
     <title>Astro Basics</title>
   </head>
-  <body>
+  <body class="flex flex-col min-h-screen"> <!-- Flexbox para el layout -->
     <Header />
+
+    <!-- Contenido principal, puede ser cualquier cosa -->
+    <main class="flex-grow">
+      <!-- Aquí puedes poner el contenido dinámico -->
+      <slot></slot>  <!-- Esto servirá para poner contenido dentro del layout -->
+    </main>
+
+    <Footer />
   </body>
 </html>
 
@@ -22,5 +32,10 @@ import Header from "../components/Header.astro";
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+  }
+
+  /* Asegúrate de que el footer esté al fondo */
+  main {
+    flex-grow: 1; /* Esto hará que el contenido principal ocupe el espacio disponible */
   }
 </style>

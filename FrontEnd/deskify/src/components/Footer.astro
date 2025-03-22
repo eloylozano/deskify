@@ -1,0 +1,91 @@
+---
+import "../styles/global.css";
+---
+
+<footer class="text-white px-8 py-6 text-sm">
+  <p>
+    Contact with deskify
+    <span class="font-light ms-10">
+      <a href="" class="underline">+34 981 86 23 65</a>
+      or
+      <a href="" class="underline">welcome@deskify.com</a>
+    </span>
+  </p>
+  <hr class="text-green-100 mt-4 mb-6" />
+
+  <div id="columns" class="grid">
+    <div class="flex justify-between me-30">
+      <ul>
+        <li>Enterprise</li>
+        <li>Who we are</li>
+        <li>Investors</li>
+        <li>Clients</li>
+        <li>Partners</li>
+        <li>News</li>
+        <li>Contact</li>
+      </ul>
+
+      <ul>
+        <li>Support</li>
+        <li>Support</li>
+        <li>Services</li>
+        <li>Community</li>
+      </ul>
+
+      <ul>
+        <li>Products</li>
+        <li>News</li>
+        <li>deskify</li>
+        <li>Ticketing</li>
+      </ul>
+    </div>
+    <ul>
+      <li>Social Media</li>
+      <li>Instagram</li>
+      <li>LinkedIn</li>
+      <li>Facebook</li>
+      <li>Youtube</li>
+      <li>Twitter</li>
+    </ul>
+  </div>
+
+  <hr class="text-green-100 mt-4 mb-6" />
+
+  <div class="flex text-xs font-light justify-between">
+    <ul class="flex justify-between w-[600px]">
+      <li>Legal</li>
+      <li>Privacy Notice</li>
+      <li>Site terms</li>
+      <li>Cookie Policy</li>
+      <li>Security</li>
+      <li>Unsubscribe</li>
+      <li>Accesibility</li>
+    </ul>
+
+    <ul class="flex">&copy; 2025 deskify · All rights reserved</ul>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background-color: #02353c;
+  }
+  #columns {
+    font-weight: 300;
+    grid-template-columns: 4fr 1fr;
+  }
+
+  #columns ul {
+    width: 100%;
+  }
+  #columns ul li {
+    cursor: pointer;
+    margin: 12px 0;
+  }
+
+  #columns ul li:first-child {
+    cursor: inherit;
+    font-weight: 400;
+    font-size: 1.2em;
+  }
+</style>
