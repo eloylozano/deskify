@@ -5,7 +5,7 @@ import "../styles/global.css";
 <footer class="text-white px-8 py-6 text-sm">
   <p>
     Contact with deskify
-    <span class="font-light ms-10">
+    <span class="font-thin ms-5">
       <a href="" class="underline">+34 981 86 23 65</a>
       or
       <a href="" class="underline">welcome@deskify.com</a>
@@ -14,7 +14,7 @@ import "../styles/global.css";
   <hr class="text-green-100 mt-4 mb-6" />
 
   <div id="columns" class="grid">
-    <div class="flex justify-between me-30">
+    <div class="flex justify-between me-100">
       <ul>
         <li>Enterprise</li>
         <li>Who we are</li>
@@ -76,16 +76,40 @@ import "../styles/global.css";
   }
 
   #columns ul {
-    width: 100%;
+    width: fit-content;
   }
+
   #columns ul li {
     cursor: pointer;
     margin: 12px 0;
+    width: fit-content;
+    position: relative;
   }
 
+  #columns ul li:hover:not(:first-child)::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+  #columns ul li::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: white;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+  }
+
+  /* Primer elemento no tiene subrayado */
   #columns ul li:first-child {
     cursor: inherit;
     font-weight: 400;
     font-size: 1.2em;
   }
 </style>
+
+

@@ -1,0 +1,19 @@
+---
+import "../styles/global.css";
+const { text, href } = Astro.props;
+---
+
+<a class="btn border-2 py-1 px-2 rounded-xs cursor-pointer" href={href}>
+  {text}
+</a>
+
+<style>
+  a {
+    transition: 0.2s ease-in;
+  }
+
+  a:hover {
+    border: 2px solid #02353c;
+    background: #02353c;
+  }
+</style>

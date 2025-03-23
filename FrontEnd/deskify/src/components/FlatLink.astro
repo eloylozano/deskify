@@ -1,0 +1,42 @@
+---
+const { text, href } = Astro.props;
+const isActive = Astro.url.pathname === href; 
+---
+
+<a href={href} class={`link ${isActive ? 'active' : ''}`}>
+  {text}
+</a>
+
+<style>
+  .link {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .link::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #f9f9f9;
+    bottom: 0;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+  }
+
+  .link:hover::after,
+  .link.active::after { 
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+  .link:active::after,
+  .link:focus::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+</style>

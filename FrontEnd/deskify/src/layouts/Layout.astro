@@ -2,6 +2,7 @@
 // Importación de componentes
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+const { backgroundImage } = Astro.props;
 ---
 
 <!doctype html>
@@ -9,17 +10,14 @@ import Footer from "../components/Footer.astro";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
+    <link rel="icon" type="image/png+xml" href="/logo.png" />
+    <title>Deskify</title>
   </head>
-  <body class="flex flex-col min-h-screen"> <!-- Flexbox para el layout -->
+  <body class="flex flex-col min-h-screen" style={`background-image: url(${backgroundImage}); background-size: cover; background-position: center; background-repeat: no-repeat; `}>
     <Header />
 
-    <!-- Contenido principal, puede ser cualquier cosa -->
     <main class="flex-grow">
-      <!-- Aquí puedes poner el contenido dinámico -->
-      <slot></slot>  <!-- Esto servirá para poner contenido dentro del layout -->
+      <slot></slot>
     </main>
 
     <Footer />
@@ -27,15 +25,7 @@ import Footer from "../components/Footer.astro";
 </html>
 
 <style>
-  body {
-    background-image: url("/images/index.png");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-  }
-
-  /* Asegúrate de que el footer esté al fondo */
   main {
-    flex-grow: 1; /* Esto hará que el contenido principal ocupe el espacio disponible */
+    flex-grow: 1;
   }
 </style>

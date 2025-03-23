@@ -1,0 +1,50 @@
+---
+import Title from "../components/Title.astro";
+import Button from "../components/Button.astro";
+import Layout from "../layouts/Layout.astro";
+import "../styles/global.css";
+import TextBox from "../components/TextBox.astro";
+---
+
+<Layout backgroundImage="/images/background/about.jpeg">
+  <div
+    class="text-white ms-50 h-[93vh] flex flex-col justify-center items-start"
+  >
+    <Title
+      title="Solving problems, driving businesses forward"
+      desc="Deskify transforms support into a seamless and agile experience. Solving problems so your business can grow."
+    />
+    <Button text="Let's get started" />
+  </div>
+
+  <div id="container-about" class="pt-100">
+    <img src="/images/logo.png" alt="Deskify's Logo" class="mx-auto w-35" />
+    <h2 class="text-center text-6xl font-light mt-10">Introducing deskify</h2>
+    <p class="text-center mx-auto text-2xl font-light mt-8 w-[70%]">
+      Deskify simplifies customer support by providing an intuitive and
+      efficient platform that adapts to the needs of any organisation. With
+      tools designed to handle requests in an agile manner, it ensures fast
+      response times and effective solutions that improve customer satisfaction.
+      From ticket receipt to resolution, Deskify transforms the support
+      experience into a streamlined, hassle-free process.
+    </p>
+
+    <TextBox
+      h3="Cutting-edge technology"
+      title="Innovation at the service of the customer"
+      desc="Deskify combines the latest technologies in web development to create a modern and functional tool. Our focus is to offer a solution that evolves with the needs of companies and optimises their customer service."
+      image="/images/innovation.svg"
+      alt="Man with bulb, in representation of innovation"
+      imagePosition="right"
+    />
+  </div>
+</Layout>
+
+<style>
+  #container-about {
+    background-image: url("/images/whiteBg.svg");
+    background-size: cover;
+    color: #3a3a3a;
+    height: 100%;
+  }
+</style>
