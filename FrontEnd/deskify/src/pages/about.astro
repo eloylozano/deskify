@@ -4,6 +4,10 @@ import Button from "../components/Button.astro";
 import Layout from "../layouts/Layout.astro";
 import "../styles/global.css";
 import TextBox from "../components/TextBox.astro";
+import Line from "../components/Line.astro";
+import SubTitle from "../components/SubTitle.astro";
+import GradientTitle from "../components/GradientTitle.astro";
+import Text from "../components/Text.astro";
 ---
 
 <Layout backgroundImage="/images/background/about.jpeg">
@@ -17,7 +21,7 @@ import TextBox from "../components/TextBox.astro";
     <Button text="Let's get started" />
   </div>
 
-  <div id="container-about" class="pt-100">
+  <div id="container-about" class="pt-100 px-15">
     <img src="/images/logo.png" alt="Deskify's Logo" class="mx-auto w-35" />
     <h2 class="text-center text-6xl font-light mt-10">Introducing deskify</h2>
     <p class="text-center mx-auto text-2xl font-light mt-8 w-[70%]">
@@ -37,6 +41,34 @@ import TextBox from "../components/TextBox.astro";
       alt="Man with bulb, in representation of innovation"
       imagePosition="right"
     />
+    <TextBox
+      h3="We all belong to"
+      title="Uncomplicated efficiency"
+      desc="We believe that support doesn't have to be complicated. That's why Deskify is designed to simplify every process from ticket entry to resolution, ensuring speed and clarity in every interaction."
+      image="/images/TeamWork.svg"
+      alt="Team of workers"
+      imagePosition="left"
+    />
+    <TextBox
+      h3="Globalized service"
+      title="Without limits, just oportunities"
+      desc="We were born with a vision to break the boundaries of technical support. Inspired by European innovation and open to the world, Deskify is made for companies that want to expand and provide exceptional service wherever they operate."
+      image="/images/Global.svg"
+      alt="Globalization"
+      imagePosition="right"
+    />
+    <div class="my-20">
+      <Line width="full" />
+      <GradientTitle text="Building the future" class="text-center mt-25 mb-10" />
+      <SubTitle
+        text="Innovation driven by design and technology"
+        class="text-center"
+      />
+      <Text
+        class="text-center w-[60%] mx-auto"
+        text="Innovation isn't just a goal, it's the path we follow. We combine intuitive design with cutting-edge technology to create efficient support solutions that transform the customer experience and streamline business processes."
+      />
+    </div>
   </div>
 </Layout>
 

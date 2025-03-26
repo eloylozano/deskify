@@ -1,28 +1,20 @@
 ---
 const { h3, title, desc, image, alt, imagePosition } = Astro.props;
+import Line from "../components/Line.astro";
 import "../styles/global.css";
+import GradientTitle from "../components/GradientTitle.astro";
+import SubTitle from "../components/SubTitle.astro";
+import Text from "../components/Text.astro";
 ---
 
 <div
-  class={`px-15 mt-50 flex justify-between items-center ${imagePosition === "left" ? "flex-row-reverse" : ""} gap-x-[100px]`}
+  class={`mt-50 flex justify-between items-center ${imagePosition === "left" ? "flex-row-reverse" : ""} gap-x-[100px]`}
 >
   <div class="w-[60%]">
-    <h3 class="uppercase font-medium text-2xl mb-8 text-gradient">{h3}</h3>
-    <h2 class="text-4xl font-light mb-8">{title}</h2>
-    <hr class="rounded-full h-1 w-40 mb-7" />
-    <p class="text-xl font-light">{desc}</p>
+    <GradientTitle text={h3} />
+    <SubTitle text={title} />
+    <Line />
+    <Text text={desc} />
   </div>
   <img src={image} alt={alt} class="w-[40%]" />
 </div>
-
-<style>
-  .text-gradient {
-    background-image: linear-gradient(90deg, #00ff7a, #00aa6f 60%);
-    -webkit-background-clip: text;
-    color: transparent;
-  }
-  hr {
-    background: linear-gradient(45deg, #00ff7a, #00aa6f 100%);
-    border: none;
-  }
-</style>

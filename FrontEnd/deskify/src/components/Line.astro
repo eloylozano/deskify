@@ -1,0 +1,15 @@
+---
+import "../styles/global.css";
+const { width = "default" } = Astro.props; 
+---
+
+<hr 
+  class={`rounded-full h-1 mb-7 ${width === "full" ? "w-full" : width === "half" ? "w-1/2" : "w-40"}`}
+/>
+
+<style>
+  hr {
+    background: linear-gradient(45deg, #00ff7a, #00aa6f 100%);
+    border: none;
+  }
+</style>
