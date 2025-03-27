@@ -14,10 +14,10 @@ import Text from "../components/Text.astro";
 
 <Layout
   backgroundImage="/images/background/about.jpeg"
-  backgroundSize="contain"
+  backgroundSize="md:contain"
 >
   <div
-    class="text-white ms-50 h-[93vh] flex flex-col justify-center items-start"
+    class="min-h-screen w-full flex flex-col justify-center items-start px-4 md:px-12 lg:px-24 xl:px-50 text-white"
   >
     <Title
       title="Solving problems, driving businesses forward"
@@ -26,10 +26,10 @@ import Text from "../components/Text.astro";
     <Button text="Let's get started" />
   </div>
 
-  <div id="container-about" class="pt-100 px-15">
+  <div id="container-about" class="md:pt-150 pt-250 md:px-15 px-5">
     <img src="/images/logo.png" alt="Deskify's Logo" class="mx-auto w-35" />
     <h2 class="text-center text-6xl font-light mt-10">Introducing deskify</h2>
-    <p class="text-center mx-auto text-2xl font-light mt-8 w-[70%]">
+    <p class="text-center mx-auto text-2xl font-light mt-8 md:w-[70%] font-xl">
       Deskify simplifies customer support by providing an intuitive and
       efficient platform that adapts to the needs of any organisation. With
       tools designed to handle requests in an agile manner, it ensures fast
@@ -73,51 +73,49 @@ import Text from "../components/Text.astro";
         class="text-center"
       />
       <Text
-        class="text-center w-[60%] mx-auto"
+        class="text-center md:w-[60%] mx-auto"
         text="Innovation isn't just a goal, it's the path we follow. We combine intuitive design with cutting-edge technology to create efficient support solutions that transform the customer experience and streamline business processes."
       />
-      <div class="flex justify-center gap-5 mt-12">
+      <div class="flex flex-col md:flex-row gap-5 justify-center mt-12">
         <BlankButton text="Learn more" />
         <Button text="Let's get started" />
       </div>
+      
     </div>
   </div>
-  <div class="background px-15 pt-25 flex relative">
-    
-
+  <div class="background px-4 md:px-15 py-25 flex flex-col md:flex-row relative">
     <div class="relative z-10">
+      <!-- Imagen de fondo -->
       <div
-      class="absolute inset-0 z-[-5] ms-40 bg-no-repeat opacity-20 pointer-events-none"
-      style="background-image: url('/public/logo.png'); "
-    >
-    </div>
+        class="absolute inset-0 z-[-5] ms-40 bg-no-repeat opacity-20 pointer-events-none"
+        style="background-image: url('/public/logo.png');"
+      ></div>
+  
+      <!-- Título y texto -->
       <SubTitle
-        class="text-5xl"
+        class="text-3xl md:text-5xl"
         text="Find out how Deskify can transform your business."
       />
-
       <Text
         text="Need an elite team of technologists and thinkers? Is quality important to you? Do you value scalability and infinite customization? Do you need a brand built specifically for your company that can be as innovative as you are?"
       />
-
       <Text
         text="Tell us a little about your needs and one of our Customer Success Specialists will contact you."
         class="mt-6"
       />
-
-      <p class="text-3xl mt-10 mb-25">
-        Say Hi! <a class="font-thin underline ms-6" href=""
-          >welcome@deskify.com</a
-        >
+  
+      <!-- Párrafo con correo -->
+      <p class="text-xl md:text-3xl mt-10">
+        Say Hi! <a class="font-thin underline ms-6" href="mailto:welcome@deskify.com">welcome@deskify.com</a>
       </p>
     </div>
-
-    <div
-      class="w-400 flex flex-col justify-center items-center relative z-10"
-    >
+  
+    <!-- Botón "Let's get started" -->
+    <div class="w-full md:w-400 flex flex-col justify-center items-center relative z-10 mt-8 md:mt-0">
       <BoxButton text="Let's get started" />
     </div>
   </div>
+  
 </Layout>
 
 <style>

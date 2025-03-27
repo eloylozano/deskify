@@ -8,13 +8,17 @@ import Text from "../components/Text.astro";
 ---
 
 <div
-  class={`mt-50 flex justify-between items-center ${imagePosition === "left" ? "flex-row-reverse" : ""} gap-x-[100px]`}
+  class={`mt-50 flex flex-col md:flex-row justify-between items-center ${
+    imagePosition === "left" ? "md:flex-row-reverse" : ""
+  } gap-x-[100px]`}
 >
-  <div class="w-[60%]">
+  <div class="w-full md:w-[60%]">
     <GradientTitle text={h3} />
     <SubTitle text={title} />
     <Line />
     <Text text={desc} />
   </div>
-  <img src={image} alt={alt} class="w-[40%]" />
+  
+  <img src={image} alt={alt} class="w-full md:w-[40%] mt-4 md:mt-0" />
 </div>
+

@@ -1,9 +1,9 @@
 ---
 import "../styles/global.css";
-const { text, href } = Astro.props;
+const { text, href, class: additionalClass } = Astro.props;
 ---
 
-<a class="btn-gradient-2 px-16 py-3 mt-12 cursor-pointer font-normal" href={href}>
+<a class={`btn-gradient-2 px-16 py-3 mt-12 cursor-pointer font-normal  ${additionalClass}`} href={href}>
   {text}
 </a>
 
