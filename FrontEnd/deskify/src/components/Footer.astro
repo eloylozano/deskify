@@ -2,114 +2,356 @@
 import "../styles/global.css";
 ---
 
-<footer class="text-white px-8 py-6 text-sm">
-  <p>
-    Contact with deskify
-    <span class="font-thin ms-5">
-      <a href="" class="underline">+34 981 86 23 65</a>
-      or
-      <a href="" class="underline">welcome@deskify.com</a>
-    </span>
-  </p>
-  <hr class="text-green-100 mt-4 mb-6" />
-
-  <div id="columns" class="grid">
-    <div class="flex justify-between me-100">
-      <ul>
-        <li>Enterprise</li>
-        <li>Who we are</li>
-        <li>Investors</li>
-        <li>Clients</li>
-        <li>Partners</li>
-        <li>News</li>
-        <li>Contact</li>
-      </ul>
-
-      <ul>
-        <li>Support</li>
-        <li>Support</li>
-        <li>Services</li>
-        <li>Community</li>
-      </ul>
-
-      <ul>
-        <li>Products</li>
-        <li>News</li>
-        <li>deskify</li>
-        <li>Ticketing</li>
-      </ul>
+<footer class="bg-[#02353c] text-white px-15 sm:px-15 py-10">
+  <!-- Contact Section -->
+  <div class="mx-auto">
+    <div class="mb-8">
+      <p class="text-base">
+        Contact with deskify
+        <span class="font-light ms-5">
+          <a
+            href="tel:+34981862365"
+            class="underline hover:text-[#2eaf7d] transition-colors"
+            >+34 981 86 23 65</a
+          >
+          or
+          <a
+            href="mailto:welcome@deskify.com"
+            class="underline hover:text-[#2eaf7d] transition-colors"
+            >welcome@deskify.com</a
+          >
+        </span>
+      </p>
     </div>
-    <ul>
-      <li>Social Media</li>
-      <li>Instagram</li>
-      <li>LinkedIn</li>
-      <li>Facebook</li>
-      <li>Youtube</li>
-      <li>Twitter</li>
-    </ul>
-  </div>
 
-  <hr class="text-green-100 mt-4 mb-6" />
+    <hr class="border-t border-opacity-20 border-white mb-8" />
 
-  <div class="flex text-xs font-light justify-between">
-    <ul class="flex justify-between w-[600px]">
-      <li>Legal</li>
-      <li>Privacy Notice</li>
-      <li>Site terms</li>
-      <li>Cookie Policy</li>
-      <li>Security</li>
-      <li>Unsubscribe</li>
-      <li>Accesibility</li>
-    </ul>
+    <!-- Main Navigation -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-8">
+      <div
+        class="md:col-span-8 lg:col-span-9 grid grid-cols-1 sm:grid-cols-3 gap-8"
+      >
+        <!-- Enterprise Column - Alineado a la izquierda -->
+        <div class="mb-6 sm:mb-0 sm:text-left">
+          <button
+            class="accordion-toggle sm:pointer-events-none text-[1.125rem] font-medium mb-4 w-full flex justify-between items-center sm:block sm:text-left"
+          >
+            Enterprise
+            <svg
+              class="sm:hidden h-5 w-5 transform transition-transform duration-200"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <ul class="accordion-content space-y-2 hidden sm:block sm:text-left">
+            <li>
+              <a
+                href="#"
+                class="relative inline-block hover:text-[#2eaf7d] transition-colors"
+                >Who we are</a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="relative inline-block hover:text-[#2eaf7d] transition-colors"
+                >Investors</a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="relative inline-block hover:text-[#2eaf7d] transition-colors"
+                >Clients</a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="relative inline-block hover:text-[#2eaf7d] transition-colors"
+                >Partners</a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="relative inline-block hover:text-[#2eaf7d] transition-colors"
+                >News</a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="relative inline-block hover:text-[#2eaf7d] transition-colors"
+                >Contact</a>
+            </li>
+          </ul>
+        </div>
 
-    <ul class="flex">&copy; 2025 deskify · All rights reserved</ul>
+        <!-- Support Column -->
+        <div class="mb-6 sm:mb-0">
+          <button
+            class="accordion-toggle sm:pointer-events-none text-[1.125rem] font-medium mb-4 w-full flex justify-between items-center sm:block"
+          >
+            Support
+            <svg
+              class="sm:hidden h-5 w-5 transform transition-transform duration-200"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <ul class="accordion-content space-y-2 hidden sm:block">
+            <li>
+              <a
+                href="#"
+                class="relative inline-block hover:text-[#2eaf7d] transition-colors"
+                >Support</a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="relative inline-block hover:text-[#2eaf7d] transition-colors"
+                >Services</a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="relative inline-block hover:text-[#2eaf7d] transition-colors"
+                >Community</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Products Column -->
+        <div class="mb-6 sm:mb-0">
+          <button
+            class="accordion-toggle sm:pointer-events-none text-[1.125rem] font-medium mb-4 w-full flex justify-between items-center sm:block"
+          >
+            Products
+            <svg
+              class="sm:hidden h-5 w-5 transform transition-transform duration-200"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <ul class="accordion-content space-y-2 hidden sm:block">
+            <li>
+              <a
+                href="#"
+                class="relative inline-block hover:text-[#2eaf7d] transition-colors"
+                >News</a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="relative inline-block hover:text-[#2eaf7d] transition-colors"
+                >deskify</a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="relative inline-block hover:text-[#2eaf7d] transition-colors"
+                >Ticketing</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Social Media Column -->
+      <div class="md:col-span-4 lg:col-span-3">
+        <button
+          class="accordion-toggle sm:pointer-events-none text-[1.125rem] font-medium mb-4 w-full flex justify-between items-center sm:block"
+        >
+          Follow Us
+          <svg
+            class="sm:hidden h-5 w-5 transform transition-transform duration-200"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        <ul class="accordion-content space-y-2 mb-6 hidden sm:block">
+          <li>
+            <a
+              href="#"
+              class="relative inline-block hover:text-[#2eaf7d] transition-colors"
+              >Instagram</a>
+          </li>
+          <li>
+            <a
+              href="#"
+              class="relative inline-block hover:text-[#2eaf7d] transition-colors"
+              >LinkedIn</a>
+          </li>
+          <li>
+            <a
+              href="#"
+              class="relative inline-block hover:text-[#2eaf7d] transition-colors"
+              >Facebook</a>
+          </li>
+          <li>
+            <a
+              href="#"
+              class="relative inline-block hover:text-[#2eaf7d] transition-colors"
+              >YouTube</a>
+          </li>
+          <li>
+            <a
+              href="#"
+              class="relative inline-block hover:text-[#2eaf7d] transition-colors"
+              >Twitter</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="border-t border-opacity-20 border-white mb-6" />
+
+    <!-- Legal & Copyright -->
+    <div
+      class="flex flex-col md:flex-row justify-between items-center text-xs font-light"
+    >
+      <ul class="flex flex-wrap gap-4 mb-4 md:mb-0">
+        <li>
+          <a href="#" class="hover:text-[#2eaf7d] transition-colors">Legal</a>
+        </li>
+        <li>
+          <a href="#" class="hover:text-[#2eaf7d] transition-colors"
+            >Privacy Notice</a>
+        </li>
+        <li>
+          <a href="#" class="hover:text-[#2eaf7d] transition-colors"
+            >Site terms</a>
+        </li>
+        <li>
+          <a href="#" class="hover:text-[#2eaf7d] transition-colors"
+            >Cookie Policy</a>
+        </li>
+        <li>
+          <a href="#" class="hover:text-[#2eaf7d] transition-colors"
+            >Security</a>
+        </li>
+        <li>
+          <a href="#" class="hover:text-[#2eaf7d] transition-colors"
+            >Unsubscribe</a>
+        </li>
+        <li>
+          <a href="#" class="hover:text-[#2eaf7d] transition-colors"
+            >Accessibility</a>
+        </li>
+      </ul>
+
+      <div class="text-center md:text-right">
+        <p>&copy; 2025 deskify · All rights reserved</p>
+      </div>
+    </div>
   </div>
 </footer>
 
 <style>
-  footer {
-    background-color: #02353c;
-  }
-  #columns {
-    font-weight: 300;
-    grid-template-columns: 4fr 1fr;
-  }
-
-  #columns ul {
-    width: fit-content;
-  }
-
-  #columns ul li {
-    cursor: pointer;
-    margin: 12px 0;
-    width: fit-content;
-    position: relative;
-  }
-
-  #columns ul li:hover:not(:first-child)::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-  }
-
-  #columns ul li::after {
-    content: '';
+  /* Efecto de subrayado animado para los enlaces */
+  .space-y-2 a::after {
+    content: "";
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
     height: 1px;
-    background-color: white;
+    background-color: currentColor;
     transform: scaleX(0);
     transform-origin: bottom right;
     transition: transform 0.3s ease;
   }
 
-  /* Primer elemento no tiene subrayado */
-  #columns ul li:first-child {
-    cursor: inherit;
-    font-weight: 400;
-    font-size: 1.2em;
+  .space-y-2 a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+  /* Estilos para el acordeón */
+  .accordion-toggle {
+    transition: all 0.3s ease;
+    text-align: left;
+  }
+
+  .accordion-toggle.active svg {
+    transform: rotate(180deg);
+  }
+
+  .accordion-content.active {
+    display: block;
   }
 </style>
 
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const accordionToggles = document.querySelectorAll(".accordion-toggle");
 
+    accordionToggles.forEach((toggle) => {
+      if (window.innerWidth < 640) {
+        const content = toggle.nextElementSibling as HTMLElement; 
+        toggle.classList.add("active");
+        content.classList.add("active");
+      }
+
+      toggle.addEventListener("click", function (this: HTMLElement) {
+        if (window.innerWidth >= 640) return;
+
+        this.classList.toggle("active");
+        const content = this.nextElementSibling as HTMLElement; 
+
+        content.classList.toggle("active");
+
+        if (content.classList.contains("active")) {
+          content.style.maxHeight = content.scrollHeight + "px";
+        } else {
+          content.style.maxHeight = "0";
+        }
+      });
+    });
+
+    window.addEventListener("resize", function () {
+      const isMobile = window.innerWidth < 640;
+      accordionToggles.forEach((toggle) => {
+        const content = toggle.nextElementSibling as HTMLElement; 
+        if (isMobile) {
+          if (toggle.textContent?.trim() === "Enterprise") {
+            toggle.classList.add("active");
+            content.classList.add("active");
+            content.style.maxHeight = content.scrollHeight + "px";
+          } else {
+            toggle.classList.remove("active");
+            content.classList.remove("active");
+            content.style.maxHeight = "0";
+          }
+        } else {
+          toggle.classList.remove("active");
+          content.classList.add("active");
+          content.style.maxHeight = "";
+        }
+      });
+    });
+  });
+</script>
