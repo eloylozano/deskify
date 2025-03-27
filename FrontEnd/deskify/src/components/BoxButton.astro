@@ -1,0 +1,66 @@
+---
+import "../styles/global.css";
+const { text, href, class: additionalClass } = Astro.props;
+---
+
+<div class="relative flex justify-center items-center mt-12">
+  <a
+    class={`btn bg-white px-14 py-6 cursor-pointer font-semibold text-xs uppercase 
+    relative z-10 shadow-md ${additionalClass}`}
+    href={href}
+  >
+    {text}
+  </a>
+
+  <div class="absolute w-24 h-12">
+    <span class="lineX top-[-50px] left-[-10px]"></span>
+    <span class="lineY top-[-60px] left-[-20px]"></span>
+    <span class="lineX top-[-30px] left-[60px]"></span>
+    <span class="lineX top-[80px] left-[-40px]"></span>
+    <span class="lineX top-[100px] right-[0px]"></span>
+    <span class="lineY top-[90px] right-[-20px]"></span>
+  </div>
+</div>
+
+<style>
+  .btn {
+    color: #00aa6f;
+    letter-spacing: 0.2em;
+    width: fit-content;
+    border-radius: 2px;
+    transition: .2s ease-in-out;
+  }
+
+  .btn:hover{
+    background-color: #02353C;
+    transform: scale(1.02);
+  }
+
+  .lineX {
+    position: absolute;
+    width: 90px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.6);
+  }
+
+  .lineY {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 15px;
+    background: rgba(255, 255, 255, 0.6);
+  }
+
+  .top-[-20px] {
+    top: -20px;
+  }
+  .bottom-[-20px] {
+    bottom: -20px;
+  }
+  .left-[-40px] {
+    left: -40px;
+  }
+  .right-[-40px] {
+    right: -40px;
+  }
+</style>

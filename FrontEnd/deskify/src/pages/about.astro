@@ -1,6 +1,8 @@
 ---
 import Title from "../components/Title.astro";
 import Button from "../components/Button.astro";
+import BlankButton from "../components/BlankButton.astro";
+import BoxButton from "../components/BoxButton.astro";
 import Layout from "../layouts/Layout.astro";
 import "../styles/global.css";
 import TextBox from "../components/TextBox.astro";
@@ -10,7 +12,10 @@ import GradientTitle from "../components/GradientTitle.astro";
 import Text from "../components/Text.astro";
 ---
 
-<Layout backgroundImage="/images/background/about.jpeg">
+<Layout
+  backgroundImage="/images/background/about.jpeg"
+  backgroundSize="contain"
+>
   <div
     class="text-white ms-50 h-[93vh] flex flex-col justify-center items-start"
   >
@@ -59,7 +64,10 @@ import Text from "../components/Text.astro";
     />
     <div class="my-20">
       <Line width="full" />
-      <GradientTitle text="Building the future" class="text-center mt-25 mb-10" />
+      <GradientTitle
+        text="Building the future"
+        class="text-center mt-25 mb-10"
+      />
       <SubTitle
         text="Innovation driven by design and technology"
         class="text-center"
@@ -68,6 +76,46 @@ import Text from "../components/Text.astro";
         class="text-center w-[60%] mx-auto"
         text="Innovation isn't just a goal, it's the path we follow. We combine intuitive design with cutting-edge technology to create efficient support solutions that transform the customer experience and streamline business processes."
       />
+      <div class="flex justify-center gap-5 mt-12">
+        <BlankButton text="Learn more" />
+        <Button text="Let's get started" />
+      </div>
+    </div>
+  </div>
+  <div class="background px-15 pt-25 flex relative">
+    
+
+    <div class="relative z-10">
+      <div
+      class="absolute inset-0 z-[-5] ms-40 bg-no-repeat opacity-20 pointer-events-none"
+      style="background-image: url('/public/logo.png'); "
+    >
+    </div>
+      <SubTitle
+        class="text-5xl"
+        text="Find out how Deskify can transform your business."
+      />
+
+      <Text
+        text="Need an elite team of technologists and thinkers? Is quality important to you? Do you value scalability and infinite customization? Do you need a brand built specifically for your company that can be as innovative as you are?"
+      />
+
+      <Text
+        text="Tell us a little about your needs and one of our Customer Success Specialists will contact you."
+        class="mt-6"
+      />
+
+      <p class="text-3xl mt-10 mb-25">
+        Say Hi! <a class="font-thin underline ms-6" href=""
+          >welcome@deskify.com</a
+        >
+      </p>
+    </div>
+
+    <div
+      class="w-400 flex flex-col justify-center items-center relative z-10"
+    >
+      <BoxButton text="Let's get started" />
     </div>
   </div>
 </Layout>
@@ -78,5 +126,10 @@ import Text from "../components/Text.astro";
     background-size: cover;
     color: #3a3a3a;
     height: 100%;
+  }
+
+  .background {
+    background: linear-gradient(45deg, #00aa6f, #00ff7a 100%);
+    color: white;
   }
 </style>

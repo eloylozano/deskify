@@ -1,8 +1,7 @@
 ---
-// Importación de componentes
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-const { backgroundImage } = Astro.props;
+const { backgroundImage, backgroundSize = "cover" } = Astro.props;
 ---
 
 <!doctype html>
@@ -13,7 +12,8 @@ const { backgroundImage } = Astro.props;
     <link rel="icon" type="image/png+xml" href="/logo.png" />
     <title>Deskify</title>
   </head>
-  <body class="flex flex-col min-h-screen" style={`background-image: url(${backgroundImage}); background-size: contain; background-repeat: no-repeat; `}>
+  <body class="flex flex-col min-h-screen"
+    style={`background-image: url(${backgroundImage}); background-size: ${backgroundSize}; background-repeat: no-repeat; `}>
     <Header />
 
     <main class="flex-grow">
