@@ -1,21 +1,27 @@
 ---
 import "../styles/global.css";
-const { text, href } = Astro.props;
+const { text, href, class: additionalClass } = Astro.props;
 ---
 
-<a class="btn px-16 py-3 rounded-full mt-12 cursor-pointer text-white flex items-center" href={href}>
+<a
+  class={`btn px-16 py-3 rounded-full mt-12 cursor-pointer text-white flex items-center w-fit ${additionalClass}`}
+  href={href}
+>
   {text}
 </a>
 
 <style>
   .btn {
     background: linear-gradient(45deg, #00ff7a, #00aa6f 100%);
-    transition: background 0.3s ease-in, transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      background 0.3s ease-in,
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
   }
 
   .btn:hover {
-    background: linear-gradient(45deg, #00aa6f, #02353C 100%);
-    transform: scale(1.05);  
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);  
+    background: linear-gradient(45deg, #00aa6f, #02353c 100%);
+    transform: scale(1.05);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
   }
 </style>

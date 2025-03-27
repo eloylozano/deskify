@@ -1,0 +1,62 @@
+---
+import Title from "../components/Title.astro";
+import TextBox from "../components/TextBox.astro";
+import Button from "../components/Button.astro";
+import Layout from "../layouts/Layout.astro";
+import "../styles/global.css";
+---
+
+<Layout
+  backgroundImage="/images/background/platform.jpg"
+  backgroundSize="md:contain"
+>
+  <div
+    class="w-full flex flex-col items-center px-4 md:px-12 lg:px-24 xl:px-50 text-white mt-10"
+  >
+    <Title
+      title="DESKIFY"
+      desc="Sign up for Deskify and take your support management to the next level with our platform."
+    />
+  </div>
+  <div id="container-platform" class="md:px-15 px-5">
+    <TextBox
+      h3="Our platform"
+      title="Boost your support with deskify"
+      desc="Discover the potential of Deskify and improve your users' experience while making your team's work easier. Grow your business with a tool that simplifies support and maximizes productivity!"
+      image="/images/Analytics.svg"
+      alt="Boy analyzing a graph"
+    />
+    <Button text="Let's get started" class="mx-auto" />
+  </div>
+  <div class="bg-white md:px-15 px-5 pb-45">
+    <TextBox
+      h3="Flexibility without limits"
+      title="Wherever and whenever"
+      desc="Access Deskify anytime, anywhere, from any device. Our platform is designed to give you complete flexibility, allowing you to manage tickets, monitor your team's performance and support your users from anywhere."
+      image="/images/WorkAnywhere.svg"
+      alt="Work anywhere"
+      imagePosition="left"
+    />
+    <TextBox
+    h3="Leading Technology Development"
+    title="Created by experts, by and for you"
+    desc="At Deskify, we make sure to use the most advanced technologies on the market to provide you with a robust, efficient and secure platform. Our commitment to innovation ensures that each tool is designed to simplify your experience and maximize your results."
+    image="/images/Development.svg"
+    alt="Development team"
+    imagePosition="right"
+  />
+  </div>
+</Layout>
+
+<style>
+  #container-platform {
+    background-image: url("/images/whiteBg02.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    color: #3a3a3a;
+    top: 100px;
+    z-index: 10;
+    padding-top: 10px;
+  }
+</style>

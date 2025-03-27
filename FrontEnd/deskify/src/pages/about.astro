@@ -62,6 +62,7 @@ import Text from "../components/Text.astro";
       alt="Globalization"
       imagePosition="right"
     />
+
     <div class="my-20">
       <Line width="full" />
       <GradientTitle
@@ -80,17 +81,19 @@ import Text from "../components/Text.astro";
         <BlankButton text="Learn more" />
         <Button text="Let's get started" />
       </div>
-      
     </div>
   </div>
-  <div class="background px-4 md:px-15 py-25 flex flex-col md:flex-row relative">
+  <div
+    class="background px-4 md:px-15 py-25 flex flex-col md:flex-row relative"
+  >
     <div class="relative z-10">
       <!-- Imagen de fondo -->
       <div
         class="absolute inset-0 z-[-5] ms-40 bg-no-repeat opacity-20 pointer-events-none"
         style="background-image: url('/public/logo.png');"
-      ></div>
-  
+      >
+      </div>
+
       <!-- Título y texto -->
       <SubTitle
         class="text-3xl md:text-5xl"
@@ -103,19 +106,23 @@ import Text from "../components/Text.astro";
         text="Tell us a little about your needs and one of our Customer Success Specialists will contact you."
         class="mt-6"
       />
-  
+
       <!-- Párrafo con correo -->
       <p class="text-xl md:text-3xl mt-10">
-        Say Hi! <a class="font-thin underline ms-6" href="mailto:welcome@deskify.com">welcome@deskify.com</a>
+        Say Hi! <a
+          class="font-thin underline ms-6"
+          href="mailto:welcome@deskify.com">welcome@deskify.com</a
+        >
       </p>
     </div>
-  
+
     <!-- Botón "Let's get started" -->
-    <div class="w-full md:w-400 flex flex-col justify-center items-center relative z-10 mt-8 md:mt-0">
+    <div
+      class="w-full md:w-400 flex flex-col justify-center items-center relative z-10 mt-8 md:mt-0"
+    >
       <BoxButton text="Let's get started" />
     </div>
   </div>
-  
 </Layout>
 
 <style>

@@ -1,5 +1,13 @@
 ---
-const { h3, title, desc, image, alt, imagePosition } = Astro.props;
+const {
+  h3,
+  title,
+  desc,
+  image,
+  alt,
+  imagePosition,
+  class: additionalClass,
+} = Astro.props;
 import Line from "../components/Line.astro";
 import "../styles/global.css";
 import GradientTitle from "../components/GradientTitle.astro";
@@ -8,7 +16,7 @@ import Text from "../components/Text.astro";
 ---
 
 <div
-  class={`mt-50 flex flex-col md:flex-row justify-between items-center ${
+  class={`pt-50 flex flex-col md:flex-row justify-between items-center ${additionalClass} ${
     imagePosition === "left" ? "md:flex-row-reverse" : ""
   } gap-x-[100px]`}
 >
@@ -18,7 +26,10 @@ import Text from "../components/Text.astro";
     <Line />
     <Text text={desc} />
   </div>
-  
+
   <img src={image} alt={alt} class="w-full md:w-[40%] mt-4 md:mt-0" />
 </div>
 
+<style>
+
+</style>
