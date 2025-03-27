@@ -3,35 +3,64 @@ import FlatLink from "./FlatLink.astro";
 import WhiteButton from "./WhiteButton.astro";
 ---
 
-<header class="px-8 py-1">
+<header class="px-4 md:px-8 py-1">
   <nav class="flex justify-between items-center text-white -15">
     <a href="/">
       <img src="/images/deskify02.png" alt="Deskify's Logo" class="h-15" />
     </a>
-    <ul class="flex w-[60%] justify-between">
+
+    <!-- Botón del menú móvil -->
+    <button class="md:hidden text-white focus:outline-none" id="menu-toggle">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+
+    <!-- Menú principal -->
+    <div class="hidden md:flex md:w-[60%] md:justify-between" id="main-menu">
+      <ul class="md:flex md:w-full md:justify-between">
+        <li><FlatLink text="Home" href="/" /></li>
+        <li><FlatLink text="About" href="/about" /></li>
+        <li><FlatLink text="Subscription" href="/subscription" /></li>
+        <li><FlatLink text="Platform" href="/platform" /></li>
+        <li><FlatLink text="Our Clients" href="/clients" /></li>
+      </ul>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="hidden md:flex md:justify-between md:w-40 md:items-center ">
+      <a href="" class="btn">Sign in</a>
+      <WhiteButton text="FREE Trial" />
+    </div>
+  </nav>
+
+  <!-- Menú móvil desplegable -->
+  <div class="md:hidden hidden w-full bg-[#01c8830e] backdrop-filter backdrop-blur-lg py-4" id="mobile-menu">
+    <ul class="flex flex-col space-y-4 px-4">
       <li><FlatLink text="Home" href="/" /></li>
       <li><FlatLink text="About" href="/about" /></li>
       <li><FlatLink text="Subscription" href="/subscription" /></li>
       <li><FlatLink text="Platform" href="/platform" /></li>
       <li><FlatLink text="Our Clients" href="/clients" /></li>
+      <li class="pt-4 border-t border-white/20">
+        <a href="" class="btn block text-left">Sign in</a>
+      </li>
+      <li>
+        <WhiteButton text="FREE Trial" class="w-full text-center" />
+      </li>
     </ul>
-    <div class="flex justify-between w-40 items-center">
-      <a href="" class="btn">Sign in</a>
-      <WhiteButton text="FREE Trial" />
-    </div>
-  </nav>
+  </div>
 </header>
 
 <style>
   header {
     background-color: #01c8830e;
+    color: white;
     backdrop-filter: blur(10px);
     box-shadow: 0px 0px 8px 2px rgba(39, 39, 39, 0.438);
   }
 
   ul {
-    display: flex;
-    justify-content: space-between;
     padding: 0;
     list-style: none;
   }
@@ -41,3 +70,24 @@ import WhiteButton from "./WhiteButton.astro";
     cursor: pointer;
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (menuToggle && mobileMenu) {
+      menuToggle.addEventListener('click', () => {
+        const isHidden = mobileMenu.classList.contains('hidden');
+        
+        if (isHidden) {
+          mobileMenu.classList.remove('hidden');
+          mobileMenu.classList.add('block');
+        } else {
+          mobileMenu.classList.remove('block');
+          mobileMenu.classList.add('hidden');
+        }
+      });
+    }
+  });
+</script>
