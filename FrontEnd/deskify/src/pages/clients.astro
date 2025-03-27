@@ -1,0 +1,76 @@
+---
+import Title from "../components/Title.astro";
+import SubTitle from "../components/SubTitle.astro";
+import Button from "../components/Button.astro";
+import Text from "../components/Text.astro";
+import Line from "../components/Line.astro";
+import Opinion from "../components/Opinion.astro";
+import Layout from "../layouts/Layout.astro";
+import "../styles/global.css";
+---
+
+<Layout backgroundImage="/images/background/index.png" backgroundSize="cover">
+  <div
+    class="w-full flex flex-col items-center px-4 md:px-12 lg:px-24 xl:px-50 text-white mt-10"
+  >
+    <Title
+      title="Confían en nosotros"
+      desc="Descubre por qué las empresas líderes confían en nuestro servicio"
+    />
+  </div>
+
+  <div id="container" class="bg-white mt-10 px-15 py-15 md:px-15">
+    <div
+      class="mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8"
+    >
+      <Opinion
+        image="/images/Clients/Empresa01.png"
+        name="Skyloft"
+        message="Deskify greatly enhanced our customer service!"
+        rating="★★★★★"
+      />
+      <Opinion
+        image="/images/Clients/Empresa02.png"
+        name="ElevateTech Partners"
+        message="The perfect platform to optimize technical support and results."
+        rating="★★★★★"
+      />
+      <Opinion
+        image="/images/Clients/Empresa03.png"
+        name="Orbital"
+        message="Our customers have never been more satisfied."
+        rating="★★★★☆"
+      />
+      <Opinion
+        image="/images/Clients/Empresa04.png"
+        name="CloudLink Innovations"
+        message="Essential for our success."
+        rating="★★★★★"
+      />
+      <Opinion
+        image="/images/Clients/Empresa05.png"
+        name="VelocityWorks Inc."
+        message="Agile, intuitive, and crucial for our daily operations."
+        rating="★★★★☆"
+      />
+      <Opinion
+        image="/images/Clients/Empresa06.png"
+        name="Nexora"
+        message="Deskify completely transformed our customer support."
+        rating="★★★★★"
+      />
+    </div>
+
+    <div class="flex-col flex items-center mt-25">
+      <SubTitle text="Connect, boost and grow with us." />
+      <Line />
+      <Text
+        text="Be part of a community that values innovation and excellence. With Deskify, connecting with your customers has never been easier or more effective. "
+        class="w-[50%] text-center pb-2"
+      />
+      <Text text="Discover the future of tech support today!" />
+
+      <Button text="Join us" />
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,40 @@
+---
+import "../styles/global.css";
+import Line from "./Line.astro";
+const {
+  image,
+  alt,
+  name,
+  message,
+  rating,
+  class: additionalClass,
+} = Astro.props;
+---
+
+<div class={`bg-gray-50 p-6 rounded-lg shadow-sm ${additionalClass} flex flex-col h-full items-center text-center w-full`}>
+  {image && (
+    <div class="mb-4 flex justify-center">
+      <img src={image} alt={alt || name} class="w-20 h-20 object-contain" />
+    </div>
+  )}
+  
+  <p class="font-semibold text-gray-800 text-lg mb-2">{name}</p>
+  
+  <Line class="my-2 w-full" />
+  
+  <q class="text-gray-600 italic text-base leading-relaxed text-sm flex-grow">
+    {message}
+  </q>
+  
+  {rating && (
+    <div class="text-yellow-400 text-xl mt-2">
+      {rating}
+    </div>
+  )}
+</div>
+
+<style>
+  .shadow-sm {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+  }
+</style>
