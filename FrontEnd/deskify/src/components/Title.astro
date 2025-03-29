@@ -1,14 +1,12 @@
 ---
-const { title, desc } = Astro.props;
+const { title, desc, class: additionalClass } = Astro.props;
 import "../styles/global.css";
 ---
 
-<h1 class="text-5xl text-shadow  leading-16">
+<h1 class={`text-5xl text-shadow leading-16 ${additionalClass}`}>
   {title}
 </h1>
-<q class="mt-8 leading-6 italic text-lg"
-  >{desc}</q
->
+<q class="mt-8 leading-6 italic text-lg text-center">{desc}</q>
 
 <style>
   .text-shadow {

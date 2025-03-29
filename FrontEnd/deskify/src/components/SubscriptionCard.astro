@@ -1,0 +1,50 @@
+---
+import "../styles/global.css";
+import GradientTitle from "../components/GradientTitle.astro";
+const { name, price, features } = Astro.props;
+---
+
+<div class="card flex flex-col shadow-2xl py-8 px-6 rounded-3xl h-95 w-80">
+  <GradientTitle text={name} class="text-center uppercase" />
+  <ul class="text-xs h-full px-5">
+    {features.map((feature: string) => <li>{feature}</li>)}
+  </ul>
+  <p class="text-center text-3xl font-light my-4">
+    {price} €/<span class="text-xs font-normal">month</span>
+  </p>
+  <div class="flex justify-between">
+    <button class="btn uppercase">1 Month</button>
+    <button class="btn uppercase">3 Months</button>
+    <button class="btn uppercase">1 Year</button>
+  </div>
+</div>
+
+<style>
+  .card {
+    background-color: #f7f7f7;
+  }
+  li::marker {
+    color: #01ad70;
+  }
+  li{
+    padding: 2px 0;
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  .btn:active {
+    background-color: #red;
+  }
+
+  .btn {
+    cursor: pointer;
+    border-radius: 40px;
+    font-size: 0.7em;
+    color: white;
+    padding: 5px;
+    width: 80px;
+    background-color: #01ad70;
+  }
+</style>

@@ -1,0 +1,91 @@
+---
+import Title from "../components/Title.astro";
+import SubTitle from "../components/SubTitle.astro";
+import Button from "../components/Button.astro";
+import Text from "../components/Text.astro";
+import Line from "../components/Line.astro";
+import Opinion from "../components/Opinion.astro";
+import Layout from "../layouts/Layout.astro";
+import "../styles/global.css";
+import SubscriptionCard from "../components/SubscriptionCard.astro";
+---
+
+<Layout backgroundImage="/images/background/index.png" backgroundSize="cover">
+  <div
+    class="w-full flex flex-col items-center px-4 md:px-12 lg:px-24 xl:px-50 text-white mt-10"
+  >
+    <Title
+      title="Our plans"
+      desc="With Deskify, you have the freedom to choose from a variety of plans, all designed to help you manage your needs in an efficient and personalised way."
+    />
+  </div>
+
+  <div id="container" class="mt-10 px-5 py-15 md:px-15">
+    <!-- Contenedor de opiniones con breakpoint personalizado -->
+    <div class="flex justify-evenly">
+      <SubscriptionCard
+        name="Basic"
+        price="9,95"
+        features={[
+          "Up to 3 open tickets simultaneously.",
+          "Standard support response < 48h.",
+          "No access to advanced customization.",
+          "Individual users only (no team).",
+        ]}
+      />
+
+      <SubscriptionCard
+        name="Standard"
+        price="14,99"
+        features={[
+          "Up to 10 open tickets simultaneously.",
+          "Priority support response < 24h.",
+          "Extended ticket history (up to 6 months).",
+          "Allows 2 additional users.",
+          "Basic charts and trends for tickets.",
+        ]}
+      />
+
+      <SubscriptionCard
+        name="Premium"
+        price="19,95"
+        features={[
+          "Unlimited tickets.",
+          "Ultra-priority support.",
+          "Access to templates for common ticket resolutions.",
+          "Advanced integrations (e.g., Slack, Trello).",
+          "Multiple users with assigned roles.",
+          "Comprehensive analytics with key metrics.",
+          "Unlimited access to ticket history.",
+        ]}
+      />
+    </div>
+    <div class="flex flex-col items-center mt-10 md:mt-20">
+      <SubTitle text="Connect, boost and grow with us." class="text-center" />
+      <Line />
+      <Text
+        text="Be part of a community that values innovation and excellence. With Deskify, connecting with your customers has never been easier or more effective. "
+        class="md:w-1/2 text-center pb-2"
+      />
+      <Text
+        text="Discover the future of tech support today!"
+        class="text-center"
+      />
+
+      <Button text="Join us" class="mt-6" />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  #container {
+    background-image: url("/images/whiteBg02.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    color: #3a3a3a;
+    top: 100px;
+    z-index: 10;
+    padding-top: 10px;
+  }
+</style>
