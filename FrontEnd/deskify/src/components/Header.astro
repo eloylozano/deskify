@@ -57,6 +57,7 @@ import WhiteButton from "./WhiteButton.astro";
     background-color: #01c8830e;
     color: white;
     backdrop-filter: blur(10px);
+    will-change: transform;
     box-shadow: 0px 0px 8px 2px rgba(39, 39, 39, 0.438);
   }
 
@@ -69,6 +70,14 @@ import WhiteButton from "./WhiteButton.astro";
     position: relative;
     cursor: pointer;
   }
+  #mobile-menu {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* Para compatibilidad con Safari */
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
 </style>
 
 <script>
