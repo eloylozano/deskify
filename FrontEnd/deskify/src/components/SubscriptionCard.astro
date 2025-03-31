@@ -1,21 +1,37 @@
 ---
 import "../styles/global.css";
 import GradientTitle from "../components/GradientTitle.astro";
-const { name, price, features } = Astro.props;
+const { name, price, features, class: additionalClass } = Astro.props;
 ---
 
-<div class="card flex flex-col shadow-2xl py-8 px-6 rounded-3xl h-95 w-80">
+<div
+  class={`card flex flex-col shadow-2xl py-8 px-6 rounded-3xl h-95 w-80 ${additionalClass}`}
+>
   <GradientTitle text={name} class="text-center uppercase" />
   <ul class="text-xs h-full px-5">
     {features.map((feature: string) => <li>{feature}</li>)}
   </ul>
   <p class="text-center text-3xl font-light my-4">
-    {price} €/<span class="text-xs font-normal">month</span>
+    <span class="dynamic-price">{price}</span> €/<span
+      class="duration-text text-xs font-normal">month</span
+    >
   </p>
   <div class="flex justify-between">
-    <button class="btn uppercase">1 Month</button>
-    <button class="btn uppercase">3 Months</button>
-    <button class="btn uppercase">1 Year</button>
+    <button
+      class="btn uppercase price-btn"
+      data-multiplier="1"
+      data-duration="month">1 Month</button
+    >
+    <button
+      class="btn uppercase price-btn"
+      data-multiplier="2.5"
+      data-duration="3 months">3 Months</button
+    >
+    <button
+      class="btn uppercase price-btn"
+      data-multiplier="11"
+      data-duration="year">1 Year</button
+    >
   </div>
 </div>
 
@@ -26,7 +42,7 @@ const { name, price, features } = Astro.props;
   li::marker {
     color: #01ad70;
   }
-  li{
+  li {
     padding: 2px 0;
   }
 
@@ -34,17 +50,55 @@ const { name, price, features } = Astro.props;
     list-style-type: disc;
   }
 
-  .btn:active {
-    background-color: #red;
-  }
-
   .btn {
     cursor: pointer;
     border-radius: 40px;
     font-size: 0.7em;
     color: white;
-    padding: 5px;
+    padding: 6px 5px;
     width: 80px;
     background-color: #01ad70;
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Seleccionamos todas las tarjetas
+    const cards = document.querySelectorAll<HTMLElement>('.card');
+    
+    cards.forEach(card => {
+      // Para cada tarjeta, seleccionamos sus elementos internos
+      const priceButtons = card.querySelectorAll<HTMLButtonElement>('.price-btn');
+      const dynamicPrice = card.querySelector<HTMLElement>('.dynamic-price');
+      const durationText = card.querySelector<HTMLElement>('.duration-text');
+      
+      // Verificamos que los elementos existen
+      if (!dynamicPrice || !durationText) return;
+      
+      // Obtenemos y parseamos el precio base
+      const basePriceText = dynamicPrice.textContent?.replace(',', '.') || '0';
+      const basePrice = parseFloat(basePriceText);
+
+      // Verificamos que el precio es un número válido
+      if (isNaN(basePrice)) return;
+
+      priceButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const multiplier = parseFloat(button.dataset?.multiplier || '1');
+          const duration = button.dataset?.duration || 'month';
+          
+          // Actualizamos el precio y la duración
+          dynamicPrice.textContent = (basePrice * multiplier).toFixed(2).replace('.', ',');
+          durationText.textContent = duration;
+          
+          // Opcional: añadir estilo al botón activo
+          priceButtons.forEach(btn => {
+            if (btn.style) btn.style.backgroundColor = '#01ad70';
+          });
+          
+          if (button.style) button.style.backgroundColor = '#018454';
+        });
+      });
+    });
+  });
+</script>

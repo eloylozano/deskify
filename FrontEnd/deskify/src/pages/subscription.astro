@@ -8,6 +8,9 @@ import Opinion from "../components/Opinion.astro";
 import Layout from "../layouts/Layout.astro";
 import "../styles/global.css";
 import SubscriptionCard from "../components/SubscriptionCard.astro";
+import FreeSubscriptionCard from "../components/FreeSubscriptionCard.astro";
+import TextBox from "../components/TextBox.astro";
+import GradientTitle from "../components/GradientTitle.astro";
 ---
 
 <Layout backgroundImage="/images/background/index.png" backgroundSize="cover">
@@ -22,7 +25,7 @@ import SubscriptionCard from "../components/SubscriptionCard.astro";
 
   <div id="container" class="mt-10 px-5 py-15 md:px-15">
     <!-- Contenedor de opiniones con breakpoint personalizado -->
-    <div class="flex justify-evenly">
+    <div class="flex justify-evenly items-end">
       <SubscriptionCard
         name="Basic"
         price="9,95"
@@ -44,6 +47,7 @@ import SubscriptionCard from "../components/SubscriptionCard.astro";
           "Allows 2 additional users.",
           "Basic charts and trends for tickets.",
         ]}
+        class="mb-10"
       />
 
       <SubscriptionCard
@@ -60,20 +64,40 @@ import SubscriptionCard from "../components/SubscriptionCard.astro";
         ]}
       />
     </div>
-    <div class="flex flex-col items-center mt-10 md:mt-20">
-      <SubTitle text="Connect, boost and grow with us." class="text-center" />
-      <Line />
-      <Text
-        text="Be part of a community that values innovation and excellence. With Deskify, connecting with your customers has never been easier or more effective. "
-        class="md:w-1/2 text-center pb-2"
-      />
-      <Text
-        text="Discover the future of tech support today!"
-        class="text-center"
-      />
+    <p class="text-center text-sm">
+      Try our free 14-day trial by clicking <a
+        class="text-[#01ad70] underline"
+        href="">here</a
+      >.
+    </p>
 
-      <Button text="Join us" class="mt-6" />
+    <div class="flex justify-between mt-55 px-30">
+      <div class="w-full md:w-[50%]">
+        <GradientTitle text="Limited offer" />
+        <SubTitle text="Deskify without limits for 14 days" />
+        <Line />
+        <Text
+          text="Enjoy our free 14-day plan and access Deskify's key features at no cost. Explore how our platform can streamline your technical support with no commitment and no credit card required.Try it out today!"
+        />
+      </div>
+
+      <FreeSubscriptionCard
+        name="Free Trial"
+        price="19.95"
+        features={[
+          "Unlimited tickets.",
+          "Ultra-priority support.",
+          "Access to templates for common ticket resolutions.",
+          "Advanced integrations (e.g., Slack, Trello).",
+          "Multiple users with assigned roles.",
+          "Comprehensive analytics with key metrics.",
+          "Unlimited access to ticket history.",
+        ]}
+      />
     </div>
+    <p class="mt-35 text-xs font-light text-justify">
+      By subscribing to any of the plans offered, you agree to the terms and conditions established by Deskify and available on our website. Prices quoted are final and include all applicable taxes unless otherwise stated. By default, the subscription includes an active automatic renewal, which will be processed on the expiration date of the plan, using the payment method associated with your account. You may disable this option at any time from your profile or cancel at least 24 hours prior to the renewal date to avoid additional charges. Deskify reserves the right to make changes to the prices, benefits or features of its plans with prior notice to users, ensuring that changes will not affect active subscriptions until their next renewal. Please note that some specific features may not be available depending on your region or the type of plan you choose. For more information about your rights, how your information is processed, or additional details about our plans, please see our Privacy Policy and Terms of Use.
+    </p>
   </div>
 </Layout>
 
