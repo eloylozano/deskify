@@ -23,9 +23,9 @@ import GradientTitle from "../components/GradientTitle.astro";
     />
   </div>
 
-  <div id="container" class="mt-10 px-5 py-15 md:px-15">
+  <div id="container" class="md:mt-10 px-5  py-15 md:px-15">
     <!-- Contenedor de opiniones con breakpoint personalizado -->
-    <div class="flex justify-evenly items-end">
+    <div class="md:mt-5 mt-60 flex flex-wrap justify-center gap-8 md:justify-evenly items-end">
       <SubscriptionCard
         name="Basic"
         price="9,95"
@@ -36,7 +36,7 @@ import GradientTitle from "../components/GradientTitle.astro";
           "Individual users only (no team).",
         ]}
       />
-
+    
       <SubscriptionCard
         name="Standard"
         price="14,99"
@@ -47,9 +47,9 @@ import GradientTitle from "../components/GradientTitle.astro";
           "Allows 2 additional users.",
           "Basic charts and trends for tickets.",
         ]}
-        class="mb-10"
+        class="md:mb-10"
       />
-
+    
       <SubscriptionCard
         name="Premium"
         price="19,95"
@@ -64,24 +64,27 @@ import GradientTitle from "../components/GradientTitle.astro";
         ]}
       />
     </div>
-    <p class="text-center text-sm">
+    
+    <p class="text-center text-sm md:mt-0 mt-10">
       Try our free 14-day trial by clicking <a
         class="text-[#01ad70] underline"
         href="#free">here</a
       >.
     </p>
 
-    <div class="flex flex-col items-center" id="free">
-      <div class="flex justify-between pt-55 px-30">
-        <div class="w-full md:w-[50%]">
+    <div class="flex flex-col items-center md:mt-70 px-5 md:px-20 lg:px-32" id="free">
+      <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-8 w-full">
+        <!-- Texto -->
+        <div class="w-full md:w-1/2 text-center md:text-left mt-20">
           <GradientTitle text="Limited offer" />
           <SubTitle text="Deskify without limits for 14 days" />
           <Line />
           <Text
-            text="Enjoy our free 14-day plan and access Deskify's key features at no cost. Explore how our platform can streamline your technical support with no commitment and no credit card required.Try it out today!"
+            text="Enjoy our free 14-day plan and access Deskify's key features at no cost. Explore how our platform can streamline your technical support with no commitment and no credit card required. Try it out today!"
           />
         </div>
-  
+    
+        <!-- Tarjeta de prueba gratuita -->
         <FreeSubscriptionCard
           name="Free Trial"
           price="19,95"
@@ -94,10 +97,14 @@ import GradientTitle from "../components/GradientTitle.astro";
             "Comprehensive analytics with key metrics.",
             "Unlimited access to ticket history.",
           ]}
+          class=""
         />
       </div>
-      <Button text="Try it now!"></Button>
+    
+      <!-- Botón centrado -->
+      <Button text="Try it now!" class="mt-8 md:mt-12"></Button>
     </div>
+    
     <p class="mt-35 text-xs font-light text-justify">
       By subscribing to any of the plans offered, you agree to the terms and conditions established by Deskify and available on our website. Prices quoted are final and include all applicable taxes unless otherwise stated. By default, the subscription includes an active automatic renewal, which will be processed on the expiration date of the plan, using the payment method associated with your account. You may disable this option at any time from your profile or cancel at least 24 hours prior to the renewal date to avoid additional charges. Deskify reserves the right to make changes to the prices, benefits or features of its plans with prior notice to users, ensuring that changes will not affect active subscriptions until their next renewal. Please note that some specific features may not be available depending on your region or the type of plan you choose. For more information about your rights, how your information is processed, or additional details about our plans, please see our Privacy Policy and Terms of Use.
     </p>

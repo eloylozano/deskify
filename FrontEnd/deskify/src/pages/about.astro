@@ -14,7 +14,7 @@ import Text from "../components/Text.astro";
 
 <Layout
   backgroundImage="/images/background/about.jpeg"
-  backgroundSize="contain"
+  backgroundSize=""
 >
   <div
     class="min-h-screen w-full flex flex-col justify-center items-start px-4 md:px-12 lg:px-24 xl:px-50 text-white"
@@ -26,7 +26,7 @@ import Text from "../components/Text.astro";
     <Button text="Let's get started" />
   </div>
 
-  <div id="container-about" class="md:pt-150 pt-250 md:px-15 px-5">
+  <div id="container-about" class="md:pt-100 pt-40 md:px-15 px-5">
     <img src="/images/logo.png" alt="Deskify's Logo" class="mx-auto w-35" />
     <h2 class="text-center text-6xl font-light mt-10">Introducing deskify</h2>
     <p class="text-center mx-auto text-2xl font-light mt-8 md:w-[70%] font-xl">
@@ -128,14 +128,16 @@ import Text from "../components/Text.astro";
 <style>
   #container-about {
     background-image: url("/images/whiteBg.svg");
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
+    background-position: top;
     color: #3a3a3a;
-    height: 100%;
+    z-index: 10;
   }
 
   .background {
     background: linear-gradient(45deg, #00aa6f, #00ff7a 100%);
     color: white;
-  }
+  } 
+
 </style>
