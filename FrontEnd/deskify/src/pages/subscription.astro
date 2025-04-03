@@ -67,33 +67,36 @@ import GradientTitle from "../components/GradientTitle.astro";
     <p class="text-center text-sm">
       Try our free 14-day trial by clicking <a
         class="text-[#01ad70] underline"
-        href="">here</a
+        href="#free">here</a
       >.
     </p>
 
-    <div class="flex justify-between mt-55 px-30">
-      <div class="w-full md:w-[50%]">
-        <GradientTitle text="Limited offer" />
-        <SubTitle text="Deskify without limits for 14 days" />
-        <Line />
-        <Text
-          text="Enjoy our free 14-day plan and access Deskify's key features at no cost. Explore how our platform can streamline your technical support with no commitment and no credit card required.Try it out today!"
+    <div class="flex flex-col items-center" id="free">
+      <div class="flex justify-between pt-55 px-30">
+        <div class="w-full md:w-[50%]">
+          <GradientTitle text="Limited offer" />
+          <SubTitle text="Deskify without limits for 14 days" />
+          <Line />
+          <Text
+            text="Enjoy our free 14-day plan and access Deskify's key features at no cost. Explore how our platform can streamline your technical support with no commitment and no credit card required.Try it out today!"
+          />
+        </div>
+  
+        <FreeSubscriptionCard
+          name="Free Trial"
+          price="19,95"
+          features={[
+            "Unlimited tickets.",
+            "Ultra-priority support.",
+            "Access to templates for common ticket resolutions.",
+            "Advanced integrations (e.g., Slack, Trello).",
+            "Multiple users with assigned roles.",
+            "Comprehensive analytics with key metrics.",
+            "Unlimited access to ticket history.",
+          ]}
         />
       </div>
-
-      <FreeSubscriptionCard
-        name="Free Trial"
-        price="19.95"
-        features={[
-          "Unlimited tickets.",
-          "Ultra-priority support.",
-          "Access to templates for common ticket resolutions.",
-          "Advanced integrations (e.g., Slack, Trello).",
-          "Multiple users with assigned roles.",
-          "Comprehensive analytics with key metrics.",
-          "Unlimited access to ticket history.",
-        ]}
-      />
+      <Button text="Try it now!"></Button>
     </div>
     <p class="mt-35 text-xs font-light text-justify">
       By subscribing to any of the plans offered, you agree to the terms and conditions established by Deskify and available on our website. Prices quoted are final and include all applicable taxes unless otherwise stated. By default, the subscription includes an active automatic renewal, which will be processed on the expiration date of the plan, using the payment method associated with your account. You may disable this option at any time from your profile or cancel at least 24 hours prior to the renewal date to avoid additional charges. Deskify reserves the right to make changes to the prices, benefits or features of its plans with prior notice to users, ensuring that changes will not affect active subscriptions until their next renewal. Please note that some specific features may not be available depending on your region or the type of plan you choose. For more information about your rights, how your information is processed, or additional details about our plans, please see our Privacy Policy and Terms of Use.
