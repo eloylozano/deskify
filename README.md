@@ -58,7 +58,7 @@ git checkout -b feature/new-feature
 ## Autor
 
 **Eloy Lozano Barrios**  
-[LinkedIn](https://www.linkedin.com/in/tuusuario/) | [GitHub](https://github.com/tuusuario)
+[LinkedIn](https://www.linkedin.com/in/eloylozano/) | [GitHub](https://github.com/eloylozano)
 
 This project was developed as part of my final project for the Web Application Development course.
 
