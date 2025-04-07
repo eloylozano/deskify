@@ -6,7 +6,7 @@
 </script>
 
 <a
-  class={`btn px-12 py-2 rounded-full cursor-pointer text-white flex items-center w-fit ${additionalClass}`}
+  class={`btn px-12 py-2 rounded-full cursor-pointer flex text-white flex items-center w-fit ${additionalClass}`}
   href={href}
 >
   {text}
