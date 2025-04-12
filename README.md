@@ -27,7 +27,7 @@ _SOON_
 ## Instalación y configuración
 
 1. Clone the repository:
-   git clone https://github.com/yourusername/deskify.git
+   git clone https://github.com/eloylozano/deskify.git
    cd deskify
 
 ### Usage Instructions
