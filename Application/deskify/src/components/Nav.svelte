@@ -1,7 +1,7 @@
 <script>
 </script>
 
-<nav class="fixed top-0 left-0 flex h-screen w-fit flex-col bg-[#02353C] p-5 text-white">
+<nav class="flex h-screen w-fit flex-col bg-[#02353C] p-5 text-white">
 	<div>
 	  <a href="/login" aria-label="Login page">
 		<img src="/favicon.png" alt="Deskify's Logo" class="mx-auto h-10 w-10" />
