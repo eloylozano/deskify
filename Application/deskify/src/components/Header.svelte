@@ -8,6 +8,9 @@
 			searchQuery = '';
 		}
 	}
+	import CustomCheckbox from '../components/CustomCheckbox.svelte'; 
+	
+	let isChecked = false;
 </script>
 
 <div class="w-full">
@@ -29,6 +32,7 @@
 					/>
 				{:else}
 					<!-- Icono Lupa -->
+					<!-- svelte-ignore a11y_consider_explicit_label -->
 					<button on:click={toggleSearch}>
 						<svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white" viewBox="0 0 24 24"
 							><path
@@ -57,8 +61,7 @@
 	<!-- Resto del código permanece igual -->
 	<div id="bot" class="flex items-center justify-between bg-gray-100 px-5 py-3">
 		<div class="flex items-center">
-			<input type="checkbox" class="custom-checkbox me-2 cursor-pointer" />
-			<p><span class="font-medium text-[#858585]">Order by:</span></p>
+			<p class="ml-2"><span class="font-medium text-[#858585]">Order by:</span></p>
 			<select class="custom-select w-40 cursor-pointer font-medium text-[#252525]">
 				<option value="1">Last Modified</option>
 				<option value="2">Priority</option>
