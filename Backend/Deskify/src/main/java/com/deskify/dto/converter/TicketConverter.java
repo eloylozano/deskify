@@ -34,7 +34,7 @@ public class TicketConverter {
         // Convert the ticket to a TicketResponseDTO
         TicketResponseDTO ticketDTO = mapper.map(ticket, TicketResponseDTO.class);
 
-        // Get the list of status ordered and pic the latest 
+        // Get the list of status ordered and pic the latest
         List<TicketHistory> histories = thRepository.findByTicketIdOrderByChangedAtDesc(ticket.getId());
         if (!histories.isEmpty()) {
             TicketHistory latestHistory = histories.get(0); // El más reciente gracias al orden DESC
@@ -47,6 +47,7 @@ public class TicketConverter {
         // Set the client who created the ticket
         if (ticket.getCreatedBy() != null) {
             ClientDTO clientDTO = new ClientDTO(
+                    ticket.getCreatedBy().getProfilePictureUrl(),
                     ticket.getCreatedBy().getFirstName() + " " + ticket.getCreatedBy().getLastName(),
                     ticket.getCreatedBy().getEmail());
             ticketDTO.setClient(clientDTO);
@@ -58,8 +59,10 @@ public class TicketConverter {
             Assignment latestAssignment = assignments.get(0); // Pick the first
             if (latestAssignment.getAgent() != null) {
                 AgentAssignedDTO agentDTO = new AgentAssignedDTO(
+                        latestAssignment.getAgent().getProfilePictureUrl(),
                         latestAssignment.getAgent().getFirstName() + " " + latestAssignment.getAgent().getLastName(),
                         latestAssignment.getAgent().getEmail());
+
                 ticketDTO.setAgent(agentDTO);
             }
         }

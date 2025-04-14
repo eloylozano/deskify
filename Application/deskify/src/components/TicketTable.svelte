@@ -3,6 +3,7 @@
 	import { getTickets } from '$lib/api/tickets';
 	import CustomCheckbox from './CustomCheckbox.svelte';
 	import Loading from './Loading.svelte';
+	import TicketListHeader from './TicketListHeader.svelte';
 
 	interface User {
 		id?: number;
@@ -27,6 +28,7 @@
 	interface Agent {
 		id?: number;
 		agentName?: string;
+		profilePictureUrl?: string;
 	}
 
 	interface Ticket {
@@ -97,6 +99,7 @@
 	}
 </script>
 
+<TicketListHeader></TicketListHeader>
 <div class="flex h-full flex-col overflow-hidden">
 	{#if isLoading}
 		<div
@@ -170,7 +173,7 @@
 									<td class="w-[100px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
 										<span
 											class="inline-flex rounded-full px-2 text-xs leading-5 font-semibold
-                      {ticket.priority?.name === 'Urgente'
+						  {ticket.priority?.name === 'Urgente'
 												? 'bg-red-100 text-red-800 uppercase'
 												: ticket.priority?.name === 'Alta'
 													? 'bg-yellow-100 text-yellow-800'
@@ -184,7 +187,7 @@
 									<td class="w-[100px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
 										<span
 											class="inline-flex items-center gap-1 rounded-full px-2 text-xs leading-5 font-semibold
-                      {ticket.currentStatus?.statusName === 'Abierto'
+						  {ticket.currentStatus?.statusName === 'Abierto'
 												? 'bg-purple-100 text-purple-800'
 												: ticket.currentStatus?.statusName === 'En Progreso'
 													? 'bg-blue-100 text-blue-800'
@@ -210,8 +213,17 @@
 										{ticket.category?.name || 'N/A'}
 									</td>
 									<td class="w-[150px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
-										{ticket.agent?.agentName || 'Sin asignar'}
+										<div class="flex items-center gap-2">
+											<!-- svelte-ignore a11y_img_redundant_alt -->
+											<img
+												src={ticket.agent?.profilePictureUrl || '/default-profile.jpg'}
+												alt="Profile picture"
+												class="h-8 w-8 rounded-full"
+											/>
+											<span>{ticket.agent?.agentName || 'Sin asignar'}</span>
+										</div>
 									</td>
+
 									<td class="w-[120px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
 										{formatRelativeTime(ticket.createdAt)}
 									</td>

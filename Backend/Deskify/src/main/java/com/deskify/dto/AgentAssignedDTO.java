@@ -2,7 +2,11 @@ package com.deskify.dto;
 
 import com.deskify.model.User;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -11,6 +15,7 @@ import lombok.*;
 @ToString
 public class AgentAssignedDTO {
 
+    private String profilePictureUrl;
     private String agentName;
     private String mail;
 
