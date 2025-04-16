@@ -8,7 +8,7 @@
 			searchQuery = '';
 		}
 	}
-	
+
 	let isChecked = false;
 </script>
 
@@ -22,6 +22,7 @@
 			<!-- Contenedor de búsqueda -->
 			<div class="flex items-center">
 				{#if showSearch}
+					<!-- svelte-ignore a11y_autofocus -->
 					<input
 						type="text"
 						bind:value={searchQuery}
@@ -44,18 +45,18 @@
 			</div>
 
 			<!-- Icono crear ticket -->
-			<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" viewBox="0 0 48 48"
-				><g fill="none" stroke="#fff" stroke-linejoin="round" stroke-width="4"
-					><rect width="36" height="36" x="6" y="6" rx="3" /><path
-						stroke-linecap="round"
-						d="M24 16v16m-8-8h16"
-					/></g
-				></svg
-			>
+			<a href="/tickets/new" aria-label="Create ticket">
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" viewBox="0 0 48 48"
+					><g fill="none" stroke="#fff" stroke-linejoin="round" stroke-width="4"
+						><rect width="36" height="36" x="6" y="6" rx="3" /><path
+							stroke-linecap="round"
+							d="M24 16v16m-8-8h16"
+						/></g
+					></svg
+				>
+			</a >
 			<!-- svelte-ignore a11y_img_redundant_alt -->
 			<img src="/default-profile.jpg" alt="Profile picture" class="h-10 w-10 rounded-full" />
 		</div>
 	</div>
-
-	
 </div>

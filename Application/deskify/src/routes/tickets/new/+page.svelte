@@ -1,16 +1,25 @@
-<!-- src/routes/new-ticket/+page.svelte (o como lo tengas tú) -->
+<!-- src/routes/new-ticket/+page.svelte -->
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import Header from '../../../components/Header.svelte';
+	import { createTicket } from '$lib/api/tickets';
 	import Nav from '../../../components/Nav.svelte';
+	import Header from '../../../components/Header.svelte';
+	import SubmitButton from '../../../components/SubmitButton.svelte';
 
+	let email = '';
 	let title = '';
 	let description = '';
-	let priority: 'Baja' | 'Media' | 'Alta' = 'Media';
 
-	function createTicket() {
-		console.log({ title, description, priority });
-		goto('/tickets');
+	async function handleCreateTicket(event: Event) {
+		event.preventDefault();
+
+		try {
+			await createTicket({ email, title, description });
+			goto('/tickets');
+		} catch (err) {
+			console.error(err);
+			alert('El correo electrónico no existe o es incorrecto.');
+		}
 	}
 </script>
 
@@ -20,19 +29,50 @@
 	<div class="flex flex-1 flex-col items-center">
 		<Header />
 
-        <div class="bg-white rounded-sm my-5 w-300 px-10 py-6">
-           <h1 class="text-3xl text-gray-800 font-medium">Create a new incidence</h1> 
-        </div>
-        
+		<div class="my-5 w-300 rounded-md bg-white px-10 py-6 shadow">
+			<h1 class="mb-4 text-3xl font-medium text-gray-800">Create a new incidence</h1>
 
+			<form on:submit={handleCreateTicket} class="space-y-4">
+				<div>
+					<!-- svelte-ignore a11y_label_has_associated_control -->
+					<label class="block text-sm font-medium text-gray-700">Email</label>
+					<input
+						type="email"
+						bind:value={email}
+						required
+						class="focus:ring-primary mt-1 block w-full rounded border border-gray-300 px-3 py-2 shadow-sm focus:outline-none"
+					/>
+				</div>
+
+				<div>
+					<!-- svelte-ignore a11y_label_has_associated_control -->
+					<label class="block text-sm font-medium text-gray-700">Title</label>
+					<input
+						type="text"
+						bind:value={title}
+						required
+						class="focus:ring-primary mt-1 block w-full rounded border border-gray-300 px-3 py-2 shadow-sm focus:outline-none"
+					/>
+				</div>
+
+				<div>
+					<!-- svelte-ignore a11y_label_has_associated_control -->
+					<label class="block text-sm font-medium text-gray-700">Description</label>
+					<textarea
+						bind:value={description}
+						required
+						class="focus:ring-primary mt-1 block w-full rounded border border-gray-300 px-3 py-2 shadow-sm focus:outline-none resize-none"
+					></textarea>
+				</div>
+
+				<SubmitButton text="Create ticket" />
+			</form>
+		</div>
 	</div>
 </div>
 
 <style>
-	:global(.bg-primary) {
-		background-color: #01c883;
-	}
-	:global(.focus\:ring-primary:focus) {
-		--tw-ring-color: #01c883;
+	.shadow {
+		box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1); /* Sombra exterior sutil */
 	}
 </style>

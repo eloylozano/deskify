@@ -151,7 +151,7 @@
 				</div>
 
 				<!-- Cuerpo de la tabla con scroll -->
-				<div class="flex-1 overflow-x-auto overflow-y-auto">
+				<div class="flex-1 overflow-x-auto overflow-y-auto mb-32">
 					<table class="mt-3 w-full divide-y divide-gray-200">
 						<tbody class="divide-y divide-gray-200 bg-white">
 							{#each tickets as ticket (ticket.id)}
@@ -173,31 +173,25 @@
 									<td class="w-[100px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
 										<span
 											class="inline-flex rounded-full px-2 text-xs leading-5 font-semibold
-						  {ticket.priority?.name === 'Urgente'
-												? 'bg-red-100 text-red-800 uppercase'
-												: ticket.priority?.name === 'Alta'
-													? 'bg-yellow-100 text-yellow-800'
-													: ticket.priority?.name === 'Media'
-														? 'bg-green-100 text-green-800'
-														: 'bg-blue-100 text-blue-800'}"
+						  {ticket.priority?.name === 'Urgent' ? 'bg-red-100 text-red-800 uppercase'
+												: ticket.priority?.name === 'High' ? 'bg-yellow-100 text-yellow-800'
+													: ticket.priority?.name === 'Medium' ? 'bg-green-100 text-green-800'
+													: ticket.priority?.name === 'Low' ? 'bg-blue-100 text-blue-800'
+														: 'bg-gray-100 text-gray-800'}"
 										>
-											{ticket.priority?.name || 'N/A'}
+											{ticket.priority?.name || 'No Priority'}
 										</span>
 									</td>
 									<td class="w-[100px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
 										<span
 											class="inline-flex items-center gap-1 rounded-full px-2 text-xs leading-5 font-semibold
-						  {ticket.currentStatus?.statusName === 'Abierto'
-												? 'bg-purple-100 text-purple-800'
-												: ticket.currentStatus?.statusName === 'En Progreso'
-													? 'bg-blue-100 text-blue-800'
-													: ticket.currentStatus?.statusName === 'Pendiente'
-														? 'bg-amber-100 text-amber-800'
-														: ticket.currentStatus?.statusName === 'Cerrado'
-															? 'bg-gray-100 text-gray-800'
-															: ticket.currentStatus?.statusName === 'Resuelto'
-																? 'bg-green-100 text-green-800'
-																: 'bg-pink-100 text-pink-800'}"
+						  {ticket.currentStatus?.statusName === 'Abierto' ? 'bg-purple-100 text-purple-800'
+												: ticket.currentStatus?.statusName === 'In Progress' ? 'bg-blue-100 text-blue-800'
+													: ticket.currentStatus?.statusName === 'Pending' ? 'bg-orange-100 text-orange-800'
+														: ticket.currentStatus?.statusName === 'Closed' ? 'bg-teal-100 text-teal-800'
+															: ticket.currentStatus?.statusName === 'Solved' ? 'bg-rose-100 text-rose-800'
+															: ticket.currentStatus?.statusName === 'Open' ? 'bg-purple-100 text-purple-800'
+																: 'bg-gray-100 text-gray-800'}"
 										>
 											<svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 24 24"
 												><path
@@ -210,13 +204,13 @@
 									</td>
 
 									<td class="w-[150px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
-										{ticket.category?.name || 'N/A'}
+										{ticket.category?.name || 'No Category'}
 									</td>
 									<td class="w-[150px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
 										<div class="flex items-center gap-2">
 											<!-- svelte-ignore a11y_img_redundant_alt -->
 											<img
-												src={ticket.agent?.profilePictureUrl || '/default-profile.jpg'}
+												src={'/default-profile.jpg'}
 												alt="Profile picture"
 												class="h-8 w-8 rounded-full"
 											/>

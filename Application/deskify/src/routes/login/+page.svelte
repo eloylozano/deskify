@@ -1,4 +1,4 @@
-<script>
+<script >
 	import GradientTitle from '../../components/GradientTitle.svelte';
 	import Line from '../../components/Line.svelte';
 	import Nav from '../../components/Nav.svelte';
