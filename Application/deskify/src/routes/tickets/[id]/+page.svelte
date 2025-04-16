@@ -2,10 +2,10 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import Header from '../../../components/Header.svelte';
-	import Nav from '../../../components/Nav.svelte';
 	import { updateTicketStatus } from '$lib/api/tickets';
 	import SubHeader from '../../../components/SubHeader.svelte';
 	import TicketComment from '../../../components/TicketComment.svelte';
+	import Nav from '../../../components/Nav.svelte';
 	import SubmitButton from '../../../components/SubmitButton.svelte';
 
 	export let data;
@@ -48,7 +48,7 @@
 	<Nav />
 
 	<div class="flex flex-1 flex-col">
-		<Header />
+		<Header showSearchIcon={false}/>
 		<SubHeader showSelect={false} {isPanelVisible} {togglePanel} />
 		<div class="flex flex-1 overflow-hidden">
 			<!-- Contenido principal del ticket -->

@@ -1,9 +1,18 @@
 <script lang="ts">
-	// Props recibidas desde el padre
+	import { createEventDispatcher } from 'svelte';
+
 	export let showSelect = true;
 	export let isPanelVisible = true;
 	export let togglePanel = () => {};
+
+	const dispatch = createEventDispatcher();
+	let sortOption = '1'; // Valor por defecto
+
+	function handleSortChange() {
+		dispatch('sortChange', sortOption);
+	}
 </script>
+
 
 <div id="bot" class="flex items-center justify-between bg-gray-100 px-5 py-3">
 	<div class="flex items-center">
@@ -11,7 +20,12 @@
 			<p class="ml-2">
 				<span class="font-medium text-[#858585]">Order by:</span>
 			</p>
-			<select class="custom-select w-40 cursor-pointer font-medium text-[#252525]">
+
+			<select
+				class="custom-select w-40 cursor-pointer font-medium text-[#252525]"
+				bind:value={sortOption}
+				on:change={handleSortChange}
+			>
 				<option value="1">Last Modified</option>
 				<option value="2">Priority</option>
 				<option value="3">Status</option>
@@ -115,6 +129,6 @@
 	}
 
 	.is-rotated {
-        transform: scaleX(-1);
+		transform: scaleX(-1);
 	}
 </style>

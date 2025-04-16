@@ -3,7 +3,7 @@
 	import { getTickets } from '$lib/api/tickets';
 	import CustomCheckbox from './CustomCheckbox.svelte';
 	import Loading from './Loading.svelte';
-	import TicketListHeader from './SubHeader.svelte';
+	import SubHeader from './SubHeader.svelte';
 
 	interface User {
 		id?: number;
@@ -98,21 +98,43 @@
 		}
 	}
 
-	
 	export let searchTerm = '';
-	$: filteredTickets = searchTerm 
-		? tickets.filter(ticket => 
-			ticket.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-			(ticket.id.toString().includes(searchTerm)) ||
-			(ticket.priority?.name?.toLowerCase().includes(searchTerm.toLowerCase())) ||
-			(ticket.currentStatus?.statusName?.toLowerCase().includes(searchTerm.toLowerCase())) ||
-			(ticket.category?.name?.toLowerCase().includes(searchTerm.toLowerCase())) ||
-			(ticket.agent?.agentName?.toLowerCase().includes(searchTerm.toLowerCase()))
-		)
+	$: filteredTickets = searchTerm
+		? tickets.filter(
+				(ticket) =>
+					ticket.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+					ticket.id.toString().includes(searchTerm) ||
+					ticket.priority?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+					ticket.currentStatus?.statusName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+					ticket.category?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+					ticket.agent?.agentName?.toLowerCase().includes(searchTerm.toLowerCase())
+			)
 		: tickets;
+
+	$: sortedTickets = [...filteredTickets].sort((a, b) => {
+		if (sortOption === '1') {
+			return (
+				new Date(b.updatedAt ?? b.createdAt).getTime() -
+				new Date(a.updatedAt ?? a.createdAt).getTime()
+			);
+		}
+		if (sortOption === '2') {
+			return (a.priority?.name ?? '').localeCompare(b.priority?.name ?? '');
+		}
+		if (sortOption === '3') {
+			return (a.currentStatus?.statusName ?? '').localeCompare(b.currentStatus?.statusName ?? '');
+		}
+		if (sortOption === '4') {
+			return (a.agent?.agentName ?? '').localeCompare(b.agent?.agentName ?? '');
+		}
+		return 0;
+	});
+
+	let sortOption = '1'; // Last Modified por defecto
 </script>
 
-<TicketListHeader></TicketListHeader>
+<SubHeader on:sortChange={(e) => (sortOption = e.detail)} />
+
 <div class="flex h-full flex-col overflow-hidden">
 	{#if isLoading}
 		<div
@@ -164,11 +186,14 @@
 				</div>
 
 				<!-- Cuerpo de la tabla con scroll -->
-				<div class="flex-1 overflow-x-auto overflow-y-auto mb-32">
+				<div class="mb-32 flex-1 overflow-x-hidden overflow-y-auto">
 					<table class="mt-3 w-full divide-y divide-gray-200">
 						<tbody class="divide-y divide-gray-200 bg-white">
-							{#each filteredTickets  as ticket (ticket.id)}
-								<tr class="hover:bg-gray-50 hover:scale-[1.01] transition cursor-pointer" on:click={() => window.location.href = `/tickets/${ticket.id}`}>
+							{#each sortedTickets as ticket (ticket.id)}
+								<tr
+									class="cursor-pointer transition hover:scale-[1.012] hover:bg-gray-50"
+									on:click={() => (window.location.href = `/tickets/${ticket.id}`)}
+								>
 									<td class="w-[40px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
 										<CustomCheckbox
 											checked={selectedTickets.includes(ticket.id)}
@@ -186,11 +211,15 @@
 									<td class="w-[100px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
 										<span
 											class="inline-flex rounded-full px-2 text-xs leading-5 font-semibold
-						  {ticket.priority?.name === 'Urgent' ? 'bg-red-100 text-red-800 uppercase'
-												: ticket.priority?.name === 'High' ? 'bg-yellow-100 text-yellow-800'
-													: ticket.priority?.name === 'Medium' ? 'bg-green-100 text-green-800'
-													: ticket.priority?.name === 'Low' ? 'bg-blue-100 text-blue-800'
-														: 'bg-gray-100 text-gray-800'}"
+						  {ticket.priority?.name === 'Urgent'
+												? 'bg-red-100 text-red-800 uppercase'
+												: ticket.priority?.name === 'High'
+													? 'bg-yellow-100 text-yellow-800'
+													: ticket.priority?.name === 'Medium'
+														? 'bg-green-100 text-green-800'
+														: ticket.priority?.name === 'Low'
+															? 'bg-blue-100 text-blue-800'
+															: 'bg-gray-100 text-gray-800'}"
 										>
 											{ticket.priority?.name || 'No Priority'}
 										</span>
@@ -198,13 +227,19 @@
 									<td class="w-[100px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
 										<span
 											class="inline-flex items-center gap-1 rounded-full px-2 text-xs leading-5 font-semibold
-						  {ticket.currentStatus?.statusName === 'Abierto' ? 'bg-purple-100 text-purple-800'
-												: ticket.currentStatus?.statusName === 'In Progress' ? 'bg-blue-100 text-blue-800'
-													: ticket.currentStatus?.statusName === 'Pending' ? 'bg-orange-100 text-orange-800'
-														: ticket.currentStatus?.statusName === 'Closed' ? 'bg-teal-100 text-teal-800'
-															: ticket.currentStatus?.statusName === 'Solved' ? 'bg-rose-100 text-rose-800'
-															: ticket.currentStatus?.statusName === 'Open' ? 'bg-purple-100 text-purple-800'
-																: 'bg-gray-100 text-gray-800'}"
+						  {ticket.currentStatus?.statusName === 'Abierto'
+												? 'bg-purple-100 text-purple-800'
+												: ticket.currentStatus?.statusName === 'In Progress'
+													? 'bg-blue-100 text-blue-800'
+													: ticket.currentStatus?.statusName === 'Pending'
+														? 'bg-orange-100 text-orange-800'
+														: ticket.currentStatus?.statusName === 'Closed'
+															? 'bg-teal-100 text-teal-800'
+															: ticket.currentStatus?.statusName === 'Solved'
+																? 'bg-rose-100 text-rose-800'
+																: ticket.currentStatus?.statusName === 'Open'
+																	? 'bg-purple-100 text-purple-800'
+																	: 'bg-gray-100 text-gray-800'}"
 										>
 											<svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 24 24"
 												><path

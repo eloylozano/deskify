@@ -1,5 +1,4 @@
 <script>
-	
 </script>
 
 <nav class="flex h-screen w-fit flex-col bg-[#02353C] p-5 text-white">
