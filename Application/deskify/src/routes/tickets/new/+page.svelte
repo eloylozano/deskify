@@ -23,7 +23,7 @@
 	}
 </script>
 
-<div class="flex h-screen bg-green-50">
+<div class="flex h-screen bg-green-50 overflow-hidden">
 	<Nav />
 
 	<div class="flex flex-1 flex-col items-center">

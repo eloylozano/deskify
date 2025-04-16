@@ -3,7 +3,7 @@
 	import { getTickets } from '$lib/api/tickets';
 	import CustomCheckbox from './CustomCheckbox.svelte';
 	import Loading from './Loading.svelte';
-	import TicketListHeader from './TicketListHeader.svelte';
+	import TicketListHeader from './SubHeader.svelte';
 
 	interface User {
 		id?: number;
@@ -168,7 +168,7 @@
 					<table class="mt-3 w-full divide-y divide-gray-200">
 						<tbody class="divide-y divide-gray-200 bg-white">
 							{#each filteredTickets  as ticket (ticket.id)}
-								<tr class="hover:bg-gray-50 cursor-pointer" on:click={() => window.location.href = `/tickets/${ticket.id}`}>
+								<tr class="hover:bg-gray-50 hover:scale-[1.01] transition cursor-pointer" on:click={() => window.location.href = `/tickets/${ticket.id}`}>
 									<td class="w-[40px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
 										<CustomCheckbox
 											checked={selectedTickets.includes(ticket.id)}
