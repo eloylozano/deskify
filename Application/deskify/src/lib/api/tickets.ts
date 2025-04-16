@@ -37,3 +37,16 @@ export async function createTicket(ticketData: {
 		throw error;
 	}
 }
+
+export async function getTicketById(id: number) {
+  try {
+      const response = await fetch(`${API_URL}/ticket/${id}`);
+      if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return await response.json();
+  } catch (error) {
+      console.error(`Error fetching ticket ${id}:`, error);
+      throw error;
+  }
+}
