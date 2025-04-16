@@ -36,6 +36,12 @@
 			alert('No se pudo actualizar el ticket');
 		}
 	}
+
+	let isPanelVisible = true;
+
+	function togglePanel() {
+		isPanelVisible = !isPanelVisible;
+	}
 </script>
 
 <div class="flex h-screen overflow-hidden bg-gray-50">
@@ -43,8 +49,7 @@
 
 	<div class="flex flex-1 flex-col">
 		<Header />
-		<SubHeader />
-
+		<SubHeader showSelect={false} {isPanelVisible} {togglePanel} />
 		<div class="flex flex-1 overflow-hidden">
 			<!-- Contenido principal del ticket -->
 			<div class="flex-1 overflow-y-auto p-6">
@@ -113,83 +118,87 @@
 			</div>
 
 			<!-- Panel derecho de opciones -->
-			<div class="w-64 overflow-y-auto border-l border-gray-200 bg-white p-4">
-				<h3 class="mb-4 font-medium">Update ticket</h3>
+			{#if isPanelVisible}
+				<div class="w-64 overflow-y-auto border-l border-gray-200 bg-white p-4">
+					<h3 class="mb-4 font-medium">Update ticket</h3>
 
-				<div class="space-y-4">
-					<div>
-						<label class="mb-1 block text-sm font-medium text-gray-700">Status</label>
-						<select
-							bind:value={selectedStatus}
-							class="w-full rounded border border-gray-300 px-3 py-2 text-sm"
-						>
-							{#each statusOptions as option}
-								<option value={option}>{option}</option>
-							{/each}
-						</select>
+					<div class="space-y-4">
+						<div>
+							<label class="mb-1 block text-sm font-medium text-gray-700">Status</label>
+							<select
+								bind:value={selectedStatus}
+								class="w-full rounded border border-gray-300 px-3 py-2 text-sm"
+							>
+								{#each statusOptions as option}
+									<option value={option}>{option}</option>
+								{/each}
+							</select>
+						</div>
+
+						<div>
+							<label class="mb-1 block text-sm font-medium text-gray-700">Priority</label>
+							<select
+								bind:value={selectedPriority}
+								class="w-full rounded border border-gray-300 px-3 py-2 text-sm"
+							>
+								{#each priorityOptions as option}
+									<option value={option}>{option}</option>
+								{/each}
+							</select>
+						</div>
+
+						<div>
+							<label class="mb-1 block text-sm font-medium text-gray-700">Category</label>
+							<select
+								bind:value={selectedCategory}
+								class="w-full rounded border border-gray-300 px-3 py-2 text-sm"
+							>
+								{#each categoryOptions as option}
+									<option value={option}>{option}</option>
+								{/each}
+							</select>
+						</div>
+
+						<div>
+							<label class="mb-1 block text-sm font-medium text-gray-700">Assign to</label>
+							<select
+								bind:value={selectedAgent}
+								class="w-full rounded border border-gray-300 px-3 py-2 text-sm"
+							>
+								{#each agentOptions as option}
+									<option value={option}>{option}</option>
+								{/each}
+							</select>
+						</div>
+
+						<div class="flex justify-center">
+							<SubmitButton on:click={handleStatusUpdate} text="Update"></SubmitButton>
+						</div>
 					</div>
 
-					<div>
-						<label class="mb-1 block text-sm font-medium text-gray-700">Priority</label>
-						<select
-							bind:value={selectedPriority}
-							class="w-full rounded border border-gray-300 px-3 py-2 text-sm"
-						>
-							{#each priorityOptions as option}
-								<option value={option}>{option}</option>
-							{/each}
-						</select>
+					<div class="mt-6 border-t border-gray-200 pt-6">
+						<h3 class="mb-2 font-medium">More details</h3>
+						<div class="space-y-2 text-sm">
+							<div class="flex justify-between">
+								<span class="text-gray-500">ID:</span>
+								<span>#{data.ticket.id}</span>
+							</div>
+							<div class="flex justify-between">
+								<span class="text-gray-500">Created at:</span>
+								<span>{new Date(data.ticket.createdAt).toLocaleDateString()}</span>
+							</div>
+							<div class="flex justify-between">
+								<span class="text-gray-500">Client:</span>
+								<span>{data.ticket.client.clientName}</span>
+							</div>
+							<div class="flex justify-between">
+								<span class="text-gray-500">Email:</span>
+								<span>{data.ticket.client.mail}</span>
+							</div>
+						</div>
 					</div>
-
-					<div>
-						<label class="mb-1 block text-sm font-medium text-gray-700">Category</label>
-						<select
-							bind:value={selectedCategory}
-							class="w-full rounded border border-gray-300 px-3 py-2 text-sm"
-						>
-							{#each categoryOptions as option}
-								<option value={option}>{option}</option>
-							{/each}
-						</select>
-					</div>
-
-					<div>
-						<label class="mb-1 block text-sm font-medium text-gray-700">Assign to</label>
-						<select
-							bind:value={selectedAgent}
-							class="w-full rounded border border-gray-300 px-3 py-2 text-sm"
-						>
-							{#each agentOptions as option}
-								<option value={option}>{option}</option>
-							{/each}
-						</select>
-					</div>
-
-					<div class="flex justify-center"><SubmitButton on:click={handleStatusUpdate} text="Update"></SubmitButton></div>
 				</div>
-
-				<div class="mt-6 border-t border-gray-200 pt-6">
-					<h3 class="mb-2 font-medium">More details</h3>
-					<div class="space-y-2 text-sm">
-						<div class="flex justify-between">
-							<span class="text-gray-500">ID:</span>
-							<span>#{data.ticket.id}</span>
-						</div>
-						<div class="flex justify-between">
-							<span class="text-gray-500">Created at:</span>
-							<span>{new Date(data.ticket.createdAt).toLocaleDateString()}</span>
-						</div>
-						<div class="flex justify-between">
-							<span class="text-gray-500">Client:</span>
-							<span>{data.ticket.client.clientName}</span>
-						</div>
-						<div class="flex justify-between">
-							<span class="text-gray-500">Email:</span>
-							<span>{data.ticket.client.mail}</span>
-						</div>
-					</div>
-				</div>
-			</div>
+			{/if}
 		</div>
 	</div>
 </div>

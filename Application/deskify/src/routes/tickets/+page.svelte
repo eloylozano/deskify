@@ -2,6 +2,7 @@
 // @ts-nocheck
 
 	import Header from './../../components/Header.svelte';
+	import SubHeader from './../../components/SubHeader.svelte';
 	import Nav from '../../components/Nav.svelte';
 	import TicketTable from '../../components/TicketTable.svelte';
 	let searchTerm = '';
