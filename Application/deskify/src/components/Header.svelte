@@ -1,4 +1,8 @@
 <script>
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
+
 	let showSearch = false;
 	let searchQuery = '';
 
@@ -6,7 +10,13 @@
 		showSearch = !showSearch;
 		if (!showSearch) {
 			searchQuery = '';
+			dispatch('search', '');
 		}
+	}
+
+	function handleSearch(e) {
+		searchQuery = e.target.value;
+		dispatch('search', searchQuery);
 	}
 
 	let isChecked = false;
@@ -26,6 +36,7 @@
 					<input
 						type="text"
 						bind:value={searchQuery}
+						on:input={handleSearch}
 						placeholder="Search..."
 						class="mr-2 rounded-md px-3 py-1 transition-all duration-300 focus:ring-2 focus:ring-white focus:outline-none"
 						autofocus
@@ -44,7 +55,6 @@
 				{/if}
 			</div>
 
-			<!-- Icono crear ticket -->
 			<a href="/tickets/new" aria-label="Create ticket">
 				<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" viewBox="0 0 48 48"
 					><g fill="none" stroke="#fff" stroke-linejoin="round" stroke-width="4"
@@ -54,7 +64,7 @@
 						/></g
 					></svg
 				>
-			</a >
+			</a>
 			<!-- svelte-ignore a11y_img_redundant_alt -->
 			<img src="/default-profile.jpg" alt="Profile picture" class="h-10 w-10 rounded-full" />
 		</div>

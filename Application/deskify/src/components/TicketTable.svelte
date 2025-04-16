@@ -97,6 +97,19 @@
 			return `hace ${days}d`;
 		}
 	}
+
+	
+	export let searchTerm = '';
+	$: filteredTickets = searchTerm 
+		? tickets.filter(ticket => 
+			ticket.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+			(ticket.id.toString().includes(searchTerm)) ||
+			(ticket.priority?.name?.toLowerCase().includes(searchTerm.toLowerCase())) ||
+			(ticket.currentStatus?.statusName?.toLowerCase().includes(searchTerm.toLowerCase())) ||
+			(ticket.category?.name?.toLowerCase().includes(searchTerm.toLowerCase())) ||
+			(ticket.agent?.agentName?.toLowerCase().includes(searchTerm.toLowerCase()))
+		)
+		: tickets;
 </script>
 
 <TicketListHeader></TicketListHeader>
@@ -154,7 +167,7 @@
 				<div class="flex-1 overflow-x-auto overflow-y-auto mb-32">
 					<table class="mt-3 w-full divide-y divide-gray-200">
 						<tbody class="divide-y divide-gray-200 bg-white">
-							{#each tickets as ticket (ticket.id)}
+							{#each filteredTickets  as ticket (ticket.id)}
 								<tr class="hover:bg-gray-50">
 									<td class="w-[40px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
 										<CustomCheckbox

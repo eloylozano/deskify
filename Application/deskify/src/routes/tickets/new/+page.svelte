@@ -30,7 +30,7 @@
 		<Header />
 
 		<div class="my-5 w-300 rounded-md bg-white px-10 py-6 shadow">
-			<h1 class="mb-4 text-3xl font-medium text-gray-800">Create a new incidence</h1>
+			<h1 class="mb-4 text-center text-3xl font-medium text-gray-800">Create a new incidence</h1>
 
 			<form on:submit={handleCreateTicket} class="space-y-4">
 				<div>
@@ -40,7 +40,8 @@
 						type="email"
 						bind:value={email}
 						required
-						class="focus:ring-primary mt-1 block w-full rounded border border-gray-300 px-3 py-2 shadow-sm focus:outline-none"
+						placeholder="Your Email"
+						class="mt-1 block w-full rounded border border-gray-300 px-3 py-2 shadow-sm"
 					/>
 				</div>
 
@@ -51,7 +52,8 @@
 						type="text"
 						bind:value={title}
 						required
-						class="focus:ring-primary mt-1 block w-full rounded border border-gray-300 px-3 py-2 shadow-sm focus:outline-none"
+						placeholder="Write your problem"
+						class="mt-1 block w-full rounded border border-gray-300 px-3 py-2 shadow-sm"
 					/>
 				</div>
 
@@ -61,11 +63,14 @@
 					<textarea
 						bind:value={description}
 						required
-						class="focus:ring-primary mt-1 block w-full rounded border border-gray-300 px-3 py-2 shadow-sm focus:outline-none resize-none"
+						placeholder="Description of the problem"
+						class="mt-1 block w-full h-60 resize-none rounded border border-gray-300 px-3 py-2 shadow-sm"
 					></textarea>
 				</div>
 
-				<SubmitButton text="Create ticket" />
+				<div class="flex justify-end">
+					<SubmitButton text="Create ticket" />
+				</div>
 			</form>
 		</div>
 	</div>
@@ -74,5 +79,11 @@
 <style>
 	.shadow {
 		box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1); /* Sombra exterior sutil */
+	}
+
+	input:focus,
+	textarea:focus {
+		border-color: #00aa6f !important;
+		outline: none !important;
 	}
 </style>
