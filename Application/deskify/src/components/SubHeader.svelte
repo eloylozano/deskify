@@ -4,6 +4,7 @@
 	export let showSelect = true;
 	export let isPanelVisible = true;
 	export let togglePanel = () => {};
+	export let mode: 'tickets' | 'users' = 'tickets'; // Nueva prop para diferenciar modos
 
 	const dispatch = createEventDispatcher();
 	let sortOption = '1'; // Valor por defecto
@@ -13,12 +14,11 @@
 	}
 </script>
 
-
 <div id="bot" class="flex items-center justify-between bg-gray-100 px-5 py-3">
 	<div class="flex items-center">
 		{#if showSelect}
 			<p class="ml-2">
-				<span class="font-medium text-[#858585]">Order by:</span>
+				<span class="font-medium text-[#858585]">Ordenar por:</span>
 			</p>
 
 			<select
@@ -26,10 +26,18 @@
 				bind:value={sortOption}
 				on:change={handleSortChange}
 			>
-				<option value="1">Last Modified</option>
-				<option value="2">Priority</option>
-				<option value="3">Status</option>
-				<option value="4">Agent</option>
+				{#if mode === 'tickets'}
+					<option value="1">Últ. modificado</option>
+					<option value="2">Prioridad</option>
+					<option value="3">Estado</option>
+					<option value="4">Agente</option>
+				{:else}
+					<option value="1">Últ. modificado</option>
+					<option value="2">Nombre (A-Z)</option>
+					<option value="3">Empresa</option>
+					<option value="4">Rol</option>
+					<option value="5">Email</option>
+				{/if}
 			</select>
 		{/if}
 	</div>

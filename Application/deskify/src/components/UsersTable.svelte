@@ -75,7 +75,6 @@
 			)
 		: data.users;
 
-	let sortOption = '1'; // Últ. modificado por defecto
 	$: sortedUsers = [...filteredUsers].sort((a, b) => {
 		if (sortOption === '1') {
 			return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
@@ -89,8 +88,13 @@
 		if (sortOption === '4') {
 			return a.roleName.localeCompare(b.roleName);
 		}
+		if (sortOption === '5') {
+			return a.email.localeCompare(b.email);
+		}
 		return 0;
 	});
+
+	let sortOption = '1';
 	function getSafeId(user: any, index: number): string | number {
 		return user.id ?? `${user.email}-${index}`;
 	}
@@ -103,7 +107,7 @@
 	}
 </script>
 
-<SubHeader />
+<SubHeader mode="users" on:sortChange={(e) => (sortOption = e.detail)} />
 
 <div class="flex h-full flex-col overflow-hidden">
 	{#if $page.status === 500}
