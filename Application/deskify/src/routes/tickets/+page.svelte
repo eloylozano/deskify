@@ -1,12 +1,11 @@
-<script>
-// @ts-nocheck
-
+<script lang="ts">
 	import Header from './../../components/Header.svelte';
 	import Nav from '../../components/Nav.svelte';
 	import TicketTable from '../../components/TicketTable.svelte';
-	let searchTerm = '';
 	
-	function handleSearch(event) {
+	let searchTerm: string = '';
+
+	function handleSearch(event: CustomEvent<string>) {
 		searchTerm = event.detail;
 	}
 </script>
@@ -15,8 +14,7 @@
 	<Nav />
 	<div class="w-full">
 		<Header on:search={handleSearch} />
-		<TicketTable searchTerm={searchTerm} />
-
+		<TicketTable {searchTerm} />
 	</div>
 </div>
 

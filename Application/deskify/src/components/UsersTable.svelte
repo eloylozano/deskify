@@ -63,7 +63,7 @@
 		}
 	}
 
-	let searchTerm = '';
+	export let searchTerm = '';
 	$: filteredUsers = searchTerm
 		? data.users.filter(
 				(user) =>
@@ -74,7 +74,6 @@
 					user.roleName.toLowerCase().includes(searchTerm.toLowerCase())
 			)
 		: data.users;
-
 	$: sortedUsers = [...filteredUsers].sort((a, b) => {
 		if (sortOption === '1') {
 			return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
