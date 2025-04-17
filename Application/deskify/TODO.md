@@ -1,7 +1,7 @@
 # ✅ TODO de Deskify
 
 ## 📄 Paginas
-- [ ] Lista Usuarios
+- [X] Lista Usuarios
 - [ ] Usuario individual
 - [ ] Dashboard
 - [ ] Settings

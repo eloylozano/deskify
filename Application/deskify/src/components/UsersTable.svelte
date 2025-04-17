@@ -163,7 +163,8 @@
 					<table class="mt-3 w-full divide-y divide-gray-200">
 						<tbody class="divide-y divide-gray-200 bg-white">
 							{#each sortedUsers as user, index (getSafeId(user, index))}
-								<tr class="cursor-pointer transition hover:scale-[1.012] hover:bg-gray-50">
+								<tr class="cursor-pointer transition hover:scale-[1.012] hover:bg-gray-50"
+									on:click={() => (window.location.href = `/users/${user.id}`)}>
 									<td class="w-[40px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
 										<CustomCheckbox
 											checked={selectedUsers.includes(user.id)}
