@@ -2,6 +2,7 @@
 	import { error } from '@sveltejs/kit';
 	import SubHeader from '../../../components/SubHeader.svelte';
 	import Header from '../../../components/Header.svelte';
+	import CustomInput from '../../../components/CustomInput.svelte';
 	import Nav from '../../../components/Nav.svelte';
 
 	import { updateUser } from '$lib/api/users';
@@ -42,13 +43,26 @@
 		user = { ...$page.data.user };
 	});
 
+	let isLoading = false;
+
 	async function handleSubmit() {
 		try {
+			isLoading = true;
 			await updateUser(user.id, user);
-			goto('/users'); // o recargar: location.reload()
+			goto('/users');
 		} catch (err) {
 			alert('Error al actualizar el usuario');
+		} finally {
+			isLoading = false;
 		}
+	}
+
+	let imageError = false;
+
+	function getInitials(user: User) {
+		const first = user.firstName?.charAt(0) ?? '';
+		const middle = user.middleName?.charAt(0) ?? '';
+		return `${first}${middle}`.toUpperCase();
 	}
 </script>
 
@@ -59,63 +73,64 @@
 		<div class="container mx-auto px-4 py-8">
 			<div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
 				<!-- Columna izquierda - Datos personales -->
-				<div class="rounded-lg bg-white p-6 shadow">
+				<div class="rounded-lg bg-gray-50 p-6 shadow">
 					<div class="flex flex-col items-center gap-4">
-						{#if user.profilePictureUrl}
+						{#if user.profilePictureUrl && !imageError}
 							<img
 								src={user.profilePictureUrl}
 								alt="Foto de perfil"
 								class="h-24 w-24 rounded-full"
+								on:error={() => (imageError = true)}
 							/>
 						{:else}
 							<div
 								class="flex h-24 w-24 items-center justify-center rounded-full bg-gray-300 text-4xl font-bold text-white"
 							>
-								{user.firstName?.charAt(0)}{user.middleName?.charAt(0)}
+								{getInitials(user)}
 							</div>
 						{/if}
 
-						<h1 class="mb-6 text-3xl font-bold">Editar datos de {user.firstName}</h1>
+						<h1 class="mb-6 text-3xl font-bold">
+							Welcome {user.firstName}
+							{user.middleName}
+							{user.lastName}
+						</h1>
 					</div>
 
 					<form class="space-y-4 px-12" on:submit|preventDefault={handleSubmit}>
 						<div>
-							<label class="text-sm text-gray-500">Nombre</label>
-							<input class="w-full rounded border px-4 py-2" bind:value={user.firstName} />
+							<label class="text-sm text-gray-500">First Name</label>
+							<CustomInput bind:value={user.firstName} additionalClass="" />
 						</div>
 
 						<div class="flex gap-4">
 							<div class="w-1/2">
-								<label class="text-sm text-gray-500">Apellido 1</label>
-								<input class="w-full rounded border px-4 py-2" bind:value={user.middleName} />
+								<label class="text-sm text-gray-500">Middle Name</label>
+								<CustomInput bind:value={user.middleName} additionalClass="" />
 							</div>
 
 							<div class="w-1/2">
-								<label class="text-sm text-gray-500">Apellido 2</label>
-								<input class="w-full rounded border px-4 py-2" bind:value={user.lastName} />
-							</div>
-						</div>
-
-						<div class="flex gap-4">
-							<div class="w-1/2">
-								<label class="text-sm text-gray-500">Correo electrónico</label>
-								<input
-									class="w-full rounded border px-4 py-2"
-									bind:value={user.email}
-									type="email"
-								/>
-							</div>
-
-							<div class="w-1/2">
-								<label class="text-sm text-gray-500">Teléfono</label>
-								<input class="w-full rounded border px-4 py-2" bind:value={user.phoneNumber} />
+								<label class="text-sm text-gray-500">Last Name</label>
+								<CustomInput bind:value={user.lastName} additionalClass="" />
 							</div>
 						</div>
 
 						<div class="flex gap-4">
 							<div class="w-1/2">
-								<label class="text-sm text-gray-500">Rol</label>
-								<select class="w-full rounded border px-4 py-2" bind:value={user.roleName}>
+								<label class="text-sm text-gray-500">Email</label>
+								<CustomInput type="email" bind:value={user.email} additionalClass="" />
+							</div>
+
+							<div class="w-1/2">
+								<label class="text-sm text-gray-500">Phone Number</label>
+								<CustomInput bind:value={user.phoneNumber} additionalClass="" />
+							</div>
+						</div>
+
+						<div class="flex gap-4">
+							<div class="w-1/2">
+								<label class="text-sm text-gray-500">Role</label>
+								<select class="select-field" bind:value={user.roleName}>
 									{#each roles as role}
 										<option value={role}>{role}</option>
 									{/each}
@@ -123,13 +138,29 @@
 							</div>
 
 							<div class="w-1/2">
-								<label class="text-sm text-gray-500">Empresa</label>
-								<input class="w-full rounded border px-4 py-2" bind:value={user.company} />
+								<label class="text-sm text-gray-500">Company</label>
+								<CustomInput bind:value={user.company} additionalClass="" />
 							</div>
 						</div>
 
 						<div class="mt-12 flex justify-center">
-							<SubmitButton text="Update"></SubmitButton>
+							{#if isLoading}
+							<div class="flex items-center">
+									<svg
+										class="mr-2 h-5 w-5 animate-spin text-green-500"
+										xmlns="http://www.w3.org/2000/svg"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+									>
+										<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+										<path stroke="currentColor" fill="none" d="M4 12a8 8 0 0116 0"></path>
+									</svg>
+									<span class="text-gray-600">Updating...</span>
+								</div>
+							{:else}
+								<SubmitButton text="Update" on:click={handleSubmit} />
+							{/if}
 						</div>
 					</form>
 				</div>
@@ -185,3 +216,26 @@
 		</div>
 	</div>
 </div>
+
+<style>
+	.select-field {
+		width: 100%;
+		padding: 8px;
+		border: none;
+		border-radius: 8px;
+		box-shadow: inset 2px 2px 10px 2px rgba(78, 78, 78, 0.25);
+		background-color: rgba(255, 255, 255, 0.85);
+		transition: box-shadow 0.3s ease;
+		appearance: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+	}
+
+	.select-field:focus {
+		border-color: #00aa6f;
+		box-shadow:
+			inset 0 2px 4px rgba(0, 0, 0, 0.4),
+			0 0 5px #00a750;
+		outline: none;
+	}
+</style>

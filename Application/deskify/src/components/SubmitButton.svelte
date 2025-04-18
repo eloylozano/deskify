@@ -1,15 +1,18 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-
   export let additionalClass = '';
   export let text = '';
-
   const dispatch = createEventDispatcher();
+
+  // Para que el botón actualice el formulario, se puede emitir el evento o dejarlo vacío
+  const handleClick = () => {
+    dispatch('click'); // Solo emitir el evento si realmente se necesita
+  };
 </script>
 
 <button
   type="button"
-  on:click={(e) => dispatch('click', e)}
+  on:click={handleClick}  
   class={`btn px-12 py-2 rounded-full cursor-pointer flex text-white items-center w-fit ${additionalClass}`}
 >
   {text}

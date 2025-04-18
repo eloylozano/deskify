@@ -50,16 +50,16 @@
 		const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
 		if (diffInSeconds < 60) {
-			return 'hace unos segundos';
+			return 'a few seconds ago';
 		} else if (diffInSeconds < 3600) {
 			const minutes = Math.floor(diffInSeconds / 60);
-			return `hace ${minutes}m`;
+			return `${minutes} minutes ago`;
 		} else if (diffInSeconds < 86400) {
 			const hours = Math.floor(diffInSeconds / 3600);
-			return `hace ${hours}h`;
+			return `${hours} hours ago`;
 		} else {
 			const days = Math.floor(diffInSeconds / 86400);
-			return `hace ${days}d`;
+			return `${days} days ago`;
 		}
 	}
 
@@ -104,6 +104,13 @@
 		const year = date.getFullYear();
 		return `${day}/${month}/${year}`;
 	}
+	let imageError = false;
+
+	function getInitials(user: User) {
+		const first = user.firstName?.charAt(0) ?? '';
+		const middle = user.middleName?.charAt(0) ?? '';
+		return `${first}${middle}`.toUpperCase();
+	}
 </script>
 
 <SubHeader mode="users" on:sortChange={(e) => (sortOption = e.detail)} />
@@ -116,7 +123,7 @@
 			class="flex h-full flex-col items-center justify-center py-4 text-center font-medium text-gray-800"
 		>
 			<Loading />
-			Cargando usuarios...
+			Loading Users...
 		</div>
 	{:else}
 		<div class="flex w-full flex-1 flex-col overflow-hidden">
@@ -132,25 +139,25 @@
 										<CustomCheckbox bind:checked={selectAll} onChange={toggleSelectAll} />
 									</th>
 									<th class="w-[200px] px-4 py-3 text-left text-sm font-semibold text-gray-700">
-										Contacto
+										Contact
 									</th>
 									<th class="w-[150px] px-4 py-3 text-left text-sm font-semibold text-gray-700">
-										Empresa
+										Company
 									</th>
 									<th class="w-[120px] px-4 py-3 text-left text-sm font-semibold text-gray-700">
-										Rol
+										Role
 									</th>
 									<th class="w-[200px] px-4 py-3 text-left text-sm font-semibold text-gray-700">
 										Email
 									</th>
 									<th class="w-[120px] px-4 py-3 text-left text-sm font-semibold text-gray-700">
-										Teléfono
+										Phone Number
 									</th>
 									<th class="w-[120px] px-4 py-3 text-left text-sm font-semibold text-gray-700">
-										Creado
+										Created At
 									</th>
 									<th class="w-[120px] px-4 py-3 text-left text-sm font-semibold text-gray-700">
-										Actualizado
+										Updated
 									</th>
 								</tr>
 							</thead>
@@ -163,8 +170,10 @@
 					<table class="mt-3 w-full divide-y divide-gray-200">
 						<tbody class="divide-y divide-gray-200 bg-white">
 							{#each sortedUsers as user, index (getSafeId(user, index))}
-								<tr class="cursor-pointer transition hover:scale-[1.012] hover:bg-gray-50"
-									on:click={() => (window.location.href = `/users/${user.id}`)}>
+								<tr
+									class="cursor-pointer transition hover:scale-[1.012] hover:bg-gray-50"
+									on:click={() => (window.location.href = `/users/${user.id}`)}
+								>
 									<td class="w-[40px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
 										<CustomCheckbox
 											checked={selectedUsers.includes(user.id)}
@@ -175,19 +184,21 @@
 										class="w-[200px] px-4 py-3 text-sm font-medium whitespace-nowrap text-gray-900"
 									>
 										<div class="flex items-center gap-2">
-											{#if user.profilePictureUrl}
+											{#if user.profilePictureUrl && !imageError}
 												<img
 													src={user.profilePictureUrl}
-													alt="Foto"
-													class="h-10 w-10 rounded-full"
+													alt="Foto de perfil"
+													class="h-8 w-8 rounded-full"
+													on:error={() => (imageError = true)}
 												/>
 											{:else}
-												<img
-													src={'/default-profile.jpg'}
-													alt="Foto"
-													class="h-10 w-10 rounded-full"
-												/>
+												<div
+													class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-300 text-sm font-bold text-white"
+												>
+													{getInitials(user)}
+												</div>
 											{/if}
+
 											<span>{user.firstName} {user.lastName}</span>
 										</div>
 									</td>
@@ -203,7 +214,7 @@
 													? 'bg-blue-100 text-blue-800'
 													: user.roleName === 'Supervisor'
 														? 'bg-green-100 text-green-800'
-														: user.roleName === 'Agente'
+														: user.roleName === 'Agent'
 															? 'bg-yellow-100 text-yellow-800'
 															: 'bg-gray-100 text-gray-800'}"
 										>

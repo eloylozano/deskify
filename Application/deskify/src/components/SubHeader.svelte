@@ -27,15 +27,15 @@
 				on:change={handleSortChange}
 			>
 				{#if mode === 'tickets'}
-					<option value="1">Últ. modificado</option>
-					<option value="2">Prioridad</option>
-					<option value="3">Estado</option>
-					<option value="4">Agente</option>
+					<option value="1">Last Modified</option>
+					<option value="2">Priority</option>
+					<option value="3">Status</option>
+					<option value="4">Agent</option>
 				{:else}
-					<option value="1">Últ. modificado</option>
-					<option value="2">Nombre (A-Z)</option>
-					<option value="3">Empresa</option>
-					<option value="4">Rol</option>
+					<option value="1">Last Modified</option>
+					<option value="2">Name (A-Z)</option>
+					<option value="3">Company</option>
+					<option value="4">Role</option>
 					<option value="5">Email</option>
 				{/if}
 			</select>

@@ -8,6 +8,7 @@
 	function handleSearch(event: CustomEvent<string>) {
 		searchTerm = event.detail;
 	}
+	
 </script>
 
 <div class="flex h-[100vh] bg-green-100 overflow-hidden">

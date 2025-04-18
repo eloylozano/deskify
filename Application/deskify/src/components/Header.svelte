@@ -1,5 +1,6 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
+	import CustomInput from './CustomInput.svelte';
 
 	const dispatch = createEventDispatcher();
 
@@ -35,14 +36,14 @@
 			<div class="flex items-center">
 				{#if showSearch}
 					<!-- svelte-ignore a11y_autofocus -->
-					<input
-						type="text"
-						bind:value={searchQuery}
-						on:input={handleSearch}
-						placeholder="Search..."
-						class="mr-2 rounded-md px-3 py-1 transition-all duration-300 focus:ring-2 focus:ring-white focus:outline-none"
-						autofocus
-					/>
+					<CustomInput
+					type="text"
+					bind:value={searchQuery}
+					on:input={handleSearch}
+					placeholder="Search..."
+					autofocus
+				/>
+
 				{:else}
 					<!-- Icono Lupa -->
 					<!-- svelte-ignore a11y_consider_explicit_label -->
