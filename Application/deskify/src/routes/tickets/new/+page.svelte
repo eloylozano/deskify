@@ -5,6 +5,8 @@
 	import Nav from '../../../components/Nav.svelte';
 	import Header from '../../../components/Header.svelte';
 	import SubmitButton from '../../../components/SubmitButton.svelte';
+	import CustomInput from '../../../components/CustomInput.svelte';
+	import CustomTextarea from '../../../components/CustomTextarea.svelte';
 
 	let email = '';
 	let title = '';
@@ -23,10 +25,10 @@
 	}
 </script>
 
-<div class="flex h-screen bg-green-50 overflow-hidden">
+<div class="flex h-screen bg-emerald-100 overflow-hidden">
 	<Nav />
 
-	<div class="flex flex-1 flex-col items-center">
+	<div class="flex flex-1 flex-col items-center overflow-y-auto">
 		<Header />
 
 		<div class="my-5 w-300 rounded-md bg-white px-10 py-6 shadow">
@@ -34,38 +36,37 @@
 
 			<form on:submit={handleCreateTicket} class="space-y-4">
 				<div>
-					<!-- svelte-ignore a11y_label_has_associated_control -->
-					<label class="block text-sm font-medium text-gray-700">Email</label>
-					<input
+					<label for="email" class="block text-sm font-medium text-gray-700 pb-2">Email</label>
+					<CustomInput
 						type="email"
+						id="email"
+						name="email"
+						placeholder="Your Email"
 						bind:value={email}
 						required
-						placeholder="Your Email"
-						class="mt-1 block w-full rounded border border-gray-300 px-3 py-2 shadow-sm"
 					/>
 				</div>
 
 				<div>
-					<!-- svelte-ignore a11y_label_has_associated_control -->
-					<label class="block text-sm font-medium text-gray-700">Title</label>
-					<input
+					<label for="title" class="block text-sm font-medium text-gray-700 pb-2">Title</label>
+					<CustomInput
 						type="text"
+						id="title"
+						name="title"
+						placeholder="Write your problem"
 						bind:value={title}
 						required
-						placeholder="Write your problem"
-						class="mt-1 block w-full rounded border border-gray-300 px-3 py-2 shadow-sm"
 					/>
 				</div>
 
 				<div>
-					<!-- svelte-ignore a11y_label_has_associated_control -->
-					<label class="block text-sm font-medium text-gray-700">Description</label>
-					<textarea
-						bind:value={description}
-						required
+					<label for="description" class="block text-sm font-medium text-gray-700 pb-2">Description</label>
+					<CustomTextarea
+						id="description"
+						name="description"
 						placeholder="Description of the problem"
-						class="mt-1 block w-full h-60 resize-none rounded border border-gray-300 px-3 py-2 shadow-sm"
-					></textarea>
+						bind:value={description}
+					/>
 				</div>
 
 				<div class="flex justify-end">
@@ -78,12 +79,6 @@
 
 <style>
 	.shadow {
-		box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1); /* Sombra exterior sutil */
-	}
-
-	input:focus,
-	textarea:focus {
-		border-color: #00aa6f !important;
-		outline: none !important;
+		box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1);
 	}
 </style>

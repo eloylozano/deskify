@@ -22,14 +22,14 @@
 	.input-field {
 		border: none;
 		border-radius: 8px;
-		box-shadow: inset 2px 2px 10px 2px rgba(78, 78, 78, 0.25);
+		box-shadow: inset 2px 2px 10px 2px rgba(78, 78, 78, 0.15);
 		transition: box-shadow 0.3s ease;
 	}
 
 	.input-field:focus {
 		border-color: #00aa6f;
 		box-shadow:
-			inset 0 2px 4px rgba(0, 0, 0, 0.4),
+			inset 0 2px 4px rgba(0, 0, 0, 0.2),
 			0 0 5px #00a750;
 		outline: none;
 	}

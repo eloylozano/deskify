@@ -18,7 +18,7 @@
 	<img src="/FAQs00.png" alt="FAQ image" aria-label="FAQ Image" class="mx-auto h-110" />
 
 	<!-- Barra de búsqueda -->
-	<div class="relative w-[90vw] max-w-xl">
+	<div class="relative w-[90vw] max-w-xl mb-12">
 		<input
 			bind:value={searchQuery}
 			type="text"

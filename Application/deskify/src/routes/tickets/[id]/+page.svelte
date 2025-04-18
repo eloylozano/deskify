@@ -42,9 +42,10 @@
 	function togglePanel() {
 		isPanelVisible = !isPanelVisible;
 	}
+
 </script>
 
-<div class="flex h-screen overflow-hidden bg-gray-50">
+<div class="flex h-screen overflow-hidden bg-emerald-100">
 	<Nav />
 
 	<div class="flex flex-1 flex-col">
