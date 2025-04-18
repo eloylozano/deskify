@@ -2,7 +2,7 @@
 
 ## 📄 Paginas
 - [X] Lista Usuarios
-- [ ] Usuario individual
+- [X] Usuario individual
 - [ ] Dashboard
 - [ ] Settings
 - [ ] Register/Login Web
@@ -10,10 +10,15 @@
 ## 🔧 Funcionalidades principales
 - [x] Barra lateral con iconos
 - [x] Vista de tickets
+- [X] Filtro por estado (abierto, en progreso, cerrado)
 - [ ] Dashboard inicial con resumen
 - [ ] Actualizar tickets
 - [ ] Mostrar agentes
-- [ ] Filtro por estado (abierto, en progreso, cerrado)
+- [ ] Estadisticas usuarios
+- [ ] Fotos perfil usuarios
+- [ ] Login y registro funcional
+- [ ] Menu filtros tickets
+- [ ] Traducir data a ingles
 
 ## 🧪 Funcionalidades extra
 - [ ] Notificaciones por cambio de estado

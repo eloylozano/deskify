@@ -12,11 +12,11 @@ INSERT INTO `permissions` (`id`, `name`, `description`) VALUES
 
 INSERT INTO `status` (`id`,`name`, `description`, `is_active`) 
 VALUES 
-(1, 'Abierto', 'El ticket ha sido creado y está a la espera de atención.', TRUE),
-(2, 'En Progreso', 'El ticket está siendo gestionado por un agente.', TRUE),
-(3, 'Pendiente', 'El ticket está a la espera de una respuesta por parte del cliente.', TRUE),
-(4, 'Cerrado', 'El ticket ha sido resuelto y cerrado.', FALSE),
-(5, 'Resuelto', 'El ticket ha sido resuelto pero no cerrado.', TRUE);
+(1, 'Open', 'El ticket ha sido creado y está a la espera de atención.', TRUE),
+(2, 'In Progress', 'El ticket está siendo gestionado por un agente.', TRUE),
+(3, 'Pending', 'El ticket está a la espera de una respuesta por parte del cliente.', TRUE),
+(4, 'Closed', 'El ticket ha sido resuelto y cerrado.', FALSE),
+(5, 'Solved', 'El ticket ha sido resuelto pero no cerrado.', TRUE);
 
 INSERT INTO `plans` (`id`, `name`, `description`, `price`, `duration`) 
 VALUES 
@@ -33,20 +33,20 @@ VALUES
 (11, 'Premium Año', 'Plan anual premium con acceso completo a todas las funciones durante un año.', 219.45, 365);
 
 INSERT INTO `priorities` (`id`, `name`, `description`) VALUES
-(1, 'Baja', 'El problema no es urgente y puede resolverse en un momento posterior.'),
-(2, 'Media', 'El problema es importante, pero no requiere atención inmediata.'),
-(3, 'Alta', 'El problema debe ser atendido de inmediato y tiene una importancia significativa.'),
-(4, 'Urgente', 'El problema requiere atención inmediata y resolución.');
+(1, 'Low', 'El problema no es urgente y puede resolverse en un momento posterior.'),
+(2, 'Medium', 'El problema es importante, pero no requiere atención inmediata.'),
+(3, 'High', 'El problema debe ser atendido de inmediato y tiene una importancia significativa.'),
+(4, 'Urgent', 'El problema requiere atención inmediata y resolución.');
 
 INSERT INTO `categories` (`id`, `name`, `description`) VALUES
-(1, 'Soporte Técnico', 'Problemas relacionados con hardware, software y resolución de problemas del sistema.'),
-(2, 'Facturación', 'Problemas relacionados con facturas, pagos y planes de suscripción.'),
-(3, 'Gestión de Cuenta', 'Preguntas o problemas relacionados con cuentas de usuario y perfiles.'),
-(4, 'Consulta General', 'Preguntas generales o solicitudes no relacionadas con problemas específicos.'),
-(5, 'Problemas de Red', 'Problemas relacionados con la conectividad a internet, acceso a redes e infraestructura.'),
-(6, 'Seguridad', 'Preocupaciones relacionadas con la seguridad del sistema, filtraciones de datos o actividades sospechosas.'),
-(7, 'Instalación de Software', 'Asistencia con la instalación o configuración de aplicaciones de software.'),
-(8, 'Solicitud de Funcionalidad', 'Solicitudes de nuevas características o mejoras en las funcionalidades existentes.');
+(1, 'Technical Support', 'Issues related to hardware, software, and system troubleshooting.'),
+(2, 'Billing', 'Issues related to invoices, payments, and subscription plans.'),
+(3, 'Account Management', 'Questions or issues related to user accounts and profiles.'),
+(4, 'General Inquiry', 'General questions or requests not related to specific issues.'),
+(5, 'Network Issues', 'Problems related to internet connectivity, network access, and infrastructure.'),
+(6, 'Security', 'Concerns related to system security, data breaches, or suspicious activities.'),
+(7, 'Software Installation', 'Assistance with installing or configuring software applications.'),
+(8, 'Feature Request', 'Requests for new features or enhancements to existing functionality.');
 
 INSERT INTO `roles` (`id`, `name`, `description`) VALUES
 (1, 'Admin', 'Acceso completo a todas las funcionalidades del sistema, incluyendo la gestión de usuarios y configuración.'),

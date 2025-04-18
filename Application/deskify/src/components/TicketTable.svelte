@@ -78,23 +78,30 @@
 		}
 	});
 
-	// Función para formatear la fecha relativa
+
+	function formatDate(dateString: string | Date): string {
+		const date = new Date(dateString);
+		const day = date.getDate().toString().padStart(2, '0');
+		const month = (date.getMonth() + 1).toString().padStart(2, '0');
+		const year = date.getFullYear();
+		return `${day}/${month}/${year}`;
+	}
 	function formatRelativeTime(dateString: string | Date): string {
 		const date = new Date(dateString);
 		const now = new Date();
 		const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
 		if (diffInSeconds < 60) {
-			return 'hace unos segundos';
+			return 'a few seconds ago';
 		} else if (diffInSeconds < 3600) {
 			const minutes = Math.floor(diffInSeconds / 60);
-			return `hace ${minutes}m`;
+			return `${minutes} minutes ago`;
 		} else if (diffInSeconds < 86400) {
 			const hours = Math.floor(diffInSeconds / 3600);
-			return `hace ${hours}h`;
+			return `${hours} hours ago`;
 		} else {
 			const days = Math.floor(diffInSeconds / 86400);
-			return `hace ${days}d`;
+			return `${days} days ago`;
 		}
 	}
 
@@ -159,25 +166,25 @@
 										<CustomCheckbox bind:checked={selectAll} onChange={toggleSelectAll} />
 									</th>
 									<th class="w-[200px] px-4 py-3 text-left text-sm font-semibold text-gray-700"
-										>Título</th
+										>Title</th
 									>
 									<th class="w-[100px] px-4 py-3 text-left text-sm font-semibold text-gray-700"
-										>Prioridad</th
+										>Priority</th
 									>
 									<th class="w-[120px] px-4 py-3 text-left text-sm font-semibold text-gray-700"
-										>Estado</th
+										>Status</th
 									>
 									<th class="w-[150px] px-4 py-3 text-left text-sm font-semibold text-gray-700"
-										>Categoría</th
+										>Category</th
 									>
 									<th class="w-[150px] px-4 py-3 text-left text-sm font-semibold text-gray-700"
-										>Agente</th
+										>Agent</th
 									>
 									<th class="w-[120px] px-4 py-3 text-left text-sm font-semibold text-gray-700"
-										>Creado</th
+										>Created at</th
 									>
 									<th class="w-[120px] px-4 py-3 text-left text-sm font-semibold text-gray-700"
-										>Modificado</th
+										>Updated</th
 									>
 								</tr>
 							</thead>
@@ -267,7 +274,7 @@
 									</td>
 
 									<td class="w-[120px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
-										{formatRelativeTime(ticket.createdAt)}
+										{formatDate(ticket.createdAt)}
 									</td>
 									<td class="w-[120px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
 										{ticket.updatedAt ? formatRelativeTime(ticket.updatedAt) : 'No modificado'}

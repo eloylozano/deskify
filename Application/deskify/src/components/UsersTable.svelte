@@ -43,7 +43,6 @@
 		selectAll = selectedUsers.length === data.users.length;
 	}
 
-	// Función para formatear la fecha relativa
 	function formatRelativeTime(dateString: string | Date): string {
 		const date = new Date(dateString);
 		const now = new Date();
