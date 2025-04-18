@@ -15,6 +15,7 @@ import lombok.ToString;
 @ToString
 public class UserResponseDTO {
     
+    private Long id;
     private String profilePictureUrl;
     private String firstName;
     private String middleName;

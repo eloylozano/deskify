@@ -105,7 +105,12 @@
 		return `${day}/${month}/${year}`;
 	}
 	let imageError = false;
-
+	interface User {
+		firstName: string;
+		middleName: string;
+		lastName: string;
+		profilePictureUrl?: string | null;
+	}
 	function getInitials(user: User) {
 		const first = user.firstName?.charAt(0) ?? '';
 		const middle = user.middleName?.charAt(0) ?? '';
@@ -172,7 +177,11 @@
 							{#each sortedUsers as user, index (getSafeId(user, index))}
 								<tr
 									class="cursor-pointer transition hover:scale-[1.012] hover:bg-gray-50"
-									on:click={() => (window.location.href = `/users/${user.id}`)}
+									on:click={() => {
+										console.log('Clicked user:', user);
+										window.location.href = `/users/${user.id}`;
+									}}
+									
 								>
 									<td class="w-[40px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
 										<CustomCheckbox

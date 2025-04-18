@@ -78,7 +78,17 @@
 		<!-- Security -->
 
 
-
+		<!-- AWS SDK para Spring Boot -->
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-s3</artifactId>
+			<version>1.12.529</version> <!-- Versión actualizada -->
+		</dependency>
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-sts</artifactId> <!-- Para credenciales temporales -->
+			<version>1.12.529</version>
+		</dependency>
 	</dependencies>
 
 	<build>
