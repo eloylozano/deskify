@@ -99,53 +99,67 @@
 
 					<form class="space-y-4 px-12" on:submit|preventDefault={handleSubmit}>
 						<div>
-							<label class="text-sm text-gray-500">First Name</label>
-							<CustomInput bind:value={user.firstName} additionalClass="" />
+							<label class="text-sm text-gray-500"
+								>First Name
+								<CustomInput bind:value={user.firstName} additionalClass="" /></label
+							>
 						</div>
 
 						<div class="flex gap-4">
 							<div class="w-1/2">
-								<label class="text-sm text-gray-500">Middle Name</label>
-								<CustomInput bind:value={user.middleName} additionalClass="" />
+								<label class="text-sm text-gray-500"
+									>Middle Name
+									<CustomInput bind:value={user.middleName} additionalClass="" /></label
+								>
 							</div>
 
 							<div class="w-1/2">
-								<label class="text-sm text-gray-500">Last Name</label>
-								<CustomInput bind:value={user.lastName} additionalClass="" />
-							</div>
-						</div>
-
-						<div class="flex gap-4">
-							<div class="w-1/2">
-								<label class="text-sm text-gray-500">Email</label>
-								<CustomInput type="email" bind:value={user.email} additionalClass="" />
-							</div>
-
-							<div class="w-1/2">
-								<label class="text-sm text-gray-500">Phone Number</label>
-								<CustomInput bind:value={user.phoneNumber} additionalClass="" />
+								<label class="text-sm text-gray-500"
+									>Last Name
+									<CustomInput bind:value={user.lastName} additionalClass="" /></label
+								>
 							</div>
 						</div>
 
 						<div class="flex gap-4">
 							<div class="w-1/2">
-								<label class="text-sm text-gray-500">Role</label>
-								<select class="select-field" bind:value={user.roleName}>
-									{#each roles as role}
-										<option value={role}>{role}</option>
-									{/each}
-								</select>
+								<label class="text-sm text-gray-500"
+									>Email
+									<CustomInput type="email" bind:value={user.email} additionalClass="" /></label
+								>
 							</div>
 
 							<div class="w-1/2">
-								<label class="text-sm text-gray-500">Company</label>
-								<CustomInput bind:value={user.company} additionalClass="" />
+								<label class="text-sm text-gray-500"
+									>Phone number
+									<CustomInput bind:value={user.phoneNumber} additionalClass="" /></label
+								>
+							</div>
+						</div>
+
+						<div class="flex gap-4">
+							<div class="w-1/2">
+								<label class="text-sm text-gray-500"
+									>Role
+									<select class="select-field" bind:value={user.roleName}>
+										{#each roles as role}
+											<option value={role}>{role}</option>
+										{/each}
+									</select></label
+								>
+							</div>
+
+							<div class="w-1/2">
+								<label class="text-sm text-gray-500"
+									>Company
+									<CustomInput bind:value={user.company} additionalClass="" /></label
+								>
 							</div>
 						</div>
 
 						<div class="mt-12 flex justify-center">
 							{#if isLoading}
-							<div class="flex items-center">
+								<div class="flex items-center">
 									<svg
 										class="mr-2 h-5 w-5 animate-spin text-green-500"
 										xmlns="http://www.w3.org/2000/svg"
