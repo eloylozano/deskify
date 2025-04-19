@@ -138,6 +138,7 @@
 	});
 
 	let sortOption = '1'; // Last Modified por defecto
+	
 </script>
 
 <SubHeader on:sortChange={(e) => (sortOption = e.detail)} />

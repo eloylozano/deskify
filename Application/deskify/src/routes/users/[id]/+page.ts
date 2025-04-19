@@ -1,19 +1,20 @@
 import { error } from '@sveltejs/kit';
 
-export async function load({ params }) {
+export async function load({ params, fetch }) {
     try {
-        const response = await fetch(`http://localhost:8080/user/${params.id}`);
-        
-        if (!response.ok) {
-            throw error(response.status, 'Usuario no encontrado');
-        }
+        const [userResponse, statsResponse] = await Promise.all([
+            fetch(`http://localhost:8080/user/${params.id}`),
+            fetch(`http://localhost:8080/user/${params.id}/stats`)
+        ]);
 
-        const user = await response.json();
+        if (!userResponse.ok) throw error(userResponse.status, 'Usuario no encontrado');
+        if (!statsResponse.ok) throw error(statsResponse.status, 'No se pudieron obtener stats');
 
         return {
-            user
+            user: await userResponse.json(),
+            stats: await statsResponse.json()  // Incluye stats aquí
         };
     } catch (err) {
-        throw error(500, 'Error al cargar los datos del usuario');
+        throw error(500, 'Error al cargar datos');
     }
 }

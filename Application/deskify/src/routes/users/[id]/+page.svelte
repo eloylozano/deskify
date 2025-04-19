@@ -13,12 +13,6 @@
 
 	export let data;
 
-	// Formatear fecha
-	function formatDate(dateString: string) {
-		const date = new Date(dateString);
-		return date.toLocaleDateString('es-ES');
-	}
-
 	interface User {
 		id: number;
 		firstName: string;
@@ -30,20 +24,17 @@
 		roleName: string;
 		company?: string;
 		createdAt: string;
+		updatedAt: string;
 		planName?: string;
 	}
 
-	let user: User = {} as User; // Asignar el tipo User
-
-	let roles = ['Admin', 'Supervisor', 'Manager', 'Agent', 'User']; // Puedes traerlo de la API si quieres
-
-	// Cargar datos al inicio
-	onMount(() => {
-		// Clonamos el objeto para edición
-		user = { ...$page.data.user };
-	});
-
+	let user: User = {} as User;
+	let roles = ['Admin', 'Supervisor', 'Manager', 'Agent', 'User'];
 	let isLoading = false;
+	let imageError = false;
+	let loadingStats = true;
+
+	let 		ticketsAsignados: number;
 
 	async function handleSubmit() {
 		try {
@@ -57,12 +48,23 @@
 		}
 	}
 
-	let imageError = false;
+    onMount(async () => {
+        user = { ...$page.data.user };
+        ticketsAsignados = $page.data.stats.ticketsAsignados; 
+    });
 
-	function getInitials(user: User) {
-		const first = user.firstName?.charAt(0) ?? '';
-		const middle = user.middleName?.charAt(0) ?? '';
-		return `${first}${middle}`.toUpperCase();
+	function getInitials(user: User): string {
+		const firstName = user.firstName || '';
+		const middleName = user.middleName || '';
+		const lastName = user.lastName || '';
+
+		const initials = `${firstName[0] || ''}${middleName[0] || ''}${lastName[0] || ''}`;
+
+		return initials.toUpperCase();
+	}
+
+	function formatDate(dateString: string) {
+		return new Date(dateString).toLocaleDateString('es-ES');
 	}
 </script>
 
@@ -179,50 +181,23 @@
 					</form>
 				</div>
 
-				<!-- Columna derecha - Estadísticas -->
 				<div class="rounded-lg bg-white p-6 shadow">
 					<h2 class="mb-4 text-center text-xl font-semibold">Estadísticas</h2>
-
 					<table class="w-full text-sm text-gray-700">
 						<tbody class="divide-y divide-gray-100">
 							<tr>
-								<td class="py-3 text-gray-500">Tickets resueltos</td>
-								<td class="py-3 text-right font-medium">56</td>
+								<td class="py-3 text-gray-500">Updated at</td>
+								<td class="py-3 text-right font-medium">{formatDate(user.createdAt)}</td>
 							</tr>
 							<tr>
-								<td class="py-3 text-gray-500">Creado en</td>
-								<td class="py-3 text-right font-medium">{formatDate(data.user.createdAt)}</td>
+								<td class="py-3 text-gray-500">Updated at</td>
+								<td class="py-3 text-right font-medium">{formatDate(user.updatedAt)}</td>
 							</tr>
 							<tr>
 								<td class="py-3 text-gray-500">Tickets asignados</td>
-								<td class="py-3 text-right font-medium">18</td>
-							</tr>
-							<tr>
-								<td class="py-3 text-gray-500">Tickets abiertos</td>
-								<td class="py-3 text-right font-medium">3</td>
-							</tr>
-							<tr>
-								<td class="py-3 text-gray-500">Tiempo medio respuesta</td>
-								<td class="py-3 text-right font-medium">6h 34min</td>
-							</tr>
-							<tr>
-								<td class="py-3 text-gray-500">Últ. actividad</td>
-								<td class="py-3 text-right font-medium">Respuesta en ticket #34</td>
-							</tr>
-							<tr>
-								<td class="py-3 text-gray-500">Tickets máx/día</td>
-								<td class="py-3 text-right font-medium">12 tickets</td>
-							</tr>
-							<tr>
-								<td class="py-3 text-gray-500">Plan actual</td>
-								<td class="py-3 text-right font-medium"
-									>{data.user.planName || 'No especificado'}</td
-								>
-							</tr>
-							<tr>
-								<td class="py-3 text-gray-500">Último acceso a la plataforma</td>
-								<td class="py-3 text-right font-medium">28/12/2024</td>
-							</tr>
+								
+								<td class="py-3 text-right font-medium">{ticketsAsignados}</td>
+				
 						</tbody>
 					</table>
 				</div>
