@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import com.deskify.dto.*;
@@ -239,7 +240,7 @@ public class TicketService implements ITicketService {
 
                 String regexQuery = prepareQuery(query);
 
-               List<Ticket> tickets = ticketRepo.searchByQuery(regexQuery);
+                List<Ticket> tickets = ticketRepo.searchByQuery(regexQuery);
 
                 return tickets.stream()
                                 .map(ticketConverter::convertToTicketResponseDTO)

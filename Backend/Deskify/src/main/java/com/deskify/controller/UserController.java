@@ -12,7 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.deskify.dto.AgentDTO;
 import com.deskify.dto.CreateUserDTO;
+import com.deskify.dto.SubscriptionDTO;
 import com.deskify.dto.UserResponseDTO;
+import com.deskify.dto.UserStatsDTO;
 import com.deskify.repository.UserRepository;
 import com.deskify.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -73,5 +75,11 @@ public class UserController {
         List<AgentDTO> lista = userService.getAllAgents();
         return ResponseEntity.status(HttpStatus.OK).body(lista);
     }
+
+    @GetMapping("/{id}/stats")
+    public ResponseEntity<UserStatsDTO> getStats(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserStats(id));
+    }
+
 
 }

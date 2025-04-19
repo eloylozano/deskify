@@ -20,6 +20,7 @@
 		lastName: string;
 		email: string;
 		phoneNumber: string;
+		activeSubscription?: string;
 		profilePictureUrl?: string;
 		roleName: string;
 		company?: string;
@@ -34,7 +35,9 @@
 	let imageError = false;
 	let loadingStats = true;
 
-	let 		ticketsAsignados: number;
+	let ticketsAsignados: number;
+	let ticketsAbiertos: number;
+	let ticketsResueltos: number;
 
 	async function handleSubmit() {
 		try {
@@ -48,10 +51,12 @@
 		}
 	}
 
-    onMount(async () => {
-        user = { ...$page.data.user };
-        ticketsAsignados = $page.data.stats.ticketsAsignados; 
-    });
+	onMount(async () => {
+		user = { ...$page.data.user };
+		ticketsAsignados = $page.data.stats.ticketsAsignados;
+		ticketsAbiertos = $page.data.stats.ticketsAbiertos;
+		ticketsResueltos = $page.data.stats.ticketsResueltos;
+	});
 
 	function getInitials(user: User): string {
 		const firstName = user.firstName || '';
@@ -182,11 +187,15 @@
 				</div>
 
 				<div class="rounded-lg bg-white p-6 shadow">
-					<h2 class="mb-4 text-center text-xl font-semibold">Estadísticas</h2>
+					<h2 class="mb-4 text-center text-xl font-semibold">User Stats</h2>
 					<table class="w-full text-sm text-gray-700">
 						<tbody class="divide-y divide-gray-100">
 							<tr>
-								<td class="py-3 text-gray-500">Updated at</td>
+								<td class="py-3 text-gray-500">Plan</td>
+								<td class="py-3 text-right font-medium">{user.activeSubscription?.plan.name}</td>
+							</tr>
+							<tr>
+								<td class="py-3 text-gray-500">Created at</td>
 								<td class="py-3 text-right font-medium">{formatDate(user.createdAt)}</td>
 							</tr>
 							<tr>
@@ -194,10 +203,17 @@
 								<td class="py-3 text-right font-medium">{formatDate(user.updatedAt)}</td>
 							</tr>
 							<tr>
-								<td class="py-3 text-gray-500">Tickets asignados</td>
-								
+								<td class="py-3 text-gray-500">Assigned Tickets</td>
 								<td class="py-3 text-right font-medium">{ticketsAsignados}</td>
-				
+							</tr>
+							<tr>
+								<td class="py-3 text-gray-500">Open Tickets</td>
+								<td class="py-3 text-right font-medium">{ticketsAbiertos}</td>
+							</tr>
+							<tr>
+								<td class="py-3 text-gray-500">Solved Tickets</td>
+								<td class="py-3 text-right font-medium">{ticketsResueltos}</td>
+							</tr>
 						</tbody>
 					</table>
 				</div>

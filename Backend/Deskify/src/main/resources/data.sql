@@ -52,8 +52,8 @@ INSERT INTO `roles` (`id`, `name`, `description`) VALUES
 (1, 'Admin', 'Acceso completo a todas las funcionalidades del sistema, incluyendo la gestión de usuarios y configuración.'),
 (2, 'Supervisor', 'Monitorea la calidad de los tickets y el rendimiento de los agentes.'),
 (3, 'Manager', 'Supervisa a los agentes y gestiona las asignaciones de tickets y el rendimiento.'),
-(4, 'Agente', 'Gestiona los tickets y proporciona soporte técnico a los usuarios.'),
-(5, 'Cliente', 'Puede crear tickets y realizar un seguimiento de su estado.');
+(4, 'Agent', 'Gestiona los tickets y proporciona soporte técnico a los usuarios.'),
+(5, 'User', 'Puede crear tickets y realizar un seguimiento de su estado.');
 
 INSERT INTO `role_permissions` (`role_id`, `permission_id`) VALUES
 (1, 1),
@@ -110,6 +110,7 @@ INSERT INTO `users` (`id`, `first_name`, `middle_name`, `last_name`, `phone_numb
 
 INSERT INTO `subscriptions` (`user_id`, `plan_id`, `start_date`, `end_date`, `is_active`) 
 VALUES
+(1, 2, '2024-01-01 00:00:00', '2025-01-31 23:59:59', TRUE),
 (3, 2, '2024-01-01 00:00:00', '2024-01-31 23:59:59', TRUE),
 (5, 3, '2024-02-01 00:00:00', '2024-02-29 23:59:59', TRUE),
 (6, 4, '2024-03-01 00:00:00', '2024-03-31 23:59:59', TRUE),

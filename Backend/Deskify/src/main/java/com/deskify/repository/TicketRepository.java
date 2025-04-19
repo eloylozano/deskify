@@ -1,5 +1,6 @@
 package com.deskify.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,5 +22,6 @@ public interface TicketRepository extends JpaRepository<Ticket, Long>, JpaSpecif
             "FROM tickets t " +
             "WHERE CONCAT(t.title, ' ', t.description) REGEXP :query", nativeQuery = true)
     List<Ticket> searchByQuery(@Param("query") String query);
+
 
 }

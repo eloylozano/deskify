@@ -1,6 +1,7 @@
 package com.deskify.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 
@@ -60,6 +61,9 @@ public class User {
     @Column(name = "updated_at", nullable = true)
     private LocalDateTime updatedAt;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Subscription> subscriptions;
+
     // This method is automatically called before persisting the entity
     @PrePersist
     protected void onCreate() {
@@ -71,6 +75,5 @@ public class User {
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
-
 
 }

@@ -17,6 +17,7 @@ import com.deskify.dto.converter.UserConverter;
 import com.deskify.error.*;
 import com.deskify.model.User;
 import com.deskify.model.Role;
+import com.deskify.model.Ticket;
 import com.deskify.repository.*;
 import com.deskify.service.interfaces.IUserService;
 
@@ -35,6 +36,10 @@ public class UserService implements IUserService {
     RoleRepository roleRepo;
     @Autowired
     UserConverter userConverter;
+    @Autowired
+    TicketRepository ticketRepository;
+    @Autowired
+    AssignmentRepository assignmentRepository;
 
     @Value("${profile.pictures.path}")
     private String profilePicturesPath;
@@ -164,5 +169,27 @@ public class UserService implements IUserService {
                 .map(userConverter::UserTodAgentDTO) // Uses converter to get userDTO
                 .collect(Collectors.toList());
     }
-
+    public Long getResolvedTicketsCount(Long agentId) {
+        return assignmentRepository.countResolvedTicketsByAgent(agentId);
+    }
+    
+    public List<Ticket> getOpenTickets(Long agentId) {
+        return assignmentRepository.findOpenTicketsByAgent(agentId);
+    }
+    
+    public UserStatsDTO getUserStats(Long userId) {
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    
+        long totalTickets = assignmentRepository.countByAgentId(userId);
+        long resolvedTickets = getResolvedTicketsCount(userId);
+        long openTickets = getOpenTickets(userId).size();
+    
+        return new UserStatsDTO(
+                totalTickets,
+                resolvedTickets,
+                openTickets
+        );
+    }
+    
 }

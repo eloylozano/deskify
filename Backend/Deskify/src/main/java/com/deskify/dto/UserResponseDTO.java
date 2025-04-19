@@ -24,7 +24,7 @@ public class UserResponseDTO {
     private String email;
     private String company;
     private String roleName;
-    private String planName;
+    private SubscriptionDTO activeSubscription;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
