@@ -14,6 +14,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class ClientDTO {
+
+    private Long id;
     private String profilePictureUrl;
     private String clientName;
     private String mail;

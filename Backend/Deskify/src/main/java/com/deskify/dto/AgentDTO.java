@@ -9,7 +9,7 @@ import lombok.*;
 @ToString
 public class AgentDTO {
 
-    private long id;
+    private Long id;
     private String firstName;
     private String middleName;
     private String lastName;

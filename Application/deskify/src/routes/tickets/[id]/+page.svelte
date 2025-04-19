@@ -43,6 +43,11 @@
 		isPanelVisible = !isPanelVisible;
 	}
 
+	// Función para redirigir al perfil del usuario
+	function goToProfile(userId: string) {
+		goto(`/users/${userId}`);
+	}
+
 </script>
 
 <div class="flex h-screen overflow-hidden bg-emerald-100">
@@ -70,7 +75,11 @@
 							/>
 							<div class="my-1">
 								<h2 class="text-sm font-medium text-gray-500">
-									Creado por {data.ticket.client.clientName}
+									Created by 
+									<!-- Hacemos que el nombre del creador sea un enlace -->
+									<a href="#" on:click={() => goToProfile(data.ticket.client.id)} class="text-emerald-600 hover:underline">
+										{data.ticket.client.clientName}
+									</a>
 								</h2>
 								<p class="text-xs text-gray-400">
 									{new Date(data.ticket.createdAt).toLocaleString()}
@@ -101,7 +110,10 @@
 												alt={comment.userFullName}
 												class="mr-2 h-8 w-8 rounded-full"
 											/>
-											<span class="font-medium">{comment.userFullName}</span>
+											<!-- Hacemos que el nombre del creador sea un enlace -->
+											<a href="#" on:click={() => goToProfile(comment.userId)} class="text-emerald-600 hover:underline">
+												{comment.userFullName}
+											</a>
 										</div>
 										<span class="text-xs text-gray-400"
 											>{new Date(comment.writtenOn).toLocaleString()}</span

@@ -14,6 +14,7 @@ import lombok.*;
 public class CommentDTO {
 
     private Long ticketId;
+    private Long userId;
     private String userFullName;
     private String userEmail;
     private String commentText;

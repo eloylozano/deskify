@@ -47,6 +47,7 @@ public class TicketConverter {
         // Set the client who created the ticket
         if (ticket.getCreatedBy() != null) {
             ClientDTO clientDTO = new ClientDTO(
+                    ticket.getCreatedBy().getId(),
                     ticket.getCreatedBy().getProfilePictureUrl(),
                     ticket.getCreatedBy().getFirstName() + " " + ticket.getCreatedBy().getLastName(),
                     ticket.getCreatedBy().getEmail());
@@ -59,6 +60,7 @@ public class TicketConverter {
             Assignment latestAssignment = assignments.get(0); // Pick the first
             if (latestAssignment.getAgent() != null) {
                 AgentAssignedDTO agentDTO = new AgentAssignedDTO(
+                        latestAssignment.getAgent().getId(),
                         latestAssignment.getAgent().getProfilePictureUrl(),
                         latestAssignment.getAgent().getFirstName() + " " + latestAssignment.getAgent().getLastName(),
                         latestAssignment.getAgent().getEmail());

@@ -15,6 +15,7 @@ import lombok.ToString;
 @ToString
 public class AgentAssignedDTO {
 
+    private Long id;
     private String profilePictureUrl;
     private String agentName;
     private String mail;
