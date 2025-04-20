@@ -14,7 +14,7 @@
 <div class="flex h-[100vh] bg-green-100 overflow-hidden">
 	<Nav />
 	<div class="w-full">
-		<Header on:search={handleSearch} />
+		<Header on:search={handleSearch} text="All users" />
 		<UsersTable {data} searchTerm={searchTerm} />
 	</div>
 </div>

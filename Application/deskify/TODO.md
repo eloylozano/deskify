@@ -10,15 +10,15 @@
 ## 🔧 Funcionalidades principales
 - [x] Barra lateral con iconos
 - [x] Vista de tickets
-- [X] Filtro por estado (abierto, en progreso, cerrado)
+- [ ] Filtro por estado (abierto, en progreso, cerrado)
 - [ ] Dashboard inicial con resumen
 - [ ] Actualizar tickets
 - [ ] Mostrar agentes
-- [ ] Estadisticas usuarios
+- [X] Estadisticas usuarios
 - [ ] Fotos perfil usuarios
 - [ ] Login y registro funcional
 - [ ] Menu filtros tickets
-- [ ] Traducir data a ingles
+- [X] Traducir data a ingles
 
 ## 🧪 Funcionalidades extra
 - [ ] Notificaciones por cambio de estado

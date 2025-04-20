@@ -51,36 +51,31 @@ export async function getTicketById(id: number) {
   }
 }
 
-export async function updateTicketStatus(
-  updateData: {
-    id: number;
-    status: string;
-    priority: string;
-    category: string;
-    agent: string;
-  }
-) {
-  try {
-    const response = await fetch(`${API_URL}/ticket/update`, {
+export async function updateTicketStatus(updateData: {
+  ticketId: number;
+  statusId: number;
+  priorityId: number;
+  categoryId: number;
+  userId: number;
+}) {
+  console.log('Sending update:', updateData); // Añade esto para debug
+  
+  const response = await fetch(`${API_URL}/ticket/update`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
       },
       body: JSON.stringify(updateData)
-    });
+  });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error('Error updating ticket:', error);
-    throw error;
+  if (!response.ok) {
+      const errorText = await response.text(); 
+      console.error('Update error response:', errorText);
+      throw new Error(`Failed to update ticket: ${errorText}`);
   }
+
+  return await response.json();
 }
-
-
 
 export async function createComment(ticketId: number, email: string, commentText: string) {
   try {

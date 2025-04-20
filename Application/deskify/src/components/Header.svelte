@@ -1,11 +1,12 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
-	import CustomInput from './CustomInput.svelte';
 
 	const dispatch = createEventDispatcher();
 
+	export let search = true;
 	let showSearch = false;
 	let searchQuery = '';
+	export let text = '';
 
 	function toggleSearch() {
 		showSearch = !showSearch;
@@ -19,36 +20,31 @@
 		searchQuery = e.target.value;
 		dispatch('search', searchQuery);
 	}
-
-	let isChecked = false;
-
-	export let showSearchIcon = true;
 </script>
 
 <div class="w-full">
 	<div id="top" class="flex items-center justify-between bg-[#01c883] px-5 py-4">
 		<div>
-			<p class="font-medium text-white">All tickets - deskify</p>
+			<p class="font-medium text-white">{text} - deskify</p>
 		</div>
 
 		<div class="flex items-center gap-5">
 			<!-- Contenedor de búsqueda -->
-			<div class="flex items-center">
-				{#if showSearch}
-					<!-- svelte-ignore a11y_autofocus -->
-					<CustomInput
-					type="text"
-					bind:value={searchQuery}
-					on:input={handleSearch}
-					placeholder="Search..."
-					autofocus
-				/>
-
-				{:else}
-					<!-- Icono Lupa -->
-					<!-- svelte-ignore a11y_consider_explicit_label -->
-
-					{#if showSearchIcon}
+			{#if search}
+				<div class="flex items-center">
+					{#if showSearch}
+						<!-- svelte-ignore a11y_autofocus -->
+						<input
+							type="text"
+							bind:value={searchQuery}
+							on:input={handleSearch}
+							placeholder="Search..."
+							class="input-field mr-2 h-10 rounded-md px-3 py-1 transition-all duration-300 focus:ring-2 focus:ring-white focus:outline-none"
+							autofocus
+						/>
+					{:else}
+						<!-- Icono Lupa -->
+						<!-- svelte-ignore a11y_consider_explicit_label -->
 						<button on:click={toggleSearch}>
 							<svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white" viewBox="0 0 24 24"
 								><path
@@ -58,9 +54,8 @@
 							>
 						</button>
 					{/if}
-				{/if}
-			</div>
-
+				</div>			
+			{/if}
 			<a href="/tickets/new" aria-label="Create ticket">
 				<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" viewBox="0 0 48 48"
 					><g fill="none" stroke="#fff" stroke-linejoin="round" stroke-width="4"
@@ -76,3 +71,20 @@
 		</div>
 	</div>
 </div>
+
+<style>
+	.input-field {
+		border: none;
+		border-radius: 8px;
+		box-shadow: inset 2px 2px 10px 2px rgba(78, 78, 78, 0.15);
+		transition: box-shadow 0.3s ease;
+	}
+
+	.input-field:focus {
+		border-color: #00aa6f;
+		box-shadow:
+			inset 0 2px 4px rgba(0, 0, 0, 0.2),
+			0 0 5px #00a750;
+		outline: none;
+	}
+</style>

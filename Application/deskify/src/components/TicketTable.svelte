@@ -78,7 +78,6 @@
 		}
 	});
 
-
 	function formatDate(dateString: string | Date): string {
 		const date = new Date(dateString);
 		const day = date.getDate().toString().padStart(2, '0');
@@ -129,7 +128,7 @@
 			return (a.priority?.name ?? '').localeCompare(b.priority?.name ?? '');
 		}
 		if (sortOption === '3') {
-			return (a.currentStatus?.statusName ?? '').localeCompare(b.currentStatus?.statusName ?? '');
+			return (b.currentStatus?.statusName ?? '').localeCompare(a.currentStatus?.statusName ?? '');
 		}
 		if (sortOption === '4') {
 			return (a.agent?.agentName ?? '').localeCompare(b.agent?.agentName ?? '');
@@ -138,7 +137,6 @@
 	});
 
 	let sortOption = '1'; // Last Modified por defecto
-	
 </script>
 
 <SubHeader on:sortChange={(e) => (sortOption = e.detail)} />

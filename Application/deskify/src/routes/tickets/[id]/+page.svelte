@@ -7,35 +7,143 @@
 	import TicketComment from '../../../components/TicketComment.svelte';
 	import Nav from '../../../components/Nav.svelte';
 	import SubmitButton from '../../../components/SubmitButton.svelte';
+	import { onMount } from 'svelte';
+	import { getAgents } from '$lib/api/users';
 
 	export let data;
 
-	let selectedPriority = data.ticket.priority?.name || '';
-	let selectedStatus = data.ticket.currentStatus?.statusName || '';
-	let selectedCategory = data.ticket.category?.name || '';
-	let selectedAgent = data.ticket.agent?.agentName || '';
+	// Datos iniciales
+	let selectedPriority = {
+		id: data.ticket.priority?.id || 0,
+		name: data.ticket.priority?.name || ''
+	};
+	let selectedStatus = {
+		id: data.ticket.currentStatus?.statusId || 0,
+		name: data.ticket.currentStatus?.statusName || ''
+	};
+	let selectedCategory = {
+		id: data.ticket.category?.id || 0,
+		name: data.ticket.category?.name || ''
+	};
+	let selectedAgent = {
+		id: data.ticket.agent?.agentId || 0,
+		name: data.ticket.agent?.agentName || ''
+	};
 
-	const statusOptions = ['Open', 'In progress', 'Pending', 'Solved', 'Closed'];
-	const priorityOptions = ['Low', 'Medium', 'High', 'Urgent'];
-	const categoryOptions = ['Facturación', 'Soporte técnico', 'Cuenta', 'Otros'];
-	const agentOptions = ['Carlos', 'María', 'Juan', 'Ana'];
+	let agentOptions: Array<{
+		id: number;
+		firstName: string;
+		lastName: string;
+		fullName: string;
+		email: string;
+	}> = [];
+	let isLoadingAgents = false;
+	let agentError = '';
+
+	// Cargar agentes al montar el componente
+	onMount(async () => {
+		try {
+			isLoadingAgents = true;
+			const agents = await getAgents();
+
+			agentOptions = agents.map((agent) => ({
+				id: agent.id,
+				firstName: agent.firstName,
+				lastName: agent.lastName,
+				email: agent.email,
+				fullName: `${agent.firstName} ${agent.lastName}`
+			}));
+
+			// Seleccionar el agente actual si existe
+			if (data.ticket.agent?.agentId) {
+				const currentAgent = agentOptions.find((a) => a.id === data.ticket.agent.agentId);
+				if (currentAgent) {
+					selectedAgent = {
+						id: currentAgent.id,
+						name: currentAgent.fullName
+					};
+				}
+			}
+		} catch (error) {
+			console.error('Error loading agents:', error);
+			agentError = 'Failed to load agents';
+		} finally {
+			isLoadingAgents = false;
+		}
+	});
+
+	// Opciones con ID y nombre
+	const statusOptions = [
+		{ id: 1, name: 'Open' },
+		{ id: 2, name: 'In progress' },
+		{ id: 3, name: 'Pending' },
+		{ id: 4, name: 'Solved' },
+		{ id: 5, name: 'Closed' }
+	];
+
+	const priorityOptions = [
+		{ id: 1, name: 'Low' },
+		{ id: 2, name: 'Medium' },
+		{ id: 3, name: 'High' },
+		{ id: 4, name: 'Urgent' }
+	];
+
+	const categoryOptions = [
+		{ id: 1, name: 'Technical Support' },
+		{ id: 2, name: 'Billing' },
+		{ id: 3, name: 'Account Management' },
+		{ id: 4, name: 'General Inquiry' },
+		{ id: 5, name: 'Network Issues' },
+		{ id: 6, name: 'Security' },
+		{ id: 7, name: 'Software Installation' },
+		{ id: 8, name: 'Feature Request' }
+	];
 
 	async function handleStatusUpdate() {
-		try {
-			await updateTicketStatus({
-				id: data.ticket.id,
-				status: selectedStatus,
-				priority: selectedPriority,
-				category: selectedCategory,
-				agent: selectedAgent
-			});
-			// Actualizar la página para reflejar los cambios
-			goto(`/tickets/${data.ticket.id}`, { replaceState: true });
-		} catch (error) {
-			console.error('Error updating ticket:', error);
-			alert('No se pudo actualizar el ticket');
-		}
-	}
+    try {
+        // Validaciones
+        if (!selectedAgent.id || selectedAgent.id === 0) {
+            throw new Error('Please select an agent');
+        }
+        if (selectedStatus.id === 0) {
+            throw new Error('Please select a status');
+        }
+        if (selectedPriority.id === 0) {
+            throw new Error('Please select a priority');
+        }
+        if (selectedCategory.id === 0) {
+            throw new Error('Please select a category');
+        }
+
+        // Actualización
+        const updatedTicket = await updateTicketStatus({
+            ticketId: data.ticket.id,
+            statusId: selectedStatus.id,
+            priorityId: selectedPriority.id,
+            categoryId: selectedCategory.id,
+            userId: selectedAgent.id
+        });
+
+        // Actualizar estado local
+        data.ticket.priority = priorityOptions.find(p => p.id === selectedPriority.id);
+        data.ticket.currentStatus = {
+            statusId: selectedStatus.id,
+            statusName: statusOptions.find(s => s.id === selectedStatus.id)?.name || ''
+        };
+        data.ticket.category = categoryOptions.find(c => c.id === selectedCategory.id);
+        data.ticket.agent = {
+            agentId: selectedAgent.id,
+            agentName: agentOptions.find(a => a.id === selectedAgent.id)?.fullName || ''
+        };
+        data.ticket.updatedAt = new Date().toISOString();
+
+        // Feedback al usuario
+        alert('Ticket updated successfully!');
+    } catch (error) {
+        console.error('Error updating ticket:', error);
+        alert(error.message || 'Failed to update ticket');
+    }
+}
 
 	let isPanelVisible = true;
 
@@ -43,18 +151,16 @@
 		isPanelVisible = !isPanelVisible;
 	}
 
-	// Función para redirigir al perfil del usuario
 	function goToProfile(userId: string) {
 		goto(`/users/${userId}`);
 	}
-
 </script>
 
 <div class="flex h-screen overflow-hidden bg-emerald-100">
 	<Nav />
 
 	<div class="flex flex-1 flex-col">
-		<Header showSearchIcon={false}/>
+		<Header search={false} text="Ticket #{data.ticket.id}" />
 		<SubHeader showSelect={false} {isPanelVisible} {togglePanel} />
 		<div class="flex flex-1 overflow-hidden">
 			<!-- Contenido principal del ticket -->
@@ -75,9 +181,13 @@
 							/>
 							<div class="my-1">
 								<h2 class="text-sm font-medium text-gray-500">
-									Created by 
+									Created by
 									<!-- Hacemos que el nombre del creador sea un enlace -->
-									<a href="#" on:click={() => goToProfile(data.ticket.client.id)} class="text-emerald-600 hover:underline">
+									<a
+										href="#"
+										on:click={() => goToProfile(data.ticket.client.id)}
+										class="text-emerald-600 hover:underline"
+									>
 										{data.ticket.client.clientName}
 									</a>
 								</h2>
@@ -111,7 +221,11 @@
 												class="mr-2 h-8 w-8 rounded-full"
 											/>
 											<!-- Hacemos que el nombre del creador sea un enlace -->
-											<a href="#" on:click={() => goToProfile(comment.userId)} class="text-emerald-600 hover:underline">
+											<a
+												href="#"
+												on:click={() => goToProfile(comment.userId)}
+												class="text-emerald-600 hover:underline"
+											>
 												{comment.userFullName}
 											</a>
 										</div>
@@ -137,51 +251,69 @@
 
 					<div class="space-y-4">
 						<div>
-							<label class="mb-1 block text-sm font-medium text-gray-700">Status</label>
-							<select
-								bind:value={selectedStatus}
-								class="w-full rounded border border-gray-300 px-3 py-2 text-sm"
-							>
-								{#each statusOptions as option}
-									<option value={option}>{option}</option>
-								{/each}
-							</select>
+							<label class="mb-1 block text-sm font-medium text-gray-700"
+								>Status
+								<select
+									bind:value={selectedStatus.id}
+									class="select-field w-full rounded border border-gray-300 px-3 py-2 text-sm"
+								>
+									<option value={0} disabled>Select status</option>
+									{#each statusOptions as option}
+										<option value={option.id}>{option.name}</option>
+									{/each}
+								</select>
+							</label>
 						</div>
 
 						<div>
-							<label class="mb-1 block text-sm font-medium text-gray-700">Priority</label>
-							<select
-								bind:value={selectedPriority}
-								class="w-full rounded border border-gray-300 px-3 py-2 text-sm"
-							>
-								{#each priorityOptions as option}
-									<option value={option}>{option}</option>
-								{/each}
-							</select>
+							<label class="mb-1 block text-sm font-medium text-gray-700"
+								>Priority
+								<select
+									bind:value={selectedPriority.id}
+									class="select-field w-full rounded border border-gray-300 px-3 py-2 text-sm"
+								>
+									<option value={0}>Select priority</option>
+									{#each priorityOptions as option}
+										<option value={option.id}>{option.name}</option>
+									{/each}
+								</select>
+							</label>
 						</div>
 
 						<div>
-							<label class="mb-1 block text-sm font-medium text-gray-700">Category</label>
-							<select
-								bind:value={selectedCategory}
-								class="w-full rounded border border-gray-300 px-3 py-2 text-sm"
-							>
-								{#each categoryOptions as option}
-									<option value={option}>{option}</option>
-								{/each}
-							</select>
+							<label class="mb-1 block text-sm font-medium text-gray-700"
+								>Category
+								<select
+									bind:value={selectedCategory.id}
+									class="select-field w-full rounded border border-gray-300 px-3 py-2 text-sm"
+								>
+									<option value={0}>Select category</option>
+									{#each categoryOptions as option}
+										<option value={option.id}>{option.name}</option>
+									{/each}
+								</select>
+							</label>
 						</div>
 
 						<div>
 							<label class="mb-1 block text-sm font-medium text-gray-700">Assign to</label>
-							<select
-								bind:value={selectedAgent}
-								class="w-full rounded border border-gray-300 px-3 py-2 text-sm"
-							>
-								{#each agentOptions as option}
-									<option value={option}>{option}</option>
-								{/each}
-							</select>
+							{#if isLoadingAgents}
+								<div class="select-field w-full rounded border border-gray-300 px-3 py-2 text-sm">
+									Loading agents...
+								</div>
+							{:else if agentError}
+								<div class="text-sm text-red-500">{agentError}</div>
+							{:else}
+								<select
+									bind:value={selectedAgent.id}
+									class="select-field w-full rounded border border-gray-300 px-3 py-2 text-sm"
+								>
+									<option value={0}>Select an agent</option>
+									{#each agentOptions as agent}
+										<option value={agent.id}>{agent.fullName}</option>
+									{/each}
+								</select>
+							{/if}
 						</div>
 
 						<div class="flex justify-center">
@@ -224,6 +356,27 @@
 	select:focus,
 	textarea:focus {
 		border-color: #01c883;
+		outline: none;
+	}
+
+	.select-field {
+		width: 100%;
+		padding: 8px;
+		border: none;
+		border-radius: 8px;
+		box-shadow: inset 2px 2px 10px 2px rgba(78, 78, 78, 0.25);
+		background-color: rgba(255, 255, 255, 0.85);
+		transition: box-shadow 0.3s ease;
+		appearance: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+	}
+
+	.select-field:focus {
+		border-color: #00aa6f;
+		box-shadow:
+			inset 0 2px 4px rgba(0, 0, 0, 0.4),
+			0 0 5px #00a750;
 		outline: none;
 	}
 </style>

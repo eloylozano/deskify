@@ -92,6 +92,7 @@
 		return 0;
 	});
 
+
 	let sortOption = '1';
 	function getSafeId(user: any, index: number): string | number {
 		return user.id ?? `${user.email}-${index}`;

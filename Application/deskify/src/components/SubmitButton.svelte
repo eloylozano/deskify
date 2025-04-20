@@ -13,7 +13,7 @@
 <button
   type="button"
   on:click={handleClick}  
-  class={`btn px-12 py-2 rounded-full cursor-pointer flex text-white items-center w-fit ${additionalClass}`}
+  class={`btn px-12 py-2 rounded-full font-medium cursor-pointer flex text-white items-center w-fit ${additionalClass}`}
 >
   {text}
 </button>
