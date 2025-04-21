@@ -113,8 +113,8 @@
 	}
 	function getInitials(user: User) {
 		const first = user.firstName?.charAt(0) ?? '';
-		const middle = user.middleName?.charAt(0) ?? '';
-		return `${first}${middle}`.toUpperCase();
+		const last = user.lastName?.charAt(0) ?? '';
+		return `${first}${last}`.toUpperCase();
 	}
 </script>
 

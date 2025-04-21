@@ -6,9 +6,9 @@
 	import SubHeader from '../../../components/SubHeader.svelte';
 	import TicketComment from '../../../components/TicketComment.svelte';
 	import Nav from '../../../components/Nav.svelte';
-	import SubmitButton from '../../../components/SubmitButton.svelte';
 	import { onMount } from 'svelte';
 	import { getAgents } from '$lib/api/users';
+	import TicketPanel from '../../../components/TicketPanel.svelte';
 
 	export let data;
 
@@ -99,72 +99,47 @@
 		{ id: 8, name: 'Feature Request' }
 	];
 
-	type Ticket = {
-		id: number;
-		currentStatus: { statusId: number; statusName: string };
-		priority: { id: number; name: string };
-		category: { id: number; name: string };
-		agent: { agentId: number; agentName: string };
-		updatedAt: string;
-	};
-
-	type TicketUpdatePayload = {
-		ticketId: number;
-		statusId?: number;
-		priorityId?: number;
-		categoryId?: number;
-		userId?: number;
-	};
-
-
 	async function handleStatusUpdate() {
 		try {
-			const updates: TicketUpdatePayload = { ticketId: data.ticket.id };
-
-			if (selectedStatus.id !== 0 && selectedStatus.id !== data.ticket.currentStatus.statusId) {
-				updates.statusId = selectedStatus.id;
+			// Validaciones
+			if (!selectedAgent.id || selectedAgent.id === 0) {
+				throw new Error('Please select an agent');
 			}
-			if (selectedPriority.id !== 0 && selectedPriority.id !== data.ticket.priority.id) {
-				updates.priorityId = selectedPriority.id;
+			if (selectedStatus.id === 0) {
+				throw new Error('Please select a status');
 			}
-			if (selectedCategory.id !== 0 && selectedCategory.id !== data.ticket.category.id) {
-				updates.categoryId = selectedCategory.id;
+			if (selectedPriority.id === 0) {
+				throw new Error('Please select a priority');
 			}
-			if (selectedAgent.id !== 0 && selectedAgent.id !== data.ticket.agent.agentId) {
-				updates.userId = selectedAgent.id;
-			}
-
-			if (Object.keys(updates).length === 1) {
-				alert('No changes to update.');
-				return;
+			if (selectedCategory.id === 0) {
+				throw new Error('Please select a category');
 			}
 
-			const updatedTicket = await updateTicketStatus(updates);
+			// Actualización
+			const updatedTicket = await updateTicketStatus({
+				ticketId: data.ticket.id,
+				statusId: selectedStatus.id,
+				priorityId: selectedPriority.id,
+				categoryId: selectedCategory.id,
+				userId: selectedAgent.id
+			});
 
-			if (updates.priorityId) {
-				data.ticket.priority = priorityOptions.find((p) => p.id === updates.priorityId)!;
-			}
-			if (updates.statusId) {
-				data.ticket.currentStatus = {
-					statusId: updates.statusId,
-					statusName: statusOptions.find((s) => s.id === updates.statusId)?.name || ''
-				};
-			}
-			if (updates.categoryId) {
-				data.ticket.category = categoryOptions.find((c) => c.id === updates.categoryId)!;
-			}
-			if (updates.userId) {
-				data.ticket.agent = {
-					agentId: updates.userId,
-					agentName: agentOptions.find((a) => a.id === updates.userId)?.fullName || ''
-				};
-			}
-
+			// Actualizar estado local
+			data.ticket.priority = priorityOptions.find((p) => p.id === selectedPriority.id);
+			data.ticket.currentStatus = {
+				statusId: selectedStatus.id,
+				statusName: statusOptions.find((s) => s.id === selectedStatus.id)?.name || ''
+			};
+			data.ticket.category = categoryOptions.find((c) => c.id === selectedCategory.id);
+			data.ticket.agent = {
+				agentId: selectedAgent.id,
+				agentName: agentOptions.find((a) => a.id === selectedAgent.id)?.fullName || ''
+			};
 			data.ticket.updatedAt = new Date().toISOString();
 
+			// Feedback al usuario
 			alert('Ticket updated successfully!');
-			window.location.reload();
-		} catch (error: any) {
+		} catch (error) {
 			console.error('Error updating ticket:', error);
 			alert(error.message || 'Failed to update ticket');
 		}
@@ -271,140 +246,29 @@
 
 			<!-- Panel derecho de opciones -->
 			{#if isPanelVisible}
-				<div class="w-64 overflow-y-auto border-l border-gray-200 bg-white p-4">
-					<h3 class="mb-4 font-medium">Update ticket</h3>
-
-					<div class="space-y-4">
-						<!-- STATUS -->
-						<div>
-							<label class="mb-1 block text-sm font-medium text-gray-700">
-								Status
-								<select
-									bind:value={selectedStatus.id}
-									class="select-field w-full rounded border border-gray-300 px-3 py-2 text-sm"
-								>
-									<option value={0} disabled>{data.ticket.currentStatus.statusName}</option>
-									{#each statusOptions as option}
-										{#if option.name !== data.ticket.currentStatus.statusName}
-											<option value={option.id}>{option.name}</option>
-										{/if}
-									{/each}
-								</select>
-							</label>
-						</div>
-
-						<!-- PRIORITY -->
-						<div>
-							<label class="mb-1 block text-sm font-medium text-gray-700">
-								Priority
-								<select
-									bind:value={selectedPriority.id}
-									class="select-field w-full rounded border border-gray-300 px-3 py-2 text-sm"
-								>
-									<option value={0} disabled>{data.ticket.priority.name}</option>
-									{#each priorityOptions as option}
-										{#if option.name !== data.ticket.priority.name}
-											<option value={option.id}>{option.name}</option>
-										{/if}
-									{/each}
-								</select>
-							</label>
-						</div>
-
-						<!-- CATEGORY -->
-						<div>
-							<label class="mb-1 block text-sm font-medium text-gray-700">
-								Category
-								<select
-									bind:value={selectedCategory.id}
-									class="select-field w-full rounded border border-gray-300 px-3 py-2 text-sm"
-								>
-									<option value={0} disabled>{data.ticket.category.name}</option>
-									{#each categoryOptions as option}
-										{#if option.name !== data.ticket.category.name}
-											<option value={option.id}>{option.name}</option>
-										{/if}
-									{/each}
-								</select>
-							</label>
-						</div>
-						<div>
-							<label class="mb-1 block text-sm font-medium text-gray-700">Assign to</label>
-
-							<select
-								bind:value={selectedAgent.id}
-								class="select-field w-full rounded border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700"
-							>
-								<option value={0} disabled>{data.ticket.agent.agentName}</option>
-								{#each agentOptions as agent}
-									{#if agent.fullName !== data.ticket.agent.agentName}
-										<option value={agent.id}>{agent.fullName}</option>
-									{/if}
-								{/each}
-							</select>
-						</div>
-
-						<div class="flex justify-center">
-							<SubmitButton on:click={handleStatusUpdate} text="Update"></SubmitButton>
-						</div>
-					</div>
-
-					<div class="mt-6 border-t border-gray-200 pt-6">
-						<h3 class="mb-2 font-medium">More details</h3>
-						<div class="space-y-2 text-sm">
-							<div class="flex justify-between">
-								<span class="text-gray-500">ID:</span>
-								<span>#{data.ticket.id}</span>
-							</div>
-							<div class="flex justify-between">
-								<span class="text-gray-500">Created at:</span>
-								<span>{new Date(data.ticket.createdAt).toLocaleDateString()}</span>
-							</div>
-							<div class="flex justify-between">
-								<span class="text-gray-500">Client:</span>
-								<span>{data.ticket.client.clientName}</span>
-							</div>
-							<div class="flex justify-between">
-								<span class="text-gray-500">Email:</span>
-								<span>{data.ticket.client.mail}</span>
-							</div>
-						</div>
-					</div>
-				</div>
+				<TicketPanel
+					bind:selectedStatus
+					bind:selectedPriority
+					bind:selectedCategory
+					bind:selectedAgent
+					{statusOptions}
+					{priorityOptions}
+					{categoryOptions}
+					{agentOptions}
+					{isLoadingAgents}
+					{agentError}
+					{data}
+					{handleStatusUpdate}
+				/>
 			{/if}
+
 		</div>
+		
 	</div>
 </div>
 
 <style>
 	.shadow {
 		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-	}
-
-	select:focus,
-	textarea:focus {
-		border-color: #01c883;
-		outline: none;
-	}
-
-	.select-field {
-		width: 100%;
-		padding: 8px;
-		border: none;
-		border-radius: 8px;
-		box-shadow: inset 2px 2px 10px 2px rgba(78, 78, 78, 0.25);
-		background-color: rgba(255, 255, 255, 0.85);
-		transition: box-shadow 0.3s ease;
-		appearance: none;
-		-webkit-appearance: none;
-		-moz-appearance: none;
-	}
-
-	.select-field:focus {
-		border-color: #00aa6f;
-		box-shadow:
-			inset 0 2px 4px rgba(0, 0, 0, 0.4),
-			0 0 5px #00a750;
-		outline: none;
 	}
 </style>

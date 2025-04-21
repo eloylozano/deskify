@@ -10,10 +10,9 @@
 ## 🔧 Funcionalidades principales
 - [x] Barra lateral con iconos
 - [x] Vista de tickets
-- [ ] Filtro por estado (abierto, en progreso, cerrado)
 - [ ] Dashboard inicial con resumen
-- [ ] Actualizar tickets
-- [ ] Mostrar agentes
+- [X] Actualizar tickets
+- [X] Mostrar agentes
 - [X] Estadisticas usuarios
 - [ ] Fotos perfil usuarios
 - [ ] Login y registro funcional

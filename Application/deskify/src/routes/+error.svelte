@@ -2,7 +2,10 @@
 	// @ts-ignore
 	import ErrorPage from '../components/ErrorPage.svelte';
 
+
 	export let error;
+
+	console.log('Error recibido en +error.svelte:', error);
 </script>
 
 {#if error?.status === 400}
@@ -42,9 +45,9 @@
 		description="The server took too long to respond. Please refresh or try again later."
 	/>
 {:else}
-<ErrorPage
-image="/Error404.svg"
-title="Oops! We couldn't find what you were looking for."
-description="This page doesn't exist, but don't worry, the others are waiting for you. Keep exploring and find what you're looking for!"
-/>
+	<ErrorPage
+		image="/Error404.svg"
+		title="Oops! We couldn't find what you were looking for."
+		description="This page doesn't exist, but don't worry, the others are waiting for you. Keep exploring and find what you're looking for!"
+	/>
 {/if}
