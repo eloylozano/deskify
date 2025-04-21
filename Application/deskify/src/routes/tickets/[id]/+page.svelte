@@ -99,51 +99,76 @@
 		{ id: 8, name: 'Feature Request' }
 	];
 
+	type Ticket = {
+		id: number;
+		currentStatus: { statusId: number; statusName: string };
+		priority: { id: number; name: string };
+		category: { id: number; name: string };
+		agent: { agentId: number; agentName: string };
+		updatedAt: string;
+	};
+
+	type TicketUpdatePayload = {
+		ticketId: number;
+		statusId?: number;
+		priorityId?: number;
+		categoryId?: number;
+		userId?: number;
+	};
+
+
 	async function handleStatusUpdate() {
-    try {
-        // Validaciones
-        if (!selectedAgent.id || selectedAgent.id === 0) {
-            throw new Error('Please select an agent');
-        }
-        if (selectedStatus.id === 0) {
-            throw new Error('Please select a status');
-        }
-        if (selectedPriority.id === 0) {
-            throw new Error('Please select a priority');
-        }
-        if (selectedCategory.id === 0) {
-            throw new Error('Please select a category');
-        }
+		try {
+			const updates: TicketUpdatePayload = { ticketId: data.ticket.id };
 
-        // Actualización
-        const updatedTicket = await updateTicketStatus({
-            ticketId: data.ticket.id,
-            statusId: selectedStatus.id,
-            priorityId: selectedPriority.id,
-            categoryId: selectedCategory.id,
-            userId: selectedAgent.id
-        });
+			if (selectedStatus.id !== 0 && selectedStatus.id !== data.ticket.currentStatus.statusId) {
+				updates.statusId = selectedStatus.id;
+			}
+			if (selectedPriority.id !== 0 && selectedPriority.id !== data.ticket.priority.id) {
+				updates.priorityId = selectedPriority.id;
+			}
+			if (selectedCategory.id !== 0 && selectedCategory.id !== data.ticket.category.id) {
+				updates.categoryId = selectedCategory.id;
+			}
+			if (selectedAgent.id !== 0 && selectedAgent.id !== data.ticket.agent.agentId) {
+				updates.userId = selectedAgent.id;
+			}
 
-        // Actualizar estado local
-        data.ticket.priority = priorityOptions.find(p => p.id === selectedPriority.id);
-        data.ticket.currentStatus = {
-            statusId: selectedStatus.id,
-            statusName: statusOptions.find(s => s.id === selectedStatus.id)?.name || ''
-        };
-        data.ticket.category = categoryOptions.find(c => c.id === selectedCategory.id);
-        data.ticket.agent = {
-            agentId: selectedAgent.id,
-            agentName: agentOptions.find(a => a.id === selectedAgent.id)?.fullName || ''
-        };
-        data.ticket.updatedAt = new Date().toISOString();
+			if (Object.keys(updates).length === 1) {
+				alert('No changes to update.');
+				return;
+			}
 
-        // Feedback al usuario
-        alert('Ticket updated successfully!');
-    } catch (error) {
-        console.error('Error updating ticket:', error);
-        alert(error.message || 'Failed to update ticket');
-    }
-}
+			const updatedTicket = await updateTicketStatus(updates);
+
+			if (updates.priorityId) {
+				data.ticket.priority = priorityOptions.find((p) => p.id === updates.priorityId)!;
+			}
+			if (updates.statusId) {
+				data.ticket.currentStatus = {
+					statusId: updates.statusId,
+					statusName: statusOptions.find((s) => s.id === updates.statusId)?.name || ''
+				};
+			}
+			if (updates.categoryId) {
+				data.ticket.category = categoryOptions.find((c) => c.id === updates.categoryId)!;
+			}
+			if (updates.userId) {
+				data.ticket.agent = {
+					agentId: updates.userId,
+					agentName: agentOptions.find((a) => a.id === updates.userId)?.fullName || ''
+				};
+			}
+
+			data.ticket.updatedAt = new Date().toISOString();
+
+			alert('Ticket updated successfully!');
+			window.location.reload();
+		} catch (error: any) {
+			console.error('Error updating ticket:', error);
+			alert(error.message || 'Failed to update ticket');
+		}
+	}
 
 	let isPanelVisible = true;
 
@@ -250,70 +275,73 @@
 					<h3 class="mb-4 font-medium">Update ticket</h3>
 
 					<div class="space-y-4">
+						<!-- STATUS -->
 						<div>
-							<label class="mb-1 block text-sm font-medium text-gray-700"
-								>Status
+							<label class="mb-1 block text-sm font-medium text-gray-700">
+								Status
 								<select
 									bind:value={selectedStatus.id}
 									class="select-field w-full rounded border border-gray-300 px-3 py-2 text-sm"
 								>
-									<option value={0} disabled>Select status</option>
+									<option value={0} disabled>{data.ticket.currentStatus.statusName}</option>
 									{#each statusOptions as option}
-										<option value={option.id}>{option.name}</option>
+										{#if option.name !== data.ticket.currentStatus.statusName}
+											<option value={option.id}>{option.name}</option>
+										{/if}
 									{/each}
 								</select>
 							</label>
 						</div>
 
+						<!-- PRIORITY -->
 						<div>
-							<label class="mb-1 block text-sm font-medium text-gray-700"
-								>Priority
+							<label class="mb-1 block text-sm font-medium text-gray-700">
+								Priority
 								<select
 									bind:value={selectedPriority.id}
 									class="select-field w-full rounded border border-gray-300 px-3 py-2 text-sm"
 								>
-									<option value={0}>Select priority</option>
+									<option value={0} disabled>{data.ticket.priority.name}</option>
 									{#each priorityOptions as option}
-										<option value={option.id}>{option.name}</option>
+										{#if option.name !== data.ticket.priority.name}
+											<option value={option.id}>{option.name}</option>
+										{/if}
 									{/each}
 								</select>
 							</label>
 						</div>
 
+						<!-- CATEGORY -->
 						<div>
-							<label class="mb-1 block text-sm font-medium text-gray-700"
-								>Category
+							<label class="mb-1 block text-sm font-medium text-gray-700">
+								Category
 								<select
 									bind:value={selectedCategory.id}
 									class="select-field w-full rounded border border-gray-300 px-3 py-2 text-sm"
 								>
-									<option value={0}>Select category</option>
+									<option value={0} disabled>{data.ticket.category.name}</option>
 									{#each categoryOptions as option}
-										<option value={option.id}>{option.name}</option>
+										{#if option.name !== data.ticket.category.name}
+											<option value={option.id}>{option.name}</option>
+										{/if}
 									{/each}
 								</select>
 							</label>
 						</div>
-
 						<div>
 							<label class="mb-1 block text-sm font-medium text-gray-700">Assign to</label>
-							{#if isLoadingAgents}
-								<div class="select-field w-full rounded border border-gray-300 px-3 py-2 text-sm">
-									Loading agents...
-								</div>
-							{:else if agentError}
-								<div class="text-sm text-red-500">{agentError}</div>
-							{:else}
-								<select
-									bind:value={selectedAgent.id}
-									class="select-field w-full rounded border border-gray-300 px-3 py-2 text-sm"
-								>
-									<option value={0}>Select an agent</option>
-									{#each agentOptions as agent}
+
+							<select
+								bind:value={selectedAgent.id}
+								class="select-field w-full rounded border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700"
+							>
+								<option value={0} disabled>{data.ticket.agent.agentName}</option>
+								{#each agentOptions as agent}
+									{#if agent.fullName !== data.ticket.agent.agentName}
 										<option value={agent.id}>{agent.fullName}</option>
-									{/each}
-								</select>
-							{/if}
+									{/if}
+								{/each}
+							</select>
 						</div>
 
 						<div class="flex justify-center">
