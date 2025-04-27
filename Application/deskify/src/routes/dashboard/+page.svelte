@@ -57,7 +57,7 @@
 					<p class="text-3xl font-bold text-gray-900">{tiempoPromedioResolucion} h</p>
 				</div>
 			</div>
-
+			
 			<!-- Estadísticas de agentes -->
 			<div class="mt-6 rounded-lg bg-white p-6 shadow-xl">
 				<h3 class="text-xl font-semibold text-gray-800">Agentes Activos</h3>
@@ -82,7 +82,7 @@
 							></div>
 						</div>
 						<p
-							class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform font-bold text-white"
+							class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform font-bold text-gray-950"
 						>
 							{estadoTickets.abierto} Abiertos
 						</p>
@@ -92,7 +92,7 @@
 					<div class="relative flex-1 text-center">
 						<div class="h-24 overflow-hidden rounded-lg bg-green-300">
 							<div
-								class="h-full bg-green-500 transition-all duration-500 ease-out"
+								class="h-full bg-green-500 transition-all duration-500 ease-out "
 								style="width: {(estadoTickets.cerrado /
 									(estadoTickets.abierto +
 										estadoTickets.cerrado +
@@ -102,7 +102,7 @@
 							></div>
 						</div>
 						<p
-							class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform font-bold text-white"
+							class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform font-bold text-gray-950"
 						>
 							{estadoTickets.cerrado} Cerrados
 						</p>
@@ -122,7 +122,7 @@
 							></div>
 						</div>
 						<p
-							class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform font-bold text-white"
+							class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform font-bold text-gray-950"
 						>
 							{estadoTickets.pendiente} Pendientes
 						</p>
@@ -142,7 +142,7 @@
 							></div>
 						</div>
 						<p
-							class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform font-bold text-white"
+							class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform font-bold text-gray-950"
 						>
 							{estadoTickets.enProgreso} En Progreso
 						</p>
