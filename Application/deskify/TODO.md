@@ -3,8 +3,8 @@
 ## 📄 Paginas
 - [X] Lista Usuarios
 - [X] Usuario individual
-- [ ] Dashboard
 - [X] Settings
+- [X] Dashboard
 - [ ] Register/Login Web
 
 ## 🔧 Funcionalidades principales
@@ -14,10 +14,10 @@
 - [X] Mostrar agentes
 - [X] Estadisticas usuarios
 - [X] Traducir data a ingles
-- [ ] Dashboard inicial con resumen
+- [X] Dashboard inicial con resumen
+- [ ] Menu filtros tickets
 - [ ] Fotos perfil usuarios
 - [ ] Login y registro funcional
-- [ ] Menu filtros tickets
 - [ ] Pasarela de pago
 - [ ] Panel Admin(Eliminar tickets)
 

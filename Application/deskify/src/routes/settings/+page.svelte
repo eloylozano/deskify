@@ -8,6 +8,7 @@
 	let emailFrequency = 'weekly';
 	let selectedLanguage = 'es';
 	let profileVisibility = 'public';
+
 </script>
 
 <div class="flex h-[100vh] overflow-hidden bg-emerald-100 dark:bg-gray-900">
@@ -32,7 +33,7 @@
 								</p>
 							</div>
 							<label class="relative inline-flex cursor-pointer items-center">
-								<CustomCheckbox ></CustomCheckbox>
+								<input type="checkbox" bind:checked={darkMode} class="peer sr-only" />
 								<div
 									class="peer h-6 w-11 rounded-full bg-gray-200 peer-checked:bg-emerald-500 peer-focus:outline-none after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white dark:border-gray-600 dark:bg-gray-700"
 								></div>
