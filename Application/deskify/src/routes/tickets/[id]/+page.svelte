@@ -9,6 +9,7 @@
 	import { onMount } from 'svelte';
 	import { getAgents } from '$lib/api/users';
 	import TicketPanel from '../../../components/TicketPanel.svelte';
+	import UserCard from '../../../components/UserCard.svelte';
 
 	export let data;
 
@@ -154,6 +155,16 @@
 	function goToProfile(userId: string) {
 		goto(`/users/${userId}`);
 	}
+	function getInitials(name: string): string {
+		const names = name.split(' ');
+		let initials = names[0].substring(0, 1).toUpperCase();
+
+		if (names.length > 1) {
+			initials += names[names.length - 1].substring(0, 1).toUpperCase();
+		}
+
+		return initials;
+	}
 </script>
 
 <div class="flex h-screen overflow-hidden bg-emerald-100">
@@ -173,23 +184,34 @@
 					</div>
 
 					<div class="mb-6 rounded-lg bg-white p-6 shadow">
-						<div class="mb- flex gap-3">
-							<img
-								src="/default-profile.jpg"
-								class="h-12 w-12 rounded-full border-2 border-emerald-600"
-								alt="Profile pic"
-							/>
+						<div class="mb-2 flex gap-3">
+							{#if data.ticket.client.profilePictureUrl}
+								<img
+									src={data.ticket.client.profilePictureUrl}
+									alt={data.ticket.client.clientName}
+									class="h-12 w-12 rounded-full border-2 border-emerald-600"
+								/>
+							{:else}
+								<div
+									class="flex h-12 w-12 items-center justify-center rounded-full border-2 border-emerald-600 bg-gray-300"
+								>
+									<span class="text-md font-bold text-white"
+										>{getInitials(data.ticket.client.clientName)}</span
+									>
+								</div>
+							{/if}
 							<div class="my-1">
-								<h2 class="text-sm font-medium text-gray-500">
+								<h2 class="font-medium text-gray-500">
 									Created by
-									<!-- Hacemos que el nombre del creador sea un enlace -->
-									<a
-										href="#"
-										on:click={() => goToProfile(data.ticket.client.id)}
-										class="text-emerald-600 hover:underline"
+									<UserCard
+										user={{
+											name: data.ticket.client.clientName,
+											email: data.ticket.client.mail
+										}}
+										href={`/users/${data.ticket.client.id}`}
 									>
 										{data.ticket.client.clientName}
-									</a>
+									</UserCard>
 								</h2>
 								<p class="text-xs text-gray-400">
 									{new Date(data.ticket.createdAt).toLocaleString()}
@@ -214,20 +236,31 @@
 							{#each data.ticket.comments as comment}
 								<div class="mb-4 border-b border-gray-100 pb-4 last:border-0">
 									<div class="mb-2 flex items-start justify-between">
-										<div class="flex items-center">
-											<img
-												src="/default-profile.jpg"
-												alt={comment.userFullName}
-												class="mr-2 h-8 w-8 rounded-full"
-											/>
-											<!-- Hacemos que el nombre del creador sea un enlace -->
-											<a
-												href="#"
-												on:click={() => goToProfile(comment.userId)}
-												class="text-emerald-600 hover:underline"
+										<div class="flex items-center gap-3">
+											{#if data.ticket.client.profilePictureUrl}
+												<img
+													src={comment.profilePictureUrl}
+													class="h-12 w-12 rounded-full border-2 border-emerald-600"
+													alt={comment.userFullName}
+												/>
+											{:else}
+												<div
+													class="flex h-12 w-12 items-center justify-center rounded-full border-2 border-emerald-600 bg-gray-300"
+												>
+													<span class="text-md font-bold text-white"
+														>{getInitials(comment.userFullName)}</span
+													>
+												</div>
+											{/if}
+											<UserCard
+												user={{
+													name: comment.userFullName,
+													email: comment.userEmail
+												}}
+												href={`/users/${comment.userId}`}
 											>
 												{comment.userFullName}
-											</a>
+											</UserCard>
 										</div>
 										<span class="text-xs text-gray-400"
 											>{new Date(comment.writtenOn).toLocaleString()}</span
@@ -261,9 +294,7 @@
 					{handleStatusUpdate}
 				/>
 			{/if}
-
 		</div>
-		
 	</div>
 </div>
 

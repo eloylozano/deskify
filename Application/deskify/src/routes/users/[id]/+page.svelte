@@ -76,7 +76,7 @@
 <div class="flex h-[100vh] overflow-hidden bg-green-100">
 	<Nav></Nav>
 	<div class="w-full">
-		<Header search={false}></Header>
+		<Header search={false} text={user.firstName}></Header>
 		<div class="container mx-auto px-4 py-8">
 			<div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
 				<!-- Columna izquierda - Datos personales -->

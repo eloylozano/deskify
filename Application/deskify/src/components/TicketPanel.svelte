@@ -1,5 +1,6 @@
 <script lang="ts">
-import SubmitButton from './SubmitButton.svelte';
+	import SubmitButton from './SubmitButton.svelte';
+	import UserCard from './UserCard.svelte';
 	export let statusOptions: any[] = [];
 	export let priorityOptions: any[] = [];
 	export let categoryOptions: any[] = [];
@@ -16,13 +17,28 @@ import SubmitButton from './SubmitButton.svelte';
 	export let data: {
 		ticket: {
 			id: number;
+			category: {
+				name: string;
+			};
+			priority: {
+				name: string;
+			};
+			currentStatus: string;
 			createdAt: string;
 			client: {
+				id: number;
 				clientName: string;
+				mail: string;
+			};
+			agent: {
+				id: number;
+				agentName: string;
 				mail: string;
 			};
 		};
 	};
+
+	console.log(data.ticket);
 </script>
 
 <div class="w-64 overflow-y-auto border-l border-gray-200 bg-white p-4">
@@ -96,34 +112,64 @@ import SubmitButton from './SubmitButton.svelte';
 			</label>
 		</div>
 
-        <div class="flex justify-center">
-            <SubmitButton
-                text="Update"
-                additionalClass="w-full justify-center"
-                on:click={handleStatusUpdate}
-            />
-        </div>
-        
+		<div class="flex justify-center">
+			<SubmitButton
+				text="Update"
+				additionalClass="w-full justify-center"
+				on:click={handleStatusUpdate}
+			/>
+		</div>
 	</div>
 
 	<div class="mt-6 border-t border-gray-200 pt-6">
-		<h3 class="mb-2 font-medium">More details</h3>
-		<div class="space-y-2 text-sm">
-			<div class="flex justify-between">
-				<span class="text-gray-500">ID:</span>
-				<span>#{data.ticket.id}</span>
-			</div>
-			<div class="flex justify-between">
-				<span class="text-gray-500">Created at:</span>
-				<span>{new Date(data.ticket.createdAt).toLocaleDateString()}</span>
-			</div>
-			<div class="flex justify-between">
-				<span class="text-gray-500">Client:</span>
-				<span>{data.ticket.client.clientName}</span>
-			</div>
-			<div class="flex justify-between">
-				<span class="text-gray-500">Email:</span>
-				<span>{data.ticket.client.mail}</span>
+		<div>
+			<h3 class="mb-2 font-medium">More details</h3>
+			<div class="space-y-2 text-sm">
+				<div class="flex justify-between">
+					<span class="text-gray-500">ID:</span>
+					<span>#{data.ticket.id}</span>
+				</div>
+				<div class="flex justify-between">
+					<span class="text-gray-500">Created at:</span>
+					<span>{new Date(data.ticket.createdAt).toLocaleDateString()}</span>
+				</div>
+				<div class="flex justify-between">
+					<span class="text-gray-500">Agent:</span>
+					<span class="font-medium text-emerald-600 underline"
+						><a href={`/users/${data.ticket.agent.id}`}>{data.ticket.agent.agentName}</a></span
+					>
+				
+				</div>
+				<div class="flex justify-between">
+					<span class="text-gray-500">Client:</span>
+					<span class="font-medium text-emerald-600 underline"
+						><a href={`/users/${data.ticket.client.id}`}>{data.ticket.client.clientName}</a></span
+					>
+				</div>
+				<div class="flex justify-between">
+					<span class="text-gray-500">Category:</span>
+					{#if data.ticket.category.name}
+						<span>{data.ticket.category.name}</span>
+					{:else}
+						<span>No Category</span>
+					{/if}
+				</div>
+				<div class="flex justify-between">
+					<span class="text-gray-500">Status:</span>
+					{#if data.ticket.currentStatus}
+						<span>{data.ticket.currentStatus}</span>
+					{:else}
+						<span>No Status</span>
+					{/if}
+				</div>
+				<div class="flex justify-between">
+					<span class="text-gray-500">Priority:</span>
+					{#if data.ticket.priority.name}
+						<span>{data.ticket.priority.name}</span>
+					{:else}
+						<span>No Priority</span>
+					{/if}
+				</div>
 			</div>
 		</div>
 	</div>

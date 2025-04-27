@@ -1,6 +1,7 @@
 <script>
 	// @ts-ignore
 	import ErrorPage from '../components/ErrorPage.svelte';
+	
 
 
 	export let error;
