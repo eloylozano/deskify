@@ -4,20 +4,22 @@
 - [X] Lista Usuarios
 - [X] Usuario individual
 - [ ] Dashboard
-- [ ] Settings
+- [X] Settings
 - [ ] Register/Login Web
 
 ## 🔧 Funcionalidades principales
 - [x] Barra lateral con iconos
 - [x] Vista de tickets
-- [ ] Dashboard inicial con resumen
 - [X] Actualizar tickets
 - [X] Mostrar agentes
 - [X] Estadisticas usuarios
+- [X] Traducir data a ingles
+- [ ] Dashboard inicial con resumen
 - [ ] Fotos perfil usuarios
 - [ ] Login y registro funcional
 - [ ] Menu filtros tickets
-- [X] Traducir data a ingles
+- [ ] Pasarela de pago
+- [ ] Panel Admin(Eliminar tickets)
 
 ## 🧪 Funcionalidades extra
 - [ ] Notificaciones por cambio de estado

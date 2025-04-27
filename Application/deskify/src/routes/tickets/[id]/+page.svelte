@@ -101,50 +101,73 @@
 	];
 
 	async function handleStatusUpdate() {
-		try {
-			// Validaciones
-			if (!selectedAgent.id || selectedAgent.id === 0) {
-				throw new Error('Please select an agent');
-			}
-			if (selectedStatus.id === 0) {
-				throw new Error('Please select a status');
-			}
-			if (selectedPriority.id === 0) {
-				throw new Error('Please select a priority');
-			}
-			if (selectedCategory.id === 0) {
-				throw new Error('Please select a category');
-			}
+    try {
+        // Crear objeto con solo los campos modificados
+        const updateData: {
+            ticketId: number;
+            statusId?: number;
+            priorityId?: number;
+            categoryId?: number;
+            userId?: number;
+        } = { ticketId: data.ticket.id };
 
-			// Actualización
-			const updatedTicket = await updateTicketStatus({
-				ticketId: data.ticket.id,
-				statusId: selectedStatus.id,
-				priorityId: selectedPriority.id,
-				categoryId: selectedCategory.id,
-				userId: selectedAgent.id
-			});
+        // Solo incluir campos que han cambiado respecto a los valores actuales
+        if (selectedStatus.id !== 0 && selectedStatus.id !== data.ticket.currentStatus.statusId) {
+            updateData.statusId = selectedStatus.id;
+        }
+        
+        if (selectedPriority.id !== 0 && selectedPriority.id !== data.ticket.priority.id) {
+            updateData.priorityId = selectedPriority.id;
+        }
+        
+        if (selectedCategory.id !== 0 && selectedCategory.id !== data.ticket.category.id) {
+            updateData.categoryId = selectedCategory.id;
+        }
+        
+        if (selectedAgent.id !== 0 && selectedAgent.id !== data.ticket.agent.agentId) {
+            updateData.userId = selectedAgent.id;
+        }
 
-			// Actualizar estado local
-			data.ticket.priority = priorityOptions.find((p) => p.id === selectedPriority.id);
-			data.ticket.currentStatus = {
-				statusId: selectedStatus.id,
-				statusName: statusOptions.find((s) => s.id === selectedStatus.id)?.name || ''
-			};
-			data.ticket.category = categoryOptions.find((c) => c.id === selectedCategory.id);
-			data.ticket.agent = {
-				agentId: selectedAgent.id,
-				agentName: agentOptions.find((a) => a.id === selectedAgent.id)?.fullName || ''
-			};
-			data.ticket.updatedAt = new Date().toISOString();
+        // Verificar que al menos un campo ha cambiado
+        if (Object.keys(updateData).length === 1) {
+            throw new Error('No changes detected');
+        }
 
-			// Feedback al usuario
-			alert('Ticket updated successfully!');
-		} catch (error) {
-			console.error('Error updating ticket:', error);
-			alert(error.message || 'Failed to update ticket');
-		}
-	}
+        // Actualización
+        const updatedTicket = await updateTicketStatus(updateData);
+
+        // Actualizar estado local solo para los campos modificados
+        if (updateData.statusId) {
+            data.ticket.currentStatus = {
+                statusId: selectedStatus.id,
+                statusName: statusOptions.find((s) => s.id === selectedStatus.id)?.name || ''
+            };
+        }
+        
+        if (updateData.priorityId) {
+            data.ticket.priority = priorityOptions.find((p) => p.id === selectedPriority.id);
+        }
+        
+        if (updateData.categoryId) {
+            data.ticket.category = categoryOptions.find((c) => c.id === selectedCategory.id);
+        }
+        
+        if (updateData.userId) {
+            data.ticket.agent = {
+                agentId: selectedAgent.id,
+                agentName: agentOptions.find((a) => a.id === selectedAgent.id)?.fullName || ''
+            };
+        }
+
+        data.ticket.updatedAt = new Date().toISOString();
+
+        // Feedback al usuario
+        alert('Ticket updated successfully!');
+    } catch (error) {
+        console.error('Error updating ticket:', error);
+        alert(error instanceof Error ? error.message : 'Failed to update ticket');
+    }
+}
 
 	let isPanelVisible = true;
 
