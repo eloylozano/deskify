@@ -296,7 +296,7 @@
 							<p class="text-gray-500">No hay respuestas aún</p>
 						{/if}
 					</div>
-					<TicketComment />
+					<TicketComment on:submitted={() => location.reload()} ticketId={data.ticket.id} />
 				</div>
 			</div>
 

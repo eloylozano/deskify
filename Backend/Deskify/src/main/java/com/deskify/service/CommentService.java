@@ -20,74 +20,76 @@ import jakarta.transaction.Transactional;
 @Service
 public class CommentService implements ICommentService {
 
-    @Autowired
-    private CommentRepository commentRepo;
+        @Autowired
+        private CommentRepository commentRepo;
 
-    @Autowired
-    private TicketRepository ticketRepo;
+        @Autowired
+        private TicketRepository ticketRepo;
 
-    @Autowired
-    private UserRepository userRepo;
+        @Autowired
+        private UserRepository userRepo;
 
-    @Override
-    public CommentResponseDTO createComment(Long ticketId, String userEmail, String text) {
-        // Find ticket by ID
-        Ticket ticket = ticketRepo.findById(ticketId)
-                .orElseThrow(() -> new TicketNotFoundException(ticketId));
-        // Find user by email
-        User user = userRepo.findByEmail(userEmail)
-                .orElseThrow(() -> new UserNotFoundException(userEmail));
+        @Override
+        public CommentResponseDTO createComment(Long ticketId, String userEmail, String text) {
+                // Find ticket by ID
+                Ticket ticket = ticketRepo.findById(ticketId)
+                                .orElseThrow(() -> new TicketNotFoundException(ticketId));
+                // Find user by email
+                User user = userRepo.findByEmail(userEmail)
+                                .orElseThrow(() -> new UserNotFoundException(userEmail));
 
-        // Create new comment
-        Comment comment = new Comment();
-        comment.setTicket(ticket);
-        comment.setUser(user);
-        comment.setCommentText(text);
+                // Create new comment
+                Comment comment = new Comment();
+                comment.setTicket(ticket);
+                comment.setUser(user);
+                comment.setCommentText(text);
 
-        // Save the new comment
-        Comment savedComment = commentRepo.save(comment);
+                // Save the new comment
+                Comment savedComment = commentRepo.save(comment);
 
-        // Return commentDTO
-        CommentResponseDTO responseDTO = new CommentResponseDTO(
-                savedComment.getUser().getFirstName() + " " + savedComment.getUser().getLastName(),
-                savedComment.getUser().getEmail(),
-                savedComment.getCommentText(),
-                savedComment.getWrittenOn());
+                // Return commentDTO
+                CommentResponseDTO responseDTO = new CommentResponseDTO(
+                                savedComment.getTicket().getId(), // ticketId
+                                savedComment.getUser().getId(), // userId
+                                savedComment.getUser().getFirstName() + " " + savedComment.getUser().getLastName(),
+                                savedComment.getUser().getEmail(),
+                                savedComment.getCommentText(),
+                                savedComment.getWrittenOn());
 
-        return responseDTO;
-    }
+                return responseDTO;
+        }
 
-    @Transactional
-    @Override
-    public void deleteComment(Long commentId) {
-        Comment comment = commentRepo.findById(commentId)
-                .orElseThrow(() -> new CommentNotFoundException(commentId));
+        @Transactional
+        @Override
+        public void deleteComment(Long commentId) {
+                Comment comment = commentRepo.findById(commentId)
+                                .orElseThrow(() -> new CommentNotFoundException(commentId));
 
-        commentRepo.delete(comment);
-    }
+                commentRepo.delete(comment);
+        }
 
-    @Transactional
-    @Override
-    public CommentResponseDTO updateComment(Long commentId, String text) {
+        @Transactional
+        @Override
+        public CommentResponseDTO updateComment(Long commentId, String text) {
 
-        Comment comment = commentRepo.findById(commentId)
-                .orElseThrow(() -> new CommentNotFoundException(commentId));
+                Comment comment = commentRepo.findById(commentId)
+                                .orElseThrow(() -> new CommentNotFoundException(commentId));
 
-        // Update the comment text
-        comment.setCommentText(text);
+                // Update the comment text
+                comment.setCommentText(text);
 
-        // And save it
-        Comment updatedComment = commentRepo.save(comment);
+                // And save it
+                Comment updatedComment = commentRepo.save(comment);
 
-        // Convert the updated comment to a JSON representation
-        CommentResponseDTO commentDTO = new CommentResponseDTO();
-        commentDTO.setUserFullName(
-                updatedComment.getUser().getFirstName() + " " + updatedComment.getUser().getLastName());
-        commentDTO.setUserEmail(updatedComment.getUser().getEmail());
-        commentDTO.setCommentText(updatedComment.getCommentText());
-        commentDTO.setWrittenOn(updatedComment.getWrittenOn());
+                // Convert the updated comment to a JSON representation
+                CommentResponseDTO commentDTO = new CommentResponseDTO();
+                commentDTO.setUserFullName(
+                                updatedComment.getUser().getFirstName() + " " + updatedComment.getUser().getLastName());
+                commentDTO.setUserEmail(updatedComment.getUser().getEmail());
+                commentDTO.setCommentText(updatedComment.getCommentText());
+                commentDTO.setWrittenOn(updatedComment.getWrittenOn());
 
-        return commentDTO;
-    }
+                return commentDTO;
+        }
 
 }

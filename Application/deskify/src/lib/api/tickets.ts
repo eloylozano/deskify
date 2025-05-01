@@ -31,6 +31,7 @@ export async function createTicket(ticketData: {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
+
     return await response.json();
   } catch (error) {
     console.error('Error creating ticket:', error);
@@ -59,19 +60,19 @@ export async function updateTicketStatus(updateData: {
   userId: number;
 }) {
   console.log('Sending update:', updateData); // Añade esto para debug
-  
+
   const response = await fetch(`${API_URL}/ticket/update`, {
-      method: 'PUT',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updateData)
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updateData)
   });
 
   if (!response.ok) {
-      const errorText = await response.text(); 
-      console.error('Update error response:', errorText);
-      throw new Error(`Failed to update ticket: ${errorText}`);
+    const errorText = await response.text();
+    console.error('Update error response:', errorText);
+    throw new Error(`Failed to update ticket: ${errorText}`);
   }
 
   return await response.json();
@@ -93,8 +94,11 @@ export async function createComment(ticketId: number, email: string, commentText
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const errorData = await response.json().catch(() => ({}));
+      const errorMessage = errorData.message || `HTTP error! status: ${response.status}`;
+      throw new Error(errorMessage);
     }
+
 
     return await response.json();
   } catch (error) {

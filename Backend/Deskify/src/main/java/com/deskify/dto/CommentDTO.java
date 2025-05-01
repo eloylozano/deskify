@@ -13,14 +13,7 @@ import lombok.*;
 @ToString
 public class CommentDTO {
 
-    private Long ticketId;
-    private Long userId;
-    private String userFullName;
     private String userEmail;
     private String commentText;
-    private LocalDateTime writtenOn;
 
-    public void setUser(User user) {
-        this.userFullName = user.getFirstName() + " " + user.getLastName();
-    }
 }

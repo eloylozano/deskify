@@ -2,12 +2,14 @@
 	import { onMount } from 'svelte';
 	import { createComment } from '$lib/api/tickets'; // Esto asume que tienes una función 'createComment' en tu archivo de API
 	import SubmitButton from './SubmitButton.svelte';
+	import { createEventDispatcher } from 'svelte';
 
 	let email: string = '';
 	let commentText: string = '';
-	let ticketId: number = 1; // Asumimos que el ticketId es 1, ajusta según sea necesario
+	export let ticketId: number;
 	let errorMessage: string = '';
 	let successMessage: string = '';
+	const dispatch = createEventDispatcher();
 
 	// Función para enviar el comentario
 	const submitComment = async () => {
@@ -24,6 +26,7 @@
 		} catch (error) {
 			errorMessage = 'This mail does not exist';
 		}
+		dispatch('submitted');
 	};
 </script>
 
