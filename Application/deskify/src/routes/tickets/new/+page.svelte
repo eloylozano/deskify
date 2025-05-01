@@ -1,4 +1,3 @@
-<!-- src/routes/new-ticket/+page.svelte -->
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { createTicket } from '$lib/api/tickets';
@@ -11,21 +10,28 @@
 	let email = '';
 	let title = '';
 	let description = '';
+	let isLoading = false;
+	let errorMessage = '';
 
 	async function handleCreateTicket(event: Event) {
 		event.preventDefault();
+		isLoading = true;
+		errorMessage = '';
 
 		try {
-			await createTicket({ email, title, description });
-			goto('/tickets');
+			const response = await createTicket({ email, title, description });
+			console.log('Ticket created:', response); // Para depuración
+			await goto('/tickets');
 		} catch (err) {
-			console.error(err);
-			alert('El correo electrónico no existe o es incorrecto.');
+			console.error('Error:', err);
+			errorMessage = err.message || 'El correo electrónico no existe o es incorrecto.';
+		} finally {
+			isLoading = false;
 		}
 	}
 </script>
 
-<div class="flex h-screen bg-emerald-100 overflow-hidden">
+<div class="flex h-screen overflow-hidden bg-emerald-100">
 	<Nav />
 
 	<div class="flex flex-1 flex-col items-center overflow-y-auto">
@@ -34,9 +40,15 @@
 		<div class="my-5 w-300 rounded-md bg-white px-10 py-6 shadow">
 			<h1 class="mb-4 text-center text-3xl font-medium text-gray-800">Create a new incidence</h1>
 
-			<form on:submit={handleCreateTicket} class="space-y-4">
+			{#if errorMessage}
+				<div class="mb-4 rounded bg-red-100 p-4 text-red-700">
+					{errorMessage}
+				</div>
+			{/if}
+
+			<form on:submit|preventDefault={handleCreateTicket} class="space-y-4">
 				<div>
-					<label for="email" class="block text-sm font-medium text-gray-700 pb-2">Email</label>
+					<label for="email" class="block pb-2 text-sm font-medium text-gray-700">Email</label>
 					<CustomInput
 						type="email"
 						id="email"
@@ -48,7 +60,7 @@
 				</div>
 
 				<div>
-					<label for="title" class="block text-sm font-medium text-gray-700 pb-2">Title</label>
+					<label for="title" class="block pb-2 text-sm font-medium text-gray-700">Title</label>
 					<CustomInput
 						type="text"
 						id="title"
@@ -60,7 +72,9 @@
 				</div>
 
 				<div>
-					<label for="description" class="block text-sm font-medium text-gray-700 pb-2">Description</label>
+					<label for="description" class="block pb-2 text-sm font-medium text-gray-700"
+						>Description</label
+					>
 					<CustomTextarea
 						id="description"
 						name="description"
@@ -70,7 +84,7 @@
 				</div>
 
 				<div class="flex justify-end">
-					<SubmitButton text="Create ticket" />
+					<SubmitButton text={isLoading ? 'Creating...' : 'Create ticket'} disabled={isLoading} />
 				</div>
 			</form>
 		</div>

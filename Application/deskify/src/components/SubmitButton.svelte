@@ -11,7 +11,7 @@
 </script>
 
 <button
-  type="button"
+  type="submit"
   on:click={handleClick}  
   class={`btn px-12 py-2 rounded-full font-medium cursor-pointer flex text-white items-center w-fit ${additionalClass}`}
 >

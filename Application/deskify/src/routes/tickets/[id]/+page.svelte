@@ -78,8 +78,9 @@
 		{ id: 1, name: 'Open' },
 		{ id: 2, name: 'In progress' },
 		{ id: 3, name: 'Pending' },
-		{ id: 4, name: 'Solved' },
-		{ id: 5, name: 'Closed' }
+		{ id: 4, name: 'Closed' },
+		{ id: 5, name: 'Solved' }
+		
 	];
 
 	const priorityOptions = [

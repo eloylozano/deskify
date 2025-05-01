@@ -1,6 +1,6 @@
 <script lang="ts">
 	import SubmitButton from './SubmitButton.svelte';
-	import UserCard from './UserCard.svelte';
+	
 	export let statusOptions: any[] = [];
 	export let priorityOptions: any[] = [];
 	export let categoryOptions: any[] = [];
@@ -13,19 +13,19 @@
 	export let agentError = '';
 	export let handleStatusUpdate: () => void;
 
-	// Detalles del ticket 
+	// Detalles del ticket con campos opcionales
 	export let data: {
 		ticket: {
 			id: number;
 			category: {
 				name: string;
-			};
+			} | null;
 			priority: {
 				name: string;
-			};
+			} | null;
 			currentStatus: {
 				statusName: string;
-			};
+			} | null;
 			createdAt: string;
 			client: {
 				id: number;
@@ -36,11 +36,18 @@
 				id: number;
 				agentName: string;
 				mail: string;
-			};
+			} | null;
 		};
 	};
 
-	console.log(data.ticket);
+	// Valores por defecto para evitar null
+	$: ticket = {
+		...data.ticket,
+		category: data.ticket.category || { name: 'No category' },
+		priority: data.ticket.priority || { name: 'No priority' },
+		currentStatus: data.ticket.currentStatus || { statusName: 'No status' },
+		agent: data.ticket.agent || { id: 0, agentName: 'Unassigned', mail: '' }
+	};
 </script>
 
 <div class="w-64 overflow-y-auto border-l border-gray-200 bg-white p-4">
@@ -129,48 +136,39 @@
 			<div class="space-y-2 text-sm">
 				<div class="flex justify-between">
 					<span class="text-gray-500">ID:</span>
-					<span>#{data.ticket.id}</span>
+					<span>#{ticket.id}</span>
 				</div>
 				<div class="flex justify-between">
 					<span class="text-gray-500">Created at:</span>
-					<span>{new Date(data.ticket.createdAt).toLocaleDateString()}</span>
+					<span>{new Date(ticket.createdAt).toLocaleDateString()}</span>
 				</div>
 				<div class="flex justify-between">
 					<span class="text-gray-500">Agent:</span>
-					<span class="font-medium text-emerald-600 underline"
-						><a href={`/users/${data.ticket.agent.id}`}>{data.ticket.agent.agentName}</a></span
-					>
-				
+					<span class="font-medium text-emerald-600 underline">
+						{#if ticket.agent && ticket.agent.id !== 0}
+							<a href={`/users/${ticket.agent.id}`}>{ticket.agent.agentName}</a>
+						{:else}
+							Unassigned
+						{/if}
+					</span>
 				</div>
 				<div class="flex justify-between">
 					<span class="text-gray-500">Client:</span>
-					<span class="font-medium text-emerald-600 underline"
-						><a href={`/users/${data.ticket.client.id}`}>{data.ticket.client.clientName}</a></span
-					>
+					<span class="font-medium text-emerald-600 underline">
+						<a href={`/users/${ticket.client.id}`}>{ticket.client.clientName}</a>
+					</span>
 				</div>
 				<div class="flex justify-between">
 					<span class="text-gray-500">Category:</span>
-					{#if data.ticket.category.name}
-						<span>{data.ticket.category.name}</span>
-					{:else}
-						<span>No Category</span>
-					{/if}
+					<span>{ticket.category.name}</span>
 				</div>
 				<div class="flex justify-between">
 					<span class="text-gray-500">Status:</span>
-					{#if data.ticket.currentStatus}
-						<span>{data.ticket.currentStatus.statusName}</span>
-					{:else}
-						<span>No Status</span>
-					{/if}
+					<span>{ticket.currentStatus.statusName}</span>
 				</div>
 				<div class="flex justify-between">
 					<span class="text-gray-500">Priority:</span>
-					{#if data.ticket.priority.name}
-						<span>{data.ticket.priority.name}</span>
-					{:else}
-						<span>No Priority</span>
-					{/if}
+					<span>{ticket.priority.name}</span>
 				</div>
 			</div>
 		</div>

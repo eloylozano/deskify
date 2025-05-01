@@ -15,6 +15,7 @@
 
 <div class="flex flex-col items-center gap-6 pt-10 px-3">
 	<!-- Imagen FAQ -->
+	<!-- svelte-ignore a11y_img_redundant_alt -->
 	<img src="/FAQs00.png" alt="FAQ image" aria-label="FAQ Image" class="mx-auto h-110" />
 
 	<!-- Barra de búsqueda -->
@@ -25,6 +26,7 @@
 			placeholder="Search FAQs..."
 			class="search w-full rounded-full border border-gray-300 px-5 py-3 shadow-sm transition-all focus:ring-2 focus:ring-cyan-400 focus:outline-none"
 		/>
+		<!-- svelte-ignore a11y_consider_explicit_label -->
 		<button
 			class="absolute top-1/2 right-3 -translate-y-1/2 transform text-gray-500"
 			on:click={() => {}}

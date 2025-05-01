@@ -81,3 +81,13 @@
 		</a>
 	</div>
 </nav>
+
+<style>
+	a,li {
+		transition: 0.1s ease-in-out;
+	}
+
+	a:hover, li:hover{
+		transform: scale(1.1);
+	}
+</style>
