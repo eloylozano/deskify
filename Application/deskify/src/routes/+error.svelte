@@ -1,9 +1,6 @@
 <script>
 	// @ts-ignore
 	import ErrorPage from '../components/ErrorPage.svelte';
-	
-
-
 	export let error;
 
 	console.log('Error recibido en +error.svelte:', error);
@@ -47,8 +44,8 @@
 	/>
 {:else}
 	<ErrorPage
-		image="/Error404.svg"
-		title="Oops! We couldn't find what you were looking for."
-		description="This page doesn't exist, but don't worry, the others are waiting for you. Keep exploring and find what you're looking for!"
+		image="/Error400.svg"
+		title="Something went wrong with your request."
+		description="It appears the information you submitted is invalid or incomplete. Please verify the details and try again. If you need assistance, please don't hesitate to contact us."
 	/>
 {/if}

@@ -6,7 +6,7 @@ export async function load({ params }) {
         const ticket = await getTicketById(Number(params.id));
         
         if (!ticket) {
-            throw error(403, 'No estás autorizado');
+            throw error(404, 'No estás autorizado');
         }
 
         return {

@@ -1,7 +1,7 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-const { backgroundImage, backgroundSize = "cover" } = Astro.props;
+const { backgroundImage, backgroundSize = "cover",class: additionalClass  } = Astro.props;
 ---
 
 <!doctype html>
@@ -13,7 +13,7 @@ const { backgroundImage, backgroundSize = "cover" } = Astro.props;
     <title>Deskify</title>
   </head>
   <body class="flex flex-col min-h-screen"
-    style={`background-image: url(${backgroundImage}); background-size: ${backgroundSize}; background-repeat: no-repeat; `}>
+    style={`background-image: url(${backgroundImage}); background-size: ${backgroundSize}; background-repeat: no-repeat; ${additionalClass} `}>
     <Header />
 
     <main class="flex-grow">
