@@ -12,6 +12,7 @@
 	import SubmitButton from '../../../components/SubmitButton.svelte';
 
 	export let data;
+	const apiUrl = import.meta.env.VITE_API_URL;
 
 	interface User {
 		id: number;
@@ -83,12 +84,14 @@
 				<div class="rounded-lg bg-gray-50 p-6 shadow">
 					<div class="flex flex-col items-center gap-4">
 						{#if user.profilePictureUrl && !imageError}
-							<img
-								src={user.profilePictureUrl}
-								alt="Foto de perfil"
-								class="h-24 w-24 rounded-full"
-								on:error={() => (imageError = true)}
-							/>
+							<div class="flex h-24 w-24 overflow-hidden rounded-full border-3 border-emerald-500">
+								<img
+									src={`${import.meta.env.VITE_API_URL}/uploads/profiles/${user.profilePictureUrl}`}
+									alt="Foto de perfil"
+									class="object-cover h-full w-full"
+									on:error={() => (imageError = true)}
+								/>
+							</div>
 						{:else}
 							<div
 								class="flex h-24 w-24 items-center justify-center rounded-full bg-gray-300 text-4xl font-bold text-white"

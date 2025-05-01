@@ -50,7 +50,7 @@ public class AppConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/uploads/**")
+        registry.addResourceHandler("/uploads/profiles/**")
                 .addResourceLocations("file:" + uploadPath);
     }
 }

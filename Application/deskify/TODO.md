@@ -15,7 +15,6 @@
 - [X] Estadisticas usuarios
 - [X] Traducir data a ingles
 - [X] Dashboard inicial con resumen
-- [ ] Menu filtros tickets
 - [ ] Fotos perfil usuarios
 - [ ] Login y registro funcional
 - [ ] Pasarela de pago
@@ -23,6 +22,7 @@
 - [ ] Gestionar suscripciones
 
 ## 🧪 Funcionalidades extra
+- [ ] Menu filtros tickets
 - [ ] Añadir estadísticas al dashboard
 - [ ] Notificaciones por cambio de estado
 - [ ] Dark mode

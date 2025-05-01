@@ -5,6 +5,7 @@
 	import Loading from './Loading.svelte';
 	import SubHeader from './SubHeader.svelte';
 	import FilterMenu from './FilterMenu.svelte';
+	import TicketFilter from './TicketPanel.svelte';
 
 	interface User {
 		id?: number;
@@ -138,11 +139,26 @@
 	});
 
 	let sortOption = '1'; // Last Modified por defecto
+
+	let isPanelVisible = true;
+
+	function togglePanel() {
+		isPanelVisible = !isPanelVisible;
+	}
+
+	// Filtros seleccionados
+	let selectedStatus = '';
+	let selectedPriority = '';
+	let selectedCategory = '';
+	let selectedAgent = '';
+	  // Opciones para los filtros
+
+	
 </script>
 
-<SubHeader on:sortChange={(e) => (sortOption = e.detail)} />
+<SubHeader on:sortChange={(e) => (sortOption = e.detail)} {isPanelVisible} {togglePanel} />
 
-<div class="flex h-full flex-col overflow-hidden">
+<div class="flex h-full overflow-hidden">
 	{#if isLoading}
 		<div
 			class="flex h-full flex-col items-center justify-center py-4 text-center font-medium text-gray-800"
@@ -218,7 +234,7 @@
 									<td class="w-[100px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
 										<span
 											class="inline-flex rounded-full px-2 text-xs leading-5 font-semibold
-						  {ticket.priority?.name === 'Urgent'
+							  {ticket.priority?.name === 'Urgent'
 												? 'bg-red-100 text-red-800 uppercase'
 												: ticket.priority?.name === 'High'
 													? 'bg-yellow-100 text-yellow-800'
@@ -234,7 +250,7 @@
 									<td class="w-[100px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
 										<span
 											class="inline-flex items-center gap-1 rounded-full px-2 text-xs leading-5 font-semibold
-						  {ticket.currentStatus?.statusName === 'Abierto'
+							  {ticket.currentStatus?.statusName === 'Abierto'
 												? 'bg-purple-100 text-purple-800'
 												: ticket.currentStatus?.statusName === 'In Progress'
 													? 'bg-blue-100 text-blue-800'
@@ -286,5 +302,20 @@
 				</div>
 			</div>
 		</div>
+	{/if}
+
+	{#if isPanelVisible}
+	
+		<!-- <TicketFilter
+			{statusOptions}
+			{priorityOptions}
+			{categoryOptions}
+			{agentOptions}
+			bind:selectedStatus
+			bind:selectedPriority
+			bind:selectedCategory
+			bind:selectedAgent
+			on:applyFilters={onApplyFilters}
+		/> -->
 	{/if}
 </div>

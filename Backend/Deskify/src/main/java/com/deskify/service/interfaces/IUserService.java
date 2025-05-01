@@ -23,4 +23,6 @@ public interface IUserService {
 
     public List<AgentDTO> getAllAgents();
 
+    public UserStatsDTO getUserStats(Long userId);
+
 }

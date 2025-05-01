@@ -29,7 +29,7 @@
 	<Nav />
 
 	<div class="flex flex-1 flex-col items-center overflow-y-auto">
-		<Header />
+		<Header text="Create new ticket" />
 
 		<div class="my-5 w-300 rounded-md bg-white px-10 py-6 shadow">
 			<h1 class="mb-4 text-center text-3xl font-medium text-gray-800">Create a new incidence</h1>

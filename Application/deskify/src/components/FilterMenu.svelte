@@ -28,7 +28,7 @@
       selectedCategory = { id: 0 };
       selectedAgent = { id: 0 };
       selectedDateRange = '';
-      handleFilter();
+      handleFilter(); 
     }
   </script>
   

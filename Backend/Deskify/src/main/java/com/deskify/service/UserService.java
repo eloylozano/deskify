@@ -5,11 +5,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.deskify.dto.*;
@@ -41,8 +43,10 @@ public class UserService implements IUserService {
     @Autowired
     AssignmentRepository assignmentRepository;
 
-    @Value("${profile.pictures.path}")
-    private String profilePicturesPath;
+   @Value("${profile.pictures.path}")
+    private String uploadPath;
+
+;
 
     @Override
     public UserResponseDTO getUserById(Long id) {
@@ -130,35 +134,56 @@ public class UserService implements IUserService {
     @Override
     public UserResponseDTO uploadProfilePicture(Long userId, MultipartFile file) {
         try {
-            // Verify that the file is not empty
             if (file.isEmpty()) {
                 throw new RuntimeException("No se ha seleccionado ningún archivo para subir.");
             }
 
-            // Create file name
-            String fileName = userId + "_" + file.getOriginalFilename();
-
-            // File path to upload
-            Path path = Paths.get(profilePicturesPath + fileName);
-
-            // Save the file to the path
-            Files.write(path, file.getBytes());
-
-            // Get the user and update the profile picture
+            // Obtener usuario
             User user = userRepo.findById(userId)
                     .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-            // Update the profile picture
-            user.setProfilePictureUrl(path.toString());
+            // Eliminar imagen anterior si existe
+            if (user.getProfilePictureUrl() != null) {
+                Path oldFile = Paths.get(uploadPath + user.getProfilePictureUrl());
+                Files.deleteIfExists(oldFile);
+            }
 
-            // Save the user updated
+            // Crear nombre único con UUID y extensión
+            String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
+            String uniqueName = UUID.randomUUID().toString();
+            String fileName = userId + "_" + uniqueName + "." + extension;
+
+            // Ruta destino
+            Path path = Paths.get(uploadPath + fileName);
+
+            Files.createDirectories(path.getParent());
+
+            // Guardar archivo
+            Files.write(path, file.getBytes());
+
+            // Actualizar usuario con el nombre del archivo (no ruta completa)
+            user.setProfilePictureUrl(fileName);
             userRepo.save(user);
 
-            // Convert to DTO
             return userConverter.convertToDTO(user);
 
         } catch (IOException e) {
             throw new RuntimeException("Error al subir el archivo: " + e.getMessage());
+        }
+    }
+
+    public byte[] getProfilePicture(Long id) {
+        // Suponiendo que tienes una ruta donde guardas las imágenes de perfil
+        Path imagePath = Paths.get(uploadPath + id + ".jpg"); // o .png, dependiendo de tu formato
+
+        if (Files.exists(imagePath)) {
+            try {
+                return Files.readAllBytes(imagePath);
+            } catch (IOException e) {
+                throw new RuntimeException("Error reading profile picture", e);
+            }
+        } else {
+            return null;
         }
     }
 
@@ -169,27 +194,28 @@ public class UserService implements IUserService {
                 .map(userConverter::UserTodAgentDTO) // Uses converter to get userDTO
                 .collect(Collectors.toList());
     }
+
     public Long getResolvedTicketsCount(Long agentId) {
         return assignmentRepository.countResolvedTicketsByAgent(agentId);
     }
-    
+
     public List<Ticket> getOpenTickets(Long agentId) {
         return assignmentRepository.findOpenTicketsByAgent(agentId);
     }
-    
+
+    @Override
     public UserStatsDTO getUserStats(Long userId) {
         User user = userRepo.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-    
+
         long totalTickets = assignmentRepository.countByAgentId(userId);
         long resolvedTickets = getResolvedTicketsCount(userId);
         long openTickets = getOpenTickets(userId).size();
-    
+
         return new UserStatsDTO(
                 totalTickets,
                 resolvedTickets,
-                openTickets
-        );
+                openTickets);
     }
-    
+
 }

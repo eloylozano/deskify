@@ -70,6 +70,15 @@ public class UserController {
         return ResponseEntity.ok(updatedUser);
     }
 
+    @GetMapping("/{id}/profile-picture")
+    public ResponseEntity<byte[]> getProfilePicture(@PathVariable Long id) {
+        byte[] profilePicture = userService.getProfilePicture(id);
+        if (profilePicture == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.ok().body(profilePicture);
+    }
+
     @GetMapping("/agents")
     public ResponseEntity<List<AgentDTO>> getAllAgents() {
         List<AgentDTO> lista = userService.getAllAgents();
@@ -80,6 +89,5 @@ public class UserController {
     public ResponseEntity<UserStatsDTO> getStats(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserStats(id));
     }
-
 
 }
