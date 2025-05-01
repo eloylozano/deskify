@@ -1,5 +1,7 @@
 package com.deskify.service;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +45,9 @@ public class CommentService implements ICommentService {
                 comment.setTicket(ticket);
                 comment.setUser(user);
                 comment.setCommentText(text);
+
+                ticket.setUpdatedAt(LocalDateTime.now());
+                ticketRepo.save(ticket);
 
                 // Save the new comment
                 Comment savedComment = commentRepo.save(comment);

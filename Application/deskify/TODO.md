@@ -8,8 +8,8 @@
 - [ ] Register/Login Web
 
 ## 🔧 Funcionalidades principales
-- [x] Barra lateral con iconos
-- [x] Vista de tickets
+- [X] Barra lateral con iconos
+- [X] Vista de tickets
 - [X] Actualizar tickets
 - [X] Mostrar agentes
 - [X] Estadisticas usuarios
@@ -19,9 +19,11 @@
 - [ ] Fotos perfil usuarios
 - [ ] Login y registro funcional
 - [ ] Pasarela de pago
-- [ ] Panel Admin(Eliminar tickets)
+- [ ] Panel Admin(Eliminar tickets, comentarios)
+- [ ] Gestionar suscripciones
 
 ## 🧪 Funcionalidades extra
+- [ ] Añadir estadísticas al dashboard
 - [ ] Notificaciones por cambio de estado
 - [ ] Dark mode
 - [ ] Paginación en la lista de tickets

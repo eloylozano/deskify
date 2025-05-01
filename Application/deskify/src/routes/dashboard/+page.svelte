@@ -45,28 +45,28 @@
 			<!-- Estadísticas principales -->
 			<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
 				<div class="rounded-lg bg-white p-4 shadow-xl">
-					<h3 class="text-lg font-semibold text-gray-800">Tickets Abiertos</h3>
+					<h3 class="text-lg font-semibold text-gray-800">Open Tickets</h3>
 					<p class="text-3xl font-bold text-gray-900">{ticketsAbiertos}</p>
 				</div>
 				<div class="rounded-lg bg-white p-4 shadow-xl">
-					<h3 class="text-lg font-semibold text-gray-800">Tickets Resueltos</h3>
+					<h3 class="text-lg font-semibold text-gray-800">Solved Tickets</h3>
 					<p class="text-3xl font-bold text-gray-900">{ticketsResueltos}</p>
 				</div>
 				<div class="rounded-lg bg-white p-4 shadow-xl">
-					<h3 class="text-lg font-semibold text-gray-800">Tiempo Prom. Resolución</h3>
+					<h3 class="text-lg font-semibold text-gray-800">Avg. Time to Solve</h3>
 					<p class="text-3xl font-bold text-gray-900">{tiempoPromedioResolucion} h</p>
 				</div>
 			</div>
 			
 			<!-- Estadísticas de agentes -->
 			<div class="mt-6 rounded-lg bg-white p-6 shadow-xl">
-				<h3 class="text-xl font-semibold text-gray-800">Agentes Activos</h3>
-				<p class="text-2xl font-bold text-gray-900">{agentesActivos} agentes trabajando</p>
+				<h3 class="text-xl font-semibold text-gray-800">Active Agents</h3>
+				<p class="text-2xl font-bold text-gray-900">{agentesActivos} agents working</p>
 			</div>
 
 			<!-- Gráfica de estado de tickets -->
 			<div class="mt-6 rounded-lg bg-white p-6 shadow-xl">
-				<h3 class="text-xl font-semibold text-gray-800">Distribución de Tickets por Estado</h3>
+				<h3 class="text-xl font-semibold text-gray-800">Ticket by Status</h3>
 				<div class="mt-4 flex justify-between gap-6">
 					<!-- Tickets Abiertos -->
 					<div class="relative flex-1 text-center">
@@ -84,7 +84,7 @@
 						<p
 							class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform font-bold text-gray-950"
 						>
-							{estadoTickets.abierto} Abiertos
+							{estadoTickets.abierto} Open
 						</p>
 					</div>
 
@@ -104,7 +104,7 @@
 						<p
 							class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform font-bold text-gray-950"
 						>
-							{estadoTickets.cerrado} Cerrados
+							{estadoTickets.cerrado} Closed
 						</p>
 					</div>
 
@@ -124,7 +124,7 @@
 						<p
 							class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform font-bold text-gray-950"
 						>
-							{estadoTickets.pendiente} Pendientes
+							{estadoTickets.pendiente} Pending
 						</p>
 					</div>
 
@@ -144,7 +144,7 @@
 						<p
 							class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform font-bold text-gray-950"
 						>
-							{estadoTickets.enProgreso} En Progreso
+							{estadoTickets.enProgreso} In Progress
 						</p>
 					</div>
 				</div>
