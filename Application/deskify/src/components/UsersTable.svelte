@@ -91,7 +91,6 @@
 		return 0;
 	});
 
-
 	let sortOption = '1';
 	function getSafeId(user: any, index: number): string | number {
 		return user.id ?? `${user.email}-${index}`;
@@ -180,7 +179,6 @@
 										console.log('Clicked user:', user);
 										window.location.href = `/users/${user.id}`;
 									}}
-									
 								>
 									<td class="w-[40px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
 										<CustomCheckbox
@@ -194,7 +192,7 @@
 										<div class="flex items-center gap-2">
 											{#if user.profilePictureUrl && !imageError}
 												<img
-													src={user.profilePictureUrl}
+													src={`${import.meta.env.VITE_API_URL}/uploads/profiles/${user.profilePictureUrl}`}
 													alt="Foto de perfil"
 													class="h-8 w-8 rounded-full"
 													on:error={() => (imageError = true)}

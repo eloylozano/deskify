@@ -116,11 +116,19 @@
 				updateData.statusId = selectedStatus.id;
 			}
 
-			if (selectedPriority.id !== 0 && selectedPriority.id !== data.ticket.priority.id) {
+			if (
+				selectedPriority.id !== 0 &&
+				data.ticket.priority &&
+				selectedPriority.id !== data.ticket.priority.id
+			) {
 				updateData.priorityId = selectedPriority.id;
 			}
 
-			if (selectedCategory.id !== 0 && selectedCategory.id !== data.ticket.category.id) {
+			if (
+				selectedCategory.id !== 0 &&
+				data.ticket.category &&
+				selectedCategory.id !== data.ticket.category.id
+			) {
 				updateData.categoryId = selectedCategory.id;
 			}
 
@@ -132,9 +140,6 @@
 			if (Object.keys(updateData).length === 1) {
 				throw new Error('No changes detected');
 			}
-
-			// Actualización
-			const updatedTicket = await updateTicketStatus(updateData);
 
 			// Actualizar estado local solo para los campos modificados
 			if (updateData.statusId) {
@@ -325,6 +330,4 @@
 	.shadow {
 		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 	}
-
-
 </style>

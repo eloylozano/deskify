@@ -13,7 +13,7 @@
 	export let agentError = '';
 	export let handleStatusUpdate: () => void;
 
-	// Detalles del ticket
+	// Detalles del ticket 
 	export let data: {
 		ticket: {
 			id: number;
@@ -23,7 +23,9 @@
 			priority: {
 				name: string;
 			};
-			currentStatus: string;
+			currentStatus: {
+				statusName: string;
+			};
 			createdAt: string;
 			client: {
 				id: number;
@@ -157,7 +159,7 @@
 				<div class="flex justify-between">
 					<span class="text-gray-500">Status:</span>
 					{#if data.ticket.currentStatus}
-						<span>{data.ticket.currentStatus}</span>
+						<span>{data.ticket.currentStatus.statusName}</span>
 					{:else}
 						<span>No Status</span>
 					{/if}

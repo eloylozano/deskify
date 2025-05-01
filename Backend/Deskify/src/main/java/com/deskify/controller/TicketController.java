@@ -92,7 +92,6 @@ public class TicketController {
         return ResponseEntity.ok(ticketDTOs);
     }
 
-    // TODO: implement a word search engine for tickets
     @GetMapping("/search")
     public ResponseEntity<List<TicketResponseDTO>> searchTicket(@RequestParam String query) {
 

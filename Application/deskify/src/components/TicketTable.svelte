@@ -6,7 +6,6 @@
 	import SubHeader from './SubHeader.svelte';
 	import FilterMenu from './FilterMenu.svelte';
 	import TicketFilter from './TicketPanel.svelte';
-
 	interface User {
 		id?: number;
 		name?: string;
@@ -50,6 +49,7 @@
 	let selectedTickets: number[] = [];
 	let selectAll: boolean = false;
 	let isLoading = true;
+	let imageError = false;
 	let error: string | null = null;
 
 	function toggleSelectAll(value: boolean) {
@@ -151,9 +151,7 @@
 	let selectedPriority = '';
 	let selectedCategory = '';
 	let selectedAgent = '';
-	  // Opciones para los filtros
-
-	
+	// Opciones para los filtros
 </script>
 
 <SubHeader on:sortChange={(e) => (sortOption = e.detail)} {isPanelVisible} {togglePanel} />
@@ -279,12 +277,26 @@
 									</td>
 									<td class="w-[150px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
 										<div class="flex items-center gap-2">
-											<!-- svelte-ignore a11y_img_redundant_alt -->
-											<img
-												src={'/default-profile.jpg'}
-												alt="Profile picture"
-												class="h-8 w-8 rounded-full"
-											/>
+											{#if ticket.agent?.profilePictureUrl && !imageError}
+												<!-- svelte-ignore a11y_img_redundant_alt -->
+												<img
+													src={`${import.meta.env.VITE_API_URL}/uploads/profiles/${ticket.agent?.profilePictureUrl}`}
+													alt="Profile picture"
+													class="h-8 w-8 rounded-full border-1 border-emerald-300"
+													on:error={() => (imageError = true)}
+												/>
+											{:else}
+												<div
+													class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-300 text-sm font-bold text-white"
+												>
+													<!-- svelte-ignore a11y_img_redundant_alt -->
+													<img
+														src="/default-profile.jpg"
+														class="h-8 w-8 rounded-full border-1 border-emerald-300"
+														alt="Profile picture"
+													/>
+												</div>
+											{/if}
 											<span>{ticket.agent?.agentName || 'Sin asignar'}</span>
 										</div>
 									</td>
@@ -305,7 +317,6 @@
 	{/if}
 
 	{#if isPanelVisible}
-	
 		<!-- <TicketFilter
 			{statusOptions}
 			{priorityOptions}

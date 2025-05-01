@@ -10,6 +10,7 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import SubmitButton from '../../../components/SubmitButton.svelte';
+	import ProfilePictureUpload from '../../../components/ProfilePictureUpload.svelte';
 
 	export let data;
 	const apiUrl = import.meta.env.VITE_API_URL;
@@ -83,28 +84,8 @@
 				<!-- Columna izquierda - Datos personales -->
 				<div class="rounded-lg bg-gray-50 p-6 shadow">
 					<div class="flex flex-col items-center gap-4">
-						{#if user.profilePictureUrl && !imageError}
-							<div class="flex h-24 w-24 overflow-hidden rounded-full border-3 border-emerald-500">
-								<img
-									src={`${import.meta.env.VITE_API_URL}/uploads/profiles/${user.profilePictureUrl}`}
-									alt="Foto de perfil"
-									class="object-cover h-full w-full"
-									on:error={() => (imageError = true)}
-								/>
-							</div>
-						{:else}
-							<div
-								class="flex h-24 w-24 items-center justify-center rounded-full bg-gray-300 text-4xl font-bold text-white"
-							>
-								{getInitials(user)}
-							</div>
-						{/if}
-
-						<h1 class="mb-6 text-3xl font-bold">
-							Welcome {user.firstName}
-							{user.middleName}
-							{user.lastName}
-						</h1>
+						<ProfilePictureUpload {user} size={24} on:upload={(e) => handleUpload(e.detail)} />
+						
 					</div>
 
 					<form class="space-y-4 px-12" on:submit|preventDefault={handleSubmit}>
