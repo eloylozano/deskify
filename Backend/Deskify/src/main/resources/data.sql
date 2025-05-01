@@ -157,10 +157,7 @@ VALUES
 (32, 3, 2, 'Error en la actualización de la app', 'La app no se actualiza a la última versión', 29, '2023-12-18 12:47:18', '2023-12-18 12:47:18'),
 (33, 1, 1, 'No se puede restablecer la contraseña', 'El usuario no puede restablecer su contraseña usando el formulario de recuperación', 3, '2023-12-22 14:11:40', '2023-12-22 14:11:40'),
 (34, 2, 4, 'Enlaces de imagen rotos', 'Las imágenes en las páginas de productos no se muestran correctamente debido a enlaces rotos', 6, '2023-12-24 16:55:33', '2023-12-24 16:55:33'),
-(35, 3, 3, 'Tiempo de espera para el inicio de sesión en la app móvil', 'El usuario se desconecta automáticamente después de un corto periodo de inactividad', 7, '2023-12-28 15:39:29', '2023-12-28 15:39:29'),
-(36, 1, 2, 'No se recibe confirmación de pedido', 'El usuario no recibe un correo de confirmación de pedido después de la compra', 8, '2023-12-30 13:22:01', '2023-12-30 13:22:01'),
-(37, 2, 1, 'Problemas con la carga de videos', 'Los videos no se cargan correctamente o están corruptos', 26, '2024-01-03 14:51:13', '2024-01-03 14:51:13'),
-(38, 3, 4, 'Error en la interfaz de pago', 'La interfaz de pago no responde después de que el usuario hace clic en enviar', 27, '2024-01-08 11:25:35', '2024-01-08 11:25:35');
+(35, 3, 3, 'Tiempo de espera para el inicio de sesión en la app móvil', 'El usuario se desconecta automáticamente después de un corto periodo de inactividad', 7, '2023-12-28 15:39:29', '2023-12-28 15:39:29'); 
 
 INSERT INTO `ticket_status_history` (`id`, `ticket_id`, `status_id`, `changed_at`) VALUES
 (1, 1, 1, '2023-01-05 09:30:00'),

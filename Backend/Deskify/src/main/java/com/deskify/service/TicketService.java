@@ -2,7 +2,9 @@ package com.deskify.service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,44 +89,52 @@ public class TicketService implements ITicketService {
                 Ticket ticket = ticketRepo.findById(updateTicketDTO.getTicketId())
                                 .orElseThrow(() -> new TicketNotFoundException(updateTicketDTO.getTicketId()));
 
-                // Find the new status from statusRepo
-                Status newStatus = statusRepo.findByName(updateTicketDTO.getStatusName())
-                                .stream()
-                                .findFirst()
-                                .orElseThrow(() -> new StatusNotFoundException(updateTicketDTO.getStatusName()));
+                // Update status if provided
+                if (updateTicketDTO.getStatusId() != null) {
+                        Status newStatus = statusRepo.findById(updateTicketDTO.getStatusId())
+                                        .orElseThrow(() -> new StatusNotFoundException(updateTicketDTO.getStatusId()));
 
-                // Create a new ticket status history record to log the status change
-                TicketHistory statusHistory = new TicketHistory();
-                statusHistory.setTicket(ticket);
-                statusHistory.setStatus(newStatus);
-                statusHistory.setChangedAt(LocalDateTime.now());
-
-                // Save the status history
-                ticketHistoryRepo.save(statusHistory);
-
-                // Update other fields (priority, category, agent)
-                Priority newPriority = priorityRepo.findByName(updateTicketDTO.getPriorityName())
-                                .orElseThrow(() -> new PriorityNotFoundException(updateTicketDTO.getPriorityName()));
-                ticket.setPriority(newPriority);
-
-                Category newCategory = categoryRepo.findById(updateTicketDTO.getCategoryId())
-                                .orElseThrow(() -> new CategoryNotFoundException(updateTicketDTO.getCategoryId()));
-                ticket.setCategory(newCategory);
-
-                User newAgent = userRepo.findByEmail(updateTicketDTO.getAgentEmail())
-                                .orElseThrow(() -> new AgentNotFoundException(updateTicketDTO.getAgentEmail()));
-
-                // Remove old assignment if exists
-                Assignment oldAssignment = assignmentRepo.findByTicket(ticket);
-                if (oldAssignment != null) {
-                        assignmentRepo.delete(oldAssignment);
+                        // Create a new ticket status history record to log the status change
+                        TicketHistory statusHistory = new TicketHistory();
+                        statusHistory.setTicket(ticket);
+                        statusHistory.setStatus(newStatus);
+                        statusHistory.setChangedAt(LocalDateTime.now());
+                        ticketHistoryRepo.save(statusHistory);
                 }
 
-                // Assign new agent
-                Assignment newAssignment = new Assignment();
-                newAssignment.setTicket(ticket);
-                newAssignment.setAgent(newAgent);
-                assignmentRepo.save(newAssignment);
+                // Update priority if provided
+                if (updateTicketDTO.getPriorityId() != null) {
+                        Priority newPriority = priorityRepo.findById(updateTicketDTO.getPriorityId())
+                                        .orElseThrow(() -> new PriorityNotFoundException(
+                                                        updateTicketDTO.getPriorityId()));
+                        ticket.setPriority(newPriority);
+                }
+
+                // Update category if provided
+                if (updateTicketDTO.getCategoryId() != null) {
+                        Category newCategory = categoryRepo.findById(updateTicketDTO.getCategoryId())
+                                        .orElseThrow(() -> new CategoryNotFoundException(
+                                                        updateTicketDTO.getCategoryId()));
+                        ticket.setCategory(newCategory);
+                }
+
+                // Update agent assignment if provided
+                if (updateTicketDTO.getUserId() != null) {
+                        User newAgent = userRepo.findById(updateTicketDTO.getUserId())
+                                        .orElseThrow(() -> new AgentNotFoundException(updateTicketDTO.getUserId()));
+
+                        // Remove old assignment if exists
+                        Assignment oldAssignment = assignmentRepo.findByTicket(ticket);
+                        if (oldAssignment != null) {
+                                assignmentRepo.delete(oldAssignment);
+                        }
+
+                        // Assign new agent
+                        Assignment newAssignment = new Assignment();
+                        newAssignment.setTicket(ticket);
+                        newAssignment.setAgent(newAgent);
+                        assignmentRepo.save(newAssignment);
+                }
 
                 // Save updated ticket
                 Ticket updatedTicket = ticketRepo.save(ticket);
@@ -246,5 +256,23 @@ public class TicketService implements ITicketService {
                                 .map(ticketConverter::convertToTicketResponseDTO)
                                 .collect(Collectors.toList());
         }
+
+        @Override
+         public TicketStatusSummaryDTO getTicketStatusSummary() {
+        List<Object[]> results = ticketRepo.countTicketsByCurrentStatus();
+
+        Map<String, Long> statusCounts = new HashMap<>();
+        long totalTickets = 0;
+
+        for (Object[] result : results) {
+            String statusName = (String) result[0];
+            Long count = (Long) result[1];
+
+            statusCounts.put(statusName, count);
+            totalTickets += count;
+        }
+
+        return new TicketStatusSummaryDTO(totalTickets, statusCounts);
+    }
 
 }

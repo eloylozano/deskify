@@ -23,5 +23,16 @@ public interface TicketRepository extends JpaRepository<Ticket, Long>, JpaSpecif
             "WHERE CONCAT(t.title, ' ', t.description) REGEXP :query", nativeQuery = true)
     List<Ticket> searchByQuery(@Param("query") String query);
 
-
+    @Query("""
+            SELECT th.status.name, COUNT(t.id)
+            FROM Ticket t
+            JOIN TicketHistory th ON th.ticket = t
+            WHERE th.changedAt = (
+                SELECT MAX(th2.changedAt)
+                FROM TicketHistory th2
+                WHERE th2.ticket = t
+            )
+            GROUP BY th.status.name
+            """)
+    List<Object[]> countTicketsByCurrentStatus();
 }

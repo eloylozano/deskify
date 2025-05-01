@@ -10,4 +10,5 @@ public class RoleNotFoundException extends RuntimeException {
         super("No existe ningún rol con este nombre: " + role);
     }
 
+  
 }

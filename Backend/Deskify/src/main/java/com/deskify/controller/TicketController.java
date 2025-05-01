@@ -13,7 +13,6 @@ import com.deskify.dto.*;
 import com.deskify.error.*;
 import com.deskify.service.TicketService;
 
-
 @RestController
 @RequestMapping(value = "/ticket")
 public class TicketController {
@@ -101,4 +100,10 @@ public class TicketController {
 
         return ResponseEntity.ok(ticketsFound);
     }
+
+    @GetMapping("/summary")
+    public TicketStatusSummaryDTO getTicketStatusSummary() {
+        return ticketService.getTicketStatusSummary();
+    }
+
 }

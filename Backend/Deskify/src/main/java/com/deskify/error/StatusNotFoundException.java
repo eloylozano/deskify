@@ -11,5 +11,7 @@ public class StatusNotFoundException extends RuntimeException {
     }
 
     
-
+    public StatusNotFoundException(Long id) {
+        super("Status no encontrado con ID: " + id);
+    }
 }

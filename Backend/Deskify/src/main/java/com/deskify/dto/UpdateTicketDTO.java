@@ -8,8 +8,8 @@ import lombok.*;
 @AllArgsConstructor
 public class UpdateTicketDTO {
     private Long ticketId;
-    private String statusName;
-    private String priorityName;
+    private Long statusId;
+    private Long priorityId;
     private Long categoryId;
-    private String agentEmail;
+    private Long userId;
 }

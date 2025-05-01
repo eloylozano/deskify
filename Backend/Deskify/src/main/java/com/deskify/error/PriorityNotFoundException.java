@@ -10,4 +10,7 @@ public class PriorityNotFoundException extends RuntimeException {
         super("No existe esta prioridad: " + name);
     }
 
+    public PriorityNotFoundException(Long id) {
+        super("Prioridad no encontrada con ID: " + id);
+    }
 }

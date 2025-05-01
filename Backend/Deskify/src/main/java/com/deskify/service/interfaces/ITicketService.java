@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.deskify.dto.CreateTicketDTO;
 import com.deskify.dto.TicketResponseDTO;
+import com.deskify.dto.TicketStatusSummaryDTO;
 import com.deskify.dto.UpdateTicketDTO;
 
 public interface ITicketService {
@@ -29,4 +30,5 @@ public interface ITicketService {
 
     public List<TicketResponseDTO> searchTickets(String query);
 
+    public TicketStatusSummaryDTO getTicketStatusSummary();
 }
