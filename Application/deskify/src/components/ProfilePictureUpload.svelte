@@ -163,7 +163,7 @@
 			<h2 class="mb-4 text-xl font-bold">Change profile pic</h2>
 
 			{#if previewUrl}
-				<div class="mb-4 flex justify-center">
+				<div class="mb-4 flex justify-center"> 
 					<img
 						src={previewUrl}
 						alt="Previsualización"

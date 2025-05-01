@@ -213,9 +213,9 @@
 
 					<div class="mb-6 rounded-lg bg-white p-6 shadow">
 						<div class="mb-2 flex gap-3">
-							{#if data.ticket.client.profilePictureUrl}
+							{#if data.ticket.client.profilePictureUrl || data.ticket.client.profilePictureUrl !== null}
 								<img
-									src={data.ticket.client.profilePictureUrl}
+									src={`${import.meta.env.VITE_API_URL}/uploads/profiles/${data.ticket.client.profilePictureUrl}`}
 									alt={data.ticket.client.clientName}
 									class="h-12 w-12 rounded-full border-2 border-emerald-600"
 								/>
@@ -265,9 +265,9 @@
 								<div class="mb-4 border-b border-gray-100 pb-4 last:border-0">
 									<div class="mb-2 flex items-start justify-between">
 										<div class="flex items-center gap-3">
-											{#if data.ticket.client.profilePictureUrl}
+											{#if comment.profilePictureUrl}
 												<img
-													src={comment.profilePictureUrl}
+													src={`${import.meta.env.VITE_API_URL}/uploads/profiles/${comment.profilePictureUrl}`}
 													class="h-12 w-12 rounded-full border-2 border-emerald-600"
 													alt={comment.userFullName}
 												/>

@@ -54,13 +54,15 @@ public class CommentService implements ICommentService {
 
                 // Return commentDTO
                 CommentResponseDTO responseDTO = new CommentResponseDTO(
-                                savedComment.getTicket().getId(), // ticketId
-                                savedComment.getUser().getId(), // userId
-                                savedComment.getUser().getFirstName() + " " + savedComment.getUser().getLastName(),
-                                savedComment.getUser().getEmail(),
-                                savedComment.getCommentText(),
-                                savedComment.getWrittenOn());
-
+                        savedComment.getTicket().getId(), // ticketId
+                        savedComment.getUser().getId(), // userId
+                        savedComment.getUser().getFirstName() + " " + savedComment.getUser().getLastName(), // userFullName
+                        savedComment.getUser().getProfilePictureUrl(), // profilePictureUrl
+                        savedComment.getUser().getEmail(),
+                        savedComment.getCommentText(),
+                        savedComment.getWrittenOn()
+                    );
+                    
                 return responseDTO;
         }
 

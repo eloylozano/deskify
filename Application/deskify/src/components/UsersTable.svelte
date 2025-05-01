@@ -194,7 +194,7 @@
 												<img
 													src={`${import.meta.env.VITE_API_URL}/uploads/profiles/${user.profilePictureUrl}`}
 													alt="Foto de perfil"
-													class="h-8 w-8 rounded-full"
+													class="h-8 w-8 rounded-full object-cover"
 													on:error={() => (imageError = true)}
 												/>
 											{:else}

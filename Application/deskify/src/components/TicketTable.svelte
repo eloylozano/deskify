@@ -156,7 +156,7 @@
 
 <SubHeader on:sortChange={(e) => (sortOption = e.detail)} {isPanelVisible} {togglePanel} />
 
-<div class="flex h-full overflow-hidden">
+<div class="flex h-full flex-col overflow-hidden">
 	{#if isLoading}
 		<div
 			class="flex h-full flex-col items-center justify-center py-4 text-center font-medium text-gray-800"
@@ -316,17 +316,4 @@
 		</div>
 	{/if}
 
-	{#if isPanelVisible}
-		<!-- <TicketFilter
-			{statusOptions}
-			{priorityOptions}
-			{categoryOptions}
-			{agentOptions}
-			bind:selectedStatus
-			bind:selectedPriority
-			bind:selectedCategory
-			bind:selectedAgent
-			on:applyFilters={onApplyFilters}
-		/> -->
-	{/if}
 </div>
