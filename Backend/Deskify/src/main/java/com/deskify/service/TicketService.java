@@ -89,6 +89,16 @@ public class TicketService implements ITicketService {
                 Ticket ticket = ticketRepo.findById(updateTicketDTO.getTicketId())
                                 .orElseThrow(() -> new TicketNotFoundException(updateTicketDTO.getTicketId()));
 
+                // Update title if provided
+                if (updateTicketDTO.getTitle() != null && !updateTicketDTO.getTitle().isEmpty()) {
+                        ticket.setTitle(updateTicketDTO.getTitle());
+                }
+
+                // Update description if provided
+                if (updateTicketDTO.getDescription() != null && !updateTicketDTO.getDescription().isEmpty()) {
+                        ticket.setDescription(updateTicketDTO.getDescription());
+                }
+
                 // Update status if provided
                 if (updateTicketDTO.getStatusId() != null) {
                         Status newStatus = statusRepo.findById(updateTicketDTO.getStatusId())
@@ -258,21 +268,21 @@ public class TicketService implements ITicketService {
         }
 
         @Override
-         public TicketStatusSummaryDTO getTicketStatusSummary() {
-        List<Object[]> results = ticketRepo.countTicketsByCurrentStatus();
+        public TicketStatusSummaryDTO getTicketStatusSummary() {
+                List<Object[]> results = ticketRepo.countTicketsByCurrentStatus();
 
-        Map<String, Long> statusCounts = new HashMap<>();
-        long totalTickets = 0;
+                Map<String, Long> statusCounts = new HashMap<>();
+                long totalTickets = 0;
 
-        for (Object[] result : results) {
-            String statusName = (String) result[0];
-            Long count = (Long) result[1];
+                for (Object[] result : results) {
+                        String statusName = (String) result[0];
+                        Long count = (Long) result[1];
 
-            statusCounts.put(statusName, count);
-            totalTickets += count;
+                        statusCounts.put(statusName, count);
+                        totalTickets += count;
+                }
+
+                return new TicketStatusSummaryDTO(totalTickets, statusCounts);
         }
-
-        return new TicketStatusSummaryDTO(totalTickets, statusCounts);
-    }
 
 }

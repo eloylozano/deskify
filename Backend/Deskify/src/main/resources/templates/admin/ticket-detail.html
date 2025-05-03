@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Ticket</title>
+    <script>
+        function enableEdit() {
+            document.querySelectorAll('input, select, textarea').forEach(el => el.removeAttribute('disabled'));
+            document.getElementById('saveBtn').classList.remove('hidden');
+            document.getElementById('editBtn').classList.add('hidden');
+        }
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-green-50 p-8">
+
+    <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold mb-4 text-gray-800">Ticket Detail</h1>
+
+        <form th:action="@{/admin/tickets/update}" method="post">
+            <input type="hidden" name="_method" value="put" />
+            <input type="hidden" name="ticketId" th:value="${ticket.id}" />
+
+            <div class="mb-4">
+                <label class="block text-gray-700">Title</label>
+                <input type="text" name="title" th:value="${ticket.title}" disabled
+                    class="w-full border border-gray-300 p-2 rounded" />
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700">Description</label>
+                <textarea name="description" disabled class="w-full border border-gray-300 p-2 rounded" rows="4"
+                    th:text="${ticket.description}"></textarea>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700">Status</label>
+                <select name="statusId" disabled class="w-full border border-gray-300 p-2 rounded">
+                    <option th:each="stat : ${status}" th:value="${stat.id}" th:text="${stat.name}" 
+                    th:selected="${ticket.currentStatus != null && stat.name == ticket.currentStatus.statusName}"></option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700">Category</label>
+                <select name="categoryId" disabled class="w-full border border-gray-300 p-2 rounded">
+                    <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"
+                        th:selected="${ticket.category != null && cat.id == ticket.category.id}"></option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700">Priority</label>
+                <select name="priorityId" disabled class="w-full border border-gray-300 p-2 rounded">
+                    <option th:each="priority : ${priorities}" th:value="${priority.id}" th:text="${priority.name}"
+                        th:selected="${ticket.priority != null && priority.id == ticket.priority.id}"></option>
+                </select>
+            </div>
+
+            <div class="flex items-center justify-end">
+                <div class="flex gap-4">
+                    <button type="button" id="editBtn" onclick="enableEdit()"
+                        class="bg-yellow-500 text-white px-4 py-2 rounded-full hover:bg-yellow-600">
+                        Editar
+                    </button>
+
+                    <button type="submit" id="saveBtn"
+                        class="bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 hidden">
+                        Guardar cambios
+                    </button>
+                </div>
+                <a th:href="@{/admin/tickets/delete/{id}(id=${ticket.id})}"
+                    th:onclick="'return confirm(\'Do you really want to delete ticket #' + ${ticket.id} + '?\');'"
+                    class="px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 ml-2 actions">
+                    Delete
+                </a>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>

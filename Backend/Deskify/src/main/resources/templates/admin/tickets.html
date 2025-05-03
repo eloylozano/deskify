@@ -78,10 +78,15 @@
                     <td class="px-4 py-2 text-gray-600"
                         th:text="${ticket.priority != null ? ticket.priority.name : 'No priority'}"></td>
                     <td class="px-4 py-2 text-gray-600">
-                        <a href="/admin/tickets/{ticket.id}/edit"
-                            class="px-4 py-1 bg-yellow-500 text-white rounded-full hover:bg-yellow-600 actions">Edit</a>
-                        <a href="/admin/tickets/{ticket.id}/delete"
-                            class="px-4 py-1 bg-red-500 text-white rounded-full hover:bg-red-600 ml-2 actions">Delete</a>
+                        <a th:href="@{/admin/tickets/{id}(id=${ticket.id})}"
+                            class="px-4 py-1 bg-yellow-500 text-white rounded-full hover:bg-yellow-600 actions">
+                            View</a>
+
+                        <a th:href="@{/admin/tickets/delete/{id}(id=${ticket.id})}"
+                            th:onclick="'return confirm(\'Do you really want to delete ticket #' + ${ticket.id} + '?\');'"
+                            class="px-4 py-1 bg-red-500 text-white rounded-full hover:bg-red-600 ml-2 actions">
+                            Delete</a>
+
                     </td>
                 </tr>
             </tbody>

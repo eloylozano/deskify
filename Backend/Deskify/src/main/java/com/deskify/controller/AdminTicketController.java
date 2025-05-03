@@ -2,8 +2,18 @@ package com.deskify.controller;
 
 import com.deskify.dto.CreateTicketDTO;
 import com.deskify.dto.TicketResponseDTO;
+import com.deskify.dto.UpdateTicketDTO;
+import com.deskify.model.Status;
+import com.deskify.model.Priority;
+import com.deskify.model.Category;
 import com.deskify.model.Ticket;
+import com.deskify.service.CategoryService;
+import com.deskify.service.PriorityService;
+import com.deskify.service.StatusService;
 import com.deskify.service.TicketService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +25,12 @@ public class AdminTicketController {
 
     @Autowired
     private TicketService ticketService;
+    @Autowired
+    private StatusService statusService;
+    @Autowired
+    private CategoryService categoryService;
+    @Autowired
+    private PriorityService priorityService;
 
     @GetMapping
     public String getAllTickets(Model model) {
@@ -25,8 +41,25 @@ public class AdminTicketController {
     @GetMapping("/{id}")
     public String getTicket(@PathVariable Long id, Model model) {
         TicketResponseDTO ticketDTO = ticketService.getTicketById(id);
+
         model.addAttribute("ticket", ticketDTO);
-        return "admin/edit-ticket";
+
+        List<Status> statusList = statusService.getAllStatus();
+        List<Category> categoryList = categoryService.getAllCategories();
+        List<Priority> priorityList = priorityService.getAllPriorities();
+
+        model.addAttribute("status", statusList);
+        model.addAttribute("categories", categoryList);
+        model.addAttribute("priorities", priorityList);
+
+        // Devolver la vista
+        return "admin/ticket-detail";
+    }
+
+    @PostMapping("/update")
+    public String updateTicket(@ModelAttribute UpdateTicketDTO updateTicketDTO) {
+        ticketService.updateTicket(updateTicketDTO);
+        return "redirect:/admin/tickets";
     }
 
     @PostMapping("/edit")
