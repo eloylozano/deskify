@@ -77,7 +77,7 @@ INSERT INTO `role_permissions` (`role_id`, `permission_id`) VALUES
 
 
 INSERT INTO `users` (`id`, `first_name`, `middle_name`, `last_name`, `phone_number`, `email`, `password`,`company`, `profile_picture_url`, `role_id`, `created_at`, `updated_at`) VALUES
-(1, 'Eloy', 'Lozano', 'Barrios', '+34633640634', 'eloy.lozano@gmail.com', 'Abcd123', NULL, "1_819e6c71-02d7-4b70-b91a-115384dd615b.jpg", 4, '2023-01-15 09:45:32', '2023-01-15 09:45:32'),
+(1, 'Eloy', 'Lozano', 'Barrios', '+34633640634', 'elozano@deskify.com', 'Abcd123', NULL, "1_819e6c71-02d7-4b70-b91a-115384dd615b.jpg", 4, '2023-01-15 09:45:32', '2023-01-15 09:45:32'),
 (2, 'Jane', 'A.', 'Doe', '+34623234567', 'jane.doe@example.com', 'Abcd123', NULL, '9_689a7428-8ef4-4ecd-a24b-fce77a9589fc.png', 4, '2023-02-03 08:30:12', '2023-02-03 08:30:12'),
 (3, 'Alice', '', 'Johnson', '+34634345678', 'alice.johnson@example.com', 'Abcd123', NULL, '9_689a7428-8ef4-4ecd-a24b-fce77a9589fc.png', 5, '2023-05-22 14:21:47', '2023-05-22 14:21:47'),
 (4, 'Bob', 'M.', 'Williams', '+34645456789', 'bob.williams@example.com', 'Abcd123', NULL, '9_689a7428-8ef4-4ecd-a24b-fce77a9589fc.png', 3, '2023-06-11 12:55:23', '2023-06-11 12:55:23'),

@@ -62,6 +62,41 @@ public class TicketService implements ITicketService {
         }
 
         @Override
+        public Ticket createTicket(CreateAdminTicketDTO createAdminTicketDTO) {
+
+                Category category = categoryRepo.findById(createAdminTicketDTO.getCategoryId())
+                                .orElseThrow(() -> new RuntimeException("Category not found"));
+                Priority priority = priorityRepo.findById(createAdminTicketDTO.getPriorityId())
+                                .orElseThrow(() -> new RuntimeException("Priority not found"));
+                Status status = statusRepo.findById(createAdminTicketDTO.getStatusId())
+                                .orElseThrow(() -> new RuntimeException("Status not found"));
+
+                Ticket ticket = new Ticket();
+                ticket.setTitle(createAdminTicketDTO.getTitle());
+                ticket.setDescription(createAdminTicketDTO.getDescription());
+                ticket.setCategory(category);
+                ticket.setPriority(priority);
+                // Find the user by email address
+                User createdBy = userRepo.findByEmail(createAdminTicketDTO.getEmail())
+                                .orElseThrow(() -> new UserNotFoundException(createAdminTicketDTO.getEmail()));
+
+                ticket.setCreatedBy(createdBy);
+
+                ticket.setCreatedAt(LocalDateTime.now());
+
+                Ticket savedTicket = ticketRepo.save(ticket);
+
+                TicketHistory ticketHistory = new TicketHistory();
+                ticketHistory.setTicket(savedTicket);
+                ticketHistory.setStatus(status);
+                ticketHistory.setChangedAt(LocalDateTime.now());
+
+                ticketHistoryRepo.save(ticketHistory);
+
+                return savedTicket;
+        }
+
+        @Override
         public TicketResponseDTO saveTicket(CreateTicketDTO createTicketDTO) {
                 // Creates new ticket
                 Ticket ticket = new Ticket();

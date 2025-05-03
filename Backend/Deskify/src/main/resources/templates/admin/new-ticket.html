@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create Ticket</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-green-50 p-8">
+
+    <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold mb-4 text-gray-800">Create New Ticket</h1>
+
+        <form th:action="@{/admin/tickets/create}" method="post">
+            <div class="mb-4">
+                <label class="block text-gray-700" for="title">Title</label>
+                <input type="text" name="title" required class="w-full border border-gray-300 p-2 rounded" th:value="${createAdminTicketDTO.title}" />
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700" for="description">Description</label>
+                <textarea name="description" rows="4" required class="w-full border border-gray-300 p-2 rounded" th:value="${createAdminTicketDTO.description}"></textarea>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700" for="statusId">Status</label>
+                <select name="statusId" required class="w-full border border-gray-300 p-2 rounded">
+                    <option value="" disabled selected>Select a status</option>
+                    <option th:each="stat : ${status}" th:value="${stat.id}" th:text="${stat.name}"></option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700" for="categoryId">Category</label>
+                <select name="categoryId" required class="w-full border border-gray-300 p-2 rounded">
+                    <option value="" disabled selected>Select a category</option>
+                    <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700" for="priorityId">Priority</label>
+                <select name="priorityId" required class="w-full border border-gray-300 p-2 rounded">
+                    <option value="" disabled selected>Select a priority</option>
+                    <option th:each="priority : ${priorities}" th:value="${priority.id}" th:text="${priority.name}"></option>
+                </select>
+            </div>
+
+            <div class="flex justify-end">
+                <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700">
+                    Create Ticket
+                </button>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>

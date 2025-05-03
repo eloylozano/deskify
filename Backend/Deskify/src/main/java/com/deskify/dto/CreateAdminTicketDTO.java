@@ -7,9 +7,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class CreateTicketDTO {
-
+public class CreateAdminTicketDTO {
     private String title;
     private String description;
     private String email;
+    private Long statusId;
+    private Long categoryId;
+    private Long priorityId;
 }

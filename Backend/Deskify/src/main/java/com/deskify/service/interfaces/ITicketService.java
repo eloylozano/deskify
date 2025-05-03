@@ -4,16 +4,21 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.deskify.dto.CreateAdminTicketDTO;
 import com.deskify.dto.CreateTicketDTO;
 import com.deskify.dto.TicketResponseDTO;
 import com.deskify.dto.TicketStatusSummaryDTO;
 import com.deskify.dto.UpdateTicketDTO;
+import com.deskify.model.Ticket;
+import com.deskify.model.User;
 
 public interface ITicketService {
 
     public List<TicketResponseDTO> getTicketList();
 
     public TicketResponseDTO getTicketById(Long id);
+
+    public Ticket createTicket(CreateAdminTicketDTO createAdminTicketDTO);
 
     public TicketResponseDTO saveTicket(CreateTicketDTO createTicketDTO);
 
