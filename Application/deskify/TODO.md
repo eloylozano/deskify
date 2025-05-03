@@ -16,6 +16,7 @@
 - [X] Traducir data a ingles
 - [X] Dashboard inicial con resumen
 - [X] Fotos perfil usuarios
+- [ ] Cambiar selects ticket individual
 - [ ] Panel Admin(Eliminar tickets, comentarios)
 - [ ] Login y registro funcional
 - [ ] Pasarela de pago

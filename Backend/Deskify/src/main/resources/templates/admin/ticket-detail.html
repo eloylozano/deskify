@@ -20,7 +20,6 @@
         <h1 class="text-2xl font-bold mb-4 text-gray-800">Ticket Detail</h1>
 
         <form th:action="@{/admin/tickets/update}" method="post">
-            <input type="hidden" name="_method" value="put" />
             <input type="hidden" name="ticketId" th:value="${ticket.id}" />
 
             <div class="mb-4">
@@ -38,8 +37,9 @@
             <div class="mb-4">
                 <label class="block text-gray-700">Status</label>
                 <select name="statusId" disabled class="w-full border border-gray-300 p-2 rounded">
-                    <option th:each="stat : ${status}" th:value="${stat.id}" th:text="${stat.name}" 
-                    th:selected="${ticket.currentStatus != null && stat.name == ticket.currentStatus.statusName}"></option>
+                    <option th:each="stat : ${status}" th:value="${stat.id}" th:text="${stat.name}"
+                        th:selected="${ticket.currentStatus != null && stat.name == ticket.currentStatus.statusName}">
+                    </option>
                 </select>
             </div>
 
@@ -59,16 +59,43 @@
                 </select>
             </div>
 
+            <!-- Comentarios -->
+            <div class="mb-4">
+                <label class="block text-gray-700">Comments</label>
+                <div th:each="comment : ${ticket.comments}">
+                    <form th:action="@{/admin/tickets/comments/{id}(id=${comment.id})}" method="post">
+                        <input type="hidden" name="ticketId" th:value="${ticket.id}" />
+                        <div class="bg-gray-100 p-4 rounded-lg mb-2">
+                            <div class="flex justify-between">
+                                <div class="flex items-center">
+                                    <span class="font-bold" th:text="${comment.userFullName}"></span>
+                                </div>
+                            </div>
+                            <div>
+                                <textarea name="text" class="w-full border border-gray-300 p-2 rounded mt-2" disabled
+                                    th:text="${comment.commentText}"></textarea>
+                            </div>
+                            <div class="text-right mt-2">
+                                <button type="submit"
+                                    class="bg-green-600 text-white px-3 py-1 rounded hover:bg-blue-600 " disabled>
+                                    Save Comment
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
             <div class="flex items-center justify-end">
                 <div class="flex gap-4">
                     <button type="button" id="editBtn" onclick="enableEdit()"
                         class="bg-yellow-500 text-white px-4 py-2 rounded-full hover:bg-yellow-600">
-                        Editar
+                        Edit
                     </button>
 
                     <button type="submit" id="saveBtn"
                         class="bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 hidden">
-                        Guardar cambios
+                        Update
                     </button>
                 </div>
                 <a th:href="@{/admin/tickets/delete/{id}(id=${ticket.id})}"

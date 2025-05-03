@@ -16,6 +16,7 @@ import lombok.ToString;
 @ToString
 public class CommentResponseDTO {
     
+    private Long id;
     private Long ticketId;
     private Long userId;
     private String userFullName;
