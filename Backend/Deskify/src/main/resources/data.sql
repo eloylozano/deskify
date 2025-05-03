@@ -12,31 +12,31 @@ INSERT INTO `permissions` (`id`, `name`, `description`) VALUES
 
 INSERT INTO `status` (`id`,`name`, `description`, `is_active`) 
 VALUES 
-(1, 'Open', 'El ticket ha sido creado y está a la espera de atención.', TRUE),
-(2, 'In Progress', 'El ticket está siendo gestionado por un agente.', TRUE),
-(3, 'Pending', 'El ticket está a la espera de una respuesta por parte del cliente.', TRUE),
-(4, 'Closed', 'El ticket ha sido resuelto y cerrado.', FALSE),
-(5, 'Solved', 'El ticket ha sido resuelto pero no cerrado.', TRUE);
+(1, 'Open', 'The ticket has been created and is awaiting service.', TRUE),
+(2, 'In Progress', 'The ticket is being handled by an agent.', TRUE),
+(3, 'Pending', 'The ticket is awaiting a response from the customer.', TRUE),
+(4, 'Closed', 'The ticket has been resolved and closed.', TRUE),
+(5, 'Solved', 'The ticket has been resolved but not closed.', TRUE);
 
 INSERT INTO `plans` (`id`, `name`, `description`, `price`, `duration`) 
 VALUES 
-(1, 'Gratis', 'Plan gratuito con acceso limitado a las características básicas durante 14 días.', NULL, 14),
-(2, 'Empleado', 'Plan de propiedad de los empleados para trabajar como agentes.', NULL, NULL),
-(3, 'Básico', 'Plan básico con funciones limitadas, adecuado para usuarios ocasionales.', 9.95, 30),
-(4, 'Estándar', 'Plan intermedio con más funciones y acceso a soporte prioritario.', 14.99, 30),
-(5, 'Premium', 'Plan premium con acceso completo a todas las funciones y soporte prioritario.', 19.95, 30),
-(6, 'Básico Tres Meses', 'Plan básico por tres meses, ideal para usuarios que necesitan más tiempo.', 25.95, 90),
-(7, 'Estándar Tres Meses', 'Plan intermedio por tres meses con funciones y beneficios adicionales.', 39.95, 90),
-(8, 'Premium Tres Meses', 'Plan premium por tres meses con acceso completo a todas las funciones.', 49.95, 90),
-(9, 'Básico Año', 'Plan anual básico, ideal para quienes prefieren suscripciones a largo plazo con descuento.', 19.45, 365),
-(10, 'Estándar Año', 'Plan anual intermedio con más funciones y precios competitivos.', 164.89, 365),
-(11, 'Premium Año', 'Plan anual premium con acceso completo a todas las funciones durante un año.', 219.45, 365);
+(1, 'Free', 'Free plan with limited access to basic features for 14 days.', NULL, 14),
+(2, 'Employee', 'Employee-owned plan for working as agents.', NULL, NULL),
+(3, 'Basic', 'Basic plan with limited features, suitable for casual users.', 9.95, 30),
+(4, 'Standard', 'Intermediate plan with more features and access to priority support.', 14.99, 30),
+(5, 'Premium', 'Premium plan with full access to all features and priority support.', 19.95, 30),
+(6, 'Basic Three Months', 'Basic plan for three months, ideal for users who need more time.', 25.95, 90),
+(7, 'Standard Three Months', 'Intermediate plan for three months with additional features and benefits.', 39.95, 90),
+(8, 'Premium Three Months', 'Premium plan for three months with full access to all features.', 49.95, 90),
+(9, 'Basic Year', 'Basic annual plan, ideal for those who prefer discounted long-term subscriptions.', 19.45, 365),
+(10, 'Standard Year', 'Intermediate annual plan with more features and competitive pricing.', 164.89, 365),
+(11, 'Premium Year', 'Premium annual plan with full access to all features for one year.', 219.45, 365);
 
 INSERT INTO `priorities` (`id`, `name`, `description`) VALUES
-(1, 'Low', 'El problema no es urgente y puede resolverse en un momento posterior.'),
-(2, 'Medium', 'El problema es importante, pero no requiere atención inmediata.'),
-(3, 'High', 'El problema debe ser atendido de inmediato y tiene una importancia significativa.'),
-(4, 'Urgent', 'El problema requiere atención inmediata y resolución.');
+(1, 'Low', 'The problem is not urgent and can be resolved at a later time.'),
+(2, 'Medium', 'The problem is important, but does not require immediate attention.'),
+(3, 'High', 'The problem must be addressed immediately and is of significant importance.'),
+(4, 'Urgent', 'The problem requires immediate attention and resolution.');
 
 INSERT INTO `categories` (`id`, `name`, `description`) VALUES
 (1, 'Technical Support', 'Issues related to hardware, software, and system troubleshooting.'),
@@ -49,11 +49,11 @@ INSERT INTO `categories` (`id`, `name`, `description`) VALUES
 (8, 'Feature Request', 'Requests for new features or enhancements to existing functionality.');
 
 INSERT INTO `roles` (`id`, `name`, `description`) VALUES
-(1, 'Admin', 'Acceso completo a todas las funcionalidades del sistema, incluyendo la gestión de usuarios y configuración.'),
-(2, 'Supervisor', 'Monitorea la calidad de los tickets y el rendimiento de los agentes.'),
-(3, 'Manager', 'Supervisa a los agentes y gestiona las asignaciones de tickets y el rendimiento.'),
-(4, 'Agent', 'Gestiona los tickets y proporciona soporte técnico a los usuarios.'),
-(5, 'User', 'Puede crear tickets y realizar un seguimiento de su estado.');
+(1, 'Admin', 'Full access to all system features, including user management and configuration.'),
+(2, 'Supervisor', 'Monitors ticket quality and agent performance.'),
+(3, 'Manager', 'Supervises agents and manages ticket assignments and performance.'),
+(4, 'Agent', 'Manages tickets and provides technical support to users.'),
+(5, 'User', 'Can create tickets and track their status.');
 
 INSERT INTO `role_permissions` (`role_id`, `permission_id`) VALUES
 (1, 1),
@@ -77,35 +77,35 @@ INSERT INTO `role_permissions` (`role_id`, `permission_id`) VALUES
 
 
 INSERT INTO `users` (`id`, `first_name`, `middle_name`, `last_name`, `phone_number`, `email`, `password`,`company`, `profile_picture_url`, `role_id`, `created_at`, `updated_at`) VALUES
-(1, 'Eloy', 'Lozano', 'Barrios', '+34633640634', 'elozano@deskify.com', 'Abcd123', NULL, "1_222c3ec4-df8a-41ea-8a11-65e2a1c45173.svg", 5, '2023-01-15 09:45:32', '2023-01-15 09:45:32'),
-(2, 'Jane', 'A.', 'Doe', '+34623234567', 'jane.doe@example.com', 'Abcd123', NULL, '2_0eef75dd-7a5d-4347-a7ad-1b06e8affac2.jpg', 4, '2023-02-03 08:30:12', '2023-02-03 08:30:12'),
-(3, 'Alice', '', 'Johnson', '+34634345678', 'alice.johnson@example.com', 'Abcd123', NULL, '3_59c979bf-4f8f-43b0-a69b-4cae2a2e9144.png', 4, '2023-05-22 14:21:47', '2023-05-22 14:21:47'),
-(4, 'Bob', 'M.', 'Williams', '+34645456789', 'bob.williams@example.com', 'Abcd123', NULL, '22_d67e00cd-5d93-49c5-9640-667a02ebcc62.png', 3, '2023-06-11 12:55:23', '2023-06-11 12:55:23'),
-(5, 'Charlie', '', 'Brown', '+34656567890', 'charlie.brown@example.com', 'Abcd123', NULL, '22_d67e00cd-5d93-49c5-9640-667a02ebcc62.png', 3, '2023-07-01 09:12:09', '2023-07-01 09:12:09'),
-(6, 'Emily', 'R.', 'Clark', '+34667678901', 'emily.clark@example.com', 'Abcd123', NULL, '6_b2a408b1-1ea4-4da4-bb5f-2e10cd46edab.jpg', 5, '2023-08-15 11:45:51', '2023-08-15 11:45:51'),
-(7, 'David', 'J.', 'Martinez', '+34678789012', 'david.martinez@example.com', 'Abcd123', NULL, '22_d67e00cd-5d93-49c5-9640-667a02ebcc62.png', 5, '2023-09-09 15:09:28', '2023-09-09 15:09:28'),
-(8, 'Sophia', 'L.', 'Garcia', '+34689890123', 'sophia.garcia@example.com', 'Abcd123', NULL, '8_be248546-964d-4817-869b-ac0523c18a24.jpg', 5, '2023-10-04 06:29:54', '2023-10-04 06:29:54'),
-(9, 'Michael', '', 'Lopez', '+34690901234', 'michael.lopez@example.com', 'Abcd123', NULL, '9_63d73625-781c-493c-be42-7ec4401bae50.png', 3, '2023-11-19 11:13:05', '2023-11-19 11:13:05'),
-(10, 'Olivia', 'C.', 'Hernandez', '+34691012345', 'olivia.hernandez@example.com', 'Abcd123', NULL, '10_1a4bae62-cfdd-41da-b815-f460f9a5612f.jpg', 5, '2023-12-02 13:24:36', '2023-12-02 13:24:36'),
-(11, 'Liam', '', 'Taylor', '+34692123456', 'liam.taylor@example.com', 'Abcd123', NULL, '11_2438dada-0e71-40b8-869b-f950daacaf19.jpg', 4, '2023-01-25 08:41:56', '2023-01-25 08:41:56'),
-(12, 'Mason', 'T.', 'Wilson', '+34693234567', 'mason.wilson@example.com', 'Abcd123', NULL, '22_d67e00cd-5d93-49c5-9640-667a02ebcc62.png', 5, '2023-02-14 10:34:17', '2023-02-14 10:34:17'),
-(13, 'Isabella', '', 'Moore', '+34694345678', 'isabella.moore@example.com', 'Abcd123', NULL, '13_5af9dfeb-f896-4473-99d3-6df641c95afb.png', 5, '2023-03-09 14:56:11', '2023-03-09 14:56:11'),
-(14, 'Lucas', 'P.', 'Anderson', '+34695456789', 'lucas.anderson@example.com', 'Abcd123', NULL, '14_9684ef22-b048-4241-a75e-fd365372c2d1.png', 4, '2023-04-10 08:29:38', '2023-04-10 08:29:38'),
-(15, 'Zoe', 'B.', 'Thomas', '+34696567890', 'zoe.thomas@example.com', 'Abcd123', NULL, '15_0f760511-28aa-47db-b345-f946f412475d.jpg', 3, '2023-05-15 10:16:53', '2023-05-15 10:16:53'),
-(16, 'Amelia', 'K.', 'Jackson', '+34697678901', 'amelia.jackson@example.com', 'Abcd123', NULL, '20_a164f0d7-97dd-459d-806c-b0d469b71ac8.png', 5, '2023-06-20 07:02:17', '2023-06-20 07:02:17'),
-(17, 'Aiden', 'D.', 'White', '+34698789012', 'aiden.white@example.com', 'Abcd123', NULL, '17_f80275fd-1440-4a60-a7ef-4e05d11216fd.jpg', 3, '2023-07-30 12:47:42', '2023-07-30 12:47:42'),
-(18, 'Ethan', '', 'Lee', '+34699890123', 'ethan.lee@example.com', 'Abcd123', NULL, '18_930480dc-6b64-4d2d-9c1f-ddf7da761be7.jpg', 4, '2023-08-13 14:36:24', '2023-08-13 14:36:24'),
-(19, 'Abigail', 'V.', 'Young', '+34600901234', 'abigail.young@example.com', 'Abcd123', NULL, '19_b17969dd-8087-4e36-9ce6-e7556a197fa1.png', 5, '2023-09-25 08:05:17', '2023-09-25 08:05:17'),
-(20, 'Mia', 'H.', 'Walker', '+34601012345', 'mia.walker@example.com', 'Abcd123', NULL, '20_a164f0d7-97dd-459d-806c-b0d469b71ac8.png', 4, '2023-10-30 07:19:22', '2023-10-30 07:19:22'),
-(21, 'William', 'N.', 'Allen', '+34602123456', 'william.allen@example.com', 'Abcd123', NULL, '21_cfffaf29-d713-4310-bf9b-8ae08f7ccbad.jpg', 5, '2023-11-03 12:03:58', '2023-11-03 12:03:58'),
-(22, 'James', 'L.', 'King', '+34603234567', 'james.king@example.com', 'Abcd123', NULL, '22_c2b35bc1-453a-4262-9232-bcf3f3594cdc.png', 1, '2023-12-01 11:18:11', '2023-12-01 11:18:11'),
-(23, 'Benjamin', 'Q.', 'Scott', '+34604345678', 'benjamin.scott@example.com', 'Abcd123', NULL, '23_07e16cd4-c967-4f4b-beb7-c83e9ede3c35.jpg', 5, '2023-01-18 08:27:32', '2023-01-18 08:27:32'),
-(24, 'Chloe', 'R.', 'Adams', '+34605456789', 'chloe.adams@example.com', 'Abcd123', NULL, '24_28b736c8-f4e4-4649-9fc9-956a1d4a0c98.png', 4, '2023-02-23 10:14:04', '2023-02-23 10:14:04'),
-(25, 'Avery', '', 'Baker', '+34606567890', 'avery.baker@example.com', 'Abcd123', NULL, '25_f71e4b04-bd87-425e-a1f3-cde6556ddd57.jpg', 5, '2023-03-29 12:02:43', '2023-03-29 12:02:43'),
-(26, 'Daniel', 'J.', 'Gonzalez', '+34607678901', 'daniel.gonzalez@example.com', 'Abcd123', NULL, '26_490e8838-0930-40a3-b908-2d3de70263d4.jpg', 5, '2023-04-26 14:11:29', '2023-04-26 14:11:29'),
-(27, 'Grace', 'S.', 'Nelson', '+34608789012', 'grace.nelson@example.com', 'Abcd123', NULL, '27_5c27dac6-31de-4482-831d-27fec49ad7fe.jpg', 5, '2023-05-16 11:37:10', '2023-05-16 11:37:10'),
-(28, 'Jack', '', 'Carter', '+34609890123', 'jack.carter@example.com', 'Abcd123', NULL, '28_a1a374e1-6bdc-4774-a493-b1b23fb544f6.png', 5, '2023-06-01 08:25:44', '2023-06-01 08:25:44'),
-(29, 'Lily', 'P.', 'Mitchell', '+34610901234', 'lily.mitchell@example.com', 'Abcd123', NULL, '29_6cbfa5d0-10cf-414a-bd19-36ed25a10699.jpg', 5, '2023-07-04 10:18:59', '2023-07-04 10:18:59');
+(1, 'Eloy', 'Lozano', 'Barrios', '+34633640634', 'elozano@deskify.com', 'Abcd123', 'deskify', "1_222c3ec4-df8a-41ea-8a11-65e2a1c45173.svg", 5, '2023-01-15 09:45:32', '2023-01-15 09:45:32'),
+(2, 'Jane', 'A.', 'Doe', '+34623234567', 'jane.doe@skyloft.com', 'Abcd123', 'Skyloft', '2_0eef75dd-7a5d-4347-a7ad-1b06e8affac2.jpg', 4, '2023-02-03 08:30:12', '2023-02-03 08:30:12'),
+(3, 'Alice', '', 'Johnson', '+34634345678', 'alice.johnson@cloudlink.com', 'Abcd123', 'CloudLink Innovations', '3_59c979bf-4f8f-43b0-a69b-4cae2a2e9144.png', 4, '2023-05-22 14:21:47', '2023-05-22 14:21:47'),
+(4, 'Bob', 'M.', 'Williams', '+34645456789', 'bob.williams@skyloft.com', 'Abcd123', 'Skyloft', '22_d67e00cd-5d93-49c5-9640-667a02ebcc62.png', 3, '2023-06-11 12:55:23', '2023-06-11 12:55:23'),
+(5, 'Charlie', '', 'Brown', '+34656567890', 'charlie.brown@orbital.com', 'Abcd123', 'Orbital', '22_d67e00cd-5d93-49c5-9640-667a02ebcc62.png', 3, '2023-07-01 09:12:09', '2023-07-01 09:12:09'),
+(6, 'Emily', 'R.', 'Clark', '+34667678901', 'emily.clark@skyloft.com', 'Abcd123', 'Skyloft', '6_b2a408b1-1ea4-4da4-bb5f-2e10cd46edab.jpg', 5, '2023-08-15 11:45:51', '2023-08-15 11:45:51'),
+(7, 'David', 'J.', 'Martinez', '+34678789012', 'david.martinez@velocityworks.com', 'Abcd123', 'VelocityWorks Inc.', '22_d67e00cd-5d93-49c5-9640-667a02ebcc62.png', 5, '2023-09-09 15:09:28', '2023-09-09 15:09:28'),
+(8, 'Sophia', 'L.', 'Garcia', '+34689890123', 'sophia.garcia@elevatetech.com', 'Abcd123', 'ElevateTech Partners', '8_be248546-964d-4817-869b-ac0523c18a24.jpg', 5, '2023-10-04 06:29:54', '2023-10-04 06:29:54'),
+(9, 'Michael', '', 'Lopez', '+34690901234', 'michael.lopez@cloudlink.com', 'Abcd123', 'CloudLink Innovations', '9_63d73625-781c-493c-be42-7ec4401bae50.png', 3, '2023-11-19 11:13:05', '2023-11-19 11:13:05'),
+(10, 'Olivia', 'C.', 'Hernandez', '+34691012345', 'olivia.hernandez@skyloft.com', 'Abcd123', 'Skyloft', '10_1a4bae62-cfdd-41da-b815-f460f9a5612f.jpg', 5, '2023-12-02 13:24:36', '2023-12-02 13:24:36'),
+(11, 'Liam', '', 'Taylor', '+34692123456', 'liam.taylor@velocityworks.com', 'Abcd123', 'VelocityWorks Inc.', '11_2438dada-0e71-40b8-869b-f950daacaf19.jpg', 4, '2023-01-25 08:41:56', '2023-01-25 08:41:56'),
+(12, 'Mason', 'T.', 'Wilson', '+34693234567', 'mason.wilson@skyloft.com', 'Abcd123', 'Skyloft', '22_d67e00cd-5d93-49c5-9640-667a02ebcc62.png', 5, '2023-02-14 10:34:17', '2023-02-14 10:34:17'),
+(13, 'Isabella', '', 'Moore', '+34694345678', 'isabella.moore@orbital.com', 'Abcd123', 'Orbital', '13_5af9dfeb-f896-4473-99d3-6df641c95afb.png', 5, '2023-03-09 14:56:11', '2023-03-09 14:56:11'),
+(14, 'Lucas', 'P.', 'Anderson', '+34695456789', 'lucas.anderson@skyloft.com', 'Abcd123', 'Skyloft', '14_9684ef22-b048-4241-a75e-fd365372c2d1.png', 4, '2023-04-10 08:29:38', '2023-04-10 08:29:38'),
+(15, 'Zoe', 'B.', 'Thomas', '+34696567890', 'zoe.thomas@skyloft.com', 'Abcd123', 'Skyloft', '15_0f760511-28aa-47db-b345-f946f412475d.jpg', 3, '2023-05-15 10:16:53', '2023-05-15 10:16:53'),
+(16, 'Amelia', 'K.', 'Jackson', '+34697678901', 'amelia.jackson@nexora.com', 'Abcd123', 'Nexora', '20_a164f0d7-97dd-459d-806c-b0d469b71ac8.png', 5, '2023-06-20 07:02:17', '2023-06-20 07:02:17'),
+(17, 'Aiden', 'D.', 'White', '+34698789012', 'aiden.white@elevatetech.com', 'Abcd123', 'ElevateTech Partners', '17_f80275fd-1440-4a60-a7ef-4e05d11216fd.jpg', 3, '2023-07-30 12:47:42', '2023-07-30 12:47:42'),
+(18, 'Ethan', '', 'Lee', '+34699890123', 'ethan.lee@nexora.com', 'Abcd123', 'Nexora', '18_930480dc-6b64-4d2d-9c1f-ddf7da761be7.jpg', 4, '2023-08-13 14:36:24', '2023-08-13 14:36:24'),
+(19, 'Abigail', 'V.', 'Young', '+34600901234', 'abigail.young@elevatetech.com', 'Abcd123', 'ElevateTech Partners Innovations', '19_b17969dd-8087-4e36-9ce6-e7556a197fa1.png', 5, '2023-09-25 08:05:17', '2023-09-25 08:05:17'),
+(20, 'Mia', 'H.', 'Walker', '+34601012345', 'mia.walker@cloudlink.com', 'Abcd123', 'CloudLink Innovations', '20_a164f0d7-97dd-459d-806c-b0d469b71ac8.png', 4, '2023-10-30 07:19:22', '2023-10-30 07:19:22'),
+(21, 'William', 'N.', 'Allen', '+34602123456', 'william.allen@nexora.com', 'Abcd123', 'Nexora', '21_cfffaf29-d713-4310-bf9b-8ae08f7ccbad.jpg', 5, '2023-11-03 12:03:58', '2023-11-03 12:03:58'),
+(22, 'James', 'L.', 'King', '+34603234567', 'james.king@cloudlink.com', 'Abcd123', 'CloudLink Innovations', '22_c2b35bc1-453a-4262-9232-bcf3f3594cdc.png', 1, '2023-12-01 11:18:11', '2023-12-01 11:18:11'),
+(23, 'Benjamin', 'Q.', 'Scott', '+34604345678', 'benjamin.scott@cloudlink.com', 'Abcd123', 'CloudLink Innovations', '23_07e16cd4-c967-4f4b-beb7-c83e9ede3c35.jpg', 5, '2023-01-18 08:27:32', '2023-01-18 08:27:32'),
+(24, 'Chloe', 'R.', 'Adams', '+34605456789', 'chloe.adams@cloudlink.com', 'Abcd123', 'CloudLink Innovations', '24_28b736c8-f4e4-4649-9fc9-956a1d4a0c98.png', 4, '2023-02-23 10:14:04', '2023-02-23 10:14:04'),
+(25, 'Avery', '', 'Baker', '+34606567890', 'avery.baker@nexora.com', 'Abcd123', 'Nexora', '25_f71e4b04-bd87-425e-a1f3-cde6556ddd57.jpg', 5, '2023-03-29 12:02:43', '2023-03-29 12:02:43'),
+(26, 'Daniel', 'J.', 'Gonzalez', '+34607678901', 'daniel.gonzalez@orbital.com', 'Abcd123', 'Orbital', '26_490e8838-0930-40a3-b908-2d3de70263d4.jpg', 5, '2023-04-26 14:11:29', '2023-04-26 14:11:29'),
+(27, 'Grace', 'S.', 'Nelson', '+34608789012', 'grace.nelson@cloudlink.com', 'Abcd123', 'CloudLink Innovations', '27_5c27dac6-31de-4482-831d-27fec49ad7fe.jpg', 5, '2023-05-16 11:37:10', '2023-05-16 11:37:10'),
+(28, 'Jack', '', 'Carter', '+34609890123', 'jack.carter@orbital.com', 'Abcd123', 'Orbital', '28_a1a374e1-6bdc-4774-a493-b1b23fb544f6.png', 5, '2023-06-01 08:25:44', '2023-06-01 08:25:44'),
+(29, 'Lily', 'P.', 'Mitchell', '+34610901234', 'lily.mitchell@orbital.com', 'Abcd123', 'Orbital', '29_6cbfa5d0-10cf-414a-bd19-36ed25a10699.jpg', 5, '2023-07-04 10:18:59', '2023-07-04 10:18:59');
 
 
 INSERT INTO `subscriptions` (`user_id`, `plan_id`, `start_date`, `end_date`, `is_active`) 
@@ -123,41 +123,41 @@ VALUES
 
 INSERT INTO `tickets` (`id`, `category_id`, `priority_id`, `title`, `description`, `created_by`, `created_at`, `updated_at`)  
 VALUES
-(1, 2, 3, 'Problema de inicio de sesión', 'El usuario no puede iniciar sesión en el sistema con las credenciales correctas', 3, '2023-01-05 10:15:32', '2023-01-05 10:15:32'),
-(2, 3, 4, 'Restablecimiento de contraseña', 'Solicitud de restablecimiento de contraseña debido a una contraseña olvidada', 6, '2023-02-12 11:30:25', '2023-02-12 11:30:25'),
-(3, 1, 2, 'Error en el proceso de pago', 'Error donde el botón de pago no funciona en la página de pago', 7, '2023-03-20 13:14:09', '2023-03-20 13:14:09'),
-(4, 2, 1, 'Correo electrónico no enviado', 'Problema con el envío de correos electrónicos después de enviar un formulario', 8, '2023-04-03 09:42:18', '2023-04-03 09:42:18'),
-(5, 3, 3, 'Error de carga de página', 'La página muestra un error 404 al hacer clic en el enlace de la página de inicio', 26, '2023-05-05 10:51:11', '2023-05-05 10:51:11'),
-(6, 1, 4, 'Fallo en la pasarela de pago', 'La pasarela de pago no puede procesar los pagos', 27, '2023-06-15 14:22:30', '2023-06-15 14:22:30'),
-(7, 2, 3, 'Error de interfaz en el panel de control', 'Error con la visualización de las estadísticas de usuario en el panel de control', 28, '2023-07-01 12:07:56', '2023-07-01 12:07:56'),
-(8, 3, 1, 'Sobrecarga del servidor', 'Tráfico elevado que provoca sobrecarga en el servidor y caídas', 29, '2023-08-02 08:19:18', '2023-08-02 08:19:18'),
-(9, 1, 4, 'Problema al cargar la foto de perfil', 'Error al intentar cargar una foto de perfil en la configuración de la cuenta del usuario', 3, '2023-09-15 10:50:42', '2023-09-15 10:50:42'),
-(10, 2, 2, 'Enlaces rotos', 'Enlaces rotos en la página de preguntas frecuentes', 6, '2023-10-11 14:35:55', '2023-10-11 14:35:55'),
-(11, 3, 3, 'Solicitud de función para temas personalizados', 'Solicitud de nueva función para agregar temas personalizados al sitio web', 7, '2023-11-13 15:21:04', '2023-11-13 15:21:04'),
-(12, 1, 2, 'Cuenta bloqueada después de varios intentos de inicio de sesión', 'Cuenta bloqueada después de múltiples intentos fallidos de inicio de sesión', 8, '2023-12-02 10:11:29', '2023-12-02 10:11:29'),
-(13, 2, 4, 'Problema con 2FA', 'El usuario no puede recibir el código de 2FA para iniciar sesión', 26, '2023-01-20 11:00:34', '2023-01-20 11:00:34'),
-(14, 3, 1, 'Rendimiento lento del sitio web', 'El sitio web tarda demasiado en cargar, afectando la experiencia del usuario', 27, '2023-02-07 13:55:48', '2023-02-07 13:55:48'),
-(15, 1, 3, 'Error de autenticación de la API', 'Error al intentar autenticarse a través de la API', 28, '2023-03-28 09:42:11', '2023-03-28 09:42:11'),
-(16, 2, 4, 'Contenido no se actualiza', 'Los cambios realizados en el contenido no se reflejan en el sitio después de guardarlos', 29, '2023-04-09 10:21:55', '2023-04-09 10:21:55'),
-(17, 3, 2, 'La app se cierra al iniciarse', 'La app se cierra inmediatamente al iniciarse', 3, '2023-05-21 15:09:32', '2023-05-21 15:09:32'),
-(18, 1, 1, 'Error de conexión con la base de datos', 'No se puede conectar al servidor de la base de datos', 6, '2023-06-18 13:13:03', '2023-06-18 13:13:03'),
-(19, 2, 4, 'No se pueden cargar archivos', 'El usuario no puede cargar archivos al servidor', 7, '2023-07-23 14:52:17', '2023-07-23 14:52:17'),
-(20, 3, 1, 'Función de búsqueda rota', 'La funcionalidad de búsqueda devuelve resultados incorrectos o ninguno', 8, '2023-08-05 16:40:11', '2023-08-05 16:40:11'),
-(21, 1, 2, 'Tiempo de inicio de sesión lento', 'El inicio de sesión tarda demasiado en completarse', 26, '2023-09-18 12:05:13', '2023-09-18 12:05:13'),
-(22, 2, 3, 'Datos mostrados incorrectamente', 'Los datos se muestran incorrectamente en el panel de control del usuario', 27, '2023-10-04 13:30:45', '2023-10-04 13:30:45'),
-(23, 3, 1, 'Congelamiento de la interfaz de la app móvil', 'La interfaz de la app móvil se congela al navegar a configuración', 28, '2023-10-12 09:45:22', '2023-10-12 09:45:22'),
-(24, 1, 4, 'Error en las notificaciones por correo electrónico', 'Los usuarios no reciben notificaciones por correo electrónico después de realizar una acción', 29, '2023-10-25 16:22:01', '2023-10-25 16:22:01'),
-(25, 2, 2, 'Función no funciona en móvil', 'Cierta función no funciona correctamente en dispositivos móviles', 3, '2023-11-03 08:10:58', '2023-11-03 08:10:58'),
-(26, 3, 3, 'Formulario de inicio de sesión no es responsivo', 'El formulario de inicio de sesión no es completamente responsivo en dispositivos móviles', 6, '2023-11-12 14:40:15', '2023-11-12 14:40:15'),
-(27, 1, 4, 'Problema con el formato del archivo', 'El archivo cargado no está en el formato correcto, causando un error', 7, '2023-11-20 10:00:32', '2023-11-20 10:00:32'),
-(28, 2, 1, 'Botones no responden en la página de inicio', 'Los botones en la página de inicio no responden cuando se hacen clic', 8, '2023-12-01 11:55:28', '2023-12-01 11:55:28'),
-(29, 3, 2, 'Retraso en el rendimiento durante la transmisión de video', 'El rendimiento de la app se retrasa al transmitir videos', 26, '2023-12-05 09:20:47', '2023-12-05 09:20:47'),
-(30, 1, 4, 'No se puede acceder a la configuración', 'El usuario no puede acceder al menú de configuración debido a un error', 27, '2023-12-10 17:35:13', '2023-12-10 17:35:13'),
-(31, 2, 3, 'Mensajes de error poco claros', 'Los mensajes de error mostrados a los usuarios no son claros ni informativos', 28, '2023-12-15 10:25:04', '2023-12-15 10:25:04'),
-(32, 3, 2, 'Error en la actualización de la app', 'La app no se actualiza a la última versión', 29, '2023-12-18 12:47:18', '2023-12-18 12:47:18'),
-(33, 1, 1, 'No se puede restablecer la contraseña', 'El usuario no puede restablecer su contraseña usando el formulario de recuperación', 3, '2023-12-22 14:11:40', '2023-12-22 14:11:40'),
-(34, 2, 4, 'Enlaces de imagen rotos', 'Las imágenes en las páginas de productos no se muestran correctamente debido a enlaces rotos', 6, '2023-12-24 16:55:33', '2023-12-24 16:55:33'),
-(35, 3, 3, 'Tiempo de espera para el inicio de sesión en la app móvil', 'El usuario se desconecta automáticamente después de un corto periodo de inactividad', 7, '2023-12-28 15:39:29', '2023-12-28 15:39:29'); 
+(1, 2, 3, 'Login Problem', 'The user is unable to log into the system with the correct credentials', 3, '2023-01-05 10:15:32', '2023-01-05 10:15:32'),
+(2, 3, 4, 'Password Reset', 'Password reset request due to a forgotten password', 6, '2023-02-12 11:30:25', '2023-02-12 11:30:25'),
+(3, 1, 2, 'Checkout Process Error', 'Error where the payment button does not work on the checkout page', 7, '2023-03-20 13:14:09', '2023-03-20 13:14:09'),
+(4, 2, 1, 'Email not sent', 'Problem sending emails after submitting a form', 8, '2023-04-03 09:42:18', '2023-04-03 09:42:18'),
+(5, 3, 3, 'Page load error', 'The page displays a 404 error when clicking the link on the homepage', 26, '2023-05-05 10:51:11', '2023-05-05 10:51:11'),
+(6, 1, 4, 'Payment gateway failure', 'The payment gateway cannot process payments', 27, '2023-06-15 14:22:30', '2023-06-15 14:22:30'),
+(7, 2, 3, 'Interface error in the control panel', 'Error displaying user statistics in the control panel', 28, '2023-07-01 12:07:56', '2023-07-01 12:07:56'),
+(8, 3, 1, 'Server overload', 'High traffic causing server overload and outages', 29, '2023-08-02 08:19:18', '2023-08-02 08:19:18'),
+(9, 1, 4, 'Problem uploading profile picture', 'Error uploading a profile picture in the users account settings', 3, '2023-09-15 10:50:42', '2023-09-15 10:50:42'),
+(10, 2, 2, 'Broken Links', 'Broken Links on FAQ Page', 6, '2023-10-11 14:35:55', '2023-10-11 14:35:55'),
+(11, 3, 3, 'Feature Request for Custom Themes', 'New Feature Request to add custom themes to the website', 7, '2023-11-13 15:21:04', '2023-11-13 15:21:04'),
+(12, 1, 2, 'Account locked after multiple login attempts', 'Account locked after multiple failed login attempts', 8, '2023-12-02 10:11:29', '2023-12-02 10:11:29'),
+(13, 2, 4, 'Problem with 2FA', 'User cannot receive 2FA code to log in', 26, '2023-01-20 11:00:34', '2023-01-20 11:00:34'),
+(14, 3, 1, 'Slow website performance', 'The website is taking too long to load, affecting the user experience', 27, '2023-02-07 13:55:48', '2023-02-07 13:55:48'),
+(15, 1, 3, 'API authentication error', 'An error occurred while trying to authenticate via the API', 28, '2023-03-28 09:42:11', '2023-03-28 09:42:11'),
+(16, 2, 4, 'Content not updating', 'Changes made to content are not reflected on the site after saving', 29, '2023-04-09 10:21:55', '2023-04-09 10:21:55'),
+(17, 3, 2, 'App closes on startup', 'App closes immediately on startup', 3, '2023-05-21 15:09:32', '2023-05-21 15:09:32'),
+(18, 1, 1, 'Database connection error', 'Unable to connect to the database server', 6, '2023-06-18 13:13:03', '2023-06-18 13:13:03'),
+(19, 2, 4, 'Unable to upload files', 'User cannot upload files to the server', 7, '2023-07-23 14:52:17', '2023-07-23 14:52:17'),
+(20, 3, 1, 'Search Functionality Broken', 'Search functionality returns incorrect or no results', 8, '2023-08-05 16:40:11', '2023-08-05 16:40:11'),
+(21, 1, 2, 'Login Time Slow', 'Login takes too long to complete', 26, '2023-09-18 12:05:13', '2023-09-18 12:05:13'),
+(22, 2, 3, 'Data Displayed Incorrectly', 'Data is displayed incorrectly in the user dashboard', 27, '2023-10-04 13:30:45', '2023-10-04 13:30:45'),
+(23, 3, 1, 'Mobile app interface freezes', 'Mobile app interface freezes when navigating to settings', 28, '2023-10-12 09:45:22', '2023-10-12 09:45:22'),
+(24, 1, 4, 'Email notifications fail', 'Users dont receive email notifications after performing an action', 29, '2023-10-25 16:22:01', '2023-10-25 16:22:01'),
+(25, 2, 2, 'Feature not working on mobile', 'A certain feature is not working correctly on mobile devices', 3, '2023-11-03 08:10:58', '2023-11-03 08:10:58'),
+(26, 3, 3, 'Login form is not responsive', 'The login form is not fully responsive on mobile devices', 6, '2023-11-12 14:40:15', '2023-11-12 14:40:15'),
+(27, 1, 4, 'File format issue', 'The uploaded file is not in the correct format, causing an error', 7, '2023-11-20 10:00:32', '2023-11-20 10:00:32'),
+(28, 2, 1, 'Buttons are not responding on the home page', 'Buttons on the home page do not respond when clicked', 8, '2023-12-01 11:55:28', '2023-12-01 11:55:28'),
+(29, 3, 2, 'Performance lag while streaming video', 'App performance lags when streaming videos', 26, '2023-12-05 09:20:47', '2023-12-05 09:20:47'),
+(30, 1, 4, 'Settings cannot be accessed', 'The user cannot access the settings menu due to an error', 27, '2023-12-10 17:35:13', '2023-12-10 17:35:13'),
+(31, 2, 3, 'Unclear error messages', 'Error messages displayed to users are not clear or informative', 28, '2023-12-15 10:25:04', '2023-12-15 10:25:04'),
+(32, 3, 2, 'App update failed', 'The app is not updating to the latest version', 29, '2023-12-18 12:47:18', '2023-12-18 12:47:18'),
+(33, 1, 1, 'Unable to reset password', 'The user cannot reset their password using the recovery form', 3, '2023-12-22 14:11:40', '2023-12-22 14:11:40'),
+(34, 2, 4, 'Broken Image Links', 'Images on product pages are not displaying correctly due to broken links', 6, '2023-12-24 16:55:33', '2023-12-24 16:55:33'),
+(35, 3, 3, 'Mobile App Login Timeout', 'User is automatically logged out after a short period of inactivity', 7, '2023-12-28 15:39:29', '2023-12-28 15:39:29');
 
 INSERT INTO `ticket_status_history` (`id`, `ticket_id`, `status_id`, `changed_at`) VALUES
 (1, 1, 1, '2023-01-05 09:30:00'),
@@ -179,7 +179,22 @@ INSERT INTO `ticket_status_history` (`id`, `ticket_id`, `status_id`, `changed_at
 (17, 17, 4, '2023-05-21 13:10:00'),
 (18, 18, 5, '2023-06-18 11:20:00'),
 (19, 19, 4, '2023-07-23 12:55:00'),
-(20, 20, 1, '2023-08-05 14:45:00');
+(20, 20, 1, '2023-08-05 14:45:00'),
+(21, 21, 4, '2023-09-15 08:55:00'),
+(22, 22, 2, '2024-10-11 12:40:00'),
+(23, 23, 3, '2024-11-13 14:30:00'),
+(24, 24, 1, '2024-12-02 09:20:00'),
+(25, 25, 4, '2024-01-20 10:10:00'),
+(26, 26, 5, '2024-02-07 13:00:00'),
+(27, 27, 2, '2024-03-28 07:50:00'),
+(28, 28, 3, '2024-04-09 08:30:00'),
+(29, 29, 4, '2024-05-21 13:10:00'),
+(30, 30, 5, '2024-06-18 11:20:00'),
+(31, 31, 4, '2024-07-23 12:55:00'),
+(32, 32, 1, '2024-08-05 14:45:00'),
+(33, 33, 5, '2024-06-18 11:20:00'),
+(34, 34, 4, '2024-07-23 12:55:00'),
+(35, 35, 1, '2024-08-05 14:45:00');
 
 INSERT INTO `comments` (`id`, `ticket_id`, `user_id`, `comment`, `created_at`) VALUES
 (1, 1, 10, 'My printer does not work properly', '2023-01-06 08:30:00'),
