@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="/uploads/profiles/favicon.png">
     <title>Edit Ticket</title>
     <script>
         function enableEdit() {
@@ -87,7 +88,10 @@
             </div>
 
             <div class="flex items-center justify-end">
-                <div class="flex gap-4">
+                <div class="flex gap-4"><a href="/admin/tickets"
+                        class="bg-gray-400 text-white px-4 py-2 rounded-full hover:bg-gray-600">
+                        Back To List
+                    </a>
                     <button type="button" id="editBtn" onclick="enableEdit()"
                         class="bg-yellow-500 text-white px-4 py-2 rounded-full hover:bg-yellow-600">
                         Edit
