@@ -120,7 +120,7 @@
 			</div>
 		{:else}
 			<div
-				class={`flex h-${size} w-${size} items-center justify-center rounded-full bg-gray-300 text-4xl font-bold text-white`}
+				class={`flex h-23 w-23 items-center justify-center rounded-full bg-gray-300 text-4xl font-bold text-white`}
 			>
 				{getInitials(user)}
 			</div>

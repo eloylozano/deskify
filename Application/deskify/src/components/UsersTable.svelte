@@ -190,12 +190,11 @@
 										class="w-[200px] px-4 py-3 text-sm font-medium whitespace-nowrap text-gray-900"
 									>
 										<div class="flex items-center gap-2">
-											{#if user.profilePictureUrl && !imageError}
+											{#if user.profilePictureUrl }
 												<img
 													src={`${import.meta.env.VITE_API_URL}/uploads/profiles/${user.profilePictureUrl}`}
 													alt="Foto de perfil"
 													class="h-8 w-8 rounded-full object-cover"
-													on:error={() => (imageError = true)}
 												/>
 											{:else}
 												<div

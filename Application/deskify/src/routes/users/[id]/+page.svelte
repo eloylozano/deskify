@@ -84,7 +84,7 @@
 				<!-- Columna izquierda - Datos personales -->
 				<div class="rounded-lg bg-gray-50 p-6 shadow">
 					<div class="flex flex-col items-center gap-4">
-						<ProfilePictureUpload {user} size={24} on:upload={(e) => handleUpload(e.detail)} />
+						<ProfilePictureUpload {user} size={24}  />
 						
 					</div>
 

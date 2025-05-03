@@ -39,6 +39,7 @@ public class TicketConverter {
         if (!histories.isEmpty()) {
             TicketHistory latestHistory = histories.get(0); // El más reciente gracias al orden DESC
             TicketHistoryDTO statusDTO = new TicketHistoryDTO();
+            statusDTO.setId(latestHistory.getStatus().getId());
             statusDTO.setStatusName(latestHistory.getStatus().getName());
             statusDTO.setChangedAt(latestHistory.getChangedAt());
             ticketDTO.setCurrentStatus(statusDTO);

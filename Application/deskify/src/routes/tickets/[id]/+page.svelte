@@ -2,7 +2,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import Header from '../../../components/Header.svelte';
-	import { updateTicketStatus } from '$lib/api/tickets';
 	import SubHeader from '../../../components/SubHeader.svelte';
 	import TicketComment from '../../../components/TicketComment.svelte';
 	import Nav from '../../../components/Nav.svelte';
@@ -10,6 +9,7 @@
 	import { getAgents } from '$lib/api/users';
 	import TicketPanel from '../../../components/TicketPanel.svelte';
 	import UserCard from '../../../components/UserCard.svelte';
+	import { updateTicketStatus } from '$lib/api/tickets';
 
 	export let data;
 
@@ -19,7 +19,7 @@
 		name: data.ticket.priority?.name || ''
 	};
 	let selectedStatus = {
-		id: data.ticket.currentStatus?.statusId || 0,
+		id: data.ticket.currentStatus?.id || 0,
 		name: data.ticket.currentStatus?.statusName || ''
 	};
 	let selectedCategory = {
@@ -27,7 +27,7 @@
 		name: data.ticket.category?.name || ''
 	};
 	let selectedAgent = {
-		id: data.ticket.agent?.agentId || 0,
+		id: data.ticket.agent?.id || 0,
 		name: data.ticket.agent?.agentName || ''
 	};
 
@@ -80,7 +80,6 @@
 		{ id: 3, name: 'Pending' },
 		{ id: 4, name: 'Closed' },
 		{ id: 5, name: 'Solved' }
-		
 	];
 
 	const priorityOptions = [
@@ -103,7 +102,6 @@
 
 	async function handleStatusUpdate() {
 		try {
-			// Crear objeto con solo los campos modificados
 			const updateData: {
 				ticketId: number;
 				statusId?: number;
@@ -112,8 +110,7 @@
 				userId?: number;
 			} = { ticketId: data.ticket.id };
 
-			// Solo incluir campos que han cambiado respecto a los valores actuales
-			if (selectedStatus.id !== 0 && selectedStatus.id !== data.ticket.currentStatus.statusId) {
+			if (selectedStatus.id !== 0 && selectedStatus.id !== data.ticket.currentStatus?.statusId) {
 				updateData.statusId = selectedStatus.id;
 			}
 
@@ -137,12 +134,10 @@
 				updateData.userId = selectedAgent.id;
 			}
 
-			// Verificar que al menos un campo ha cambiado
 			if (Object.keys(updateData).length === 1) {
 				throw new Error('No changes detected');
 			}
 
-			// Actualizar estado local solo para los campos modificados
 			if (updateData.statusId) {
 				data.ticket.currentStatus = {
 					statusId: selectedStatus.id,
@@ -161,13 +156,14 @@
 			if (updateData.userId) {
 				data.ticket.agent = {
 					agentId: selectedAgent.id,
-					agentName: agentOptions.find((a) => a.id === selectedAgent.id)?.fullName || ''
+					agentName: agentOptions.find((a) => a.id === selectedAgent.id)?.fullName || '',
+					mail: '' // puedes añadir el mail si lo necesitas
 				};
 			}
+			await updateTicketStatus(updateData);
 
 			data.ticket.updatedAt = new Date().toISOString();
 
-			// Feedback al usuario
 			alert('Ticket updated successfully!');
 		} catch (error) {
 			console.error('Error updating ticket:', error);
@@ -194,6 +190,7 @@
 
 		return initials;
 	}
+	console.log(data.ticket);
 </script>
 
 <div class="flex h-screen overflow-hidden bg-emerald-100">

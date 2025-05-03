@@ -1,6 +1,6 @@
 <script lang="ts">
 	import SubmitButton from './SubmitButton.svelte';
-	
+
 	export let statusOptions: any[] = [];
 	export let priorityOptions: any[] = [];
 	export let categoryOptions: any[] = [];
@@ -17,29 +17,18 @@
 	export let data: {
 		ticket: {
 			id: number;
-			category: {
-				name: string;
-			} | null;
-			priority: {
-				name: string;
-			} | null;
-			currentStatus: {
-				statusName: string;
-			} | null;
+			category: { id: number; name: string } | null;
+			priority: { id: number; name: string } | null;
+			currentStatus: { statusId: number; statusName: string } | null;
+			agent: { id: number; agentName: string; mail: string } | null;
 			createdAt: string;
 			client: {
 				id: number;
 				clientName: string;
 				mail: string;
 			};
-			agent: {
-				id: number;
-				agentName: string;
-				mail: string;
-			} | null;
 		};
 	};
-
 	// Valores por defecto para evitar null
 	$: ticket = {
 		...data.ticket,

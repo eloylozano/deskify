@@ -11,6 +11,7 @@ import lombok.*;
 @ToString
 public class TicketHistoryDTO {
 
+    private Long id;
     private String statusName;
     private LocalDateTime changedAt;
 
