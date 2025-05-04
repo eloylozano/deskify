@@ -11,8 +11,10 @@
 <body class="bg-green-50 p-8">
 
     <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
-        <h1 class="text-2xl font-bold mb-4 text-gray-800">Create New Ticket</h1>
-
+        <div class="flex items-center h-20 gap-5 py-2 mb-6">
+            <img src="/uploads/profiles/favicon.png" alt="Deskify Logo" class="h-12 w-12">
+            <h1 class="text-2xl font-bold text-gray-800">Create New Ticket</h1>
+        </div>
         <form th:action="@{/admin/tickets/create}" method="post">
             <div class="mb-4">
                 <label class="block text-gray-700" for="title">Title</label>

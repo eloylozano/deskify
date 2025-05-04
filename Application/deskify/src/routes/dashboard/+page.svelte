@@ -5,8 +5,8 @@
 
 	let ticketsAbiertos = 0;
 	let ticketsResueltos = 0;
-	let tiempoPromedioResolucion = 0;
-	let agentesActivos = 5;
+	let tiempoPromedioResolucion = 3.34;
+	let agentesActivos = 4;
 
 	let estadoTickets = {
 		abierto: 0,

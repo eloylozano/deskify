@@ -304,6 +304,7 @@ public class TicketService implements ITicketService {
 
         @Override
         public TicketStatusSummaryDTO getTicketStatusSummary() {
+                // 1. Obtener conteo de tickets por estado
                 List<Object[]> results = ticketRepo.countTicketsByCurrentStatus();
 
                 Map<String, Long> statusCounts = new HashMap<>();
@@ -317,7 +318,17 @@ public class TicketService implements ITicketService {
                         totalTickets += count;
                 }
 
-                return new TicketStatusSummaryDTO(totalTickets, statusCounts);
+                // 2. Calcular tiempo medio de resolución (asumiendo que el statusId de "Resuelto" es 5)
+                Long resolvedStatusId = 5L; // Ajusta este ID según tu sistema
+                Double averageResolutionTime = ticketRepo.findAverageResolutionTimeInHours(resolvedStatusId);
+
+                // 3. Redondear el resultado a 2 decimales para mejor presentación
+                if (averageResolutionTime != null) {
+                        averageResolutionTime = Math.round(averageResolutionTime * 100.0) / 100.0;
+                }
+
+                // 4. Retornar DTO con toda la información
+                return new TicketStatusSummaryDTO(totalTickets, statusCounts, averageResolutionTime);
         }
 
 }

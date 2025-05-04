@@ -198,7 +198,7 @@
 
 	<div class="flex flex-1 flex-col">
 		<Header search={false} text="Ticket #{data.ticket.id}" />
-		<SubHeader showSelect={false} {isPanelVisible} {togglePanel} />
+		<SubHeader showSelect={false} {isPanelVisible} {togglePanel} collapse={true}/>
 		<div class="flex flex-1 overflow-hidden">
 			<!-- Contenido principal del ticket -->
 			<div class="flex-1 overflow-y-auto p-6">

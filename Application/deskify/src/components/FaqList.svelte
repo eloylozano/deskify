@@ -14,11 +14,9 @@
 </script>
 
 <div class="flex flex-col items-center gap-6 pt-10 px-3">
-	<!-- Imagen FAQ -->
 	<!-- svelte-ignore a11y_img_redundant_alt -->
 	<img src="/FAQs00.png" alt="FAQ image" aria-label="FAQ Image" class="mx-auto h-110" />
 
-	<!-- Barra de búsqueda -->
 	<div class="relative w-[90vw] max-w-xl mb-12">
 		<input
 			bind:value={searchQuery}
@@ -57,7 +55,8 @@
 						<h3 class="text-xl font-semibold text-[#363636] pb-8">{faq.question}</h3>
 						<p class="text-[#858585]">{faq.answer}</p>
 						{#if faq.image}
-							<img src={faq.image} alt="Related image" class="mx-auto mt-4 h-auto max-w-full" />
+							<!-- svelte-ignore a11y_img_redundant_alt -->
+							<img src={faq.image} alt="Related image" class="mx-auto mt-4 h-100 " />
 						{/if}
 					</div>
 				{/each}

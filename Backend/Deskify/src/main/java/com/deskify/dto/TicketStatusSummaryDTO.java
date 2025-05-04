@@ -11,10 +11,7 @@ import lombok.NoArgsConstructor;
 public class TicketStatusSummaryDTO {
     private Long totalTickets;
     private Map<String, Long> statusCounts;
+    private Double averageResolutionTime;
 
-    public TicketStatusSummaryDTO(long totalTickets, Map<String, Long> statusCounts) {
-        this.totalTickets = totalTickets;
-        this.statusCounts = statusCounts;
-    }
     
 }

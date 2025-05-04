@@ -3,12 +3,11 @@
 	import Nav from '../../components/Nav.svelte';
 	import CustomCheckbox from '../../components/CustomCheckbox.svelte';
 
-	let darkMode = false;
+	let darkMode = true;
 	let notificationsEnabled = true;
 	let emailFrequency = 'weekly';
 	let selectedLanguage = 'es';
 	let profileVisibility = 'public';
-
 </script>
 
 <div class="flex h-[100vh] overflow-hidden bg-emerald-100 dark:bg-gray-900">
@@ -17,19 +16,19 @@
 		<Header text="Settings" />
 
 		<div class="container mx-auto px-4 py-8">
-			<h1 class="mb-8 text-3xl font-bold text-gray-800 dark:text-white">Configuración</h1>
+			<h1 class="mb-8 text-3xl font-bold text-gray-800 dark:text-white">Configuration</h1>
 
 			<div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
 				<!-- Sección de Apariencia -->
 				<div class="rounded-lg bg-white p-6 shadow dark:bg-gray-800">
-					<h2 class="mb-4 text-xl font-semibold text-gray-800 dark:text-white">Apariencia</h2>
+					<h2 class="mb-4 text-xl font-semibold text-gray-800 dark:text-white">Theme</h2>
 
 					<div class="space-y-4">
 						<div class="flex items-center justify-between">
 							<div>
-								<h3 class="text-lg font-medium text-gray-700 dark:text-gray-300">Modo Oscuro</h3>
+								<h3 class="text-lg font-medium text-gray-700 dark:text-gray-300">Dark mode</h3>
 								<p class="text-sm text-gray-500 dark:text-gray-400">
-									Activa el tema oscuro para una mejor experiencia nocturna
+									Activate dark theme for a better nighttime experience
 								</p>
 							</div>
 							<label class="relative inline-flex cursor-pointer items-center">
@@ -41,7 +40,7 @@
 						</div>
 
 						<div class="border-t border-gray-200 pt-4 dark:border-gray-700">
-							<h3 class="text-lg font-medium text-gray-700 dark:text-gray-300">Color de Acento</h3>
+							<h3 class="text-lg font-medium text-gray-700 dark:text-gray-300">Accent Color</h3>
 							<div class="mt-3 flex gap-3">
 								<button
 									class="h-8 w-8 rounded-full bg-emerald-500 ring-2 ring-emerald-500 ring-offset-2"
@@ -62,16 +61,16 @@
 
 				<!-- Sección de Notificaciones -->
 				<div class="rounded-lg bg-white p-6 shadow dark:bg-gray-800">
-					<h2 class="mb-4 text-xl font-semibold text-gray-800 dark:text-white">Notificaciones</h2>
+					<h2 class="mb-4 text-xl font-semibold text-gray-800 dark:text-white">Notifications</h2>
 
 					<div class="space-y-4">
 						<div class="flex items-center justify-between">
 							<div>
 								<h3 class="text-lg font-medium text-gray-700 dark:text-gray-300">
-									Notificaciones por Email
+									Email Notifications
 								</h3>
 								<p class="text-sm text-gray-500 dark:text-gray-400">
-									Recibe actualizaciones importantes por correo
+									Receive important updates by email
 								</p>
 							</div>
 							<label class="relative inline-flex cursor-pointer items-center">
@@ -84,15 +83,15 @@
 
 						<div class="border-t border-gray-200 pt-4 dark:border-gray-700">
 							<h3 class="text-lg font-medium text-gray-700 dark:text-gray-300">
-								Frecuencia de Emails
+								Email frequency
 							</h3>
 							<select
 								bind:value={emailFrequency}
 								class="mt-2 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-white"
 							>
-								<option value="daily">Diariamente</option>
-								<option value="weekly">Semanalmente</option>
-								<option value="monthly">Mensualmente</option>
+								<option value="daily">Daily</option>
+								<option value="weekly">Weekly</option>
+								<option value="monthly">Monthly</option>
 							</select>
 						</div>
 					</div>
@@ -100,7 +99,7 @@
 
 				<!-- Sección de Idioma -->
 				<div class="rounded-lg bg-white p-6 shadow dark:bg-gray-800">
-					<h2 class="mb-4 text-xl font-semibold text-gray-800 dark:text-white">Idioma</h2>
+					<h2 class="mb-4 text-xl font-semibold text-gray-800 dark:text-white">Language</h2>
 
 					<div>
 						<select
@@ -117,12 +116,12 @@
 
 				<!-- Sección de Privacidad -->
 				<div class="rounded-lg bg-white p-6 shadow dark:bg-gray-800">
-					<h2 class="mb-4 text-xl font-semibold text-gray-800 dark:text-white">Privacidad</h2>
+					<h2 class="mb-4 text-xl font-semibold text-gray-800 dark:text-white">Privacy</h2>
 
 					<div class="space-y-4">
 						<div>
 							<h3 class="text-lg font-medium text-gray-700 dark:text-gray-300">
-								Visibilidad del Perfil
+								Profily Visibility
 							</h3>
 							<div class="mt-2 space-y-2">
 								<div class="flex items-center">
@@ -136,7 +135,7 @@
 									<label
 										for="public"
 										class="ml-3 block text-sm font-medium text-gray-700 dark:text-gray-300"
-										>Público (cualquiera puede ver tu perfil)</label
+										>Public (Everyone can see your profile)</label
 									>
 								</div>
 								<div class="flex items-center">
@@ -150,7 +149,7 @@
 									<label
 										for="private"
 										class="ml-3 block text-sm font-medium text-gray-700 dark:text-gray-300"
-										>Privado (solo usuarios registrados)</label
+										>Private (Registered users only)</label
 									>
 								</div>
 								<div class="flex items-center">
@@ -164,7 +163,7 @@
 									<label
 										for="hidden"
 										class="ml-3 block text-sm font-medium text-gray-700 dark:text-gray-300"
-										>Oculto (solo tú puedes ver tu perfil)</label
+										>Hidden (Only you can see your profile)</label
 									>
 								</div>
 							</div>
@@ -178,7 +177,7 @@
 				<button
 					class="rounded-md bg-emerald-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-emerald-600 focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:outline-none dark:focus:ring-offset-gray-800"
 				>
-					Guardar Cambios
+					Save
 				</button>
 			</div>
 		</div>

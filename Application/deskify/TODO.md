@@ -16,14 +16,16 @@
 - [X] Traducir data a ingles
 - [X] Dashboard inicial con resumen
 - [X] Fotos perfil usuarios
-- [ ] Cambiar selects ticket individual
-- [ ] Panel Admin(Eliminar tickets, comentarios)
-- [ ] Login y registro funcional
+- [X] Panel Admin(Eliminar tickets, comentarios)
 - [ ] Pasarela de pago
 - [ ] Gestionar suscripciones
-
+- [ ] Login y registro funcional
+- [ ] Documentación (Diagrama de clases, manuales, framework panel admin)
+- [ ] 
 ## 🧪 Funcionalidades extra
+- [ ] Cambiar selects ticket individual
 - [ ] Menu filtros tickets
+- [ ] Paginación
 - [ ] Añadir estadísticas al dashboard
 - [ ] Notificaciones por cambio de estado
 - [ ] Dark mode

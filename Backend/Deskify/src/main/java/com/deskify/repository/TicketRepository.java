@@ -35,4 +35,10 @@ public interface TicketRepository extends JpaRepository<Ticket, Long>, JpaSpecif
             GROUP BY th.status.name
             """)
     List<Object[]> countTicketsByCurrentStatus();
+
+    @Query(value = "SELECT AVG(TIMESTAMPDIFF(HOUR, t.created_at, tsh.changed_at)) " +
+            "FROM tickets t JOIN ticket_status_history tsh ON t.id = tsh.ticket_id " +
+            "WHERE tsh.status_id = :statusId", nativeQuery = true)
+    Double findAverageResolutionTimeInHours(@Param("statusId") Long statusId);
+
 }

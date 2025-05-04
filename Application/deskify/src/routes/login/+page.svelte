@@ -5,25 +5,31 @@
 	import Title from '../../components/Title.svelte';
 	import Button from '../../components/Button.svelte';
 	import CustomInput from '../../components/CustomInput.svelte';
+	let register = false;
 </script>
 
 <div class="flex">
-	<Nav />
+	<Nav {register} />
 	<div id="login-container" class="flex w-full flex-col items-center pt-10">
 		<GradientTitle text="Deskify" />
 		<Title title="Welcome Back" />
 		<Line />
 		<form
-			class="form-container mt-5 flex w-95 flex-col items-center gap-5 rounded-3xl bg-white p-6"
+			class="form-container mt-5 flex w-95 flex-col gap-5 rounded-3xl bg-white p-6"
 			action="post"
 		>
-			<GradientTitle text="Log in" />
+			<GradientTitle text="Log in" additionalClass="text-center" />
 			<div class="flex w-full flex-col justify-between gap-8">
 				<CustomInput type="text" name="email" id="email" placeholder="Email"></CustomInput>
 				<CustomInput type="password" name="password" id="password" placeholder="Password"
 				></CustomInput>
 			</div>
-			<Button text="Submit" />
+			<p class="text-left text-sm text-gray-600">
+				Don't have an account? Create new one <a class="text-emerald-600 underline" href="/register"
+					>here</a
+				>.
+			</p>
+			<Button text="Submit" additionalClass="mx-auto" />
 		</form>
 	</div>
 </div>

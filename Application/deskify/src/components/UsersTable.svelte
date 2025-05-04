@@ -138,19 +138,19 @@
 						<table class="w-full">
 							<thead>
 								<tr>
-									<th class="w-[20px] px-4 py-3 text-left text-sm font-semibold text-gray-700">
+									<!-- <th class="w-[20px] px-4 py-3 text-left text-sm font-semibold text-gray-700">
 										<CustomCheckbox bind:checked={selectAll} onChange={toggleSelectAll} />
-									</th>
-									<th class="w-[200px] px-4 py-3 text-left text-sm font-semibold text-gray-700">
+									</th> -->
+									<th class="w-[180px] px-4 py-3 text-left text-sm font-semibold text-gray-700">
 										Contact
 									</th>
-									<th class="w-[150px] px-4 py-3 text-left text-sm font-semibold text-gray-700">
+									<th class="w-[220px] px-4 py-3 text-left text-sm font-semibold text-gray-700">
 										Company
 									</th>
 									<th class="w-[120px] px-4 py-3 text-left text-sm font-semibold text-gray-700">
 										Role
 									</th>
-									<th class="w-[200px] px-4 py-3 text-left text-sm font-semibold text-gray-700">
+									<th class="w-[230px] px-4 py-3 text-left text-sm font-semibold text-gray-700">
 										Email
 									</th>
 									<th class="w-[120px] px-4 py-3 text-left text-sm font-semibold text-gray-700">
@@ -180,12 +180,12 @@
 										window.location.href = `/users/${user.id}`;
 									}}
 								>
-									<td class="w-[40px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
+									<!-- <td class="w-[40px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
 										<CustomCheckbox
 											checked={selectedUsers.includes(user.id)}
 											onChange={(value) => toggleSelectUser(user.id, value)}
 										/>
-									</td>
+									</td> -->
 									<td
 										class="w-[200px] px-4 py-3 text-sm font-medium whitespace-nowrap text-gray-900"
 									>

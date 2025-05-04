@@ -5,7 +5,7 @@
 	export let id = '';
 	export let placeholder = '';
 	export let value = ''; // importante para bind:value
-	
+	export let required = true;
 </script>
 
 <input
@@ -13,6 +13,7 @@
     name={name}
     id={id}
     placeholder={placeholder}
+	required={required}
     class="input-field w-full px-3 h-10"
     bind:value
     {...$$restProps}

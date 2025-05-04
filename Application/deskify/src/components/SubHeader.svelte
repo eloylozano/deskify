@@ -3,6 +3,7 @@
 
 	export let showSelect = true;
 	export let isPanelVisible = true;
+	export let collapse = false;
 	export let togglePanel = () => {};
 	export let mode: 'tickets' | 'users' = 'tickets'; // Nueva prop para diferenciar modos
 
@@ -43,11 +44,9 @@
 	</div>
 
 	<div class="flex items-center gap-3">
-		<p class="font-medium text-[#858585]">1-30 de 99</p>
+		<!-- <p class="font-medium text-[#858585]">1-30 de 99</p> -->
 
-		<!-- Botones de navegación -->
-		<div class="flex justify-between gap-3 rounded-sm border-2 border-[#858585] p-1">
-			<!-- Prev -->
+		<!-- <div class="flex justify-between gap-3 rounded-sm border-2 border-[#858585] p-1">
 			<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 rotate-180" viewBox="0 0 24 24">
 				<path
 					fill="#bebebe"
@@ -57,7 +56,6 @@
 				/>
 			</svg>
 
-			<!-- Next -->
 			<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24">
 				<path
 					fill="#bebebe"
@@ -66,29 +64,34 @@
 					stroke="#bebebe"
 				/>
 			</svg>
-		</div>
+		</div> -->
 
 		<!-- Botón de colapsar -->
-		<div class="rounded-sm border-2 border-[#858585] p-[2px] transition-transform duration-300">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="h-6 w-6 transform cursor-pointer transition-transform duration-300"
-				viewBox="0 0 24 24"
-				class:is-rotated={!isPanelVisible}
-				on:click={togglePanel}
-			>
-				<g
-					fill="none"
-					stroke="#858585"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
+		{#if collapse}
+			<div class="rounded-sm border-2 border-[#858585] p-[2px] transition-transform duration-300">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-6 w-6 transform cursor-pointer transition-transform duration-300"
+					viewBox="0 0 24 24"
+					class:is-rotated={!isPanelVisible}
+					on:click={togglePanel}
+					aria-label="collapse"
 				>
-					<path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm11-2v16" />
-					<path d="m9 10l2 2l-2 2" />
-				</g>
-			</svg>
-		</div>
+					<g
+						fill="none"
+						stroke="#858585"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+					>
+						<path
+							d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm11-2v16"
+						/>
+						<path d="m9 10l2 2l-2 2" />
+					</g>
+				</svg>
+			</div>
+		{/if}
 	</div>
 </div>
 
