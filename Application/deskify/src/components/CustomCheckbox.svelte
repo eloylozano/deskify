@@ -4,7 +4,7 @@
 	export let onChange: (checked: boolean) => void;
 
 	const dispatch = createEventDispatcher();
-
+ 
 	function handleChange(event: Event) {
 		const value = (event.target as HTMLInputElement).checked;
 		if (onChange) onChange(value);

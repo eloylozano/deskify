@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import CustomCheckbox from './CustomCheckbox.svelte';
 	import Loading from './Loading.svelte';
 	import SubHeader from './SubHeader.svelte';
 	export let data: {

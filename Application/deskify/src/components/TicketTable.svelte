@@ -4,8 +4,6 @@
 	import CustomCheckbox from './CustomCheckbox.svelte';
 	import Loading from './Loading.svelte';
 	import SubHeader from './SubHeader.svelte';
-	import FilterMenu from './FilterMenu.svelte';
-	import TicketFilter from './TicketPanel.svelte';
 	interface User {
 		id?: number;
 		name?: string;

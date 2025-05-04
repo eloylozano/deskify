@@ -1,5 +1,5 @@
 <script>
-	export let width = 'default';
+	export let width = 'default'; 
 </script>
 
 <hr

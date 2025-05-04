@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Header from '../../components/Header.svelte';
 	import Nav from '../../components/Nav.svelte';
-	import CustomCheckbox from '../../components/CustomCheckbox.svelte';
 
 	let darkMode = true;
 	let notificationsEnabled = true;
@@ -42,16 +41,16 @@
 						<div class="border-t border-gray-200 pt-4 dark:border-gray-700">
 							<h3 class="text-lg font-medium text-gray-700 dark:text-gray-300">Accent Color</h3>
 							<div class="mt-3 flex gap-3">
-								<button
+								<button aria-label="Green"
 									class="h-8 w-8 rounded-full bg-emerald-500 ring-2 ring-emerald-500 ring-offset-2"
 								></button>
-								<button
+								<button aria-label="Blue"
 									class="h-8 w-8 rounded-full bg-blue-500 hover:ring-2 hover:ring-blue-500 hover:ring-offset-2"
 								></button>
-								<button
+								<button aria-label="Purple"
 									class="h-8 w-8 rounded-full bg-purple-500 hover:ring-2 hover:ring-purple-500 hover:ring-offset-2"
 								></button>
-								<button
+								<button aria-label="Orange"
 									class="h-8 w-8 rounded-full bg-amber-500 hover:ring-2 hover:ring-amber-500 hover:ring-offset-2"
 								></button>
 							</div>
@@ -185,29 +184,5 @@
 </div>
 
 <style>
-	/* Estilos para el modo oscuro (solo visual) */
-	.dark .dark\:bg-gray-900 {
-		background-color: #111827;
-	}
-	.dark .dark\:bg-gray-800 {
-		background-color: #1f2937;
-	}
-	.dark .dark\:text-white {
-		color: #ffffff;
-	}
-	.dark .dark\:text-gray-300 {
-		color: #d1d5db;
-	}
-	.dark .dark\:text-gray-400 {
-		color: #9ca3af;
-	}
-	.dark .dark\:border-gray-700 {
-		border-color: #374151;
-	}
-	.dark .dark\:border-gray-600 {
-		border-color: #4b5563;
-	}
-	.dark .dark\:focus\:ring-offset-gray-800:focus {
-		--tw-ring-offset-color: #1f2937;
-	}
+
 </style>
