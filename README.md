@@ -32,11 +32,13 @@ _SOON_
 
 2. Open /Backend/Deskify and run the enviroment
    
-3. Create .env in /Application/Deskify and set: VITE_API_URL=http://localhost:8080 to link both.
+3. Create .env in /Application/Deskify and set:
+  ```bash
+VITE_API_URL=http://localhost:8080 
+  ```
+6. Then install dependencies with 'npm install' & and run with 'npm run dev'
 
-4. Then install dependencies with 'npm install' & and run with 'npm run dev'
-
-5. Repeat the process with /Frontend/Deskify
+7. Repeat the process with /Frontend/Deskify
 
 ### Usage Instructions
 
