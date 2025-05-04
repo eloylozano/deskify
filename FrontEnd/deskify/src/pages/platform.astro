@@ -4,6 +4,7 @@ import TextBox from "../components/TextBox.astro";
 import Button from "../components/Button.astro";
 import Layout from "../layouts/Layout.astro";
 import "../styles/global.css";
+const appUrl = import.meta.env.PUBLIC_APP_URL;
 ---
 
 <Layout
@@ -26,7 +27,7 @@ import "../styles/global.css";
       image="/images/Analytics.svg"
       alt="Boy analyzing a graph"
     />
-    <Button text="Let's get started" class="mx-auto" />
+    <Button text="Let's get started" class="mx-auto" href={appUrl}/>
   </div>
   <div class="bg-white md:px-15 px-5 pb-45">
     <TextBox

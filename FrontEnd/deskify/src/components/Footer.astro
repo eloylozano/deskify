@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+const appUrl = import.meta.env.PUBLIC_APP_URL;
 ---
 
 <footer class="bg-[#02353c] text-white md:px-15 sm:px-15 px-5 py-10">
@@ -53,30 +54,16 @@ import "../styles/global.css";
           <ul class="accordion-content space-y-2 hidden sm:block sm:text-left">
             <li>
               <a
-                href="#"
+                href="/about"
                 class="relative inline-block hover:text-[#2eaf7d] transition-colors"
                 >Who we are</a
               >
             </li>
             <li>
               <a
-                href="#"
-                class="relative inline-block hover:text-[#2eaf7d] transition-colors"
-                >Investors</a
-              >
-            </li>
-            <li>
-              <a
-                href="#"
+                href="/clients"
                 class="relative inline-block hover:text-[#2eaf7d] transition-colors"
                 >Clients</a
-              >
-            </li>
-            <li>
-              <a
-                href="#"
-                class="relative inline-block hover:text-[#2eaf7d] transition-colors"
-                >Partners</a
               >
             </li>
             <li>
@@ -169,7 +156,7 @@ import "../styles/global.css";
             </li>
             <li>
               <a
-                href="#"
+                href={appUrl}
                 class="relative inline-block hover:text-[#2eaf7d] transition-colors"
                 >deskify</a
               >
@@ -207,37 +194,23 @@ import "../styles/global.css";
         <ul class="accordion-content space-y-2 mb-6 hidden sm:block">
           <li>
             <a
-              href="#"
+              href="https://www.instagram.com/eloyloozano/"
               class="relative inline-block hover:text-[#2eaf7d] transition-colors"
               >Instagram</a
             >
           </li>
           <li>
             <a
-              href="#"
+              href="https://www.linkedin.com/in/eloylozano/"
               class="relative inline-block hover:text-[#2eaf7d] transition-colors"
               >LinkedIn</a
             >
           </li>
           <li>
             <a
-              href="#"
+              href="https://github.com/eloylozano"
               class="relative inline-block hover:text-[#2eaf7d] transition-colors"
-              >Facebook</a
-            >
-          </li>
-          <li>
-            <a
-              href="#"
-              class="relative inline-block hover:text-[#2eaf7d] transition-colors"
-              >YouTube</a
-            >
-          </li>
-          <li>
-            <a
-              href="#"
-              class="relative inline-block hover:text-[#2eaf7d] transition-colors"
-              >Twitter</a
+              >GitHub</a
             >
           </li>
         </ul>

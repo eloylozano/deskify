@@ -7,6 +7,7 @@ import Line from "../components/Line.astro";
 import Opinion from "../components/Opinion.astro";
 import Layout from "../layouts/Layout.astro";
 import "../styles/global.css";
+const subUrl = import.meta.env.PUBLIC_APP_SUBS_URL;
 ---
 
 <Layout backgroundImage="/images/background/index.png" backgroundSize="contain">
@@ -67,7 +68,7 @@ import "../styles/global.css";
       />
       <Text text="Discover the future of tech support today!" class="text-center" />
 
-      <Button text="Join us" class="mt-6" />
+      <Button text="Join us" class="mt-6" href={subUrl} />
     </div>
   </div>
 </Layout>

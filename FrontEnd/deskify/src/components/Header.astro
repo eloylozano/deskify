@@ -1,6 +1,8 @@
 ---
 import FlatLink from "./FlatLink.astro";
 import WhiteButton from "./WhiteButton.astro";
+const appResgisterUrl = import.meta.env.PUBLIC_APP_REGISTER_URL;
+const subUrl = import.meta.env.PUBLIC_APP_SUBS_URL;
 ---
 
 <header class="px-5 md:px-15 py-1">
@@ -11,8 +13,17 @@ import WhiteButton from "./WhiteButton.astro";
 
     <!-- Botón del menú móvil -->
     <button class="md:hidden text-white focus:outline-none" id="menu-toggle">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      <svg
+        class="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"></path>
       </svg>
     </button>
 
@@ -28,14 +39,17 @@ import WhiteButton from "./WhiteButton.astro";
     </div>
 
     <!-- Botones de acción -->
-    <div class="hidden md:flex md:justify-between md:w-40 md:items-center ">
-      <a href="" class="btn">Sign in</a>
+    <div class="hidden md:flex md:justify-between md:w-40 md:items-center">
+      <a href={appResgisterUrl} class="btn">Sign in</a>
       <WhiteButton text="FREE Trial" href="/subscription#free" />
     </div>
   </nav>
 
   <!-- Menú móvil desplegable -->
-  <div class="md:hidden hidden w-full backdrop-filter backdrop-blur-lg py-4" id="mobile-menu">
+  <div
+    class="md:hidden hidden w-full backdrop-filter backdrop-blur-lg py-4"
+    id="mobile-menu"
+  >
     <ul class="flex flex-col space-y-4 px-4">
       <li><FlatLink text="Home" href="/" /></li>
       <li><FlatLink text="About" href="/about" /></li>
@@ -71,30 +85,29 @@ import WhiteButton from "./WhiteButton.astro";
     cursor: pointer;
   }
   #mobile-menu {
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px); /* Para compatibilidad con Safari */
-  will-change: transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
-
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Para compatibilidad con Safari */
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
+  document.addEventListener("DOMContentLoaded", () => {
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
 
     if (menuToggle && mobileMenu) {
-      menuToggle.addEventListener('click', () => {
-        const isHidden = mobileMenu.classList.contains('hidden');
-        
+      menuToggle.addEventListener("click", () => {
+        const isHidden = mobileMenu.classList.contains("hidden");
+
         if (isHidden) {
-          mobileMenu.classList.remove('hidden');
-          mobileMenu.classList.add('block');
+          mobileMenu.classList.remove("hidden");
+          mobileMenu.classList.add("block");
         } else {
-          mobileMenu.classList.remove('block');
-          mobileMenu.classList.add('hidden');
+          mobileMenu.classList.remove("block");
+          mobileMenu.classList.add("hidden");
         }
       });
     }

@@ -10,6 +10,7 @@ import Line from "../components/Line.astro";
 import SubTitle from "../components/SubTitle.astro";
 import GradientTitle from "../components/GradientTitle.astro";
 import Text from "../components/Text.astro";
+const appUrl = import.meta.env.PUBLIC_APP_URL;
 ---
 
 <Layout
@@ -23,7 +24,7 @@ import Text from "../components/Text.astro";
       title="Solving problems, driving businesses forward"
       desc="Deskify transforms support into a seamless and agile experience. Solving problems so your business can grow."
     />
-    <Button text="Let's get started" />
+    <Button text="Let's get started" href={appUrl} />
   </div>
 
   <div id="container-about" class="md:pt-100 pt-40 md:px-15 px-5 md:bg-top bg-center">
@@ -79,7 +80,7 @@ import Text from "../components/Text.astro";
       />
       <div class="flex flex-col md:flex-row gap-5 justify-center mt-12">
         <BlankButton text="Learn more" href="/platform" />
-        <Button text="Let's get started" />
+        <Button text="Explore Deskify" href={appUrl} />
       </div>
     </div>
   </div>
@@ -120,7 +121,7 @@ import Text from "../components/Text.astro";
     <div
       class="w-full md:w-400 flex flex-col justify-center items-center relative z-10 mt-8 md:mt-0"
     >
-      <BoxButton text="Let's get started" />
+      <BoxButton text="Find out now" href={appUrl}/>
     </div>
   </div>
 </Layout>

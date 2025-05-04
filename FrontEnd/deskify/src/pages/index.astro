@@ -3,16 +3,19 @@ import Title from "../components/Title.astro";
 import Button from "../components/Button.astro";
 import Layout from "../layouts/Layout.astro";
 import "../styles/global.css";
+const appUrl = import.meta.env.PUBLIC_APP_URL;
 ---
 
 <Layout backgroundImage="/images/background/index.jpg" backgroundSize="cover">
-  <div class="min-h-screen w-full flex flex-col justify-center items-center px-4 md:px-12 lg:px-24 xl:px-50 text-white">
+  <div
+    class="min-h-screen w-full flex flex-col justify-center items-center px-4 md:px-12 lg:px-24 xl:px-50 text-white"
+  >
     <Title
       title="Support without borders, results without limits"
       desc="Deskify simplifies customer support, ensuring fast response times and effective solutions."
     />
     <div class="mt-6">
-      <Button text="Let's get started" />
+      <Button text="Let's get started" href={appUrl} />
     </div>
   </div>
 </Layout>
