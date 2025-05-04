@@ -24,11 +24,21 @@ _SOON_
 - **ModelMapper**: Entity-to-DTO conversion.
 - **Thymeleaf**: SOON...
 
-## Instalación y configuración
+## Configuration
 
 1. Clone the repository:
    git clone https://github.com/eloylozano/deskify.git
    cd deskify
+
+2. Open /Backend/Deskify and run the enviroment
+   
+3. Create .env in /Application/Deskify and set:
+  ```bash
+VITE_API_URL=http://localhost:8080 
+  ```
+6. Then install dependencies with 'npm install' & and run with 'npm run dev'
+
+7. Repeat the process with /Frontend/Deskify
 
 ### Usage Instructions
 
