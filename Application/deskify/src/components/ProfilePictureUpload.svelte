@@ -146,7 +146,7 @@
 					/>
 				</svg>
 			</div>
-		{/if}
+		{/if} 
 	</div>
 
 	<h1 class="mb-6 text-3xl font-bold">

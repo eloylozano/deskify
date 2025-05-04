@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { error } from '@sveltejs/kit';
-	import SubHeader from '../../../components/SubHeader.svelte';
 	import Header from '../../../components/Header.svelte';
 	import CustomInput from '../../../components/CustomInput.svelte';
 	import Nav from '../../../components/Nav.svelte';
@@ -11,7 +10,9 @@
 	import { goto } from '$app/navigation';
 	import SubmitButton from '../../../components/SubmitButton.svelte';
 	import ProfilePictureUpload from '../../../components/ProfilePictureUpload.svelte';
+	import Button from '../../../components/Button.svelte';
 
+	// svelte-ignore export_let_unused
 	export let data;
 	const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -22,7 +23,11 @@
 		lastName: string;
 		email: string;
 		phoneNumber: string;
-		activeSubscription?: string;
+		activeSubscription?: {
+			plan: {
+				name: string;
+			};
+		};
 		profilePictureUrl?: string;
 		roleName: string;
 		company?: string;
@@ -84,8 +89,7 @@
 				<!-- Columna izquierda - Datos personales -->
 				<div class="rounded-lg bg-gray-50 p-6 shadow">
 					<div class="flex flex-col items-center gap-4">
-						<ProfilePictureUpload {user} size={24}  />
-						
+						<ProfilePictureUpload {user} size={24} />
 					</div>
 
 					<form class="space-y-4 px-12" on:submit|preventDefault={handleSubmit}>
@@ -170,36 +174,40 @@
 					</form>
 				</div>
 
-				<div class="rounded-lg bg-white p-6 shadow">
-					<h2 class="mb-4 text-center text-xl font-semibold">User Stats</h2>
-					<table class="w-full text-sm text-gray-700">
-						<tbody class="divide-y divide-gray-100">
-							<tr>
-								<td class="py-3 text-gray-500">Plan</td>
-								<td class="py-3 text-right font-medium">{user.activeSubscription?.plan.name}</td>
-							</tr>
-							<tr>
-								<td class="py-3 text-gray-500">Created at</td>
-								<td class="py-3 text-right font-medium">{formatDate(user.createdAt)}</td>
-							</tr>
-							<tr>
-								<td class="py-3 text-gray-500">Updated at</td>
-								<td class="py-3 text-right font-medium">{formatDate(user.updatedAt)}</td>
-							</tr>
-							<tr>
-								<td class="py-3 text-gray-500">Assigned Tickets</td>
-								<td class="py-3 text-right font-medium">{ticketsAsignados}</td>
-							</tr>
-							<tr>
-								<td class="py-3 text-gray-500">Open Tickets</td>
-								<td class="py-3 text-right font-medium">{ticketsAbiertos}</td>
-							</tr>
-							<tr>
-								<td class="py-3 text-gray-500">Solved Tickets</td>
-								<td class="py-3 text-right font-medium">{ticketsResueltos}</td>
-							</tr>
-						</tbody>
-					</table>
+				<div class="rounded-lg bg-white p-6 shadow flex flex-col justify-between">
+					<div>
+						<h2 class="mb-4 text-center text-xl font-semibold">User Stats</h2>
+						<table class="w-full text-sm text-gray-700">
+							<tbody class="divide-y divide-gray-100">
+								<tr>
+									<td class="py-3 text-gray-500">Plan</td>
+									<td class="py-3 text-right font-medium">{user.activeSubscription?.plan.name}</td>
+								</tr>
+								<tr>
+									<td class="py-3 text-gray-500">Created at</td>
+									<td class="py-3 text-right font-medium">{formatDate(user.createdAt)}</td>
+								</tr>
+								<tr>
+									<td class="py-3 text-gray-500">Updated at</td>
+									<td class="py-3 text-right font-medium">{formatDate(user.updatedAt)}</td>
+								</tr>
+								<tr>
+									<td class="py-3 text-gray-500">Assigned Tickets</td>
+									<td class="py-3 text-right font-medium">{ticketsAsignados}</td>
+								</tr>
+								<tr>
+									<td class="py-3 text-gray-500">Open Tickets</td>
+									<td class="py-3 text-right font-medium">{ticketsAbiertos}</td>
+								</tr>
+								<tr>
+									<td class="py-3 text-gray-500">Solved Tickets</td>
+									<td class="py-3 text-right font-medium">{ticketsResueltos}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<Button text="Change Subscription" href="/subscription" additionalClass="mx-auto font-semibold" />
 				</div>
 			</div>
 		</div>
