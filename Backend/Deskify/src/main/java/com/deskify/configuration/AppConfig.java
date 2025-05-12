@@ -15,7 +15,6 @@ import io.swagger.v3.oas.models.info.Info;
 @Configuration
 public class AppConfig implements WebMvcConfigurer {
 
-    // ModelMapperConfig
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
@@ -26,7 +25,6 @@ public class AppConfig implements WebMvcConfigurer {
         return new HiddenHttpMethodFilter();
     }
 
-    // SwaggerConfig
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
@@ -36,19 +34,14 @@ public class AppConfig implements WebMvcConfigurer {
                         .description("API documentation for Deskify"));
     }
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:5173")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
-                        .allowedHeaders("*")
-                        .allowCredentials(true)
-                        .maxAge(3600);
-            }
-        };
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:5173")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true)
+                .maxAge(3600);
     }
 
     @Value("${profile.pictures.path}")

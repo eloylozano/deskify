@@ -5,6 +5,7 @@
 	export let value = '';
 </script>
 
+<!-- svelte-ignore element_invalid_self_closing_tag -->
 <textarea
 	bind:value
 	name={name}

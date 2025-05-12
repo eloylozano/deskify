@@ -11,6 +11,7 @@
 	import SubmitButton from '../../../components/SubmitButton.svelte';
 	import ProfilePictureUpload from '../../../components/ProfilePictureUpload.svelte';
 	import Button from '../../../components/Button.svelte';
+	import ProtectedRoute from '../../../components/ProtectedRoute.svelte';
 
 	// svelte-ignore export_let_unused
 	export let data;
@@ -80,139 +81,141 @@
 	}
 </script>
 
-<div class="flex h-[100vh] overflow-hidden bg-green-100">
-	<Nav></Nav>
-	<div class="w-full">
-		<Header search={false} text={user.firstName}></Header>
-		<div class="container mx-auto px-4 py-8">
-			<div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
-				<!-- Columna izquierda - Datos personales -->
-				<div class="rounded-lg bg-gray-50 p-6 shadow">
-					<div class="flex flex-col items-center gap-4">
-						<ProfilePictureUpload {user} size={24} />
-					</div>
-
-					<form class="space-y-4 px-12" on:submit|preventDefault={handleSubmit}>
-						<div>
-							<label class="text-sm text-gray-500"
-								>First Name
-								<CustomInput bind:value={user.firstName} additionalClass="" /></label
-							>
+<ProtectedRoute>
+	<div class="flex h-[100vh] overflow-hidden bg-green-100">
+		<Nav></Nav>
+		<div class="w-full">
+			<Header search={false} text={user.firstName}></Header>
+			<div class="container mx-auto px-4 py-8">
+				<div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+					<!-- Columna izquierda - Datos personales -->
+					<div class="rounded-lg bg-gray-50 p-6 shadow">
+						<div class="flex flex-col items-center gap-4">
+							<ProfilePictureUpload {user} size={24} />
 						</div>
-
-						<div class="flex gap-4">
-							<div class="w-1/2">
+	
+						<form class="space-y-4 px-12" on:submit|preventDefault={handleSubmit}>
+							<div>
 								<label class="text-sm text-gray-500"
-									>Middle Name
-									<CustomInput bind:value={user.middleName} additionalClass="" /></label
+									>First Name
+									<CustomInput bind:value={user.firstName} additionalClass="" /></label
 								>
 							</div>
-
-							<div class="w-1/2">
-								<label class="text-sm text-gray-500"
-									>Last Name
-									<CustomInput bind:value={user.lastName} additionalClass="" /></label
-								>
-							</div>
-						</div>
-
-						<div class="flex gap-4">
-							<div class="w-1/2">
-								<label class="text-sm text-gray-500"
-									>Email
-									<CustomInput type="email" bind:value={user.email} additionalClass="" /></label
-								>
-							</div>
-
-							<div class="w-1/2">
-								<label class="text-sm text-gray-500"
-									>Phone number
-									<CustomInput bind:value={user.phoneNumber} additionalClass="" /></label
-								>
-							</div>
-						</div>
-
-						<div class="flex gap-4">
-							<div class="w-1/2">
-								<label class="text-sm text-gray-500"
-									>Role
-									<select class="select-field" bind:value={user.roleName}>
-										{#each roles as role}
-											<option value={role}>{role}</option>
-										{/each}
-									</select></label
-								>
-							</div>
-
-							<div class="w-1/2">
-								<label class="text-sm text-gray-500"
-									>Company
-									<CustomInput bind:value={user.company} additionalClass="" /></label
-								>
-							</div>
-						</div>
-
-						<div class="mt-12 flex justify-center">
-							{#if isLoading}
-								<div class="flex items-center">
-									<svg
-										class="mr-2 h-5 w-5 animate-spin text-green-500"
-										xmlns="http://www.w3.org/2000/svg"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke="currentColor"
+	
+							<div class="flex gap-4">
+								<div class="w-1/2">
+									<label class="text-sm text-gray-500"
+										>Middle Name
+										<CustomInput bind:value={user.middleName} additionalClass="" /></label
 									>
-										<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-										<path stroke="currentColor" fill="none" d="M4 12a8 8 0 0116 0"></path>
-									</svg>
-									<span class="text-gray-600">Updating...</span>
 								</div>
-							{:else}
-								<SubmitButton text="Update" on:click={handleSubmit} />
-							{/if}
-						</div>
-					</form>
-				</div>
-
-				<div class="rounded-lg bg-white p-6 shadow flex flex-col justify-between">
-					<div>
-						<h2 class="mb-4 text-center text-xl font-semibold">User Stats</h2>
-						<table class="w-full text-sm text-gray-700">
-							<tbody class="divide-y divide-gray-100">
-								<tr>
-									<td class="py-3 text-gray-500">Plan</td>
-									<td class="py-3 text-right font-medium">{user.activeSubscription?.plan.name}</td>
-								</tr>
-								<tr>
-									<td class="py-3 text-gray-500">Created at</td>
-									<td class="py-3 text-right font-medium">{formatDate(user.createdAt)}</td>
-								</tr>
-								<tr>
-									<td class="py-3 text-gray-500">Updated at</td>
-									<td class="py-3 text-right font-medium">{formatDate(user.updatedAt)}</td>
-								</tr>
-								<tr>
-									<td class="py-3 text-gray-500">Assigned Tickets</td>
-									<td class="py-3 text-right font-medium">{ticketsAsignados}</td>
-								</tr>
-								<tr>
-									<td class="py-3 text-gray-500">Open Tickets</td>
-									<td class="py-3 text-right font-medium">{ticketsAbiertos}</td>
-								</tr>
-								<tr>
-									<td class="py-3 text-gray-500">Solved Tickets</td>
-									<td class="py-3 text-right font-medium">{ticketsResueltos}</td>
-								</tr>
-							</tbody>
-						</table>
+	
+								<div class="w-1/2">
+									<label class="text-sm text-gray-500"
+										>Last Name
+										<CustomInput bind:value={user.lastName} additionalClass="" /></label
+									>
+								</div>
+							</div>
+	
+							<div class="flex gap-4">
+								<div class="w-1/2">
+									<label class="text-sm text-gray-500"
+										>Email
+										<CustomInput type="email" bind:value={user.email} additionalClass="" /></label
+									>
+								</div>
+	
+								<div class="w-1/2">
+									<label class="text-sm text-gray-500"
+										>Phone number
+										<CustomInput bind:value={user.phoneNumber} additionalClass="" /></label
+									>
+								</div>
+							</div>
+	
+							<div class="flex gap-4">
+								<div class="w-1/2">
+									<label class="text-sm text-gray-500"
+										>Role
+										<select class="select-field" bind:value={user.roleName}>
+											{#each roles as role}
+												<option value={role}>{role}</option>
+											{/each}
+										</select></label
+									>
+								</div>
+	
+								<div class="w-1/2">
+									<label class="text-sm text-gray-500"
+										>Company
+										<CustomInput bind:value={user.company} additionalClass="" /></label
+									>
+								</div>
+							</div>
+	
+							<div class="mt-12 flex justify-center">
+								{#if isLoading}
+									<div class="flex items-center">
+										<svg
+											class="mr-2 h-5 w-5 animate-spin text-green-500"
+											xmlns="http://www.w3.org/2000/svg"
+											fill="none"
+											viewBox="0 0 24 24"
+											stroke="currentColor"
+										>
+											<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+											<path stroke="currentColor" fill="none" d="M4 12a8 8 0 0116 0"></path>
+										</svg>
+										<span class="text-gray-600">Updating...</span>
+									</div>
+								{:else}
+									<SubmitButton text="Update" on:click={handleSubmit} />
+								{/if}
+							</div>
+						</form>
 					</div>
-
-					<Button text="Change Subscription" href="/subscription" additionalClass="mx-auto font-semibold" />
+	
+					<div class="rounded-lg bg-white p-6 shadow flex flex-col justify-between">
+						<div>
+							<h2 class="mb-4 text-center text-xl font-semibold">User Stats</h2>
+							<table class="w-full text-sm text-gray-700">
+								<tbody class="divide-y divide-gray-100">
+									<tr>
+										<td class="py-3 text-gray-500">Plan</td>
+										<td class="py-3 text-right font-medium">{user.activeSubscription?.plan.name}</td>
+									</tr>
+									<tr>
+										<td class="py-3 text-gray-500">Created at</td>
+										<td class="py-3 text-right font-medium">{formatDate(user.createdAt)}</td>
+									</tr>
+									<tr>
+										<td class="py-3 text-gray-500">Updated at</td>
+										<td class="py-3 text-right font-medium">{formatDate(user.updatedAt)}</td>
+									</tr>
+									<tr>
+										<td class="py-3 text-gray-500">Assigned Tickets</td>
+										<td class="py-3 text-right font-medium">{ticketsAsignados}</td>
+									</tr>
+									<tr>
+										<td class="py-3 text-gray-500">Open Tickets</td>
+										<td class="py-3 text-right font-medium">{ticketsAbiertos}</td>
+									</tr>
+									<tr>
+										<td class="py-3 text-gray-500">Solved Tickets</td>
+										<td class="py-3 text-right font-medium">{ticketsResueltos}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+	
+						<Button text="Change Subscription" href="/subscription" additionalClass="mx-auto font-semibold" />
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+</ProtectedRoute>
 
 <style>
 	.select-field {

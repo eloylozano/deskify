@@ -77,7 +77,7 @@ INSERT INTO `role_permissions` (`role_id`, `permission_id`) VALUES
 
 
 INSERT INTO `users` (`id`, `first_name`, `middle_name`, `last_name`, `phone_number`, `email`, `password`,`company`, `profile_picture_url`, `role_id`, `created_at`, `updated_at`) VALUES
-(1, 'Eloy', 'Lozano', 'Barrios', '+34633640634', 'elozano@deskify.com', 'Abcd123', 'deskify', "1_222c3ec4-df8a-41ea-8a11-65e2a1c45173.svg", 1, '2024-01-15 09:45:32', '2024-01-15 09:45:32'),
+(1, 'Eloy', 'Lozano', 'Barrios', '+34633640634', 'elozano@deskify.com', '$2a$10$AbIiziuHgT558GHjPNL0b.S300pA1QtFtsoLSI.5hpgxjdNaj7XTi', 'deskify', "1_222c3ec4-df8a-41ea-8a11-65e2a1c45173.svg", 1, '2024-01-15 09:45:32', '2024-01-15 09:45:32'),
 (2, 'Jane', 'A.', 'Doe', '+34623234567', 'jane.doe@skyloft.com', 'Abcd123', 'Skyloft', '2_0eef75dd-7a5d-4347-a7ad-1b06e8affac2.jpg', 4, '2024-02-03 08:30:12', '2024-02-03 08:30:12'),
 (3, 'Alice', '', 'Johnson', '+34634345678', 'alice.johnson@cloudlink.com', 'Abcd123', 'CloudLink Innovations', '3_59c979bf-4f8f-43b0-a69b-4cae2a2e9144.png', 4, '2024-05-22 14:21:47', '2024-05-22 14:21:47'),
 (4, 'Bob', 'M.', 'Williams', '+34645456789', 'bob.williams@skyloft.com', 'Abcd123', 'Skyloft', '22_d67e00cd-5d93-49c5-9640-667a02ebcc62.png', 3, '2024-06-11 12:55:23', '2024-06-11 12:55:23'),

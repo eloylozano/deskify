@@ -1,6 +1,7 @@
 <script>
 	import Nav from '../../components/Nav.svelte';
 	import FaqList from '../../components/FaqList.svelte';
+	import ProtectedRoute from '../../components/ProtectedRoute.svelte';
 
 	let faqs = [
 		{
@@ -15,7 +16,7 @@
 				'Our platform provides real-time communication and task collaboration for teams of all sizes. With features like instant messaging, file sharing, video conferencing, and integrated calendars, users can manage their projects more efficiently and stay connected regardless of their location.'
 		},
 		{
-			question: "How can I update a ticket ?",
+			question: 'How can I update a ticket ?',
 			answer:
 				'If you click inside a ticket, you will see a panel on the right, which you can collapse or expand with the [>] button. Selectors will then appear, allowing you to update the ticket`s status, priority, category, and assigned agent. Finally, click the update button, and the ticke`s new information will appear in the lower right corner.',
 			image: '/faq/update.png'
@@ -52,10 +53,12 @@
 	];
 </script>
 
-<div class="flex h-screen bg-emerald-200">
-	<Nav />
+<ProtectedRoute>
+	<div class="flex h-screen bg-emerald-200">
+		<Nav />
 
-	<div class="flex-1 overflow-y-auto">
-		<FaqList {faqs} />
+		<div class="flex-1 overflow-y-auto">
+			<FaqList {faqs} />
+		</div>
 	</div>
-</div>
+</ProtectedRoute>

@@ -1,9 +1,5 @@
 package com.deskify.security;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,18 +11,21 @@ import com.deskify.repository.UserRepository;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public CustomUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email)
-            .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
-
+            .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con email: " + email));
+        
         return new org.springframework.security.core.userdetails.User(
-            user.getEmail(), user.getPassword(),
-            List.of(new SimpleGrantedAuthority(user.getRole().getName()))
+            user.getEmail(),
+            user.getPassword(),
+            user.getAuthorities() // Asegúrate que tu entidad User tenga este método
         );
     }
 }
-

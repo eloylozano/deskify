@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ProtectedRoute from './../../components/ProtectedRoute.svelte';
 	import GradientTitle from '../../components/GradientTitle.svelte';
 	import Header from '../../components/Header.svelte';
 	import Nav from '../../components/Nav.svelte';
@@ -92,93 +93,95 @@
 	}
 </script>
 
-<div class="flex overflow-hidden bg-emerald-50">
-	<Nav />
-	<div class="w-full">
-		<Header text="Subscriptions" />
-
-		<div class="container mx-auto py-10">
-			<Title title="Choose your plan" additionalClass="text-center" />
-
-			<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
-				{#each plans as plan}
-					<!-- svelte-ignore a11y_click_events_have_key_events -->
-					<!-- svelte-ignore a11y_no_static_element_interactions -->
-					<div
-						class="flex h-auto transform flex-col justify-between rounded-xl bg-gray-100 p-5 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl {selectedPlan?.id ===
-						plan.id
-							? 'ring-2 ring-emerald-500'
-							: ''}"
-						on:click={() => selectPlan(plan)}
-					>
-						<GradientTitle text={plan.name} additionalClass="mx-auto" />
-						<ul class="list-disc pl-5 text-sm text-gray-700">
-							{#each plan.features as feature}
-								<li>{feature}</li>
-							{/each}
-						</ul>
-						<div>
-							<p class="my-4 text-center text-3xl font-light text-gray-800">
-								<span class="text-3xl font-light">{getUpdatedPrice(plan).toFixed(2)}</span>
-								€/
-								<span class="text-sm font-medium">
-									{plan.selectedDuration === 1
-										? '1 Month'
-										: plan.selectedDuration === 3
-											? '3 Months'
-											: '1 Year'}
-								</span>
-							</p>
-
-							<div class="flex justify-evenly">
-								<button
-									type="button"
-									on:click|stopPropagation={() => selectDuration(plan, 1)}
-									class="rounded-full px-4 py-2 text-sm text-white transition-colors hover:bg-emerald-700 {plan.selectedDuration ===
-									1
-										? 'bg-emerald-800 shadow-lg'
-										: 'bg-emerald-600'}"
-								>
-									1 Month
-								</button>
-								<button
-									type="button"
-									on:click|stopPropagation={() => selectDuration(plan, 3)}
-									class="rounded-full px-4 py-2 text-sm text-white transition-colors hover:bg-emerald-700 {plan.selectedDuration ===
-									3
-										? 'bg-emerald-800 shadow-lg'
-										: 'bg-emerald-600'}"
-								>
-									3 Months
-								</button>
-								<button
-									type="button"
-									on:click|stopPropagation={() => selectDuration(plan, 12)}
-									class="rounded-full px-4 py-2 text-sm text-white transition-colors hover:bg-emerald-700 {plan.selectedDuration ===
-									12
-										? 'bg-emerald-800 shadow-lg'
-										: 'bg-emerald-600'}"
-								>
-									1 Year
-								</button>
-							</div>
-
-							{#if selectedPlan?.id === plan.id}
-								<div class="mt-4 flex justify-center gap-2">
+<ProtectedRoute>
+	<div class="flex overflow-hidden bg-emerald-50">
+		<Nav />
+		<div class="w-full">
+			<Header text="Subscriptions" />
+	
+			<div class="container mx-auto py-10">
+				<Title title="Choose your plan" additionalClass="text-center" />
+	
+				<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+					{#each plans as plan}
+						<!-- svelte-ignore a11y_click_events_have_key_events -->
+						<!-- svelte-ignore a11y_no_static_element_interactions -->
+						<div
+							class="flex h-auto transform flex-col justify-between rounded-xl bg-gray-100 p-5 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl {selectedPlan?.id ===
+							plan.id
+								? 'ring-2 ring-emerald-500'
+								: ''}"
+							on:click={() => selectPlan(plan)}
+						>
+							<GradientTitle text={plan.name} additionalClass="mx-auto" />
+							<ul class="list-disc pl-5 text-sm text-gray-700">
+								{#each plan.features as feature}
+									<li>{feature}</li>
+								{/each}
+							</ul>
+							<div>
+								<p class="my-4 text-center text-3xl font-light text-gray-800">
+									<span class="text-3xl font-light">{getUpdatedPrice(plan).toFixed(2)}</span>
+									€/
+									<span class="text-sm font-medium">
+										{plan.selectedDuration === 1
+											? '1 Month'
+											: plan.selectedDuration === 3
+												? '3 Months'
+												: '1 Year'}
+									</span>
+								</p>
+	
+								<div class="flex justify-evenly">
 									<button
 										type="button"
-										on:click|stopPropagation={deselectPlan}
-										class="rounded-full bg-gray-500 px-4 py-2 text-white transition-colors hover:bg-gray-600"
+										on:click|stopPropagation={() => selectDuration(plan, 1)}
+										class="rounded-full px-4 py-2 text-sm text-white transition-colors hover:bg-emerald-700 {plan.selectedDuration ===
+										1
+											? 'bg-emerald-800 shadow-lg'
+											: 'bg-emerald-600'}"
 									>
-										Cancel
+										1 Month
+									</button>
+									<button
+										type="button"
+										on:click|stopPropagation={() => selectDuration(plan, 3)}
+										class="rounded-full px-4 py-2 text-sm text-white transition-colors hover:bg-emerald-700 {plan.selectedDuration ===
+										3
+											? 'bg-emerald-800 shadow-lg'
+											: 'bg-emerald-600'}"
+									>
+										3 Months
+									</button>
+									<button
+										type="button"
+										on:click|stopPropagation={() => selectDuration(plan, 12)}
+										class="rounded-full px-4 py-2 text-sm text-white transition-colors hover:bg-emerald-700 {plan.selectedDuration ===
+										12
+											? 'bg-emerald-800 shadow-lg'
+											: 'bg-emerald-600'}"
+									>
+										1 Year
 									</button>
 								</div>
-								<PayPalButtons {selectedPlan} />
-							{/if}
+	
+								{#if selectedPlan?.id === plan.id}
+									<div class="mt-4 flex justify-center gap-2">
+										<button
+											type="button"
+											on:click|stopPropagation={deselectPlan}
+											class="rounded-full bg-gray-500 px-4 py-2 text-white transition-colors hover:bg-gray-600"
+										>
+											Cancel
+										</button>
+									</div>
+									<PayPalButtons {selectedPlan} />
+								{/if}
+							</div>
 						</div>
-					</div>
-				{/each}
+					{/each}
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
+</ProtectedRoute>
