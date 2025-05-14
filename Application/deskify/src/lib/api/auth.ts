@@ -10,36 +10,48 @@ interface LoginApiResponse {
     phoneNumber?: string;
     company?: string;
     profilePictureUrl?: string;
-    role?: any;
+    roleName?: string;
     error?: string;
 }
 
 export async function loginApi(email: string, password: string): Promise<LoginApiResponse> {
+    const requestBody = { email, password };
+
     try {
-        // Asegúrate que el objeto es plano y simple
-        const requestBody = {
-            email: email,
-            password: password
-        };
-
-        console.log("Enviando a API:", JSON.stringify(requestBody));
-
         const response = await fetch(`${API_URL}/api/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(requestBody) // Objeto simple
+            body: JSON.stringify(requestBody)
         });
 
+        const responseData = await response.json();
+
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Error');
+            return {
+                token: '',
+                userId: 0,
+                error: responseData.message || 'Login failed'
+            };
         }
 
-        return await response.json();
-    } catch (error) {
-        console.error('API Error:', error);
-        throw error;
+        // Transformar role a roleName si fuera necesario
+        const roleName = typeof responseData.role === 'object' && responseData.role?.name
+            ? responseData.role.name
+            : responseData.role;
+
+        return {
+            ...responseData,
+            roleName
+        };
+
+    } catch (error: any) {
+        console.error('API login error:', error);
+        return {
+            token: '',
+            userId: 0,
+            error: 'Server unavailable or invalid response'
+        };
     }
 }

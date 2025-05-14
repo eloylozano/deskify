@@ -51,15 +51,17 @@
 		searchQuery = target.value;
 		dispatch('search', searchQuery);
 	}
-
-	console.log('user', data.user);
-
-	function navigateToProfile() {
-		const userId = data.user?.id || get(user)?.id;
+	export function isAuthenticated(): boolean {
+		if (typeof window === 'undefined') return false;
+		const token = sessionStorage.getItem('authToken');
+		return !!token;
+	}
+	function goToUserProfile() {
+		const userId = sessionStorage.getItem('userId');
 		if (userId) {
 			goto(`/users/${userId}`);
 		} else {
-			goto('/login');
+			console.error('No hay usuario logueado');
 		}
 	}
 </script>
@@ -112,9 +114,9 @@
 
 			<!-- Imagen de perfil del usuario logeado -->
 			{#if userLoaded}
-				{#if $user || data.user}
+				{#if isAuthenticated()}
 					<button
-						on:click={navigateToProfile}
+						on:click={goToUserProfile}
 						aria-label="User profile"
 						class="rounded-full focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#01c883] focus:outline-none"
 					>

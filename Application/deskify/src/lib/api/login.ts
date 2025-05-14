@@ -6,19 +6,22 @@ import { clearUser, fetchUser } from "$lib/stores/user";
 interface LoginResponse {
     token: string;
     userId: number;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    phoneNumber?: string;
+    company?: string;
+    profilePictureUrl?: string;
+    roleName?: string;
     error?: string;
 }
 
 /**
- * Inicia sesión y guarda el token en sessionStorage
- * @param {string} email - El correo del usuario
- * @param {string} password - La contraseña del usuario
- * @returns {Promise<LoginResponse>} Respuesta del servidor
+ * Inicia sesión y guarda los datos del usuario en sessionStorage
  */
 export async function login(email: string, password: string): Promise<LoginResponse> {
     try {
         const data = await loginApi(email, password);
-        console.log(data);
         if (data.error) {
             return {
                 token: '',
@@ -27,16 +30,29 @@ export async function login(email: string, password: string): Promise<LoginRespo
             };
         }
 
-        // Guardar token y datos del usuario en sessionStorage
+        // Guardar datos del usuario en sessionStorage
         sessionStorage.setItem('authToken', data.token);
         sessionStorage.setItem('userId', data.userId.toString());
+        sessionStorage.setItem('firstName', data.firstName);
+        sessionStorage.setItem('lastName', data.lastName);
+        sessionStorage.setItem('email', data.email);
+        sessionStorage.setItem('phoneNumber', data.phoneNumber);
+        sessionStorage.setItem('company', data.company);
+        sessionStorage.setItem('profilePictureUrl', data.profilePictureUrl);
+        sessionStorage.setItem('roleName', data.roleName);
 
         await fetchUser();
-        console.log("Login API response:", data);
 
         return {
             token: data.token,
-            userId: data.userId
+            userId: data.userId,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            email: data.email,
+            phoneNumber: data.phoneNumber,
+            company: data.company,
+            profilePictureUrl: data.profilePictureUrl,
+            roleName: data.roleName
         };
 
     } catch (error) {
@@ -49,40 +65,50 @@ export async function login(email: string, password: string): Promise<LoginRespo
     }
 }
 
-
-/**
- * Verifica si hay un usuario autenticado
- * @returns {boolean} True si hay un token válido
- */
-export function isAuthenticated() {
-    if (typeof window === 'undefined') return false; // No estamos en el navegador
-
+export function isAuthenticated(): boolean {
+    if (typeof window === 'undefined') return false;
     const token = sessionStorage.getItem('authToken');
     return !!token;
 }
 
-/**
- * Obtiene el token de autenticación
- * @returns {string | null} Token de autenticación
- */
 export function getAuthToken(): string | null {
     return sessionStorage.getItem('authToken');
 }
 
-/**
- * Obtiene el ID del usuario autenticado
- * @returns {number | null} ID del usuario
- */
 export function getUserId(): number | null {
     const userId = sessionStorage.getItem('userId');
     return userId ? parseInt(userId) : null;
 }
 
 /**
- * Cierra la sesión del usuario
+ * Devuelve todos los datos del usuario actualmente autenticado
+ */
+export function getCurrentUser() {
+    return {
+        token: sessionStorage.getItem('authToken'),
+        userId: parseInt(sessionStorage.getItem('userId') || '0'),
+        firstName: sessionStorage.getItem('firstName'),
+        lastName: sessionStorage.getItem('lastName'),
+        email: sessionStorage.getItem('email'),
+        phoneNumber: sessionStorage.getItem('phoneNumber'),
+        company: sessionStorage.getItem('company'),
+        profilePictureUrl: sessionStorage.getItem('profilePictureUrl'),
+        roleName: sessionStorage.getItem('roleName')
+    };
+}
+
+/**
+ * Cierra sesión y limpia todos los datos del usuario
  */
 export function logout(): void {
     sessionStorage.removeItem('authToken');
     sessionStorage.removeItem('userId');
+    sessionStorage.removeItem('firstName');
+    sessionStorage.removeItem('lastName');
+    sessionStorage.removeItem('email');
+    sessionStorage.removeItem('phoneNumber');
+    sessionStorage.removeItem('company');
+    sessionStorage.removeItem('profilePictureUrl');
+    sessionStorage.removeItem('roleName');
     clearUser();
 }

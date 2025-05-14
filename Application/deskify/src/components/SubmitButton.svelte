@@ -2,6 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   export let additionalClass = '';
   export let text = '';
+  export let disabled = false;
   const dispatch = createEventDispatcher();
 
   // Para que el botón actualice el formulario, se puede emitir el evento o dejarlo vacío
