@@ -1,97 +1,45 @@
 // $lib/api/auth.ts
-
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
 
-interface LoginResponse {
+interface LoginApiResponse {
     token: string;
     userId: number;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    phoneNumber?: string;
+    company?: string;
+    profilePictureUrl?: string;
+    role?: any;
     error?: string;
 }
 
-interface LoginData {
-    email: string;
-    password: string;
-}
-
-/**
- * Inicia sesión y guarda el token en sessionStorage
- * @param {LoginData} credentials - Credenciales de usuario
- * @returns {Promise<LoginResponse>} Respuesta del servidor
- */
-export async function login(credentials: LoginData): Promise<LoginResponse> {
+export async function loginApi(email: string, password: string): Promise<LoginApiResponse> {
     try {
+        // Asegúrate que el objeto es plano y simple
+        const requestBody = {
+            email: email,
+            password: password
+        };
+
+        console.log("Enviando a API:", JSON.stringify(requestBody));
+
         const response = await fetch(`${API_URL}/api/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(credentials),
+            body: JSON.stringify(requestBody) // Objeto simple
         });
 
-        const data = await response.json();
-
         if (!response.ok) {
-            return {
-                token: '',
-                userId: 0,
-                error: data.message || 'Login Error'
-            };
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Error');
         }
 
-        // Guardar token y userId en sessionStorage
-        sessionStorage.setItem('authToken', data.token);
-        sessionStorage.setItem('userId', data.userId.toString());
-
-        return {
-            token: data.token,
-            userId: data.userId
-        };
-
+        return await response.json();
     } catch (error) {
-        console.error('Login error:', error);
-        return {
-            token: '',
-            userId: 0,
-            error: 'Conexion Error'
-        };
+        console.error('API Error:', error);
+        throw error;
     }
-}
-
-/**
- * Verifica si hay un usuario autenticado
- * @returns {boolean} True si hay un token válido
- */
-export function isAuthenticated() {
-    if (typeof window === 'undefined') return false; // No estamos en el navegador
-
-    const token = sessionStorage.getItem('authToken'); // Cambiado de 'token' a 'authToken'
-    return !!token;
-}
-
-
-/**
- * Obtiene el token de autenticación
- * @returns {string | null} Token de autenticación
- */
-export function getAuthToken(): string | null {
-    return sessionStorage.getItem('authToken');
-}
-
-/**
- * Obtiene el ID del usuario autenticado
- * @returns {number | null} ID del usuario
- */
-export function getUserId(): number | null {
-    const userId = sessionStorage.getItem('userId');
-    return userId ? parseInt(userId) : null;
-}
-
-/**
- * Cierra la sesión del usuario
- */
-// $lib/api/auth.ts
-export function logout(): void {
-    sessionStorage.removeItem('authToken');
-    sessionStorage.removeItem('userId');
-   
 }

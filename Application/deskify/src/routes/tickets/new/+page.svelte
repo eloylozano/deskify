@@ -1,12 +1,22 @@
 <script lang="ts">
+	import { user } from '$lib/stores/user';
 	import { goto } from '$app/navigation';
 	import { createTicket } from '$lib/api/tickets';
+	import { onMount } from 'svelte';
+
 	import Nav from '../../../components/Nav.svelte';
 	import Header from '../../../components/Header.svelte';
 	import SubmitButton from '../../../components/SubmitButton.svelte';
 	import CustomInput from '../../../components/CustomInput.svelte';
 	import CustomTextarea from '../../../components/CustomTextarea.svelte';
 	import ProtectedRoute from '../../../components/ProtectedRoute.svelte';
+	$: {
+		console.log('User data:', $user); // Muestra los datos del usuario cada vez que cambian
+	}
+
+	onMount(() => {
+		console.log('User data on mount:', $user); // Muestra los datos del usuario al montar el componente
+	});
 
 	let email = '';
 	let title = '';
@@ -21,7 +31,7 @@
 
 		try {
 			const response = await createTicket({ email, title, description });
-			console.log('Ticket created:', response); // Para depuración
+			console.log('Ticket created:', response);
 			await goto('/tickets');
 		} catch (err) {
 			console.error('Error:', err);
@@ -30,24 +40,28 @@
 			isLoading = false;
 		}
 	}
+
+	$: if ($user?.email && !email) {
+		email = $user.email;
+	}
 </script>
 
 <ProtectedRoute>
 	<div class="flex h-screen overflow-hidden bg-emerald-100">
 		<Nav />
-	
+
 		<div class="flex flex-1 flex-col items-center overflow-y-auto">
 			<Header text="Create new ticket" />
-	
+
 			<div class="my-5 w-300 rounded-md bg-white px-10 py-6 shadow">
 				<h1 class="mb-4 text-center text-3xl font-medium text-gray-800">Create a new incidence</h1>
-	
+
 				{#if errorMessage}
 					<div class="mb-4 rounded bg-red-100 p-4 text-red-700">
 						{errorMessage}
 					</div>
 				{/if}
-	
+
 				<form on:submit|preventDefault={handleCreateTicket} class="space-y-4">
 					<div>
 						<label for="email" class="block pb-2 text-sm font-medium text-gray-700">Email</label>
@@ -58,9 +72,10 @@
 							placeholder="Your Email"
 							bind:value={email}
 							required
+							readonly
 						/>
 					</div>
-	
+
 					<div>
 						<label for="title" class="block pb-2 text-sm font-medium text-gray-700">Title</label>
 						<CustomInput
@@ -72,7 +87,7 @@
 							required
 						/>
 					</div>
-	
+
 					<div>
 						<label for="description" class="block pb-2 text-sm font-medium text-gray-700"
 							>Description</label
@@ -84,7 +99,7 @@
 							bind:value={description}
 						/>
 					</div>
-	
+
 					<div class="flex justify-end">
 						<SubmitButton text={isLoading ? 'Creating...' : 'Create ticket'} disabled={isLoading} />
 					</div>

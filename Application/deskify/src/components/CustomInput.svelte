@@ -6,17 +6,19 @@
 	export let placeholder = '';
 	export let value = ''; // importante para bind:value
 	export let required = true;
+	export let readonly = false; // <- ¡AQUÍ!
 </script>
 
 <input
-    type={type}
-    name={name}
-    id={id}
-    placeholder={placeholder}
+	type={type}
+	name={name}
+	id={id}
+	placeholder={placeholder}
 	required={required}
-    class="input-field w-full px-3 h-10"
-    bind:value
-    {...$$restProps}
+	readonly={readonly}
+	class="input-field w-full px-3 h-10"
+	bind:value
+	{...$$restProps}
 />
 
 <style>

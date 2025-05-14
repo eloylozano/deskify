@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { isAuthenticated, logout } from '$lib/api/auth';
 	import { goto } from '$app/navigation';
+	import { user } from '$lib/stores/user';
+	import { isAuthenticated, logout } from '$lib/api/login';
 
 	export let register = true;
 
@@ -16,6 +17,15 @@
 	function handleLogout() {
 		logout();
 		goto('/login');
+	}
+
+	function goToUserProfile() {
+		const userId = sessionStorage.getItem('userId');
+		if (userId) {
+			goto(`/users/${userId}`);
+		} else {
+			console.error('No hay usuario logueado');
+		}
 	}
 </script>
 
@@ -111,23 +121,24 @@
 
 			<!-- Icono User Account -->
 			<div class="w-min">
-				<button on:click={() => navigateTo('/user')} aria-label="user page">
+				<button on:click={goToUserProfile} aria-label="user page">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						class="h-7 w-7"
 						viewBox="0 0 24 24"
-						style="color: {$page.url.pathname === '/user' ? '#01c883' : 'white'}"
-						><g
+						style="color: {$page.url.pathname.startsWith('/user') ? '#01c883' : 'white'}"
+					>
+						<g
 							fill="none"
 							stroke="#fff"
 							stroke-linecap="round"
 							stroke-linejoin="round"
 							stroke-width="2"
-							><circle cx="12" cy="8" r="5" /><path
-								d="M20 21a8 8 0 1 0-16 0m16 0a8 8 0 1 0-16 0"
-							/></g
-						></svg
-					>
+						>
+							<circle cx="12" cy="8" r="5" />
+							<path d="M20 21a8 8 0 1 0-16 0m16 0a8 8 0 1 0-16 0" />
+						</g>
+					</svg>
 				</button>
 				{#if isAuthenticated()}
 					<button on:click={handleLogout} aria-label="logout" class="mx-auto mt-4">

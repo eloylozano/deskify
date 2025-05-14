@@ -1,9 +1,11 @@
 <!-- src/routes/+layout.svelte -->
 <script lang="ts">
 	import '../app.css';
-	import { isAuthenticated } from '$lib/api/auth';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
+	import { fetchUser } from '$lib/stores/user';
+	import { isAuthenticated } from '$lib/api/login';
 
 	// Verificar autenticación en el cliente
 	if (typeof window !== 'undefined') {
@@ -12,6 +14,10 @@
 			goto(`/login`);
 		}
 	}
+
+	onMount(() => {
+		fetchUser();
+	});
 </script>
 
 <slot />

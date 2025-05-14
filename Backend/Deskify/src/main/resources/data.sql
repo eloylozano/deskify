@@ -105,8 +105,8 @@ INSERT INTO `users` (`id`, `first_name`, `middle_name`, `last_name`, `phone_numb
 (26, 'Daniel', 'J.', 'Gonzalez', '+34607678901', 'daniel.gonzalez@orbital.com', 'Abcd123', 'Orbital', '26_490e8838-0930-40a3-b908-2d3de70263d4.jpg', 5, '2024-04-26 14:11:29', '2024-04-26 14:11:29'),
 (27, 'Grace', 'S.', 'Nelson', '+34608789012', 'grace.nelson@cloudlink.com', 'Abcd123', 'CloudLink Innovations', '27_5c27dac6-31de-4482-831d-27fec49ad7fe.jpg', 5, '2024-05-16 11:37:10', '2024-05-16 11:37:10'),
 (28, 'Jack', '', 'Carter', '+34609890123', 'jack.carter@orbital.com', 'Abcd123', 'Orbital', '28_a1a374e1-6bdc-4774-a493-b1b23fb544f6.png', 5, '2024-06-01 08:25:44', '2024-06-01 08:25:44'),
-(29, 'Lily', 'P.', 'Mitchell', '+34610901234', 'lily.mitchell@orbital.com', 'Abcd123', 'Orbital', '29_6cbfa5d0-10cf-414a-bd19-36ed25a10699.jpg', 5, '2024-07-04 10:18:59', '2024-07-04 10:18:59');
-
+(29, 'Lily', 'P.', 'Mitchell', '+34610901234', 'lily.mitchell@orbital.com', 'Abcd123', 'Orbital', '29_6cbfa5d0-10cf-414a-bd19-36ed25a10699.jpg', 5, '2024-07-04 10:18:59', '2024-07-04 10:18:59'),
+(30, 'Admin', NULL, NULL, NULL, 'admin@admin.com', '$2a$10$AbIiziuHgT558GHjPNL0b.S300pA1QtFtsoLSI.5hpgxjdNaj7XTi', 'deskify', "1_222c3ec4-df8a-41ea-8a11-65e2a1c45173.svg", 1, '2024-01-15 09:45:32', '2024-01-15 09:45:32');
 
 INSERT INTO `subscriptions` (`user_id`, `plan_id`, `start_date`, `end_date`, `is_active`) 
 VALUES

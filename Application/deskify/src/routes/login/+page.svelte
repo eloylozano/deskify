@@ -5,11 +5,11 @@
 	import Title from '../../components/Title.svelte';
 	import Button from '../../components/Button.svelte';
 	import CustomInput from '../../components/CustomInput.svelte';
-	import { login, isAuthenticated } from '$lib/api/auth';
 	import SubmitButton from '../../components/SubmitButton.svelte';
 	import CustomPasswordInput from '../../components/CustomPasswordInput.svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { isAuthenticated, login } from '$lib/api/login';
 
 	let register = false;
 	let email = '';
@@ -27,7 +27,8 @@
 		loading = true;
 
 		try {
-			const result = await login({ email, password });
+			const result = await login(email, password); 
+
 
 			if (result.error) {
 				error = result.error;
