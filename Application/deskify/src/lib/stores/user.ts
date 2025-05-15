@@ -34,6 +34,8 @@ export async function fetchUser(): Promise<User | null> {
     if (!browser) return null;
 
     const token = getToken();
+
+    console.log("Token usado para fetchUser:", token);  // <-- Añade esto
     if (!token) {
         console.error("Token no encontrado.");
         user.set(null);

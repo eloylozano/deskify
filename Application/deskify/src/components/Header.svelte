@@ -27,12 +27,18 @@
 	let showSearch = false;
 	let searchQuery = '';
 	let userLoaded = false;
+	let profilePicUrl = '/default-profile.jpg';
 
-	onMount(async () => {
-    if (!$user) {
-      await fetchUser();
-    }
-  });
+	onMount(() => {
+		if (browser) {
+			const filename = sessionStorage.getItem('profilePictureUrl');
+			console.log('Filename from sessionStorage:', filename);
+			if (filename) {
+				profilePicUrl = `http://localhost:8080/uploads/profiles/${filename}`;
+			}
+			userLoaded = true;
+		}
+	});
 
 	function toggleSearch() {
 		showSearch = !showSearch;
@@ -114,11 +120,11 @@
 					<button
 						on:click={goToUserProfile}
 						aria-label="User profile"
-						class="rounded-full focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#01c883] focus:outline-none"
+						class="rounded-full focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#01c883] focus:outline-none cursor-pointer "
 					>
 						<!-- svelte-ignore a11y_img_redundant_alt -->
 						<img
-							src={($user || data.user)?.profilePictureUrl || '/default-profile.jpg'}
+							src={profilePicUrl}
 							alt="Profile picture"
 							class="h-10 w-10 rounded-full object-cover"
 						/>

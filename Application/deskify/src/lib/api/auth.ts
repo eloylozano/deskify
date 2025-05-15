@@ -27,6 +27,7 @@ export async function loginApi(email: string, password: string): Promise<LoginAp
         });
 
         const responseData = await response.json();
+        console.log('Respuesta backend login:', responseData);
 
         if (!response.ok) {
             return {

@@ -22,7 +22,7 @@
 	function goToUserProfile() {
 		const userId = sessionStorage.getItem('userId');
 		if (userId) {
-			goto(`/users/${userId}`);
+			goto(`/users/${userId}`); 
 		} else {
 			console.error('No hay usuario logueado');
 		}

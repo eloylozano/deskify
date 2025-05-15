@@ -33,13 +33,15 @@ export async function login(email: string, password: string): Promise<LoginRespo
         // Guardar datos del usuario en sessionStorage
         sessionStorage.setItem('authToken', data.token);
         sessionStorage.setItem('userId', data.userId.toString());
-        sessionStorage.setItem('firstName', data.firstName);
-        sessionStorage.setItem('lastName', data.lastName);
-        sessionStorage.setItem('email', data.email);
-        sessionStorage.setItem('phoneNumber', data.phoneNumber);
-        sessionStorage.setItem('company', data.company);
-        sessionStorage.setItem('profilePictureUrl', data.profilePictureUrl);
-        sessionStorage.setItem('roleName', data.roleName);
+        sessionStorage.setItem('firstName', data.firstName ?? 'Sin nombre');
+        sessionStorage.setItem('lastName', data.lastName ?? 'Sin apellido');
+        sessionStorage.setItem('email', data.email ?? 'Sin email');
+        sessionStorage.setItem('phoneNumber', data.phoneNumber ?? 'Sin teléfono');
+        sessionStorage.setItem('company', data.company ?? 'Sin empresa');
+        sessionStorage.setItem('profilePictureUrl', data.profilePictureUrl ?? 'default.jpg');
+        sessionStorage.setItem('roleName', data.roleName ?? 'Sin rol');
+
+
 
         await fetchUser();
 

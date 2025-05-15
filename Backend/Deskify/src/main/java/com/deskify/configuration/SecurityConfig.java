@@ -39,6 +39,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/api/auth/**",
+                                "/api/auth/me",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
@@ -53,12 +54,14 @@ public class SecurityConfig {
                                 "/ticket/**", // Permite todos los endpoints de tickets
                                 "/user/**",
                                 "/uploads/profiles/**")
-                        .permitAll() // Temporalmente permitimos estos endpoints
+                        .permitAll()
+                        .requestMatchers("/api/auth/me").authenticated()
                         .anyRequest().authenticated())
+                
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                ;
         return http.build();
     }
 

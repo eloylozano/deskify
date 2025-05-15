@@ -8,6 +8,8 @@ import java.util.Optional;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,42 +54,40 @@ public class AuthController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<?> getCurrentUser(@RequestHeader("Authorization") String authHeader) {
-        try {
-            // Eliminar el prefijo "Bearer " si está presente
-            String token = authHeader.replace("Bearer ", "");
+    public ResponseEntity<?> getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-            // Obtener el email desde el token
-            String email = jwtUtil.extractUsername(token);
-
-            Optional<User> userOptional = userRepository.findByEmail(email);
-            if (userOptional.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.SC_UNAUTHORIZED)
-                        .body(Collections.singletonMap("message", "Usuario no encontrado"));
-            }
-
-            User user = userOptional.get();
-
-            // Crear un mapa con los datos necesarios (sin password)
-            Map<String, Object> userData = new HashMap<>();
-            userData.put("id", user.getId());
-            userData.put("firstName", user.getFirstName());
-            userData.put("middleName", user.getMiddleName());
-            userData.put("lastName", user.getLastName());
-            userData.put("phoneNumber", user.getPhoneNumber());
-            userData.put("email", user.getEmail());
-            userData.put("company", user.getCompany());
-            userData.put("profilePictureUrl", user.getProfilePictureUrl());
-            userData.put("role", Map.of("id", user.getRole().getId(), "name", user.getRole().getName()));
-            userData.put("createdAt", user.getCreatedAt());
-            userData.put("updatedAt", user.getUpdatedAt());
-
-            return ResponseEntity.ok(userData);
-
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.SC_INTERNAL_SERVER_ERROR)
-                    .body(Collections.singletonMap("message", "Error al obtener el usuario"));
+        if (authentication == null || !authentication.isAuthenticated()
+                || authentication.getPrincipal().equals("anonymousUser")) {
+            return ResponseEntity.status(HttpStatus.SC_UNAUTHORIZED)
+                    .body(Collections.singletonMap("message", "No autorizado"));
         }
+
+        String email = authentication.getName(); // username/email desde el token ya autenticado
+
+        Optional<User> userOptional = userRepository.findByEmail(email);
+
+        if (userOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.SC_UNAUTHORIZED)
+                    .body(Collections.singletonMap("message", "Usuario no encontrado"));
+        }
+
+        User user = userOptional.get();
+
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("id", user.getId());
+        userData.put("firstName", user.getFirstName());
+        userData.put("middleName", user.getMiddleName());
+        userData.put("lastName", user.getLastName());
+        userData.put("phoneNumber", user.getPhoneNumber());
+        userData.put("email", user.getEmail());
+        userData.put("company", user.getCompany());
+        userData.put("profilePictureUrl", user.getProfilePictureUrl());
+        userData.put("role", Map.of("id", user.getRole().getId(), "name", user.getRole().getName()));
+        userData.put("createdAt", user.getCreatedAt());
+        userData.put("updatedAt", user.getUpdatedAt());
+
+        return ResponseEntity.ok(userData);
     }
 
     @PostMapping("/register")

@@ -17,16 +17,20 @@
 - [X] Dashboard inicial con resumen
 - [X] Fotos perfil usuarios
 - [X] Panel Admin(Eliminar tickets, comentarios)
-- [ ] Pasarela de pago
-- [ ] Gestionar suscripciones
-- [ ] Login y registro funcional
+- [X] Pasarela de pago
+- [X] Gestionar suscripciones
+- [X] Login y registro funcional
+- [ ] Mostrar tickets por user logeado
+- [ ] Añadir permisos páginas por roles
 - [ ] Documentación (Diagrama de clases, manuales, framework panel admin)
+- [ ] 
+- [ ] 
 - [ ] 
 ## 🧪 Funcionalidades extra
 - [ ] Cambiar selects ticket individual
 - [ ] Menu filtros tickets
 - [ ] Paginación
-- [ ] Añadir estadísticas al dashboard
+- [X] Añadir estadísticas al dashboard
 - [ ] Notificaciones por cambio de estado
 - [ ] Dark mode
 - [ ] Paginación en la lista de tickets
