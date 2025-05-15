@@ -6,7 +6,7 @@
 	let darkMode = true;
 	let notificationsEnabled = true;
 	let emailFrequency = 'weekly';
-	let selectedLanguage = 'es';
+	let selectedLanguage = 'en';
 	let profileVisibility = 'public';
 </script>
 
@@ -111,8 +111,8 @@
 								bind:value={selectedLanguage}
 								class="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-white"
 							>
-								<option value="es">Español</option>
 								<option value="en">English</option>
+								<option value="es">Español</option>
 								<option value="fr">Français</option>
 								<option value="de">Deutsch</option>
 							</select>

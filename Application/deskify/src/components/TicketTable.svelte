@@ -143,7 +143,6 @@
 	function togglePanel() {
 		isPanelVisible = !isPanelVisible;
 	}
-
 	// Filtros seleccionados
 	let selectedStatus = '';
 	let selectedPriority = '';
@@ -275,27 +274,26 @@
 									</td>
 									<td class="w-[150px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
 										<div class="flex items-center gap-2">
-											{#if ticket.agent?.profilePictureUrl && !imageError}
-												<!-- svelte-ignore a11y_img_redundant_alt -->
-												<img
-													src={`${import.meta.env.VITE_API_URL}/uploads/profiles/${ticket.agent?.profilePictureUrl}`}
-													alt="Profile picture"
-													class="h-8 w-8 rounded-full border-1 border-emerald-300"
-													on:error={() => (imageError = true)}
-												/>
-											{:else}
-												<div
-													class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-300 text-sm font-bold text-white"
-												>
-													<!-- svelte-ignore a11y_img_redundant_alt -->
+											{#if ticket.agent}
+												{#if ticket.agent.profilePictureUrl}
 													<img
-														src="/default-profile.jpg"
-														class="h-8 w-8 rounded-full border-1 border-emerald-300"
-														alt="Profile picture"
+														src={`${import.meta.env.VITE_API_URL}/uploads/profiles/${ticket.agent.profilePictureUrl}`}
+														alt={ticket.agent.agentName}
+														class="h-7 w-7 rounded-full object-cover border-2 border-emerald-400"
 													/>
-												</div>
+												{:else}
+													<div
+														class="flex h-6 w-6 items-center justify-center rounded-full bg-gray-300"
+													>
+														<span class="text-xs text-gray-600">
+															{ticket.agent.agentName?.charAt(0).toUpperCase() || '?'}
+														</span>
+													</div>
+												{/if}
+												<span>{ticket.agent.agentName}</span>
+											{:else}
+												<span class="text-gray-400">Sin asignar</span>
 											{/if}
-											<span>{ticket.agent?.agentName || 'Sin asignar'}</span>
 										</div>
 									</td>
 

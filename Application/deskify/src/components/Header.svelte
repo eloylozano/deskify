@@ -29,14 +29,10 @@
 	let userLoaded = false;
 
 	onMount(async () => {
-		if (browser) {
-			const token = getAuthToken();
-			if (token && !get(user)) {
-				await fetchUser();
-			}
-			userLoaded = true;
-		}
-	});
+    if (!$user) {
+      await fetchUser();
+    }
+  });
 
 	function toggleSearch() {
 		showSearch = !showSearch;

@@ -39,12 +39,12 @@ export async function fetchUser(): Promise<User | null> {
         user.set(null);
         return null;
     }
-    console.log("Token usado para /me:", token);
 
     try {
         const res = await fetch(`http://localhost:8080/api/auth/me`, {
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
             }
         });
 

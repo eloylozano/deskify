@@ -119,6 +119,9 @@
             <artifactId>aws-java-sdk-sts</artifactId> <!-- Para credenciales temporales -->
             <version>1.12.529</version>
         </dependency>
+
+
+        
     </dependencies>
 
     <build>
