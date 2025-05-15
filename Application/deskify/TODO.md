@@ -22,7 +22,7 @@
 - [X] Login y registro funcional
 - [ ] Mostrar tickets por user logeado
 - [ ] Añadir permisos páginas por roles
-- [ ] Documentación (Diagrama de clases, manuales, framework panel admin)
+- [ ] Documentación (Diagrama de clases, manuales)
 - [ ] 
 - [ ] 
 - [ ] 
