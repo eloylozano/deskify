@@ -147,14 +147,14 @@ public class AuthController {
             Optional<User> userOptional = userRepository.findByEmail(request.getEmail());
             if (userOptional.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.SC_UNAUTHORIZED)
-                        .body(Collections.singletonMap("message", "Credenciales inválidas"));
+                        .body(Collections.singletonMap("message", "Invalid Credentials"));
             }
 
             User user = userOptional.get();
 
             if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
                 return ResponseEntity.status(HttpStatus.SC_UNAUTHORIZED)
-                        .body(Collections.singletonMap("message", "Credenciales inválidas"));
+                        .body(Collections.singletonMap("message", "Invalid Credentials"));
             }
 
             // Crear UserDetails para generar el token

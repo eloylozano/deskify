@@ -4,9 +4,10 @@
 	export let name = '';
 	export let id = '';
 	export let placeholder = '';
-	export let value = ''; // importante para bind:value
+	export let value = ''; 
 	export let required = true;
-	export let readonly = false; // <- ¡AQUÍ!
+	export let readonly = false; 
+	export let tooltip = ''; 
 </script>
 
 <input
@@ -14,10 +15,13 @@
 	name={name}
 	id={id}
 	placeholder={placeholder}
+	aria-required={required}
 	required={required}
+	title={tooltip}
 	readonly={readonly}
 	class="input-field w-full px-3 h-10"
 	bind:value
+	
 	{...$$restProps}
 />
 

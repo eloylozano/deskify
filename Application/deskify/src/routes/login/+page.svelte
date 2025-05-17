@@ -71,12 +71,14 @@
 					id="email"
 					placeholder="Email"
 					bind:value={email}
+					tooltip="Write yout email"
 					required
 				/>
 				<CustomPasswordInput
 					name="password"
 					id="password"
 					placeholder="Enter your password"
+					tooltip="Write your password"
 					bind:value={password}
 					required
 				/>

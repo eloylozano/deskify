@@ -3,6 +3,7 @@
 	export let id = '';
 	export let placeholder = '';
 	export let value = '';
+	export let tooltip = ''; 
 </script>
 
 <!-- svelte-ignore element_invalid_self_closing_tag -->
@@ -11,8 +12,10 @@
 	name={name}
 	id={id}
 	placeholder={placeholder}
+	title={tooltip}
 	class="textarea-field w-full h-60 px-3 resize-none"
-    required
+	required
+	{...$$restProps}
 />
 
 <style>

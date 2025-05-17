@@ -12,7 +12,7 @@ const subUrl = import.meta.env.PUBLIC_APP_SUBS_URL;
     </a>
 
     <!-- Botón del menú móvil -->
-    <button class="md:hidden text-white focus:outline-none" id="menu-toggle">
+    <button class="md:hidden text-white focus:outline-none" id="menu-toggle" aria-label="Display menu button">
       <svg
         class="w-6 h-6"
         fill="none"
@@ -40,7 +40,7 @@ const subUrl = import.meta.env.PUBLIC_APP_SUBS_URL;
 
     <!-- Botones de acción -->
     <div class="hidden md:flex md:justify-between md:w-40 md:items-center">
-      <a href={appResgisterUrl} class="btn">Sign in</a>
+      <a href={appResgisterUrl} class="btn" tabindex="0">Sign in</a>
       <WhiteButton text="FREE Trial" href="/subscription#free" />
     </div>
   </nav>

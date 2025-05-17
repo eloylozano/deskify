@@ -69,6 +69,7 @@
 							type="email"
 							id="email"
 							name="email"
+							tooltip="Write your email so we can identify you"
 							placeholder="Your Email"
 							bind:value={email}
 							required
@@ -84,19 +85,25 @@
 							name="title"
 							placeholder="Write your problem"
 							bind:value={title}
+							tooltip="Summarize the problem in a phrase"
 							required
 						/>
 					</div>
 
 					<div>
-						<label for="description" class="block pb-2 text-sm font-medium text-gray-700"
-							>Description</label
+						<label
+							for="description"
+							class=" flex items-center gap-2 pb-2 text-sm font-medium text-gray-700"
 						>
+							Description
+						</label>
+
 						<CustomTextarea
 							id="description"
 							name="description"
 							placeholder="Description of the problem"
 							bind:value={description}
+							tooltip="Please describe the issue clearly so we can assist you better"
 						/>
 					</div>
 

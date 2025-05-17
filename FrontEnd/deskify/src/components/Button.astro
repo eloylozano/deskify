@@ -1,11 +1,11 @@
 ---
 import "../styles/global.css";
-const { text, href, class: additionalClass } = Astro.props;
+const { text, href,target, class: additionalClass } = Astro.props;
 ---
 
 <a
   class={`btn px-16 py-3 rounded-full mt-12 cursor-pointer text-white flex items-center w-fit ${additionalClass}`}
-  href={href}
+  href={href}  tabindex="0" target={target}
 >
   {text}
 </a>
