@@ -10,7 +10,8 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class SubscriptionDTO {
-
+    
+    private UserResponseDTO user;
     private PlanDTO plan;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;

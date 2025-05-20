@@ -54,6 +54,7 @@ public class SubscriptionService implements ISubscriptionService {
         subscription.setEndDateTime(endDate);
         subscription.setActive(true);
 
+        subscription = subscriptionRepo.save(subscription);
         // Convertir a DTO
         return subscriptionConverter.convertToDTO(subscription);
     }

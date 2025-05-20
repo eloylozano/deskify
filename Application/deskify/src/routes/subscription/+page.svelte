@@ -91,6 +91,7 @@
 		if (plan.selectedDuration === 12) return plan.price * 11;
 		return plan.price;
 	}
+	
 </script>
 
 <ProtectedRoute>

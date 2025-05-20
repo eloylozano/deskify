@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { redirect } from '@sveltejs/kit';
 	import { onMount } from 'svelte';
 
 	export let selectedPlan: {
@@ -29,6 +30,13 @@
 				return;
 			}
 
+			// Sandbox URL // https://sandbox.paypal.com
+
+			// Sandbox Region // ES
+			// Email // sb-e9pw041911004@business.example.com
+
+			// Password // 5"2fm4M>
+
 			const script = document.createElement('script');
 			script.src = `https://www.paypal.com/sdk/js?client-id=AeIWSDrAeBSFwiR65BR2KtUQKZ8EgV6or_zPX4CPf-xM-foa5VGqwKz0BFERZz8K6NngacWEvfnCDGhL&currency=EUR`;
 			script.onload = () => resolve();
@@ -49,7 +57,7 @@
 
 			const price = getUpdatedPrice(selectedPlan).toFixed(2);
 
-			if (!window.paypal) throw new Error('PayPal SDK no está disponible');
+			if (!window.paypal) throw new Error('PayPal SDK is not available');
 
 			window.paypal
 				.Buttons({
@@ -73,21 +81,76 @@
 						});
 					},
 					onApprove: async (data, actions) => {
-						const details = await actions.order.capture();
-						console.log('Pago completado por', details.payer.name?.given_name);
-						alert(`Gracias, ${details.payer.name?.given_name}! Tu pago fue exitoso.`);
+						try {
+							const details = await actions.order.capture();
+							console.log('Payment completed by', details.payer.name?.given_name);
+							alert(`Thanks, ${details.payer.name?.given_name}! Your payment was approved.`);
+
+							// Crear el objeto SubscriptionDTO para enviar al backend
+							const now = new Date();
+							const startDateTime = now.toISOString();
+
+							// Calcular endDateTime sumando duration en días del plan
+							// Aquí asumo que tienes el duration en meses o días en selectedPlan.duration
+							// En tu SQL duration está en días, por ejemplo 30 para un mes
+							const durationDays = parseInt(selectedPlan.duration) || 30; // ajustar si es string o número
+
+							const endDate = new Date(now);
+							endDate.setDate(endDate.getDate() + durationDays);
+							const endDateTime = endDate.toISOString();
+							const email = sessionStorage.getItem('email');
+
+							if (!email) {
+								throw new Error('No se encontró el email en sessionStorage');
+							}
+
+							const subscriptionDTO = {
+								user: {
+									email
+								},
+								plan: {
+									name: selectedPlan.name
+								},
+								startDateTime,
+								active: true
+							};
+
+							// Llamar al endpoint backend
+							const response = await fetch(
+								`${import.meta.env.VITE_API_URL}/subscriptions/subscript`,
+								{
+									method: 'POST',
+									headers: { 'Content-Type': 'application/json' },
+									body: JSON.stringify(subscriptionDTO)
+								}
+							);
+
+							if (!response.ok) {
+								const errorText = await response.text();
+								throw new Error(`Error creating subscription: ${errorText}`);
+							}
+
+							const createdSubscription = await response.json();
+							console.log('Subscription created:', createdSubscription);
+
+							// Aquí rediriges o cierras ventana emergente o haces lo que quieras
+							history.back();
+						} catch (err) {
+							console.error('Error during payment or subscription creation:', err);
+							alert('Error procesando el pago o creando la suscripción.');
+						}
 					},
 					onError: (err) => {
-						console.error('Error durante el pago:', err);
-						alert('Ocurrió un error al inicializar PayPal.');
+						console.error('Error during payment:', err);
+						alert('OAn error occurred while initializing PayPal.');
 					}
 				})
 				.render(paypalContainer);
 
 			paypalButtonsRendered = true;
 		} catch (error) {
-			console.error('Error al renderizar botones de PayPal:', error);
-			alert('No se pudo cargar el sistema de pagos.');
+			console.error('Error rendering PayPal buttons:', error);
+			alert('The payment system could not be loaded.');
 		}
 	}
 

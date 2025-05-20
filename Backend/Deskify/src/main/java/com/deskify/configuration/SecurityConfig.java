@@ -53,6 +53,7 @@ public class SecurityConfig {
                                 "/ticket/all",
                                 "/ticket/summary",
                                 "/user/all",
+                                "/subscriptions/**",
                                 "/admin",
                                 "/admin/**",
                                 "/ticket/**", // Permite todos los endpoints de tickets

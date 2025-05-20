@@ -46,6 +46,7 @@
 	let ticketsAsignados: number;
 	let ticketsAbiertos: number;
 	let ticketsResueltos: number;
+	let isOwnProfile = false;
 
 	async function handleSubmit() {
 		try {
@@ -64,6 +65,12 @@
 		ticketsAsignados = $page.data.stats.ticketsAsignados;
 		ticketsAbiertos = $page.data.stats.ticketsAbiertos;
 		ticketsResueltos = $page.data.stats.ticketsResueltos;
+
+		// Comparar userId del sessionStorage con el perfil que estamos viendo
+		const loggedUserId = sessionStorage.getItem('userId');
+		if (loggedUserId && parseInt(loggedUserId) === user.id) {
+			isOwnProfile = true;
+		}
 	});
 
 	function getInitials(user: User): string {
@@ -93,7 +100,7 @@
 						<div class="flex flex-col items-center gap-4">
 							<ProfilePictureUpload {user} size={24} />
 						</div>
-	
+
 						<form class="space-y-4 px-12" on:submit|preventDefault={handleSubmit}>
 							<div>
 								<label class="text-sm text-gray-500"
@@ -101,7 +108,7 @@
 									<CustomInput bind:value={user.firstName} additionalClass="" /></label
 								>
 							</div>
-	
+
 							<div class="flex gap-4">
 								<div class="w-1/2">
 									<label class="text-sm text-gray-500"
@@ -109,7 +116,7 @@
 										<CustomInput bind:value={user.middleName} additionalClass="" /></label
 									>
 								</div>
-	
+
 								<div class="w-1/2">
 									<label class="text-sm text-gray-500"
 										>Last Name
@@ -117,7 +124,7 @@
 									>
 								</div>
 							</div>
-	
+
 							<div class="flex gap-4">
 								<div class="w-1/2">
 									<label class="text-sm text-gray-500"
@@ -125,15 +132,15 @@
 										<CustomInput type="email" bind:value={user.email} additionalClass="" /></label
 									>
 								</div>
-	
+
 								<div class="w-1/2">
 									<label class="text-sm text-gray-500"
 										>Phone number
-										<CustomInput bind:value={user.phoneNumber} additionalClass="" required/></label
+										<CustomInput bind:value={user.phoneNumber} additionalClass="" required /></label
 									>
 								</div>
 							</div>
-	
+
 							<div class="flex gap-4">
 								<div class="w-1/2">
 									<label class="text-sm text-gray-500"
@@ -145,7 +152,7 @@
 										</select></label
 									>
 								</div>
-	
+
 								<div class="w-1/2">
 									<label class="text-sm text-gray-500"
 										>Company
@@ -153,7 +160,7 @@
 									>
 								</div>
 							</div>
-	
+
 							<div class="mt-12 flex justify-center">
 								{#if isLoading}
 									<div class="flex items-center">
@@ -164,7 +171,8 @@
 											viewBox="0 0 24 24"
 											stroke="currentColor"
 										>
-											<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+											<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
+											></circle>
 											<path stroke="currentColor" fill="none" d="M4 12a8 8 0 0116 0"></path>
 										</svg>
 										<span class="text-gray-600">Updating...</span>
@@ -175,15 +183,16 @@
 							</div>
 						</form>
 					</div>
-	
-					<div class="rounded-lg bg-white p-6 shadow flex flex-col justify-between">
+
+					<div class="flex flex-col justify-between rounded-lg bg-white p-6 shadow">
 						<div>
 							<h2 class="mb-4 text-center text-xl font-semibold">User Stats</h2>
 							<table class="w-full text-sm text-gray-700">
 								<tbody class="divide-y divide-gray-100">
 									<tr>
 										<td class="py-3 text-gray-500">Plan</td>
-										<td class="py-3 text-right font-medium">{user.activeSubscription?.plan.name}</td>
+										<td class="py-3 text-right font-medium">{user.activeSubscription?.plan.name}</td
+										>
 									</tr>
 									<tr>
 										<td class="py-3 text-gray-500">Created at</td>
@@ -208,8 +217,13 @@
 								</tbody>
 							</table>
 						</div>
-	
-						<Button text="Change Subscription" href="/subscription" additionalClass="mx-auto font-semibold" />
+						{#if isOwnProfile}
+							<Button
+								text="Change Subscription"
+								href="/subscription"
+								additionalClass="mx-auto font-semibold"
+							/>
+						{/if}
 					</div>
 				</div>
 			</div>
