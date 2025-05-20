@@ -51,8 +51,9 @@
 	function goToUserProfile() {
 		const userId = sessionStorage.getItem('userId');
 		if (userId) {
-			showDropdown = false;
 			goto(`/users/${userId}`);
+			location.reload();
+			showDropdown = false;
 		} else {
 			console.error('No hay usuario logueado');
 		}
@@ -68,7 +69,6 @@
 
 	onMount(() => {
 		const pic = sessionStorage.getItem('profilePictureUrl');
-		console.log(sessionStorage.getItem('profilePictureUrl'))
 		if (pic) {
 			profilePicUrl = pic;
 		}
