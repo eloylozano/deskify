@@ -61,16 +61,37 @@
 	}
 
 	export let searchTerm = '';
+
 	$: filteredUsers = searchTerm
-		? data.users.filter(
-				(user) =>
-					`${user.firstName} ${user.lastName}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-					user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-					user.phoneNumber.includes(searchTerm) ||
-					(user.company?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false) ||
-					user.roleName.toLowerCase().includes(searchTerm.toLowerCase())
-			)
+		? data.users.filter((user) => {
+				const search = searchTerm.toLowerCase();
+
+				// Para depurar:
+				console.log('Buscando:', search);
+				console.log('User:', {
+					firstName: user.firstName,
+					middleName: user.middleName,
+					lastName: user.lastName,
+					email: user.email,
+					phoneNumber: user.phoneNumber,
+					company: user.company,
+					roleName: user.roleName
+				});
+
+				const match =
+					(user.firstName || '').toLowerCase().includes(search) ||
+					(user.middleName || '').toLowerCase().includes(search) ||
+					(user.lastName || '').toLowerCase().includes(search) ||
+					(user.email || '').toLowerCase().includes(search) ||
+					(user.phoneNumber || '').toLowerCase().includes(search) ||
+					(user.company || '').toLowerCase().includes(search) ||
+					(user.roleName || '').toLowerCase().includes(search);
+
+				console.log('Match:', match);
+				return match;
+			})
 		: data.users;
+
 	$: sortedUsers = [...filteredUsers].sort((a, b) => {
 		if (sortOption === '1') {
 			return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
@@ -132,6 +153,7 @@
 			<!-- Contenedor de tabla con scroll vertical -->
 			<div class="flex h-full w-full flex-col overflow-hidden p-3">
 				<!-- Encabezado fijo -->
+
 				<div class="sticky top-0 z-10 mr-4 min-w-full border-b border-gray-200 bg-white">
 					<div class="overflow-x-auto">
 						<table class="w-full">
@@ -189,7 +211,7 @@
 										class="w-[200px] px-4 py-3 text-sm font-medium whitespace-nowrap text-gray-900"
 									>
 										<div class="flex items-center gap-2">
-											{#if user.profilePictureUrl }
+											{#if user.profilePictureUrl}
 												<img
 													src={`${import.meta.env.VITE_API_URL}/uploads/profiles/${user.profilePictureUrl}`}
 													alt="Foto de perfil"
