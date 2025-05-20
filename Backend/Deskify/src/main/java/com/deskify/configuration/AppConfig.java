@@ -49,7 +49,10 @@ public class AppConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        String uploadsDir = System.getProperty("user.dir") + "/src/main/uploads/profiles/";
+
         registry.addResourceHandler("/uploads/profiles/**")
-                .addResourceLocations("file:" + uploadPath);
+                .addResourceLocations("file:" + uploadsDir)
+                .setCachePeriod(3600);
     }
 }

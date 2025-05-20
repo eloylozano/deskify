@@ -102,75 +102,49 @@
 	];
 
 	async function handleStatusUpdate() {
-		try {
-			const updateData: {
-				ticketId: number;
-				statusId?: number;
-				priorityId?: number;
-				categoryId?: number;
-				userId?: number;
-			} = { ticketId: data.ticket.id };
-
-			if (selectedStatus.id !== 0 && selectedStatus.id !== data.ticket.currentStatus?.statusId) {
-				updateData.statusId = selectedStatus.id;
-			}
-
-			if (
-				selectedPriority.id !== 0 &&
-				data.ticket.priority &&
-				selectedPriority.id !== data.ticket.priority.id
-			) {
-				updateData.priorityId = selectedPriority.id;
-			}
-
-			if (
-				selectedCategory.id !== 0 &&
-				data.ticket.category &&
-				selectedCategory.id !== data.ticket.category.id
-			) {
-				updateData.categoryId = selectedCategory.id;
-			}
-
-			if (selectedAgent.id !== 0 && selectedAgent.id !== data.ticket.agent.agentId) {
-				updateData.userId = selectedAgent.id;
-			}
-
-			if (Object.keys(updateData).length === 1) {
-				throw new Error('No changes detected');
-			}
-
-			if (updateData.statusId) {
-				data.ticket.currentStatus = {
-					statusId: selectedStatus.id,
-					statusName: statusOptions.find((s) => s.id === selectedStatus.id)?.name || ''
-				};
-			}
-
-			if (updateData.priorityId) {
-				data.ticket.priority = priorityOptions.find((p) => p.id === selectedPriority.id);
-			}
-
-			if (updateData.categoryId) {
-				data.ticket.category = categoryOptions.find((c) => c.id === selectedCategory.id);
-			}
-
-			if (updateData.userId) {
-				data.ticket.agent = {
-					agentId: selectedAgent.id,
-					agentName: agentOptions.find((a) => a.id === selectedAgent.id)?.fullName || '',
-					mail: '' // puedes añadir el mail si lo necesitas
-				};
-			}
-			await updateTicketStatus(updateData);
-
-			data.ticket.updatedAt = new Date().toISOString();
-
-			alert('Ticket updated successfully!');
-		} catch (error) {
-			console.error('Error updating ticket:', error);
-			alert(error instanceof Error ? error.message : 'Failed to update ticket');
+	try {
+		if (
+			selectedStatus.id === 0 ||
+			selectedPriority.id === 0 ||
+			selectedCategory.id === 0 ||
+			selectedAgent.id === 0
+		) {
+			throw new Error('Please select values for all fields before updating.');
 		}
+
+		const updateData = {
+			ticketId: data.ticket.id,
+			statusId: selectedStatus.id,
+			priorityId: selectedPriority.id,
+			categoryId: selectedCategory.id,
+			userId: selectedAgent.id
+		};
+
+		await updateTicketStatus(updateData);
+
+		// Actualiza el estado local del ticket
+		data.ticket.currentStatus = {
+			statusId: selectedStatus.id,
+			statusName: statusOptions.find((s) => s.id === selectedStatus.id)?.name || ''
+		};
+
+		data.ticket.priority = priorityOptions.find((p) => p.id === selectedPriority.id);
+		data.ticket.category = categoryOptions.find((c) => c.id === selectedCategory.id);
+		data.ticket.agent = {
+			id: selectedAgent.id,
+			agentName: agentOptions.find((a) => a.id === selectedAgent.id)?.fullName || '',
+			mail: '' // Agrega el mail si es necesario
+		};
+
+		data.ticket.updatedAt = new Date().toISOString();
+
+		alert('Ticket updated successfully!');
+	} catch (error) {
+		console.error('Error updating ticket:', error);
+		alert(error instanceof Error ? error.message : 'Failed to update ticket');
 	}
+}
+
 
 	let isPanelVisible = true;
 
@@ -206,9 +180,13 @@
 				<div class="flex-1 overflow-y-auto p-6">
 					<div class="mx-auto max-w-4xl">
 						<div class="mb-6 flex items-center justify-end">
-							<span class="text-sm text-gray-500"
-								>Last modified: {new Date(data.ticket.updatedAt).toLocaleDateString()}</span
-							>
+							<span class="text-sm text-gray-500">
+								{#if data.ticket.updatedAt}
+									Last modified: {new Date(data.ticket.updatedAt).toLocaleDateString()}
+								{:else}
+									Not modified yet
+								{/if}
+							</span>
 						</div>
 
 						<div class="mb-6 rounded-lg bg-white p-6 shadow">

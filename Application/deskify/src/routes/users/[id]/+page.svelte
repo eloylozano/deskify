@@ -129,7 +129,7 @@
 								<div class="w-1/2">
 									<label class="text-sm text-gray-500"
 										>Phone number
-										<CustomInput bind:value={user.phoneNumber} additionalClass="" /></label
+										<CustomInput bind:value={user.phoneNumber} additionalClass="" required/></label
 									>
 								</div>
 							</div>

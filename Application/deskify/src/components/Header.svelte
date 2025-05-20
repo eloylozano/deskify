@@ -1,12 +1,9 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { fetchUser, user } from '$lib/stores/user';
-	import { get } from 'svelte/store';
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import type { User } from '$lib/stores/user';
-	import { getAuthToken } from '$lib/api/login';
 
 	// Tipos para las props y eventos
 	interface $$Props {
@@ -18,27 +15,16 @@
 		search: string;
 	}
 
-	const dispatch = createEventDispatcher<$$Events>();
 
+	const dispatch = createEventDispatcher<$$Events>();
+	
 	export let search: boolean = true;
 	export let text: string = '';
-	export let data: { user?: User } = {};
 
 	let showSearch = false;
 	let searchQuery = '';
 	let userLoaded = false;
 	let profilePicUrl = '/default-profile.jpg';
-
-	onMount(() => {
-		if (browser) {
-			const filename = sessionStorage.getItem('profilePictureUrl');
-			console.log('Filename from sessionStorage:', filename);
-			if (filename) {
-				profilePicUrl = `http://localhost:8080/uploads/profiles/${filename}`;
-			}
-			userLoaded = true;
-		}
-	});
 
 	function toggleSearch() {
 		showSearch = !showSearch;
@@ -57,14 +43,6 @@
 		if (typeof window === 'undefined') return false;
 		const token = sessionStorage.getItem('authToken');
 		return !!token;
-	}
-	function goToUserProfile() {
-		const userId = sessionStorage.getItem('userId');
-		if (userId) {
-			goto(`/users/${userId}`);
-		} else {
-			console.error('No hay usuario logueado');
-		}
 	}
 </script>
 
@@ -115,35 +93,17 @@
 			</a>
 
 			<!-- Imagen de perfil del usuario logeado -->
-			{#if userLoaded}
-				{#if isAuthenticated()}
-					<button
-						on:click={goToUserProfile}
-						aria-label="User profile"
-						class="rounded-full focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#01c883] focus:outline-none cursor-pointer "
-					>
-						<!-- svelte-ignore a11y_img_redundant_alt -->
-						<img
-							src={profilePicUrl}
-							alt="Profile picture"
-							class="h-10 w-10 rounded-full object-cover"
-						/>
-					</button>
-				{:else}
-					<!-- Si no hay usuario pero ya se cargó -->
-					<button
-						on:click={() => goto('/login')}
-						aria-label="Login"
-						class="rounded-full focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#01c883] focus:outline-none"
-					>
-						<!-- svelte-ignore a11y_img_redundant_alt -->
-						<img src="/default-profile.jpg" alt="Profile picture" class="h-10 w-10 rounded-full" />
-					</button>
-				{/if}
-			{:else}
-				<!-- Mientras carga -->
-				<div class="h-10 w-10 animate-pulse rounded-full bg-gray-200"></div>
-			{/if}
+			<button
+				aria-label="User profile"
+				class="cursor-pointer rounded-full focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#01c883] focus:outline-none"
+			>
+				<!-- svelte-ignore a11y_img_redundant_alt -->
+				<img
+					src="/default-profile.jpg"
+					alt="Profile picture"
+					class="h-10 w-10 rounded-full object-cover"
+				/>
+			</button>
 		</div>
 	</div>
 </div>

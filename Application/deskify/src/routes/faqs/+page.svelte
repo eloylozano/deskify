@@ -8,7 +8,7 @@
 			question: 'How do I register?',
 			answer:
 				"You can register by clicking on the 'Register' button located at the top right corner of the homepage. You will be redirected to a registration form where you'll need to enter your name, email address, and a secure password. Once you've filled in your details, click 'Submit' and check your email for a confirmation link to activate your account.",
-			image: '/faq/register.png'
+			image: '/faq/register.jpg'
 		},
 		{
 			question: "What is the platform's main feature?",

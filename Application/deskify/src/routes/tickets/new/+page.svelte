@@ -73,7 +73,6 @@
 							placeholder="Your Email"
 							bind:value={email}
 							required
-							readonly
 						/>
 					</div>
 

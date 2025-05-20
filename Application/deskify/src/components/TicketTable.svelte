@@ -269,7 +269,7 @@
 										</span>
 									</td>
 
-									<td class="w-[150px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
+									<td class="w-[150px] px-4 py-3 text-sm whitespace-nowrap text-gray-600">
 										{ticket.category?.name || 'No Category'}
 									</td>
 									<td class="w-[150px] px-4 py-3 text-sm whitespace-nowrap text-gray-900">
@@ -292,7 +292,7 @@
 												{/if}
 												<span>{ticket.agent.agentName}</span>
 											{:else}
-												<span class="text-gray-400">Sin asignar</span>
+												<span class="text-gray-600">No Agent</span>
 											{/if}
 										</div>
 									</td>

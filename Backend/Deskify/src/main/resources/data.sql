@@ -78,7 +78,7 @@ INSERT INTO `role_permissions` (`role_id`, `permission_id`) VALUES
 
 INSERT INTO `users` (`id`, `first_name`, `middle_name`, `last_name`, `phone_number`, `email`, `password`,`company`, `profile_picture_url`, `role_id`, `created_at`, `updated_at`) VALUES
 (1, 'Eloy', 'Lozano', 'Barrios', '+34633640634', 'elozano@deskify.com', '$2a$10$AbIiziuHgT558GHjPNL0b.S300pA1QtFtsoLSI.5hpgxjdNaj7XTi', 'deskify', "1_222c3ec4-df8a-41ea-8a11-65e2a1c45173.svg", 1, '2024-01-15 09:45:32', '2024-01-15 09:45:32'),
-(2, 'Jane', 'A.', 'Doe', '+34623234567', 'jane.doe@skyloft.com', 'Abcd123', 'Skyloft', '2_0eef75dd-7a5d-4347-a7ad-1b06e8affac2.jpg', 4, '2024-02-03 08:30:12', '2024-02-03 08:30:12'),
+(2, 'Jane', 'A.', 'Doe', '+34623234567', 'jane.doe@skyloft.com', 'Abcd123', 'Skyloft', '3_59c979bf-4f8f-43b0-a69b-4cae2a2e9144.png', 4, '2024-02-03 08:30:12', '2024-02-03 08:30:12'),
 (3, 'Alice', '', 'Johnson', '+34634345678', 'alice.johnson@cloudlink.com', 'Abcd123', 'CloudLink Innovations', '3_59c979bf-4f8f-43b0-a69b-4cae2a2e9144.png', 4, '2024-05-22 14:21:47', '2024-05-22 14:21:47'),
 (4, 'Bob', 'M.', 'Williams', '+34645456789', 'bob.williams@skyloft.com', 'Abcd123', 'Skyloft', '22_d67e00cd-5d93-49c5-9640-667a02ebcc62.png', 3, '2024-06-11 12:55:23', '2024-06-11 12:55:23'),
 (5, 'Charlie', '', 'Brown', '+34656567890', 'charlie.brown@orbital.com', 'Abcd123', 'Orbital', '22_d67e00cd-5d93-49c5-9640-667a02ebcc62.png', 2, '2024-07-01 09:12:09', '2024-07-01 09:12:09'),
@@ -106,7 +106,7 @@ INSERT INTO `users` (`id`, `first_name`, `middle_name`, `last_name`, `phone_numb
 (27, 'Grace', 'S.', 'Nelson', '+34608789012', 'grace.nelson@cloudlink.com', 'Abcd123', 'CloudLink Innovations', '27_5c27dac6-31de-4482-831d-27fec49ad7fe.jpg', 5, '2024-05-16 11:37:10', '2024-05-16 11:37:10'),
 (28, 'Jack', '', 'Carter', '+34609890123', 'jack.carter@orbital.com', 'Abcd123', 'Orbital', '28_a1a374e1-6bdc-4774-a493-b1b23fb544f6.png', 5, '2024-06-01 08:25:44', '2024-06-01 08:25:44'),
 (29, 'Lily', 'P.', 'Mitchell', '+34610901234', 'lily.mitchell@orbital.com', 'Abcd123', 'Orbital', '29_6cbfa5d0-10cf-414a-bd19-36ed25a10699.jpg', 5, '2024-07-04 10:18:59', '2024-07-04 10:18:59'),
-(30, 'Admin', NULL, NULL, NULL, 'admin@admin.com', '$2a$10$AbIiziuHgT558GHjPNL0b.S300pA1QtFtsoLSI.5hpgxjdNaj7XTi', 'deskify', "2_0eef75dd-7a5d-4347-a7ad-1b06e8affac2.jpg", 1, '2024-01-15 09:45:32', '2024-01-15 09:45:32');
+(30, 'Admin', NULL, NULL, NULL, 'admin@admin.com', '$2a$10$AbIiziuHgT558GHjPNL0b.S300pA1QtFtsoLSI.5hpgxjdNaj7XTi', 'deskify', "3_59c979bf-4f8f-43b0-a69b-4cae2a2e9144.png", 1, '2024-01-15 09:45:32', '2024-01-15 09:45:32');
 
 INSERT INTO `subscriptions` (`user_id`, `plan_id`, `start_date`, `end_date`, `is_active`) 
 VALUES

@@ -35,7 +35,6 @@ export async function fetchUser(): Promise<User | null> {
 
     const token = getToken();
 
-    console.log("Token usado para fetchUser:", token);  // <-- Añade esto
     if (!token) {
         console.error("Token no encontrado.");
         user.set(null);
@@ -56,7 +55,6 @@ export async function fetchUser(): Promise<User | null> {
             sessionStorage.removeItem('userData');
             return null;
         }
-
         const data = await res.json();
         user.set(data);
         sessionStorage.setItem('userData', JSON.stringify(data));

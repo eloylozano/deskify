@@ -109,12 +109,12 @@
 	>
 		{#if user.profilePictureUrl && !imageError}
 			<div
-				class={`flex h-${size} w-${size} overflow-hidden rounded-full border-3 border-emerald-500`}
+				class={`flex h-23 w-23 overflow-hidden rounded-full border-3 border-emerald-500`}
 			>
 				<img
 					src={`${import.meta.env.VITE_API_URL}/uploads/profiles/${user.profilePictureUrl}`}
 					alt="Foto de perfil"
-					class="h-full w-full object-cover"
+					class="h-full w-full object-contain"
 					on:error={() => (imageError = true)}
 				/>
 			</div>
@@ -146,7 +146,7 @@
 					/>
 				</svg>
 			</div>
-		{/if} 
+		{/if}
 	</div>
 
 	<h1 class="mb-6 text-3xl font-bold">
@@ -163,7 +163,7 @@
 			<h2 class="mb-4 text-xl font-bold">Change profile pic</h2>
 
 			{#if previewUrl}
-				<div class="mb-4 flex justify-center"> 
+				<div class="mb-4 flex justify-center">
 					<img
 						src={previewUrl}
 						alt="Previsualización"
