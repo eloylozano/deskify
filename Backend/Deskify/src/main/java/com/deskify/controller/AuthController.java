@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.deskify.dto.ChangePasswordRequestDTO;
 import com.deskify.dto.LoginRequestDTO;
 import com.deskify.dto.LoginResponseDTO;
 import com.deskify.dto.RegisterRequestDTO;
@@ -182,6 +183,40 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.SC_INTERNAL_SERVER_ERROR)
                     .body(Collections.singletonMap("message", "Error en el servidor"));
         }
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequestDTO request) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated() ||
+                authentication.getPrincipal().equals("anonymousUser")) {
+            return ResponseEntity.status(HttpStatus.SC_UNAUTHORIZED)
+                    .body(Collections.singletonMap("message", "No autorizado"));
+        }
+
+        String email = authentication.getName(); // El usuario logeado
+
+        Optional<User> userOptional = userRepository.findByEmail(email);
+
+        if (userOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.SC_UNAUTHORIZED)
+                    .body(Collections.singletonMap("message", "Usuario no encontrado"));
+        }
+
+        User user = userOptional.get();
+
+        // Verificar contraseña actual
+        if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
+            return ResponseEntity.status(HttpStatus.SC_UNAUTHORIZED)
+                    .body(Collections.singletonMap("message", "Contraseña actual incorrecta"));
+        }
+
+        // Actualizar la contraseña
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        userRepository.save(user);
+
+        return ResponseEntity.ok(Collections.singletonMap("message", "Contraseña actualizada correctamente"));
     }
 
 }

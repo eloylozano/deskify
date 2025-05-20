@@ -9,7 +9,7 @@
 	let showPassword = false;
 
 	function togglePasswordVisibility() {
-		showPassword = !showPassword;
+		showPassword = !showPassword; 
 	}
 </script>
 

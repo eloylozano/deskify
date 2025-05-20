@@ -12,6 +12,7 @@
 	import ProfilePictureUpload from '../../../components/ProfilePictureUpload.svelte';
 	import Button from '../../../components/Button.svelte';
 	import ProtectedRoute from '../../../components/ProtectedRoute.svelte';
+	import ChangePasswordModal from '../../../components/ChangePasswordModal.svelte';
 
 	// svelte-ignore export_let_unused
 	export let data;
@@ -37,6 +38,7 @@
 		planName?: string;
 	}
 
+	let showModal = false;
 	let user: User = {} as User;
 	let roles = ['Admin', 'Supervisor', 'Manager', 'Agent', 'User'];
 	let isLoading = false;
@@ -161,7 +163,15 @@
 								</div>
 							</div>
 
-							<div class="mt-12 flex justify-center">
+							<div class="mt-12 flex justify-center gap-4">
+								{#if isOwnProfile}
+									<Button
+										text="Change Password"
+										on:click={() => (showModal = true)}
+										additionalClass="mx-auto font-semibold"
+									/>
+								{/if}
+
 								{#if isLoading}
 									<div class="flex items-center">
 										<svg
@@ -230,6 +240,10 @@
 		</div>
 	</div>
 </ProtectedRoute>
+
+{#if showModal}
+	<ChangePasswordModal on:close={() => (showModal = false)} />
+{/if}
 
 <style>
 	.select-field {
