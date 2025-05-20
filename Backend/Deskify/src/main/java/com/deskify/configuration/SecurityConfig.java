@@ -1,11 +1,12 @@
 package com.deskify.configuration;
 
+import com.deskify.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,15 +16,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-
-import com.deskify.security.JwtAuthenticationFilter;
 
 import java.util.Arrays;
 import java.util.List;
 
 @Configuration
-@EnableWebSecurity
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
@@ -32,14 +29,34 @@ public class SecurityConfig {
         this.jwtAuthFilter = jwtAuthFilter;
     }
 
-
+    // 🔒 1. Seguridad para la API REST (usando JWT)
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    @Order(1)
+    public SecurityFilterChain apiSecurity(HttpSecurity http) throws Exception {
         http
+                .securityMatcher("/admin/**", "/login", "/logout")
+                .securityMatcher("/api/**") // solo aplica a rutas /api/**
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .anyRequest().authenticated())
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }
+
+    // 🌐 2. Seguridad para la app web tradicional (HTML, login form)
+    @Bean
+    @Order(2)
+    public SecurityFilterChain webSecurity(HttpSecurity http) throws Exception {
+        http
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
+                                "/admin/login",
+                                "/register",
                                 "/api/auth/**",
                                 "/api/auth/me",
                                 "/v3/api-docs/**",
@@ -49,22 +66,30 @@ public class SecurityConfig {
                                 "/agents",
                                 "/{id}/profile-picture",
                                 "/update/{id}/profile-picture",
-                                "/login",
                                 "/ticket/all",
                                 "/ticket/summary",
                                 "/user/all",
                                 "/subscriptions/**",
-                                "/admin",
-                                "/admin/**",
-                                "/ticket/**", // Permite todos los endpoints de tickets
+                                "/ticket/**",
                                 "/user/**",
-                                "/uploads/profiles/**")
+                                "/uploads/profiles/**",
+                                "/css/**", "/js/**", "/images/**")
                         .permitAll()
+                        .requestMatchers("/admin/**").authenticated()
                         .anyRequest().authenticated())
+                .formLogin(form -> form
+                        .loginPage("/admin/login")
+                        .loginProcessingUrl("/admin/login")
+                        .usernameParameter("email")
+                        .passwordParameter("password")
+                        .defaultSuccessUrl("/admin/tickets", true)
+                        .permitAll())
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/admin/login?logout"))
 
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
+
         return http.build();
     }
 

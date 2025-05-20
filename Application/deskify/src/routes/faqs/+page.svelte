@@ -8,7 +8,7 @@
 			question: 'How do I register?',
 			answer:
 				"You can register by clicking on the 'Register' button located at the top right corner of the homepage. You will be redirected to a registration form where you'll need to enter your name, email address, and a secure password. Once you've filled in your details, click 'Submit' and check your email for a confirmation link to activate your account.",
-			image: '/faq/register.jpg'
+			image: '/faq/register.png'
 		},
 		{
 			question: "What is the platform's main feature?",
@@ -25,7 +25,7 @@
 			question: 'How do I change my password?',
 			answer:
 				"To change your password, log into your account and go to the 'Settings' page by clicking on your profile icon. You'll find the option to update your password. Enter your current password, then type your new one and confirm it. Don't forget to click 'Save Changes' to apply the update.",
-			image: '/faq/change-password.png'
+			image: '/faq/password.png'
 		},
 		{
 			question: 'Is there a mobile app available?',

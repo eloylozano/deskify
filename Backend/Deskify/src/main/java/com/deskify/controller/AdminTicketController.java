@@ -30,7 +30,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/admin/tickets")
+@RequestMapping("/admin")
 public class AdminTicketController {
 
     @Autowired
@@ -46,13 +46,13 @@ public class AdminTicketController {
     @Autowired
     private PriorityService priorityService;
 
-    @GetMapping
+    @GetMapping("/tickets")
     public String getAllTickets(Model model) {
         model.addAttribute("tickets", ticketService.getTicketList());
         return "admin/tickets";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/tickets/{id}")
     public String getTicket(@PathVariable Long id, Model model) {
         TicketResponseDTO ticketDTO = ticketService.getTicketById(id);
 
@@ -70,13 +70,13 @@ public class AdminTicketController {
         return "admin/ticket-detail";
     }
 
-    @PostMapping("/update")
+    @PostMapping("/tickets/update")
     public String updateTicket(@ModelAttribute UpdateTicketDTO updateTicketDTO) {
         ticketService.updateTicket(updateTicketDTO);
         return "redirect:/admin/tickets";
     }
 
-    @GetMapping("/new")
+    @GetMapping("/tickets/new")
     public String showCreateTicketForm(Model model) {
         model.addAttribute("createAdminTicketDTO", new CreateAdminTicketDTO());
         List<Status> statusList = statusService.getAllStatus();
@@ -90,7 +90,7 @@ public class AdminTicketController {
         return "/admin/new-ticket";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/tickets/create")
     public String createTicket(@Valid @ModelAttribute CreateAdminTicketDTO createAdminTicketDTO,
             BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
@@ -107,24 +107,28 @@ public class AdminTicketController {
         return "redirect:/admin/tickets";
     }
 
-    @PostMapping("/edit")
+    @PostMapping("/tickets/edit")
     public String editTicket(@ModelAttribute CreateTicketDTO ticket) {
         ticketService.saveTicket(ticket);
         return "redirect:/admin/tickets";
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/tickets/delete/{id}")
     public String deleteTicket(@PathVariable Long id) {
         ticketService.deleteTicket(id);
         return "redirect:/admin/tickets";
     }
 
-    @PostMapping("/comments/{commentId}")
+    @PostMapping("/tickets/comments/{commentId}")
     public String updateComment(@PathVariable Long commentId,
             @RequestParam String text,
             @RequestParam Long ticketId) {
         commentService.updateComment(commentId, text);
         return "redirect:/admin/tickets/" + ticketId;
+    }
+    @GetMapping("/login")
+    public String login() {
+        return "admin/login"; // Ruta a tu plantilla Thymeleaf (resources/templates/admin/login.html)
     }
 
 }
