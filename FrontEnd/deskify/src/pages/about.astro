@@ -27,7 +27,10 @@ const appUrl = import.meta.env.PUBLIC_APP_URL;
     <Button text="Let's get started" href={appUrl} />
   </div>
 
-  <div id="container-about" class="md:pt-100 pt-40 md:px-15 px-5 md:bg-top bg-center">
+  <div
+    id="container-about"
+    class="md:pt-10 pt-40 md:px-15 px-5 md:bg-top bg-center"
+  >
     <img src="/images/logo.png" alt="Deskify's Logo" class="mx-auto w-35" />
     <h2 class="text-center text-6xl font-light mt-10">Introducing deskify</h2>
     <p class="text-center mx-auto text-2xl font-light mt-8 md:w-[70%] font-xl">
@@ -64,7 +67,7 @@ const appUrl = import.meta.env.PUBLIC_APP_URL;
       imagePosition="right"
     />
 
-    <div class="py-20">
+    <div class="py-10">
       <Line width="full" />
       <GradientTitle
         text="Building the future"
@@ -121,22 +124,30 @@ const appUrl = import.meta.env.PUBLIC_APP_URL;
     <div
       class="w-full md:w-400 flex flex-col justify-center items-center relative z-10 mt-8 md:mt-0"
     >
-      <BoxButton text="Find out now" href={appUrl}/>
+      <BoxButton text="Find out now" href={appUrl} />
     </div>
   </div>
 </Layout>
 
 <style>
   #container-about {
-    background-image: url("/images/whiteBg.svg");
+    background-image: url("/images/background/whiteBg02.svg");
     background-repeat: no-repeat;
+    background-position-x: center;
     color: #3a3a3a;
     z-index: 10;
+    background-size: cover; 
+  }
+
+  @media (min-width: 1920px) {
+    #container-about {
+      background-size: cover;
+      padding-top: 200px;
+    }
   }
 
   .background {
     background: linear-gradient(45deg, #00aa6f, #00ff7a 100%);
     color: white;
-  } 
-
+  }
 </style>
