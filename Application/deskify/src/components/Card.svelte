@@ -1,7 +1,7 @@
 <!-- src/components/Card.svelte -->
 <script lang="ts">
-    export let className: string = ''; // Clase personalizada para permitir estilos adicionales
-    export let children: any; // Contenido dentro de la tarjeta
+    export let className: string = '';
+    export let children: any; 
   </script>
   
   <div class={`bg-white shadow rounded-lg overflow-hidden ${className}`}>

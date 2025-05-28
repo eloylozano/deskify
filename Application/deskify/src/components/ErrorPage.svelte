@@ -16,6 +16,3 @@
 	</div>
 </div>
 
-<style>
-	/* Si quieres algún estilo específico adicional */
-</style>

@@ -42,7 +42,6 @@
 	let isLoadingAgents = false;
 	let agentError = '';
 
-	// Cargar agentes al montar el componente
 	onMount(async () => {
 		try {
 			isLoadingAgents = true;
@@ -56,7 +55,6 @@
 				fullName: `${agent.firstName} ${agent.lastName}`
 			}));
 
-			// Seleccionar el agente actual si existe
 			if (data.ticket.agent?.agentId) {
 				const currentAgent = agentOptions.find((a) => a.id === data.ticket.agent.agentId);
 				if (currentAgent) {
@@ -74,7 +72,6 @@
 		}
 	});
 
-	// Opciones con ID y nombre
 	const statusOptions = [
 		{ id: 1, name: 'Open' },
 		{ id: 2, name: 'In progress' },
@@ -122,7 +119,6 @@
 
 		await updateTicketStatus(updateData);
 
-		// Actualiza el estado local del ticket
 		data.ticket.currentStatus = {
 			statusId: selectedStatus.id,
 			statusName: statusOptions.find((s) => s.id === selectedStatus.id)?.name || ''
@@ -133,7 +129,7 @@
 		data.ticket.agent = {
 			id: selectedAgent.id,
 			agentName: agentOptions.find((a) => a.id === selectedAgent.id)?.fullName || '',
-			mail: '' // Agrega el mail si es necesario
+			mail: '' 
 		};
 
 		data.ticket.updatedAt = new Date().toISOString();

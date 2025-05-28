@@ -19,13 +19,11 @@ export interface User {
     updatedAt?: string;
 }
 
-// Función segura para obtener el token
 const getToken = () => {
     if (!browser) return null;
     return localStorage.getItem("token") || sessionStorage.getItem("authToken");
 };
 
-// Inicializar con datos del sessionStorage si existen
 const initialUser = browser ? JSON.parse(sessionStorage.getItem('userData') || 'null') : null;
 
 export const user = writable<User | null>(initialUser);
@@ -74,7 +72,6 @@ export function clearUser() {
     }
 }
 
-// Función para obtener el ID del usuario actual
 export function getUserId(): number | null {
     let userId: number | null = null;
     if (browser) {

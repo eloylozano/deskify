@@ -50,33 +50,26 @@ public class UserService implements IUserService {
 
     @Override
     public UserResponseDTO getUserById(Long id) {
-        // Encuentra al usuario por id
         User user = userRepo.findById(id)
-                .orElseThrow(() -> new UserNotFoundException(id)); // Throw exception if user not found
+                .orElseThrow(() -> new UserNotFoundException(id)); 
 
-        // Conver to DTO
         return userConverter.convertToDTO(user);
     }
 
     @Override
     public UserResponseDTO createUser(CreateUserDTO createUser) {
-        // Validate the user
         if (userRepo.existsByEmail(createUser.getEmail())) {
-            // Throw error already exists
             throw new UserAlreadyExists(createUser.getEmail());
         }
 
-        // Create a new user
         User newUser = new User();
         newUser.setFirstName(createUser.getFirstName());
         newUser.setLastName(createUser.getLastName());
         newUser.setEmail(createUser.getEmail());
         newUser.setPassword(createUser.getPassword());
 
-        // Save the user
         User savedUser = userRepo.save(newUser);
 
-        // Convert user to dto
         return userConverter.convertToDTO(savedUser);
     }
 
@@ -85,7 +78,7 @@ public class UserService implements IUserService {
     public List<UserResponseDTO> getAllUsers() {
         List<User> userList = userRepo.findAll();
         return userList.stream()
-                .map(userConverter::convertToDTO) // Uses converter to get userDTO
+                .map(userConverter::convertToDTO) 
                 .collect(Collectors.toList());
     }
 
@@ -93,23 +86,17 @@ public class UserService implements IUserService {
     @Override
     public UserResponseDTO updateUser(Long id, UserResponseDTO userDTO) {
 
-        // Finds the user
         User user = userRepo.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
 
-        // Validate the user email
         if (userRepo.existsByEmailAndIdNot(userDTO.getEmail(), user.getId())) {
-            // Throw error already exists
             throw new UserAlreadyExists("Este email ya está siendo usado: " + userDTO.getEmail());
         }
 
-        // Validate the user phone number
         if (userRepo.existsByPhoneNumberAndIdNot(userDTO.getPhoneNumber(), user.getId())) {
-            // Throw error already exists
             throw new UserAlreadyExists("Este número de teléfono ya está siendo usado: " + userDTO.getPhoneNumber());
         }
 
-        // Update existing userDTO
         user.setFirstName(userDTO.getFirstName());
         user.setMiddleName(userDTO.getMiddleName());
         user.setLastName(userDTO.getLastName());
@@ -118,7 +105,6 @@ public class UserService implements IUserService {
         user.setCompany(userDTO.getCompany());
         user.setProfilePictureUrl(userDTO.getProfilePictureUrl());
 
-        // Validate the role name
         if (userDTO.getRoleName() != null) {
             Role role = roleRepo.findByName(userDTO.getRoleName())
                     .orElseThrow(() -> new RoleNotFoundException(userDTO.getRoleName()));
@@ -127,7 +113,6 @@ public class UserService implements IUserService {
 
         User updatedUser = userRepo.save(user);
 
-        // Converts user into dto and shows the updated
         return userConverter.convertToDTO(updatedUser);
     }
 
@@ -138,30 +123,24 @@ public class UserService implements IUserService {
                 throw new RuntimeException("No se ha seleccionado ningún archivo para subir.");
             }
 
-            // Obtener usuario
             User user = userRepo.findById(userId)
                     .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-            // Eliminar imagen anterior si existe
             if (user.getProfilePictureUrl() != null) {
                 Path oldFile = Paths.get(uploadPath + user.getProfilePictureUrl());
                 Files.deleteIfExists(oldFile);
             }
 
-            // Crear nombre único con UUID y extensión
             String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
             String uniqueName = UUID.randomUUID().toString();
             String fileName = userId + "_" + uniqueName + "." + extension;
 
-            // Ruta destino
             Path path = Paths.get(uploadPath + fileName);
 
             Files.createDirectories(path.getParent());
 
-            // Guardar archivo
             Files.write(path, file.getBytes());
 
-            // Actualizar usuario con el nombre del archivo (no ruta completa)
             user.setProfilePictureUrl(fileName);
             userRepo.save(user);
 
@@ -173,8 +152,7 @@ public class UserService implements IUserService {
     }
 
     public byte[] getProfilePicture(Long id) {
-        // Suponiendo que tienes una ruta donde guardas las imágenes de perfil
-        Path imagePath = Paths.get(uploadPath + id + ".jpg"); // o .png, dependiendo de tu formato
+        Path imagePath = Paths.get(uploadPath + id + ".jpg"); 
 
         if (Files.exists(imagePath)) {
             try {
@@ -191,7 +169,7 @@ public class UserService implements IUserService {
     public List<AgentDTO> getAllAgents() {
         List<User> userList = userRepo.findByRoleId((long) 4);
         return userList.stream()
-                .map(userConverter::UserTodAgentDTO) // Uses converter to get userDTO
+                .map(userConverter::UserTodAgentDTO) 
                 .collect(Collectors.toList());
     }
 

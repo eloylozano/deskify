@@ -18,20 +18,17 @@
 
 		const rect = tooltipElement.getBoundingClientRect();
 
-		// Verificar espacio disponible
 		const spaceAbove = rect.top;
 		const spaceBelow = window.innerHeight - rect.bottom;
 		const spaceLeft = rect.left;
 		const spaceRight = window.innerWidth - rect.right;
 
-		// Determinar la mejor posición
 		if (spaceBelow < 200 && spaceAbove > 200) {
 			tooltipPosition = 'top';
 		} else {
 			tooltipPosition = 'bottom';
 		}
 
-		// Ajustar horizontalmente si está cerca del borde derecho
 		if (spaceRight < 250) {
 			tooltipPosition += '-left';
 		} else if (spaceLeft < 250) {

@@ -33,14 +33,12 @@ export async function registerUser(userData: RegisterData): Promise<RegisterResp
         });
 
         if (!response.ok) {
-            // Si la respuesta no es OK, intentamos parsear el mensaje de error
             const errorData = await response.json().catch(() => ({}));
             return {
                 error: errorData.message || 'Registration error. Please try again.'
             };
         }
 
-        // Registro exitoso
         return {
             message: 'User successfully registered'
         };
@@ -79,7 +77,6 @@ export async function checkEmailExists(email: string): Promise<{exists: boolean,
     }
 }
 
-// Tipos para TypeScript
 export interface UserRegistration {
     email: string;
     password: string;

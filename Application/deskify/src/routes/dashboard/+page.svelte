@@ -157,7 +157,6 @@
 </ProtectedRoute>
 
 <style>
-	/* Estilos adicionales */
 	.bg-gradient-to-r {
 		background-image: linear-gradient(to right, #81e6d9, #6ee7b7);
 	}

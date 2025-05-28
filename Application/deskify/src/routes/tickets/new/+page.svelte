@@ -11,11 +11,11 @@
 	import CustomTextarea from '../../../components/CustomTextarea.svelte';
 	import ProtectedRoute from '../../../components/ProtectedRoute.svelte';
 	$: {
-		console.log('User data:', $user); // Muestra los datos del usuario cada vez que cambian
+		console.log('User data:', $user);
 	}
 
 	onMount(() => {
-		console.log('User data on mount:', $user); // Muestra los datos del usuario al montar el componente
+		console.log('User data on mount:', $user); 
 	});
 
 	let email = '';

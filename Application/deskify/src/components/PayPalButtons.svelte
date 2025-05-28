@@ -86,14 +86,10 @@
 							console.log('Payment completed by', details.payer.name?.given_name);
 							alert(`Thanks, ${details.payer.name?.given_name}! Your payment was approved.`);
 
-							// Crear el objeto SubscriptionDTO para enviar al backend
 							const now = new Date();
 							const startDateTime = now.toISOString();
 
-							// Calcular endDateTime sumando duration en días del plan
-							// Aquí asumo que tienes el duration en meses o días en selectedPlan.duration
-							// En tu SQL duration está en días, por ejemplo 30 para un mes
-							const durationDays = parseInt(selectedPlan.duration) || 30; // ajustar si es string o número
+							const durationDays = parseInt(selectedPlan.duration) || 30; 
 
 							const endDate = new Date(now);
 							endDate.setDate(endDate.getDate() + durationDays);
@@ -115,7 +111,6 @@
 								active: true
 							};
 
-							// Llamar al endpoint backend
 							const response = await fetch(
 								`${import.meta.env.VITE_API_URL}/subscriptions/subscript`,
 								{
@@ -133,7 +128,6 @@
 							const createdSubscription = await response.json();
 							console.log('Subscription created:', createdSubscription);
 
-							// Aquí rediriges o cierras ventana emergente o haces lo que quieras
 							history.back();
 						} catch (err) {
 							console.error('Error during payment or subscription creation:', err);

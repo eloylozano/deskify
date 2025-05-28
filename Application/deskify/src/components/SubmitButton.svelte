@@ -5,9 +5,8 @@
 	export let disabled = false;
 	const dispatch = createEventDispatcher();
 
-	// Para que el botón actualice el formulario, se puede emitir el evento o dejarlo vacío
 	const handleClick = () => {
-		dispatch('click'); // Solo emitir el evento si realmente se necesita
+		dispatch('click'); 
 	};
 </script>
 

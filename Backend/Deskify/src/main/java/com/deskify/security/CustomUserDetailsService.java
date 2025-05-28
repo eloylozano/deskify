@@ -25,7 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
             user.getEmail(),
             user.getPassword(),
-            user.getAuthorities() // Asegúrate que tu entidad User tenga este método
+            user.getAuthorities() 
         );
     }
 }

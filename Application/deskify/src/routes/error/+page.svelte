@@ -3,11 +3,9 @@
     import { page } from '$app/stores';
 	import ErrorPage from '../../components/ErrorPage.svelte';
 
-    // Obtener parámetros de la URL
     $: status = Number($page.url.searchParams.get('status')) || 500;
     $: message = $page.url.searchParams.get('message') || 'Ocurrió un error inesperado';
 
-    // Mapeo de imágenes por código de error
     const errorImages: Record<number, string> = {
         400: '/Error400.svg',
         401: '/Error401.svg',

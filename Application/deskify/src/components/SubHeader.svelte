@@ -109,7 +109,6 @@
 		background-size: 1rem;
 	}
 
-	/* Estilos para los options */
 	.custom-select option {
 		background-color: white;
 		color: #252525;
@@ -117,13 +116,11 @@
 		font-size: 14px;
 	}
 
-	/* Estilo cuando se pasa el mouse sobre un option */
 	.custom-select option:hover {
 		background-color: #01c883;
 		color: white;
 	}
 
-	/* Estilo para el option seleccionado */
 	.custom-select option:checked {
 		background-color: #01c883;
 		color: white;

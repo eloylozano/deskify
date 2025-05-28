@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { createComment } from '$lib/api/tickets'; // Esto asume que tienes una función 'createComment' en tu archivo de API
+	import { createComment } from '$lib/api/tickets'; 
 	import SubmitButton from './SubmitButton.svelte';
 	import { createEventDispatcher } from 'svelte';
 
@@ -11,7 +11,6 @@
 	let successMessage: string = '';
 	const dispatch = createEventDispatcher();
 
-	// Función para enviar el comentario
 	const submitComment = async () => {
 		if (!email || !commentText) {
 			errorMessage = 'Complete all fields';
@@ -22,7 +21,7 @@
 			await createComment(ticketId, email, commentText);
 			successMessage = 'Succeed!';
 			email = '';
-			commentText = ''; // Limpiar los campos
+			commentText = ''; 
 		} catch (error) {
 			errorMessage = 'This mail does not exist';
 		}
@@ -60,7 +59,6 @@
 </div>
 
 <style>
-	/* Estilos adicionales para el formulario */
 	input,
 	textarea {
 		outline: none;

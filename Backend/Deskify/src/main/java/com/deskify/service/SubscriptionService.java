@@ -35,18 +35,15 @@ public class SubscriptionService implements ISubscriptionService {
     private SubscriptionConverter subscriptionConverter;
 
     public SubscriptionDTO createSubscription(SubscriptionDTO subscriptionDTO) {
-        // Obtener el usuario y el plan
         User user = userRepo.findByEmail(subscriptionDTO.getUser().getEmail())
                 .orElseThrow(() -> new UserNotFoundException(subscriptionDTO.getUser().getEmail()));
 
         Plan plan = planRepo.findByName(subscriptionDTO.getPlan().getName())
                 .orElseThrow(() -> new PlanNotFoundException(subscriptionDTO.getPlan().getName()));
 
-        // Calcular las fechas basadas en la duración del plan
-        LocalDateTime startDate = LocalDateTime.now(); // O puedes usar la fecha que se proporciona si es necesario
-        LocalDateTime endDate = startDate.plusDays(plan.getDuration()); // La fecha de fin
+        LocalDateTime startDate = LocalDateTime.now(); 
+        LocalDateTime endDate = startDate.plusDays(plan.getDuration()); 
 
-        // Crear la suscripción
         Subscription subscription = new Subscription();
         subscription.setUser(user);
         subscription.setPlan(plan);
@@ -55,7 +52,6 @@ public class SubscriptionService implements ISubscriptionService {
         subscription.setActive(true);
 
         subscription = subscriptionRepo.save(subscription);
-        // Convertir a DTO
         return subscriptionConverter.convertToDTO(subscription);
     }
 
@@ -73,14 +69,12 @@ public class SubscriptionService implements ISubscriptionService {
     public List<SubscriptionDTO> getAllSubscriptions() {
         List<Subscription> subsList = subscriptionRepo.findAll();
         return subsList.stream()
-                .map(subscriptionConverter::convertToDTO) // Uses converter to get
-                                                          // subscriptionsDTO
+                .map(subscriptionConverter::convertToDTO) 
                 .collect(Collectors.toList());
     }
 
     @Override
     public SubscriptionDTO getSubscriptionById(Long id) {
-        // Find the sub by ID
         Subscription sub = subscriptionRepo.findById(id)
                 .orElseThrow(() -> new SubscriptionNotFoundException(id));
 

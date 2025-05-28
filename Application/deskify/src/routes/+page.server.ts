@@ -17,7 +17,6 @@ interface UserSession {
 export const load: PageServerLoad = async ({ cookies, locals, fetch }) => {
     const token = cookies.get('auth-token');
     
-    // Si no hay token, retornar user null
     if (!token) {
         return { user: null };
     }
@@ -31,14 +30,12 @@ export const load: PageServerLoad = async ({ cookies, locals, fetch }) => {
         });
 
         if (!apiResponse.ok) {
-            // Token inválido o expirado
             cookies.delete('auth-token', { path: '/' });
             return { user: null };
         }
 
         const userData = await apiResponse.json();
 
-        // Mapear los datos a nuestra interfaz UserSession
         const sessionUser: UserSession = {
             id: userData.id,
             email: userData.email,
@@ -48,7 +45,6 @@ export const load: PageServerLoad = async ({ cookies, locals, fetch }) => {
             profilePictureUrl: userData.profilePictureUrl
         };
 
-        // Asignar a locals para disponibilidad global
         locals.user = sessionUser;
 
         return {
@@ -57,7 +53,6 @@ export const load: PageServerLoad = async ({ cookies, locals, fetch }) => {
 
     } catch (error) {
         console.error('Error fetching user data:', error);
-        // En caso de error, limpiar la sesión
         cookies.delete('auth-token', { path: '/' });
         return { user: null };
     }

@@ -7,7 +7,7 @@
 	import Nav from '../../components/Nav.svelte';
 	import Line from '../../components/Line.svelte';
 	import CustomPasswordInput from '../../components/CustomPasswordInput.svelte';
-	// ... otros imports ...
+
 
 	let email = '';
 	let password = '';
@@ -22,7 +22,6 @@
 		error = '';
 		success = '';
 
-		// Validaciones básicas
 		if (password !== confirmPassword) {
 			error = 'The passwords do not match';
 			return;
@@ -44,7 +43,6 @@
 			}
 
 			success = result.message || 'Registration successful! Redirecting...';
-			// Redirigir después de 2 segundos
 			setTimeout(() => {
 				window.location.href = '/login';
 			}, 1000);

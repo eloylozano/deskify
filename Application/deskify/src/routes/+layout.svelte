@@ -7,7 +7,6 @@
 	import { fetchUser } from '$lib/stores/user';
 	import { isAuthenticated } from '$lib/api/login';
 
-	// Verificar autenticación en el cliente
 	if (typeof window !== 'undefined') {
 		const publicRoutes = ['/login', '/register'];
 		if (!isAuthenticated() && !publicRoutes.includes($page.url.pathname)) {

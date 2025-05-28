@@ -37,7 +37,6 @@ export async function loginApi(email: string, password: string): Promise<LoginAp
             };
         }
 
-        // Transformar role a roleName si fuera necesario
         const roleName = typeof responseData.role === 'object' && responseData.role?.name
             ? responseData.role.name
             : responseData.role;

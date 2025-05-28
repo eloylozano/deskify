@@ -12,7 +12,7 @@ export async function load({ params, fetch }) {
 
         return {
             user: await userResponse.json(),
-            stats: await statsResponse.json()  // Incluye stats aquí
+            stats: await statsResponse.json() 
         };
     } catch (err) {
         throw error(500, 'Error al cargar datos');

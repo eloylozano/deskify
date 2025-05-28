@@ -46,15 +46,13 @@ public class TicketService implements ITicketService {
         public List<TicketResponseDTO> getTicketList() {
                 List<Ticket> ticketList = ticketRepo.findAll();
                 return ticketList.stream()
-                                .map(ticketConverter::convertToTicketResponseDTO) // Uses converter to get
-                                                                                  // ticketResponseDTO
+                                .map(ticketConverter::convertToTicketResponseDTO) 
                                 .collect(Collectors.toList());
         }
 
         @Override
         public TicketResponseDTO getTicketById(Long id) {
 
-                // Find the ticket by ID
                 Ticket ticket = ticketRepo.findById(id)
                                 .orElseThrow(() -> new TicketNotFoundException(id));
 
@@ -76,7 +74,6 @@ public class TicketService implements ITicketService {
                 ticket.setDescription(createAdminTicketDTO.getDescription());
                 ticket.setCategory(category);
                 ticket.setPriority(priority);
-                // Find the user by email address
                 User createdBy = userRepo.findByEmail(createAdminTicketDTO.getEmail())
                                 .orElseThrow(() -> new UserNotFoundException(createAdminTicketDTO.getEmail()));
 
@@ -98,48 +95,38 @@ public class TicketService implements ITicketService {
 
         @Override
         public TicketResponseDTO saveTicket(CreateTicketDTO createTicketDTO) {
-                // Creates new ticket
                 Ticket ticket = new Ticket();
 
-                // Set title and description
                 ticket.setTitle(createTicketDTO.getTitle());
                 ticket.setDescription(createTicketDTO.getDescription());
 
-                // Find the user by email address
                 User createdBy = userRepo.findByEmail(createTicketDTO.getEmail())
                                 .orElseThrow(() -> new UserNotFoundException(createTicketDTO.getEmail()));
 
                 ticket.setCreatedBy(createdBy);
-                // Save the ticket
                 Ticket savedTicket = ticketRepo.save(ticket);
 
-                // Convert the saved ticket in to DTO
                 return ticketConverter.convertToTicketResponseDTO(savedTicket);
         }
 
         @Transactional
         @Override
         public TicketResponseDTO updateTicket(UpdateTicketDTO updateTicketDTO) {
-                // Find the ticket by ID
                 Ticket ticket = ticketRepo.findById(updateTicketDTO.getTicketId())
                                 .orElseThrow(() -> new TicketNotFoundException(updateTicketDTO.getTicketId()));
 
-                // Update title if provided
                 if (updateTicketDTO.getTitle() != null && !updateTicketDTO.getTitle().isEmpty()) {
                         ticket.setTitle(updateTicketDTO.getTitle());
                 }
 
-                // Update description if provided
                 if (updateTicketDTO.getDescription() != null && !updateTicketDTO.getDescription().isEmpty()) {
                         ticket.setDescription(updateTicketDTO.getDescription());
                 }
 
-                // Update status if provided
                 if (updateTicketDTO.getStatusId() != null) {
                         Status newStatus = statusRepo.findById(updateTicketDTO.getStatusId())
                                         .orElseThrow(() -> new StatusNotFoundException(updateTicketDTO.getStatusId()));
 
-                        // Create a new ticket status history record to log the status change
                         TicketHistory statusHistory = new TicketHistory();
                         statusHistory.setTicket(ticket);
                         statusHistory.setStatus(newStatus);
@@ -147,7 +134,6 @@ public class TicketService implements ITicketService {
                         ticketHistoryRepo.save(statusHistory);
                 }
 
-                // Update priority if provided
                 if (updateTicketDTO.getPriorityId() != null) {
                         Priority newPriority = priorityRepo.findById(updateTicketDTO.getPriorityId())
                                         .orElseThrow(() -> new PriorityNotFoundException(
@@ -155,7 +141,6 @@ public class TicketService implements ITicketService {
                         ticket.setPriority(newPriority);
                 }
 
-                // Update category if provided
                 if (updateTicketDTO.getCategoryId() != null) {
                         Category newCategory = categoryRepo.findById(updateTicketDTO.getCategoryId())
                                         .orElseThrow(() -> new CategoryNotFoundException(
@@ -163,69 +148,55 @@ public class TicketService implements ITicketService {
                         ticket.setCategory(newCategory);
                 }
 
-                // Update agent assignment if provided
                 if (updateTicketDTO.getUserId() != null) {
                         User newAgent = userRepo.findById(updateTicketDTO.getUserId())
                                         .orElseThrow(() -> new AgentNotFoundException(updateTicketDTO.getUserId()));
 
-                        // Remove old assignment if exists
                         Assignment oldAssignment = assignmentRepo.findByTicket(ticket);
                         if (oldAssignment != null) {
                                 assignmentRepo.delete(oldAssignment);
                         }
 
-                        // Assign new agent
                         Assignment newAssignment = new Assignment();
                         newAssignment.setTicket(ticket);
                         newAssignment.setAgent(newAgent);
                         assignmentRepo.save(newAssignment);
                 }
 
-                // Save updated ticket
                 Ticket updatedTicket = ticketRepo.save(ticket);
 
-                // Return the updated ticket response
                 return ticketConverter.convertToTicketResponseDTO(updatedTicket);
         }
 
         @Transactional
         @Override
         public void deleteTicket(Long id) {
-                // Find the ticket by ID
                 Ticket ticket = ticketRepo.findById(id)
                                 .orElseThrow(() -> new TicketNotFoundException(id));
 
-                // Delete related assignments
                 assignmentRepo.deleteByTicketId(id);
-                // Eliminate dependent records in ticket_status_history
                 ticketHistoryRepo.deleteByTicketId(id);
 
-                // Delete the ticket
                 ticketRepo.delete(ticket);
         }
 
         @Override
         public void assignAgentToTicket(Long ticketId, Long agentId) {
-                // Get the ticket from database
                 Ticket ticket = ticketRepo.findById(ticketId)
                                 .orElseThrow(() -> new TicketNotFoundException(ticketId));
 
-                // Get list of users who have agent roles
                 List<User> agents = userRepo.findByRoleId((long) 4);
 
-                // Verify that the agents is available
                 User agent = agents.stream()
                                 .filter(a -> a.getId().equals(agentId))
                                 .findFirst()
                                 .orElseThrow(() -> new AgentNotFoundException(agentId));
 
-                // Create a new assignment
                 Assignment assignment = new Assignment();
                 assignment.setTicket(ticket);
                 assignment.setAgent(agent);
                 assignment.setAssignedAt(LocalDateTime.now());
 
-                // Save the assignment
                 assignmentRepo.save(assignment);
         }
 
@@ -236,35 +207,28 @@ public class TicketService implements ITicketService {
                 Category category = categoryRepo.findById(categoryId)
                                 .orElseThrow(() -> new CategoryNotFoundException(categoryId));
 
-                // Set the new category
                 ticket.setCategory(category);
 
-                // Save the updated ticket
                 ticketRepo.save(ticket);
         }
 
         @Override
         public List<TicketResponseDTO> getTicketsByFilter(Long agentId, Long categoryId, String prioriyName,
                         LocalDate date, Long statusId) {
-                // SPecifcation null
                 Specification<Ticket> spec = Specification.where(null);
 
-                // Add filter if there's agent
                 if (agentId != null) {
                         spec = spec.and(TicketSpecifications.hasAgent(agentId));
                 }
 
-                // Add filter if there's category
                 if (categoryId != null) {
                         spec = spec.and(TicketSpecifications.hasCategory(categoryId));
                 }
 
-                // Add filter if there's priority
                 if (prioriyName != null) {
                         spec = spec.and(TicketSpecifications.hasPriority(prioriyName));
                 }
 
-                // Add filter if there's date
                 if (date != null) {
                         spec = spec.and(TicketSpecifications.createdBefore(date));
                 }
@@ -273,20 +237,16 @@ public class TicketService implements ITicketService {
                         spec = spec.and(TicketSpecifications.hasStatus(statusId));
                 }
 
-                // Get all tickets that match the filter
                 List<Ticket> tickets = ticketRepo.findAll(spec);
 
-                // Convert ticket to DTO
                 return tickets.stream()
                                 .map(ticketConverter::convertToTicketResponseDTO)
                                 .collect(Collectors.toList());
         }
 
         private String prepareQuery(String query) {
-                // Refactor query and divide into segments
                 String[] words = query.split("\\s+");
 
-                // Create regular expression
                 return ".*" + String.join(".*", words) + ".*";
         }
 
@@ -304,7 +264,6 @@ public class TicketService implements ITicketService {
 
         @Override
         public TicketStatusSummaryDTO getTicketStatusSummary() {
-                // 1. Obtener conteo de tickets por estado
                 List<Object[]> results = ticketRepo.countTicketsByCurrentStatus();
 
                 Map<String, Long> statusCounts = new HashMap<>();
@@ -318,16 +277,13 @@ public class TicketService implements ITicketService {
                         totalTickets += count;
                 }
 
-                // 2. Calcular tiempo medio de resolución (asumiendo que el statusId de "Resuelto" es 5)
-                Long resolvedStatusId = 5L; // Ajusta este ID según tu sistema
+                Long resolvedStatusId = 5L; 
                 Double averageResolutionTime = ticketRepo.findAverageResolutionTimeInHours(resolvedStatusId);
 
-                // 3. Redondear el resultado a 2 decimales para mejor presentación
                 if (averageResolutionTime != null) {
                         averageResolutionTime = Math.round(averageResolutionTime * 100.0) / 100.0;
                 }
 
-                // 4. Retornar DTO con toda la información
                 return new TicketStatusSummaryDTO(totalTickets, statusCounts, averageResolutionTime);
         }
 

@@ -9,7 +9,6 @@
     export let onCategoryChange: (value: string) => void;
     export let onAgentChange: (value: string) => void;
     
-    // Opciones mejoradas para los filtros
     const statusOptions = [
         { value: '', label: 'All Statuses' },
         { value: 'Open', label: 'Open' },
@@ -35,7 +34,6 @@
         { value: 'Other', label: 'Other' }
     ];
     
-    // Esto deberías reemplazarlo con datos reales de tu API
     const agentOptions = [
         { value: '', label: 'All Agents' },
         { value: '1', label: 'John Doe' },

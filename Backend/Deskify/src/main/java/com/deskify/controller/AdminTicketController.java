@@ -97,7 +97,6 @@ public class AdminTicketController {
             return "new-ticket";
         }
 
-        // Asignar un email fijo
         String email = "elozano@deskify.com";
 
         createAdminTicketDTO.setEmail(email);

@@ -16,9 +16,6 @@ interface LoginResponse {
     error?: string;
 }
 
-/**
- * Inicia sesión y guarda los datos del usuario en sessionStorage
- */
 export async function login(email: string, password: string): Promise<LoginResponse> {
     try {
         const data = await loginApi(email, password);
@@ -82,9 +79,7 @@ export function getUserId(): number | null {
     return userId ? parseInt(userId) : null;
 }
 
-/**
- * Devuelve todos los datos del usuario actualmente autenticado
- */
+
 export function getCurrentUser() {
     return {
         token: sessionStorage.getItem('authToken'),
@@ -99,9 +94,7 @@ export function getCurrentUser() {
     };
 }
 
-/**
- * Cierra sesión y limpia todos los datos del usuario
- */
+
 export function logout(): void {
     sessionStorage.removeItem('authToken');
     sessionStorage.removeItem('userId');

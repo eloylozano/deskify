@@ -136,19 +136,17 @@
 		return 0;
 	});
 
-	let sortOption = '1'; // Last Modified por defecto
+	let sortOption = '1'; 
 
 	let isPanelVisible = true;
 
 	function togglePanel() {
 		isPanelVisible = !isPanelVisible;
 	}
-	// Filtros seleccionados
 	let selectedStatus = '';
 	let selectedPriority = '';
 	let selectedCategory = '';
 	let selectedAgent = '';
-	// Opciones para los filtros
 </script>
 
 <SubHeader on:sortChange={(e) => (sortOption = e.detail)} {isPanelVisible} {togglePanel} />

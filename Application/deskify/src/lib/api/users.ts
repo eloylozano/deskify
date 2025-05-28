@@ -20,8 +20,7 @@ export async function updateUser(id: number, userData: Record<string, any>) {
                 email: userData.email,
                 company: userData.company,
                 roleName: userData.roleName,
-                activeSubscription: userData.activeSubscription, // Si es necesario
-                // Agrega aquí otros campos que quieras actualizar
+                activeSubscription: userData.activeSubscription,
             }),
         });
 

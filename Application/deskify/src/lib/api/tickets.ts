@@ -59,7 +59,6 @@ export async function updateTicketStatus(updateData: {
   categoryId: number;
   userId: number;
 }) {
-  console.log('Sending update:', updateData); // Añade esto para debug
 
   const response = await fetch(`${API_URL}/ticket/update`, {
     method: 'PUT',

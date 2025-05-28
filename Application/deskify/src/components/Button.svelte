@@ -7,7 +7,7 @@
 	const dispatch = createEventDispatcher();
 
 	const handleClick = () => {
-		dispatch('click'); // Solo emitir el evento si realmente se necesita
+		dispatch('click'); 
 	};
 </script>
 

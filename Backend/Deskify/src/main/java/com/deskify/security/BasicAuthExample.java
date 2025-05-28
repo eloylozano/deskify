@@ -8,7 +8,7 @@ public class BasicAuthExample {
     public static void main(String[] args) throws Exception {
         String username = "usuario";
         String password = "password";
-        String urlString = "http://localhost:8080/api/resource";  // URL de tu API
+        String urlString = "http://localhost:8080/api/resource";  
 
         String auth = username + ":" + password;
         String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes());
